@@ -6,17 +6,22 @@ Last Updated: 2026-03-31 (Phase 2 Update)
 
 | Category | Count | Percentage |
 |----------|-------|------------|
-| Core Libraries | 10 | 14% |
-| Network Tools | 6 | 9% |
-| Development Tools | 20 | 29% |
-| Compression Tools | 7 | 10% |
-| System Utilities | 8 | 12% |
+| Core Libraries | 10 | 13% |
+| Network Tools | 6 | 8% |
+| Development Tools | 29 | 38% |
+| Compression Tools | 7 | 9% |
+| System Utilities | 8 | 11% |
 | Editors | 5 | 7% |
-| Search Tools | 4 | 6% |
+| Search Tools | 4 | 5% |
 | Shell | 5 | 7% |
 | Servers | 3 | 4% |
-| Other | 8 | 11% |
-| **Total** | **69** | **100%** |
+| Other | 8 | 10% |
+| **Total** | **78** | **100%** |
+
+## Progress
+
+- Phase 1: 64 packages ✅
+- Phase 2: +14 packages (目标: 80+) 🔄
 
 ## Detailed List
 
@@ -46,7 +51,7 @@ Last Updated: 2026-03-31 (Phase 2 Update)
 | libidn2 | 2.3.8 | Official formula | IDN library |
 | ca-certificates | 2026-03-19 | Official formula | SSL certs |
 
-### ✅ Development Tools (20)
+### ✅ Development Tools (29)
 
 | Package | Version | Build Method | Notes |
 |---------|---------|--------------|-------|
@@ -70,6 +75,15 @@ Last Updated: 2026-03-31 (Phase 2 Update)
 | **gdb** | **16.3** | **Autotools** | **GNU debugger** |
 | **binutils** | **2.46.0** | **Official formula** | **Binary tools** |
 | **oniguruma** | **6.9.10** | **Manual build** | **Regex library** |
+| **bandwhich** | **0.23.1** | **Cargo build** | **Network bandwidth monitor** |
+| **dust** | **1.2.4** | **Cargo build** | **du alternative** |
+| **tokei** | **14.0.0** | **Cargo build** | **Code statistics** |
+| **hyperfine** | **1.20.0** | **Cargo build** | **Benchmark tool** |
+| **bottom** | **0.12.3** | **Cargo build** | **System monitor (btm)** |
+| **gping** | **1.20.1** | **Cargo build** | **Ping with graph** |
+| **delta** | **0.19.2** | **Cargo build** | **Git diff highlighter** |
+| **choose** | **1.3.7** | **Cargo build** | **cut/awk alternative** |
+| **grex** | **1.4.6** | **Cargo build** | **Regex generator** |
 
 ### ✅ Editors (5)
 
