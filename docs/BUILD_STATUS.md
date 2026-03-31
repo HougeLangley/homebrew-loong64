@@ -1,18 +1,18 @@
 # Build Status
 
-Last Updated: 2024-03-31
+Last Updated: 2026-03-31
 
 ## Summary
 
 | Category | Count | Percentage |
 |----------|-------|------------|
-| Core Libraries | 10 | 22% |
-| Network Tools | 6 | 13% |
-| Development Tools | 11 | 25% |
-| Compression Tools | 7 | 16% |
-| System Utilities | 6 | 13% |
-| Others | 5 | 11% |
-| **Total** | **45** | **100%** |
+| Core Libraries | 10 | 19% |
+| Network Tools | 6 | 11% |
+| Development Tools | 17 | 32% |
+| Compression Tools | 7 | 13% |
+| System Utilities | 8 | 15% |
+| Others | 5 | 9% |
+| **Total** | **53** | **100%** |
 
 ## Detailed List
 
@@ -42,7 +42,7 @@ Last Updated: 2024-03-31
 | libidn2 | 2.3.8 | Official formula | IDN library |
 | ca-certificates | 2026-03-19 | Official formula | SSL certs |
 
-### ✅ Development Tools (11)
+### ✅ Development Tools (17)
 
 | Package | Version | Build Method | Notes |
 |---------|---------|--------------|-------|
@@ -57,6 +57,11 @@ Last Updated: 2024-03-31
 | autoconf | 2.73 | Official formula | Auto-configure |
 | automake | 1.18.1 | Official formula | Auto-make |
 | libtool | 2.5.4 | Official formula | Library tool |
+| **ninja** | **1.13.2** | **Manual build** | **Build system** |
+| **htop** | **3.4.1** | **Manual build** | **System monitor** |
+| **nano** | **8.7.1** | **Manual build** | **Text editor** |
+| **ripgrep** | **15.1.0** | **Cargo build** | **Fast grep** |
+| **jq** | **1.8.1** | **Manual build** | **JSON processor** |
 
 ### ✅ Compression Tools (7)
 
@@ -70,7 +75,7 @@ Last Updated: 2024-03-31
 | xz | 5.8.2 | Official formula | Compression |
 | zstd | 1.5.7 | Official formula | Compression |
 
-### ✅ System Utilities (6)
+### ✅ System Utilities (8)
 
 | Package | Version | Build Method | Notes |
 |---------|---------|--------------|-------|
@@ -80,6 +85,8 @@ Last Updated: 2024-03-31
 | attr | 2.5.2 | Official formula | Extended attrs |
 | json-c | 0.18 | Official formula | JSON parser |
 | libxcrypt | 4.5.2 | Official formula | Crypt library |
+| **binutils** | **2.46.0** | **Official formula** | **Binary tools** |
+| **oniguruma** | **6.9.10** | **Manual build** | **Regex library** |
 
 ### ✅ Others (5)
 
@@ -99,15 +106,22 @@ Last Updated: 2024-03-31
 
 ## Known Issues
 
-### Packages with Build Issues
+### Resolved Issues
+
+| Package | Issue | Solution |
+|---------|-------|----------|
+| jq | autotools arch detection | ✅ Updated config.sub |
+| ripgrep | autotools arch detection | ✅ Use cargo build |
+| htop | autotools arch detection | ✅ Updated config.sub |
+| oniguruma | autotools arch detection | ✅ Updated config.sub |
+| ninja | unzip dependency | ✅ Manual build with Python |
+
+### Pending Issues
 
 | Package | Issue | Workaround |
 |---------|-------|------------|
 | brotli | gcc-15 model attribute | Skip or use system |
-| jq | autotools arch detection | Pending fix |
-| ripgrep | autotools arch detection | Pending fix |
-| htop | autotools arch detection | Pending fix |
-| oniguruma | autotools arch detection | Pending fix |
+| berkeley-db@5 | autotools arch detection | Use system library |
 
 ## Legend
 
