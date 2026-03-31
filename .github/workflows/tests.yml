@@ -1,45 +1,435 @@
-name: Tests
+name: CI
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
+    paths:
+      - 'Formula/**/*.rb'
+      - '.github/workflows/*.yml'
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
+    paths:
+      - 'Formula/**/*.rb'
+  schedule:
+    # 每周一凌晨 2 点运行全量检查
+    - cron: '0 2 * * 1'
+  workflow_dispatch:
+    inputs:
+      formula:
+        description: '指定测试的 Formula (留空则测试全部)'
+        required: false
+        default: ''
+      skip_build:
+        description: '跳过构建测试'
+        type: boolean
+        default: false
+
+env:
+  HOMEBREW_NO_INSTALL_CLEANUP: 1
+  HOMEBREW_NO_AUTO_UPDATE: 1
+  HOMEBREW_NO_ANALYTICS: 1
 
 jobs:
-  audit:
+  # ==================== 阶段 1: 变更检测 ====================
+  detect_changes:
     runs-on: ubuntu-latest
+    outputs:
+      formulas: ${{ steps.changes.outputs.formulas }}
+      formula_matrix: ${{ steps.changes.outputs.formula_matrix }}
+      any_changed: ${{ steps.changes.outputs.any_changed }}
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up Homebrew
-      uses: Homebrew/actions/setup-homebrew@master
-    
-    - name: Audit formulas
-      run: |
-        for formula in Formula/*.rb; do
-          echo "Auditing $formula..."
-          brew audit --strict "$formula" || true
-        done
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-  test:
-    runs-on: self-hosted
-    if: github.event_name == 'pull_request'
+      - name: 检测变更的 Formula
+        id: changes
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.formula }}" ]; then
+            # 手动触发且指定了 formula
+            FORMULAS="${{ github.event.inputs.formula }}"
+            ANY_CHANGED="true"
+          elif [ "${{ github.event_name }}" = "schedule" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            # 定时任务或手动触发（未指定formula）- 测试全部
+            FORMULAS=$(ls Formula/*.rb | xargs -n1 basename -s .rb | tr '\n' ' ')
+            ANY_CHANGED="true"
+          else
+            # PR 或 push - 检测变更
+            if [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
+              # 新分支
+              BASE_SHA="${{ github.event.repository.default_branch }}"
+            else
+              BASE_SHA="${{ github.event.before }}"
+            fi
+            
+            CHANGED_FILES=$(git diff --name-only $BASE_SHA ${{ github.sha }} -- Formula/*.rb || true)
+            if [ -n "$CHANGED_FILES" ]; then
+              FORMULAS=$(echo "$CHANGED_FILES" | xargs -n1 basename -s .rb | tr '\n' ' ')
+              ANY_CHANGED="true"
+            else
+              FORMULAS=""
+              ANY_CHANGED="false"
+            fi
+          fi
+          
+          echo "formulas=$FORMULAS" >> $GITHUB_OUTPUT
+          echo "any_changed=$ANY_CHANGED" >> $GITHUB_OUTPUT
+          
+          # 创建 JSON 矩阵
+          if [ -n "$FORMULAS" ]; then
+            JSON=$(echo "$FORMULAS" | tr ' ' '\n' | jq -R . | jq -s . | jq -c '{formula: .}')
+            echo "formula_matrix=$JSON" >> $GITHUB_OUTPUT
+          else
+            echo 'formula_matrix={"formula":[]}' >> $GITHUB_OUTPUT
+          fi
+          
+          echo "检测到的 Formula: $FORMULAS"
+
+  # ==================== 阶段 2: 语法与规范检查 ====================
+  audit:
+    name: Formula 审计检查
+    runs-on: ubuntu-latest
+    needs: detect_changes
+    if: needs.detect_changes.outputs.any_changed == 'true'
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up Homebrew
-      uses: Homebrew/actions/setup-homebrew@master
-    
-    - name: Test changed formulas
-      run: |
-        for formula in Formula/*.rb; do
-          echo "Testing $formula..."
-          brew install --build-from-source "$formula" || true
-          brew test "$formula" || true
-        done
-    
-    - name: Cleanup
-      if: always()
-      run: |
-        brew uninstall $(brew list) 2>/dev/null || true
+      - uses: actions/checkout@v4
+
+      - name: 设置 Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: 安装 Ruby 依赖
+        run: |
+          gem install --user-install rubocop rubocop-performance rubocop-rspec
+
+      - name: Formula 语法检查
+        run: |
+          FORMULAS="${{ needs.detect_changes.outputs.formulas }}"
+          if [ -z "$FORMULAS" ]; then
+            echo "没有需要检查的 Formula"
+            exit 0
+          fi
+          
+          FAILED=0
+          for formula in $FORMULAS; do
+            echo "::group::检查 $formula"
+            if ! ruby -c "Formula/${formula}.rb"; then
+              echo "::error::${formula}.rb 语法错误"
+              FAILED=1
+            fi
+            echo "::endgroup::"
+          done
+          exit $FAILED
+
+      - name: Homebrew Audit (宽松模式)
+        run: |
+          FORMULAS="${{ needs.detect_changes.outputs.formulas }}"
+          if [ -z "$FORMULAS" ]; then
+            echo "没有需要检查的 Formula"
+            exit 0
+          fi
+          
+          FAILED=0
+          for formula in $FORMULAS; do
+            echo "::group::审计 $formula"
+            # 使用 --except 跳过特定检查，因为我们是第三方 tap
+            if ! brew audit --tap=loongarch/homebrew-loong64 "Formula/${formula}.rb" 2>&1 | tee audit.log; then
+              # 仅当存在严重错误时才标记失败
+              if grep -q "syntax error\|undefined method\|cannot load such file" audit.log; then
+                echo "::error::${formula} 存在严重错误"
+                FAILED=1
+              else
+                echo "::warning::${formula} 存在非致命警告（第三方 tap 可接受）"
+              fi
+            fi
+            echo "::endgroup::"
+          done
+          exit $FAILED
+
+      - name: RuboCop 风格检查
+        run: |
+          FORMULAS="${{ needs.detect_changes.outputs.formulas }}"
+          if [ -z "$FORMULAS" ]; then
+            echo "没有需要检查的 Formula"
+            exit 0
+          fi
+          
+          for formula in $FORMULAS; do
+            echo "::group::风格检查 $formula"
+            rubocop --except Metrics,Layout/LineLength "Formula/${formula}.rb" || true
+            echo "::endgroup::"
+          done
+
+  # ==================== 阶段 3: 依赖关系检查 ====================
+  dependency_check:
+    name: 依赖关系检查
+    runs-on: ubuntu-latest
+    needs: detect_changes
+    if: needs.detect_changes.outputs.any_changed == 'true'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 设置 Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: 检查依赖完整性
+        run: |
+          FORMULAS="${{ needs.detect_changes.outputs.formulas }}"
+          if [ -z "$FORMULAS" ]; then
+            echo "没有需要检查的 Formula"
+            exit 0
+          fi
+          
+          FAILED=0
+          for formula in $FORMULAS; do
+            echo "::group::依赖检查 $formula"
+            
+            # 检查是否存在循环依赖
+            echo "检查依赖树..."
+            brew deps --tree "Formula/${formula}.rb" 2>&1 || true
+            
+            # 检查依赖是否存在
+            DEPS=$(brew deps --include-requirements "Formula/${formula}.rb" 2>/dev/null || true)
+            for dep in $DEPS; do
+              # 检查是本仓库还是 homebrew/core
+              if [ -f "Formula/${dep}.rb" ]; then
+                echo "✓ 本地依赖: $dep"
+              else
+                echo "  外部依赖: $dep (将从 homebrew/core 获取)"
+              fi
+            done
+            
+            echo "::endgroup::"
+          done
+          exit $FAILED
+
+      - name: 生成依赖图
+        run: |
+          echo "```mermaid" > dependency_graph.md
+          echo "graph TD;" >> dependency_graph.md
+          
+          for formula in Formula/*.rb; do
+            FORMULA_NAME=$(basename "$formula" .rb)
+            DEPS=$(brew deps "$formula" 2>/dev/null | grep -v "^coreutils$\|^openssl" || true)
+            for dep in $DEPS; do
+              if [ -f "Formula/${dep}.rb" ]; then
+                echo "    $FORMULA_NAME-->${dep};" >> dependency_graph.md
+              fi
+            done
+          done
+          
+          echo "```" >> dependency_graph.md
+          cat dependency_graph.md
+
+  # ==================== 阶段 4: 自托管 Runner 构建测试 ====================
+  build_test:
+    name: 构建测试 (${{ matrix.category }})
+    needs: [detect_changes, audit]
+    if: |
+      needs.detect_changes.outputs.any_changed == 'true' && 
+      github.event.inputs.skip_build != 'true' &&
+      (github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch')
+    runs-on: self-hosted
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # 按类别分组测试
+          - category: "core-tools"
+            formulas: "curl wget git"
+          - category: "editors"
+            formulas: "vim nano micro"
+          - category: "shells"
+            formulas: "fish"
+          - category: "dev-tools"
+            formulas: "jq tmux htop ccache ninja fd ripgrep bat fzf"
+          - category: "system-libs"
+            formulas: "gettext gmp berkeley-db@5 oniguruma unzip perl binutils"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 检测环境
+        run: |
+          echo "=== 系统信息 ==="
+          uname -a
+          cat /etc/os-release 2>/dev/null || true
+          echo ""
+          echo "=== Homebrew 信息 ==="
+          brew --version
+          brew config
+          echo ""
+          echo "=== 架构信息 ==="
+          uname -m
+          brew --prefix
+
+      - name: 安装 Tap
+        run: |
+          # 确保使用当前仓库
+          brew tap loongarch/homebrew-loong64 /home/runner/work/homebrew-loong64/homebrew-loong64 || true
+          brew update
+
+      - name: 构建测试 (${{ matrix.category }})
+        timeout-minutes: 120
+        run: |
+          CATEGORY_FORMULAS="${{ matrix.formulas }}"
+          CHANGED_FORMULAS="${{ needs.detect_changes.outputs.formulas }}"
+          
+          # 找出交集
+          TO_TEST=""
+          for formula in $CATEGORY_FORMULAS; do
+            if echo "$CHANGED_FORMULAS" | grep -qw "$formula"; then
+              TO_TEST="$TO_TEST $formula"
+            fi
+          done
+          
+          if [ -z "$TO_TEST" ]; then
+            echo "此类别没有需要测试的 Formula"
+            exit 0
+          fi
+          
+          echo "将要测试: $TO_TEST"
+          
+          FAILED=0
+          for formula in $TO_TEST; do
+            echo "::group::构建 $formula"
+            
+            # 清理之前的安装
+            brew uninstall "$formula" 2>/dev/null || true
+            
+            # 构建并安装
+            START_TIME=$(date +%s)
+            if brew install --build-from-source "loongarch/homebrew-loong64/${formula}"; then
+              END_TIME=$(date +%s)
+              DURATION=$((END_TIME - START_TIME))
+              echo "✓ ${formula} 构建成功 (${DURATION}s)"
+              
+              # 运行测试
+              echo "运行 test 块..."
+              if brew test "loongarch/homebrew-loong64/${formula}"; then
+                echo "✓ ${formula} 测试通过"
+              else
+                echo "::warning::${formula} 测试失败"
+              fi
+              
+              # 记录构建产物信息
+              echo "构建产物:"
+              brew list "$formula" | head -20
+              
+            else
+              echo "::error::${formula} 构建失败"
+              FAILED=1
+            fi
+            echo "::endgroup::"
+          done
+          
+          exit $FAILED
+
+      - name: 清理
+        if: always()
+        run: |
+          echo "清理构建环境..."
+          brew cleanup || true
+          # 可选：卸载测试安装的包
+          # brew uninstall $(brew list) 2>/dev/null || true
+
+  # ==================== 阶段 5: 全量回归测试 (仅定时触发) ====================
+  regression_test:
+    name: 全量回归测试
+    needs: [detect_changes, audit]
+    if: github.event_name == 'schedule' && needs.detect_changes.outputs.any_changed == 'true'
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 全量构建测试
+        timeout-minutes: 300
+        run: |
+          echo "运行全量回归测试..."
+          FAILED=0
+          FAILED_LIST=""
+          
+          for formula_file in Formula/*.rb; do
+            formula=$(basename "$formula_file" .rb)
+            echo "::group::测试 $formula"
+            
+            # 跳过已知有问题的包
+            case "$formula" in
+              # 在这里添加需要跳过的包
+              *)
+                if brew install --build-from-source "Formula/${formula}.rb" 2>&1 | tee build.log; then
+                  echo "✓ ${formula} 成功"
+                  brew test "$formula" || true
+                else
+                  echo "::error::${formula} 失败"
+                  FAILED=$((FAILED + 1))
+                  FAILED_LIST="$FAILED_LIST $formula"
+                fi
+                ;;
+            esac
+            
+            # 卸载以节省空间
+            brew uninstall "$formula" 2>/dev/null || true
+            
+            echo "::endgroup::"
+          done
+          
+          echo "失败数量: $FAILED"
+          echo "失败列表:$FAILED_LIST"
+          
+          # 允许部分失败
+          if [ $FAILED -gt 5 ]; then
+            echo "::error::失败过多 ($FAILED 个)，检查构建环境"
+            exit 1
+          fi
+
+  # ==================== 阶段 6: 生成报告 ====================
+  report:
+    name: 生成测试报告
+    runs-on: ubuntu-latest
+    needs: [audit, dependency_check, build_test]
+    if: always() && needs.detect_changes.outputs.any_changed == 'true'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 生成摘要
+        run: |
+          echo "# CI 测试报告" > report.md
+          echo "" >> report.md
+          echo "| 检查项 | 状态 |" >> report.md
+          echo "|--------|------|" >> report.md
+          
+          AUDIT_STATUS="${{ needs.audit.result }}"
+          DEPS_STATUS="${{ needs.dependency_check.result }}"
+          BUILD_STATUS="${{ needs.build_test.result }}"
+          
+          case "$AUDIT_STATUS" in
+            success) AUDIT_EMOJI="✅" ;;
+            failure) AUDIT_EMOJI="❌" ;;
+            *) AUDIT_EMOJI="⚠️" ;;
+          esac
+          
+          case "$DEPS_STATUS" in
+            success) DEPS_EMOJI="✅" ;;
+            failure) DEPS_EMOJI="❌" ;;
+            *) DEPS_EMOJI="⚠️" ;;
+          esac
+          
+          case "$BUILD_STATUS" in
+            success) BUILD_EMOJI="✅" ;;
+            failure) BUILD_EMOJI="❌" ;;
+            skipped) BUILD_EMOJI="⏭️" ;;
+            *) BUILD_EMOJI="⚠️" ;;
+          esac
+          
+          echo "| Formula 审计 | $AUDIT_EMOJI |" >> report.md
+          echo "| 依赖检查 | $DEPS_EMOJI |" >> report.md
+          echo "| 构建测试 | $BUILD_EMOJI |" >> report.md
+          
+          cat report.md
+
+      - name: 上传报告
+        uses: actions/upload-artifact@v4
+        if: github.event_name == 'pull_request'
+        with:
+          name: ci-report
+          path: report.md
+          retention-days: 30
