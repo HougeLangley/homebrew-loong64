@@ -1,20 +1,22 @@
 # Build Status
 
-Last Updated: 2026-03-31
+Last Updated: 2026-03-31 (Phase 2 Update)
 
 ## Summary
 
 | Category | Count | Percentage |
 |----------|-------|------------|
-| Core Libraries | 10 | 16% |
+| Core Libraries | 10 | 14% |
 | Network Tools | 6 | 9% |
-| Development Tools | 20 | 31% |
-| Compression Tools | 7 | 11% |
+| Development Tools | 20 | 29% |
+| Compression Tools | 7 | 10% |
 | System Utilities | 8 | 12% |
-| Editors | 5 | 8% |
+| Editors | 5 | 7% |
 | Search Tools | 4 | 6% |
-| Shell | 5 | 8% |
-| **Total** | **64** | **100%** |
+| Shell | 5 | 7% |
+| Servers | 3 | 4% |
+| Other | 8 | 11% |
+| **Total** | **69** | **100%** |
 
 ## Detailed List
 
@@ -123,7 +125,15 @@ Last Updated: 2026-03-31
 | **binutils** | **2.46.0** | **Official formula** | **Binary tools** |
 | **oniguruma** | **6.9.10** | **Manual build** | **Regex library** |
 
-### ✅ Others (5)
+### ✅ Servers (3) - Phase 2
+
+| Package | Version | Build Method | Notes |
+|---------|---------|--------------|-------|
+| redis | 7.4.2 | Manual build | Key-value database |
+| nginx | 1.27.4 | Manual build | Web server (GCC 15 fix) |
+| caddy | 2.11.2 | Go build | Modern web server |
+
+### ✅ Others (8)
 
 | Package | Version | Build Method | Notes |
 |---------|---------|--------------|-------|
@@ -141,7 +151,15 @@ Last Updated: 2026-03-31
 
 ## Known Issues
 
-### Resolved Issues
+### Phase 2 Resolved Issues
+
+| Package | Issue | Solution |
+|---------|-------|----------|
+| nginx | GCC 15 string init warning | ✅ `-Wno-unterminated-string-initialization` flag |
+| redis | jemalloc build on loong64 | ✅ Default configure worked |
+| caddy | Go version requirement | ✅ Go 1.25+ auto-downloaded |
+
+### Phase 1 Resolved Issues
 
 | Package | Issue | Solution |
 |---------|-------|----------|
