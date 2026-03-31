@@ -50,10 +50,13 @@ brew install loongarch/homebrew-loong64/gettext
 │   ├── git.rb           # 版本控制
 │   ├── jq.rb            # JSON 处理
 │   └── unzip.rb         # 解压工具
-├── patches/             # 补丁文件
 ├── scripts/             # 辅助脚本
+│   └── batch-build.sh   # 批量构建工具
 ├── docs/                # 文档
-└── .github/workflows/   # CI 配置
+├── archive/             # 归档的历史脚本
+├── .github/workflows/   # CI 配置
+├── Makefile            # 便捷命令
+└── README.md           # 本文件
 ```
 
 ## 当前状态
