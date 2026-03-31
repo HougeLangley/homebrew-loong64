@@ -16,12 +16,12 @@ Last Updated: 2026-03-31 (Phase 2 Update)
 | Shell | 5 | 7% |
 | Servers | 3 | 4% |
 | Other | 8 | 10% |
-| **Total** | **78** | **100%** |
+| **Total** | **82** | **100%** |
 
 ## Progress
 
 - Phase 1: 64 packages ✅
-- Phase 2: +14 packages (目标: 80+) 🔄
+- Phase 2: +18 packages ✅ **ACHIEVED!**
 
 ## Detailed List
 
@@ -51,7 +51,7 @@ Last Updated: 2026-03-31 (Phase 2 Update)
 | libidn2 | 2.3.8 | Official formula | IDN library |
 | ca-certificates | 2026-03-19 | Official formula | SSL certs |
 
-### ✅ Development Tools (29)
+### ✅ Development Tools (33)
 
 | Package | Version | Build Method | Notes |
 |---------|---------|--------------|-------|
@@ -84,6 +84,10 @@ Last Updated: 2026-03-31 (Phase 2 Update)
 | **delta** | **0.19.2** | **Cargo build** | **Git diff highlighter** |
 | **choose** | **1.3.7** | **Cargo build** | **cut/awk alternative** |
 | **grex** | **1.4.6** | **Cargo build** | **Regex generator** |
+| **xh** | **0.25.0** | **Cargo build** | **HTTP client (curl alt)** |
+| **tre** | **0.4.0** | **Cargo build** | **tree alternative** |
+| **gitui** | **0.28.1** | **Cargo build** | **Git TUI** |
+| **broot** | **1.56.2** | **Cargo build** | **Directory navigator** |
 
 ### ✅ Editors (5)
 
