@@ -6,13 +6,15 @@ Last Updated: 2026-03-31
 
 | Category | Count | Percentage |
 |----------|-------|------------|
-| Core Libraries | 10 | 19% |
-| Network Tools | 6 | 11% |
-| Development Tools | 17 | 32% |
-| Compression Tools | 7 | 13% |
-| System Utilities | 8 | 15% |
-| Others | 5 | 9% |
-| **Total** | **53** | **100%** |
+| Core Libraries | 10 | 17% |
+| Network Tools | 6 | 10% |
+| Development Tools | 18 | 31% |
+| Compression Tools | 7 | 12% |
+| System Utilities | 8 | 14% |
+| Editors | 4 | 7% |
+| Search Tools | 4 | 7% |
+| Shell | 2 | 3% |
+| **Total** | **59** | **100%** |
 
 ## Detailed List
 
@@ -62,6 +64,32 @@ Last Updated: 2026-03-31
 | **nano** | **8.7.1** | **Manual build** | **Text editor** |
 | **ripgrep** | **15.1.0** | **Cargo build** | **Fast grep** |
 | **jq** | **1.8.1** | **Manual build** | **JSON processor** |
+| **ccache** | **4.11.2** | **CMake** | **Compile cache** |
+
+### ✅ Editors (4)
+
+| Package | Version | Build Method | Notes |
+|---------|---------|--------------|-------|
+| vim | 9.2 | System shim | Editor |
+| nano | 8.7.1 | Manual build | Text editor |
+| **micro** | **2.0.15** | **Go build** | **Modern editor** |
+| **bat** | **0.26.1** | **Cargo build** | **Syntax highlight cat** |
+
+### ✅ Search Tools (4)
+
+| Package | Version | Build Method | Notes |
+|---------|---------|--------------|-------|
+| **fd** | **10.3.0** | **Cargo build** | **Fast file finder** |
+| **fzf** | **0.60.3** | **Go build** | **Fuzzy finder** |
+| ripgrep | 15.1.0 | Cargo build | Fast grep |
+| grep | - | System | Pattern search |
+
+### ✅ Shell (2)
+
+| Package | Version | Build Method | Notes |
+|---------|---------|--------------|-------|
+| **fish** | **4.0.1** | **Cargo build** | **Friendly shell** |
+| **tmux** | **3.5a** | **Autotools** | **Terminal multiplexer** |
 
 ### ✅ Compression Tools (7)
 
@@ -122,6 +150,7 @@ Last Updated: 2026-03-31
 |---------|-------|------------|
 | brotli | gcc-15 model attribute | Skip or use system |
 | berkeley-db@5 | autotools arch detection | Use system library |
+| zsh | termcap.c type conflict | Pending investigation |
 
 ## Legend
 
