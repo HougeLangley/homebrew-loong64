@@ -1,0 +1,40 @@
+# Homebrew
+*.bottle*
+*.tar.gz
+*.tar.xz
+*.tar.bz2
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Build artifacts
+build/
+dist/
+*.o
+*.so
+*.a
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Homebrew cache (if testing locally)
+.brew_cache/
+
+# Test artifacts
+test-results/
+coverage/

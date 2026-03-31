@@ -1,0 +1,78 @@
+name: Bug Report
+description: 报告构建失败或其他问题
+title: '[Bug]: '
+labels: ['bug']
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢您报告问题！请填写以下信息帮助我们诊断。
+
+  - type: input
+    id: formula
+    attributes:
+      label: 受影响的 Formula
+      description: 哪个包构建失败？
+      placeholder: curl, wget, vim, etc.
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+      description: 清晰简洁地描述问题
+      placeholder: 构建时出现错误...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 复现步骤
+      description: 如何复现这个问题？
+      placeholder: |
+        1. 运行命令 '...'
+        2. 看到错误 '...'
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 错误日志
+      description: 相关的日志输出（请使用代码块）
+      render: shell
+
+  - type: input
+    id: os
+    attributes:
+      label: 操作系统
+      description: 您使用的操作系统和版本
+      placeholder: AOSC OS 13.1.4
+    validations:
+      required: true
+
+  - type: input
+    id: arch
+    attributes:
+      label: 架构信息
+      description: CPU 架构信息
+      placeholder: loongarch64
+    validations:
+      required: true
+
+  - type: input
+    id: gcc
+    attributes:
+      label: GCC 版本
+      description: 运行 `gcc --version` 的输出
+      placeholder: gcc-15.2.0
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 其他信息
+      description: 任何其他相关信息

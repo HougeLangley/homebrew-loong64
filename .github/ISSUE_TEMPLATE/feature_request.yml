@@ -1,0 +1,68 @@
+name: Feature Request
+description: 建议添加新的 Formula 或功能
+title: '[Feature]: '
+labels: ['enhancement']
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢您提出建议！请填写以下信息。
+
+  - type: input
+    id: package
+    attributes:
+      label: 软件包名称
+      description: 您希望添加的软件包
+      placeholder: ripgrep, fd, bat, etc.
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: 版本
+      description: 软件包版本
+      placeholder: 1.0.0
+
+  - type: input
+    id: homepage
+    attributes:
+      label: 项目主页
+      description: 软件包的官方网站或仓库
+      placeholder: https://github.com/user/repo
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 功能描述
+      description: 这个软件包是做什么的？
+      placeholder: 这是一个用于...的工具
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: 为什么需要这个包？
+      description: 解释为什么这个包对 LoongArch 用户有用
+      placeholder: 这个包是开发工作流的重要组成部分...
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: testing
+    attributes:
+      label: 测试状态
+      description: 您是否尝试过构建这个包？
+      options:
+        - label: 我已在 LoongArch 上成功构建此包
+        - label: 我已在其他架构上测试过
+        - label: 我遇到了构建问题
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: 其他注意事项
+      description: 任何其他相关信息，如依赖关系、已知问题等

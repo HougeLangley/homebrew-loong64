@@ -1,0 +1,45 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Homebrew
+      uses: Homebrew/actions/setup-homebrew@master
+    
+    - name: Audit formulas
+      run: |
+        for formula in Formula/*.rb; do
+          echo "Auditing $formula..."
+          brew audit --strict "$formula" || true
+        done
+
+  test:
+    runs-on: self-hosted
+    if: github.event_name == 'pull_request'
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Homebrew
+      uses: Homebrew/actions/setup-homebrew@master
+    
+    - name: Test changed formulas
+      run: |
+        for formula in Formula/*.rb; do
+          echo "Testing $formula..."
+          brew install --build-from-source "$formula" || true
+          brew test "$formula" || true
+        done
+    
+    - name: Cleanup
+      if: always()
+      run: |
+        brew uninstall $(brew list) 2>/dev/null || true
