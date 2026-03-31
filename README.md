@@ -61,7 +61,7 @@ brew install loongarch/homebrew-loong64/gettext
 
 ## 当前状态
 
-### 已适配软件包 (45个)
+### 已适配软件包 (64个)
 
 #### 核心网络工具
 - ✅ curl 8.19.0
@@ -76,6 +76,30 @@ brew install loongarch/homebrew-loong64/gettext
 - ✅ vim 9.2
 - ✅ cmake 4.3.1
 - ✅ pcre2 10.47
+- ✅ ninja 1.13.2
+- ✅ ccache 4.11.2
+- ✅ gdb 16.3
+- ✅ binutils 2.46.0
+
+#### 编辑器
+- ✅ nano 8.7.1
+- ✅ micro 2.0.15
+- ✅ emacs 30.2
+- ✅ bat 0.26.1
+
+#### Shell & 终端
+- ✅ fish 4.0.1
+- ✅ zsh 5.9
+- ✅ tmux 3.5a
+- ✅ zoxide 0.9.7
+- ✅ starship 1.22.1
+
+#### 搜索工具
+- ✅ fd 10.3.0
+- ✅ fzf 0.60.3
+- ✅ ripgrep 15.1.0
+- ✅ eza 0.23.4
+- ✅ jq 1.8.1
 
 #### 系统库
 - ✅ gmp 6.3.0 (系统库)
@@ -83,6 +107,7 @@ brew install loongarch/homebrew-loong64/gettext
 - ✅ json-c 0.18
 - ✅ acl 2.3.2
 - ✅ attr 2.5.2
+- ✅ oniguruma 6.9.10
 
 查看 [BUILD_STATUS.md](docs/BUILD_STATUS.md) 获取完整列表。
 

@@ -6,15 +6,15 @@ Last Updated: 2026-03-31
 
 | Category | Count | Percentage |
 |----------|-------|------------|
-| Core Libraries | 10 | 17% |
-| Network Tools | 6 | 10% |
-| Development Tools | 18 | 31% |
-| Compression Tools | 7 | 12% |
-| System Utilities | 8 | 14% |
-| Editors | 4 | 7% |
-| Search Tools | 4 | 7% |
-| Shell | 2 | 3% |
-| **Total** | **59** | **100%** |
+| Core Libraries | 10 | 16% |
+| Network Tools | 6 | 9% |
+| Development Tools | 20 | 31% |
+| Compression Tools | 7 | 11% |
+| System Utilities | 8 | 12% |
+| Editors | 5 | 8% |
+| Search Tools | 4 | 6% |
+| Shell | 5 | 8% |
+| **Total** | **64** | **100%** |
 
 ## Detailed List
 
@@ -44,7 +44,7 @@ Last Updated: 2026-03-31
 | libidn2 | 2.3.8 | Official formula | IDN library |
 | ca-certificates | 2026-03-19 | Official formula | SSL certs |
 
-### ✅ Development Tools (17)
+### ✅ Development Tools (20)
 
 | Package | Version | Build Method | Notes |
 |---------|---------|--------------|-------|
@@ -65,8 +65,11 @@ Last Updated: 2026-03-31
 | **ripgrep** | **15.1.0** | **Cargo build** | **Fast grep** |
 | **jq** | **1.8.1** | **Manual build** | **JSON processor** |
 | **ccache** | **4.11.2** | **CMake** | **Compile cache** |
+| **gdb** | **16.3** | **Autotools** | **GNU debugger** |
+| **binutils** | **2.46.0** | **Official formula** | **Binary tools** |
+| **oniguruma** | **6.9.10** | **Manual build** | **Regex library** |
 
-### ✅ Editors (4)
+### ✅ Editors (5)
 
 | Package | Version | Build Method | Notes |
 |---------|---------|--------------|-------|
@@ -74,6 +77,7 @@ Last Updated: 2026-03-31
 | nano | 8.7.1 | Manual build | Text editor |
 | **micro** | **2.0.15** | **Go build** | **Modern editor** |
 | **bat** | **0.26.1** | **Cargo build** | **Syntax highlight cat** |
+| **emacs** | **30.2** | **Autotools** | **Terminal-only build** |
 
 ### ✅ Search Tools (4)
 
@@ -84,12 +88,15 @@ Last Updated: 2026-03-31
 | ripgrep | 15.1.0 | Cargo build | Fast grep |
 | grep | - | System | Pattern search |
 
-### ✅ Shell (2)
+### ✅ Shell (5)
 
 | Package | Version | Build Method | Notes |
 |---------|---------|--------------|-------|
 | **fish** | **4.0.1** | **Cargo build** | **Friendly shell** |
 | **tmux** | **3.5a** | **Autotools** | **Terminal multiplexer** |
+| **zsh** | **5.9** | **Autotools** | **Z shell (termcap fixed)** |
+| **zoxide** | **0.9.7** | **Cargo build** | **Smart cd command** |
+| **starship** | **1.22.1** | **Cargo build** | **Cross-shell prompt** |
 
 ### ✅ Compression Tools (7)
 
@@ -143,6 +150,9 @@ Last Updated: 2026-03-31
 | htop | autotools arch detection | ✅ Updated config.sub |
 | oniguruma | autotools arch detection | ✅ Updated config.sub |
 | ninja | unzip dependency | ✅ Manual build with Python |
+| zsh | termcap type conflict | ✅ Fixed configure.ac type detection |
+| emacs | complex dependencies | ✅ Terminal-only build without X/gnutls |
+| gdb | python/guile dependencies | ✅ Minimal build without scripting |
 
 ### Pending Issues
 
