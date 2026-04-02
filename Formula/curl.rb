@@ -5,6 +5,12 @@ class Curl < Formula
   sha256 "eba3230c1b659211a7afa0fbf475978cbf99c412e4d72d9aa92d020c460742d4"
   license "curl"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/bottles/loong64"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "9a20433dcc01efa8ecb539d571599164458e786e0be4b4f24088c28d55c1a471"
+  end
+
   depends_on "ca-certificates"
   depends_on "libnghttp2"
   depends_on "libssh2"
