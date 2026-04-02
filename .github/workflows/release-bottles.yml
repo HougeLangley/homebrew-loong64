@@ -1,0 +1,317 @@
+name: Release Bottles
+
+on:
+  workflow_dispatch:
+    inputs:
+      formula:
+        description: '指定发布的 Formula (留空则发布所有未发布的 bottle)'
+        required: false
+        default: ''
+      skip_build:
+        description: '跳过构建 (仅发布已存在的 bottle)'
+        type: boolean
+        default: false
+  push:
+    branches: [main, master]
+    paths:
+      - 'Formula/**/*.rb'
+  schedule:
+    # 每天凌晨 3 点自动检查并发布
+    - cron: '0 3 * * *'
+
+env:
+  HOMEBREW_NO_AUTO_UPDATE: 1
+  HOMEBREW_NO_INSTALL_FROM_API: 1
+  HOMEBREW_NO_ANALYTICS: 1
+  BOTTLE_DIR: /home/brewbuilder/bottles
+
+jobs:
+  build-and-release:
+    name: Build & Release Bottles
+    runs-on: self-hosted
+    strategy:
+      fail-fast: false
+      matrix:
+        batch: [1, 2, 3, 4]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Environment
+        run: |
+          echo "=== 系统信息 ==="
+          uname -a
+          echo ""
+          echo "=== Homebrew 版本 ==="
+          brew --version
+          echo ""
+          echo "=== 架构 ==="
+          uname -m
+
+      - name: Detect Formulas to Build
+        id: detect
+        run: |
+          if [ -n "${{ github.event.inputs.formula }}" ]; then
+            # 手动指定
+            FORMULAS="${{ github.event.inputs.formula }}"
+          else
+            # 按批次分组 (总共约54个formula，分成4批)
+            ALL_FORMULAS=$(ls Formula/*.rb | xargs -n1 basename -s .rb | sort)
+            TOTAL=$(echo "$ALL_FORMULAS" | wc -l)
+            BATCH_SIZE=$(( (TOTAL + 3) / 4 ))
+            
+            case "${{ matrix.batch }}" in
+              1) FORMULAS=$(echo "$ALL_FORMULAS" | head -$BATCH_SIZE) ;;
+              2) FORMULAS=$(echo "$ALL_FORMULAS" | tail -n +$((BATCH_SIZE + 1)) | head -$BATCH_SIZE) ;;
+              3) FORMULAS=$(echo "$ALL_FORMULAS" | tail -n +$((BATCH_SIZE * 2 + 1)) | head -$BATCH_SIZE) ;;
+              4) FORMULAS=$(echo "$ALL_FORMULAS" | tail -n +$((BATCH_SIZE * 3 + 1))) ;;
+            esac
+          fi
+          
+          echo "formulas=$FORMULAS" >> $GITHUB_OUTPUT
+          echo "本批次构建: $FORMULAS"
+
+      - name: Build Bottles
+        if: github.event.inputs.skip_build != 'true'
+        timeout-minutes: 180
+        run: |
+          mkdir -p ${{ env.BOTTLE_DIR }}/loong64
+          
+          for formula in ${{ steps.detect.outputs.formulas }}; do
+            echo "::group::构建 $formula"
+            
+            # 卸载已存在的版本
+            brew uninstall "$formula" 2>/dev/null || true
+            
+            # 构建并安装
+            if brew install --build-bottle "./Formula/${formula}.rb" 2>&1; then
+              echo "✓ $formula 安装成功"
+              
+              # 构建 bottle
+              cd ${{ env.BOTTLE_DIR }}
+              if brew bottle --json --root-url="https://github.com/${{ github.repository }}/releases/download/bottles" "$formula" 2>&1; then
+                # 移动 bottle 文件
+                for f in *.tar.gz; do
+                  if [ -f "$f" ]; then
+                    mv "$f" loong64/
+                    echo "📦 Bottle 创建成功: $f"
+                    
+                    # 记录 checksum
+                    sha256=$(sha256sum "loong64/$f" | awk '{print $1}')
+                    echo "$formula,$sha256,$f" >> bottle-manifest.csv
+                  fi
+                done
+                rm -f *.json
+              fi
+            else
+              echo "::error::$formula 构建失败"
+            fi
+            
+            # 清理
+            brew uninstall "$formula" 2>/dev/null || true
+            
+            echo "::endgroup::"
+          done
+
+      - name: Upload Bottles to Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bottles-batch-${{ matrix.batch }}
+          path: ${{ env.BOTTLE_DIR }}/loong64/*.tar.gz
+          retention-days: 7
+          if-no-files-found: ignore
+
+      - name: Upload Manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: manifest-batch-${{ matrix.batch }}
+          path: ${{ env.BOTTLE_DIR }}/bottle-manifest.csv
+          retention-days: 7
+          if-no-files-found: ignore
+
+  release:
+    name: Create Release & Upload
+    needs: build-and-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          pattern: bottles-batch-*
+          merge-multiple: true
+
+      - name: Download Manifests
+        uses: actions/download-artifact@v4
+        with:
+          path: manifests
+          pattern: manifest-batch-*
+          merge-multiple: true
+
+      - name: Merge Manifests
+        run: |
+          echo "formula,sha256,filename" > all-bottles.csv
+          cat manifests/*/bottle-manifest.csv 2>/dev/null >> all-bottles.csv || true
+          cat all-bottles.csv
+
+      - name: Generate Release Notes
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          COUNT=$(ls artifacts/*.tar.gz 2>/dev/null | wc -l)
+          
+          cat > release-notes.md << EOF
+          # Homebrew Loong64 Bottles - $DATE
+          
+          ## 本次发布概览
+          - **发布日期**: $(date -Iseconds)
+          - **Bottle 数量**: $COUNT
+          - **架构**: loong64 (LoongArch 64-bit)
+          
+          ## 使用说明
+          
+          添加 tap:
+          \`\`\`bash
+          brew tap loongarch/homebrew-loong64
+          \`\`\`
+          
+          安装带 bottle 的包:
+          \`\`\`bash
+          brew install loongarch/homebrew-loong64/<package>
+          \`\`\`
+          
+          ## Bottle 清单
+          
+          | 包名 | SHA256 |
+          |------|--------|
+          EOF
+          
+          tail -n +2 all-bottles.csv | while IFS=',' read -r formula sha256 filename; do
+            echo "| $formula | \`$sha256\` |" >> release-notes.md
+          done
+          
+          cat release-notes.md
+
+      - name: Create or Update Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: bottles
+          name: Loong64 Bottles - $(date +%Y-%m-%d)
+          body_path: release-notes.md
+          files: artifacts/*.tar.gz
+          fail_on_unmatched_files: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  sync-to-vps:
+    name: Sync to VPS
+    needs: release
+    runs-on: self-hosted
+    steps:
+      - name: Download Release Assets
+        run: |
+          mkdir -p ${{ env.BOTTLE_DIR }}/loong64
+          cd ${{ env.BOTTLE_DIR }}/loong64
+          
+          # 下载最新的 release assets
+          gh release download bottles --repo ${{ github.repository }} --pattern "*.tar.gz" || true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Sync to VPS
+        run: |
+          VPS_HOST="root@47.242.26.188"
+          VPS_DIR="/var/www/homebrewloongarch64.site/bottles/loong64"
+          
+          echo "同步 bottles 到 VPS..."
+          rsync -avz --progress ${{ env.BOTTLE_DIR }}/loong64/ "$VPS_HOST:$VPS_DIR/"
+          
+          # 生成并同步索引
+          echo '{"bottles":[' > index.json
+          first=true
+          for f in ${{ env.BOTTLE_DIR }}/loong64/*.tar.gz; do
+            [ -f "$f" ] || continue
+            name=$(basename "$f" | sed 's/-[0-9].*//')
+            sha256=$(sha256sum "$f" | awk '{print $1}')
+            filename=$(basename "$f")
+            
+            if [ "$first" = true ]; then
+              first=false
+            else
+              echo ',' >> index.json
+            fi
+            
+            echo "{\"name\":\"$name\",\"sha256\":\"$sha256\",\"filename\":\"$filename\",\"url\":\"https://homebrewloongarch64.site/bottles/loong64/$filename\"}" >> index.json
+          done
+          
+          echo '],"updated":"'$(date -Iseconds)'"}' >> index.json
+          
+          rsync -avz index.json "$VPS_HOST:$VPS_DIR/index.json"
+          ssh "$VPS_HOST" "chown -R http:http /var/www/homebrewloongarch64.site/bottles && chmod -R 755 /var/www/homebrewloongarch64.site/bottles"
+          
+          echo "同步完成: https://homebrewloongarch64.site/bottles/"
+
+  update-formula-bottles:
+    name: Update Formula Bottles
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update Formula SHAs
+        run: |
+          # 下载 manifest
+          gh release download bottles --repo ${{ github.repository }} --file all-bottles.csv || true
+          
+          if [ -f all-bottles.csv ]; then
+            tail -n +2 all-bottles.csv | while IFS=',' read -r formula sha256 filename; do
+              formula_file="Formula/${formula}.rb"
+              if [ -f "$formula_file" ]; then
+                # 检查是否已经存在 bottle 块
+                if grep -q "bottle do" "$formula_file"; then
+                  # 更新现有 bottle
+                  sed -i "/sha256.*:.*loong64.*/c\    sha256 cellar: :any, loong64: \"$sha256\"" "$formula_file" || true
+                else
+                  # 添加新的 bottle 块
+                  # 在第一个 install 方法前插入 bottle 块
+                  awk '
+                    /^  def install/ && !added {
+                      print "  bottle do"
+                      print "    sha256 cellar: :any, loong64: \"'"$sha256"'\""
+                      print "  end"
+                      print ""
+                      added=1
+                    }
+                    {print}
+                  ' "$formula_file" > "${formula_file}.tmp" && mv "${formula_file}.tmp" "$formula_file"
+                fi
+                echo "✓ 更新 $formula 的 bottle SHA"
+              fi
+            done
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and Push
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          
+          if git diff --quiet HEAD; then
+            echo "没有变更需要提交"
+          else
+            git add Formula/
+            git commit -m "chore: update bottle SHAs [ci skip]
+
+- Updated bottle checksums for loong64
+- Auto-generated by GitHub Actions"
+            git push
+          fi
