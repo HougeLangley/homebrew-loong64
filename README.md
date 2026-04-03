@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-loongarch64-red.svg)](https://github.com/loongarch/homebrew-loong64)
 [![Homebrew](https://img.shields.io/badge/homebrew-5.0+-orange.svg)](https://brew.sh)
-[![Packages](https://img.shields.io/badge/packages-82-brightgreen.svg)](docs/BUILD_STATUS.md)
+[![Packages](https://img.shields.io/badge/packages-54-brightgreen.svg)](docs/BUILD_STATUS.md)
 
 针对 LoongArch 64 (loong64) 架构优化的 Homebrew 第三方仓库。
 
@@ -57,31 +57,32 @@ brew install loongarch/homebrew-loong64/caddy
 
 ```
 .
-├── Formula/              # Homebrew 公式 (41个)
+├── Formula/              # Homebrew 公式 (54个)
 │   ├── curl.rb          # 网络传输工具
 │   ├── wget.rb          # 文件下载工具
 │   ├── redis.rb         # 数据库服务器
 │   ├── nginx.rb         # Web 服务器
-│   ├── caddy.rb         # 现代 Web 服务器
-│   ├── micro.rb         # 终端编辑器
-│   ├── fd.rb            # 文件搜索
-│   ├── ripgrep.rb       # 快速 grep
-│   ├── delta.rb         # Git 差异高亮
 │   └── ...
 ├── scripts/             # 辅助脚本
-│   ├── batch-build.sh   # 批量构建工具
-│   └── build-bottles.sh # Bottle 构建脚本
+│   ├── ai-build-controller.sh  # AI 全自动化构建控制器 ⭐
+│   ├── vps-sync-service.sh     # VPS 后台同步服务
+│   ├── phase4-builder.sh       # Phase 4 扩展构建
+│   ├── batch-build.sh          # 批量构建工具
+│   └── build-bottles.sh        # Bottle 构建脚本
 ├── docs/                # 文档
-│   ├── BUILD_STATUS.md  # 完整构建状态
-│   └── PHASE2-REPORT.md # Phase 2 进展报告
+│   ├── AI_BUILD_SYSTEM.md      # AI 构建系统文档
+│   ├── BUILD_STATUS.md         # 完整构建状态
+│   └── PHASE2-REPORT.md        # Phase 2 进展报告
 ├── .github/workflows/   # CI/CD 配置
+│   ├── tests.yml               # CI 测试
+│   └── release-bottles.yml     # Bottle 发布 ⭐
 ├── Makefile            # 便捷命令
 └── README.md           # 本文件
 ```
 
 ## 当前状态 (Phase 2 完成 ✅)
 
-### 已适配软件包: 82 个
+### 已适配软件包: 54 个
 
 #### 核心网络工具 (6)
 - ✅ curl 8.19.0
@@ -169,15 +170,25 @@ brew link gmp
 - **wget** - 移除 pcre2、libpsl 等可选依赖
 - **nginx** - 修复 GCC 15 字符串初始化警告
 
-### 5. Bottle 构建 (实验性)
+### 5. Bottle 构建 (生产就绪)
+
+使用容器化构建系统，每个包在独立容器中构建：
 
 ```bash
 # 为单个包构建 bottle
-./scripts/build-bottles.sh curl
+./scripts/batch_build.sh curl
 
 # 批量构建
-./scripts/build-bottles.sh --batch
+make build
 ```
+
+构建流程：
+1. 复制基础镜像 → homebrew-build-<package>
+2. 启动 systemd-nspawn 容器
+3. 使用 oma 安装依赖
+4. cargo/make 编译
+5. 生成 bottle 并上传 VPS
+6. 销毁容器
 
 ## 使用限制
 

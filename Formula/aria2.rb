@@ -2,7 +2,7 @@ class Aria2 < Formula
   desc "Download with resuming and segmented downloading"
   homepage "https://aria2.github.io/"
   url "https://github.com/aria2/aria2/releases/download/release-1.37.0/aria2-1.37.0.tar.xz"
-  sha256 "60a7a01c459b32edbbdf5c6b3c71b605d90212d6e45b94c1c43d07772d62f72c"
+  sha256 "60a420ad7085eb616cb6e2bdf0a7206d68ff3d37fb5a956dc44242eb2f79b66b"
   license "GPL-2.0-or-later"
 
   depends_on "pkgconf" => :build

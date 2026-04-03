@@ -109,19 +109,64 @@ ENV["CFLAGS"] = "-O2 -fpermissive"
 ENV["CC"] = "gcc-15"
 ```
 
+## 构建流程
+
+本项目使用**容器化构建系统**，不是直接在宿主机上构建。
+
+### 容器化构建流程
+
+```
+1. 复制基础镜像 → homebrew-build-<package>
+2. 启动 systemd-nspawn 容器
+3. 使用 oma 安装依赖 (不是 apt)
+4. cargo/make 编译
+5. 生成 bottle 并上传 VPS
+6. 销毁容器
+```
+
+### 执行构建
+
+构建在专用编译机 (192.168.50.244) 上执行：
+
+```bash
+# 单个包构建
+./scripts/batch_build.sh <package-name>
+
+# 批量构建
+./scripts/batch_build.sh -a
+
+# 或使用 Makefile
+make build
+```
+
+### 三个环境区分
+
+| 环境 | 路径/IP | 职责 |
+|------|---------|------|
+| **GitHub 仓库** | `~/Test/Homebrew-LoongArch/` | Formula、文档、脚本 |
+| **构建编译机** | `192.168.50.244` | 容器化构建、生成 bottles |
+| **VPS 分发** | `47.242.26.188` | 存储和分发 bottles |
+
 ## 测试
 
-### 本地测试
+### 本地测试 (GitHub 仓库)
 
 ```bash
 # 检查 Formula 语法
 brew audit --strict Formula/my-formula.rb
 
-# 安装测试
-brew install --build-from-source Formula/my-formula.rb
+# 注意: 不要在本地直接安装测试
+# 构建应在编译机上使用容器化流程执行
+```
 
-# 运行测试
-brew test Formula/my-formula.rb
+### 在编译机上测试
+
+```bash
+# SSH 到编译机
+ssh houge@192.168.50.244
+
+# 使用容器化流程测试
+./scripts/batch_build.sh my-formula
 ```
 
 ### 测试检查清单
