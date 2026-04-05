@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2025-04-05
+
+### 🔄 Work in Progress: Infrastructure Challenges
+
+**Build machine network issues** encountered during today's batch builds.
+
+### Added - Git Tools (Partial)
+
+- `git-lfs` (3.6.1) ✅ - Git Large File Storage, confirmed uploaded to VPS
+- `aria2` (1.37.0) ⚠️ - Build initiated, status pending SSH recovery
+- `gh` (2.63.2) ⚠️ - Build initiated, status pending SSH recovery  
+- `tig` (2.6.0) ⚠️ - Build initiated, status pending SSH recovery
+
+### Infrastructure Status
+
+- **Build machine (192.168.50.244)**: SSH connection failure since ~14:20 UTC
+- **VPS bottles**: 59 total (+1 git-lfs confirmed today)
+- **Build success rate**: 25%+ (1/4 confirmed)
+
+### Recovery Plan
+
+1. Restart build machine SSH service when network restored
+2. Verify pending bottle uploads from build machine `/tmp/`
+3. Continue with remaining Batch 2-3 builds
+
 ## [0.2.0] - 2025-04-04
 
 ### 🎉 Major Milestone: 58 Bottles Complete
