@@ -3,7 +3,13 @@
 ## Current Status
 
 **Date**: 2025-04-05  
-**Issue**: Build machine (192.168.50.244) SSH connection failure
+**Issue**: Build machine (192.168.50.244) SSH service failure
+
+### Network Diagnosis
+- ✅ **ICMP/Ping**: REACHABLE (0% packet loss, ~140ms latency)
+- ❌ **SSH Port 22**: CONNECTION RESET (service likely crashed)
+- **Duration**: 6+ hours (since ~14:20 UTC)
+- **Root Cause**: SSH daemon failure, not network outage
 
 ## Background
 
