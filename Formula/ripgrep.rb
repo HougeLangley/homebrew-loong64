@@ -5,6 +5,11 @@ class Ripgrep < Formula
   sha256 "a88d06f2ef71f199a5e25daa2f874b9260341c65b9d18ee1d18c6fbb3ed0757c"
   license "Unlicense"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/bottles"
+    sha256 cellar: :any, loongarch64_linux: "0cea745f75b7cacb6c9296d442f158bff0fdfa1aa2333295ea06cecedc38188b"
+  end
+
   depends_on "rust" => :build
 
   def install

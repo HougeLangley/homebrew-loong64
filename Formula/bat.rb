@@ -5,6 +5,11 @@ class Bat < Formula
   sha256 "7f6c55a0e00820a1b34653cb23d5eb8200742af7ba51a0c35bacae30ae427402"
   license "Apache-2.0"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/bottles"
+    sha256 cellar: :any, loongarch64_linux: "5e16fc0a5eadc5ee02daa67d2aaa4ff3a838955085b4062208537f547a15ce50"
+  end
+
   depends_on "rust" => :build
 
   def install

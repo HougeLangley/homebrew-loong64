@@ -5,6 +5,11 @@ class Fd < Formula
   sha256 "199e87ec87979310d4e0c053c13d30ce7b761a66166790b8503ee9a1bd016a5e"
   license "Apache-2.0"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/bottles"
+    sha256 cellar: :any, loongarch64_linux: "84255329c6f524c9a744ae6428bad13f13f18c476c955094d7f8ffed8d62338c"
+  end
+
   depends_on "rust" => :build
 
   def install
