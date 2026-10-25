@@ -3,7 +3,7 @@ class Iperf3 < Formula
   homepage "https://example.org/iperf3"
   version "3.22"
   url "http://127.0.0.1:8080/brew/bottles/iperf3--3.22.loongarch64.bottle.tar.gz"
-  sha256 "fcc6b7978659fcb4059e7e961c6d1ada1b6fa799b0c98d726207da6df92d7309"
+  sha256 "c7b39b6a9c7d53f66d8eee54d1e0dba2a50b0fc49737160bd8d534568b702cad"
 
   def install
     bin.install "iperf3"

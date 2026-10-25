@@ -91,7 +91,7 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-10-26 07:08 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-10-26 07:09 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
@@ -103,7 +103,7 @@ end
 | **fzf** | 0.74.5 | 2.1 MiB | `adcc7a15e53f` | [bottle](https://homebrewloongarch64.site/brew/bottles/fzf--0.74.5.loongarch64.bottle.tar.gz) |
 | **hello** | 1.0.0 | 155 B | `e27343330553` | [bottle](https://homebrewloongarch64.site/brew/bottles/hello--1.0.0.loongarch64.bottle.tar.gz) |
 | **hyperfine** | 2.0.0 | 685 KiB | `af23c9b3812b` | [bottle](https://homebrewloongarch64.site/brew/bottles/hyperfine--2.0.0.loongarch64.bottle.tar.gz) |
-| **iperf3** | 3.22 | 3.0 KiB | `fcc6b7978659` | [bottle](https://homebrewloongarch64.site/brew/bottles/iperf3--3.22.loongarch64.bottle.tar.gz) |
+| **iperf3** | 3.22 | 85 KiB | `c7b39b6a9c7d` | [bottle](https://homebrewloongarch64.site/brew/bottles/iperf3--3.22.loongarch64.bottle.tar.gz) |
 | **jq** | 1.8.2 | 376 KiB | `acb6139ce84a` | [bottle](https://homebrewloongarch64.site/brew/bottles/jq--1.8.2.loongarch64.bottle.tar.gz) |
 | **just** | 1.59.0 | 2.3 MiB | `f8911a872106` | [bottle](https://homebrewloongarch64.site/brew/bottles/just--1.59.0.loongarch64.bottle.tar.gz) |
 | **lazygit** | 0.66.2 | 6.7 MiB | `74f1655fbf76` | [bottle](https://homebrewloongarch64.site/brew/bottles/lazygit--0.66.2.loongarch64.bottle.tar.gz) |
