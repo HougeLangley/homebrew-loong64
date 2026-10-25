@@ -6,7 +6,7 @@ class Sqlite < Formula
   sha256 "23101a77dfb2042e5adaba1cdee4542436420b7d77aacfa93efd725697d27586"
 
   def install
-    bin.install "sqlite"
+    bin.install "sqlite3"
   end
 
   test do

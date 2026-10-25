@@ -3,10 +3,10 @@ class Ripgrep < Formula
   homepage "https://example.org/ripgrep"
   version "15.2.0"
   url "http://127.0.0.1:8080/brew/bottles/ripgrep--15.2.0.loongarch64.bottle.tar.gz"
-  sha256 "fe35248dd191412dbe1e9581f2e7fc6ad13c77b7cd75add198e1caf97f05e038"
+  sha256 "ba4970209ed6afcd99d99a7718fc20a26dbc5a6eca3852f9d89b764eb28494ad"
 
   def install
-    bin.install "ripgrep"
+    bin.install "rg"
   end
 
   test do
