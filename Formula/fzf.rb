@@ -3,7 +3,7 @@ class Fzf < Formula
   homepage "https://example.org/fzf"
   version "0.74.5"
   url "http://127.0.0.1:8080/brew/bottles/fzf--0.74.5.loongarch64.bottle.tar.gz"
-  sha256 "02c419de0a877a06bda110fbc1381069a96875bd00b49cb1bba5ed3f16960e99"
+  sha256 "adcc7a15e53fb1e7f1c6acce117b4246c823b2f80f37d4e708022837c2a73b8b"
 
   def install
     bin.install "fzf"
