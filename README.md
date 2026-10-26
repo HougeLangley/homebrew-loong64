@@ -1,7 +1,7 @@
 # homebrew-loong64
 
 [![arch](https://img.shields.io/badge/arch-loongarch64-blue)](https://loongson.cn)
-[![packages](https://img.shields.io/badge/packages-65-brightgreen)](#-可用软件包)
+[![packages](https://img.shields.io/badge/packages-67-brightgreen)](#-可用软件包)
 [![site](https://img.shields.io/badge/site-homebrewloongarch64.site-0a5)](https://homebrewloongarch64.site)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -91,7 +91,7 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-10-26 23:30 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-10-26 23:57 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
@@ -116,6 +116,7 @@ end
 | **fx** | 40.0.1 | 5.3 MiB | `cea483081101` | [bottle](https://homebrewloongarch64.site/brew/bottles/fx--40.0.1.loongarch64.bottle.tar.gz) |
 | **fzf** | 0.74.5 | 2.1 MiB | `adcc7a15e53f` | [bottle](https://homebrewloongarch64.site/brew/bottles/fzf--0.74.5.loongarch64.bottle.tar.gz) |
 | **git-cliff** | 2.14.2 | 5.8 MiB | `1112e148366f` | [bottle](https://homebrewloongarch64.site/brew/bottles/git-cliff--2.14.2.loongarch64.bottle.tar.gz) |
+| **gitui** | 0.28.1 | 6.8 MiB | `94be069d60f8` | [bottle](https://homebrewloongarch64.site/brew/bottles/gitui--0.28.1.loongarch64.bottle.tar.gz) |
 | **glow** | 3.0.0 | 6.3 MiB | `dd3144e18f60` | [bottle](https://homebrewloongarch64.site/brew/bottles/glow--3.0.0.loongarch64.bottle.tar.gz) |
 | **gping** | 1.21.0 | 1.3 MiB | `20659ffc1a2f` | [bottle](https://homebrewloongarch64.site/brew/bottles/gping--1.21.0.loongarch64.bottle.tar.gz) |
 | **gron** | 0.7.1 | 2.7 MiB | `7ee2299a4b18` | [bottle](https://homebrewloongarch64.site/brew/bottles/gron--0.7.1.loongarch64.bottle.tar.gz) |
@@ -154,9 +155,8 @@ end
 | **tokei** | 15.0.0 | 1.5 MiB | `7fed8841f0d2` | [bottle](https://homebrewloongarch64.site/brew/bottles/tokei--15.0.0.loongarch64.bottle.tar.gz) |
 | **tree** | 2.3.2 | 82 KiB | `00e78475fdf5` | [bottle](https://homebrewloongarch64.site/brew/bottles/tree--2.3.2.loongarch64.bottle.tar.gz) |
 | **typos** | 1.51.1 | 4.3 MiB | `59d761210834` | [bottle](https://homebrewloongarch64.site/brew/bottles/typos--1.51.1.loongarch64.bottle.tar.gz) |
-| **watchexec** | 2.8.0 | 4.4 MiB | `9a4a5aff0366` | [bottle](https://homebrewloongarch64.site/brew/bottles/watchexec--2.8.0.loongarch64.bottle.tar.gz) |
 
-> 仅显示前 60 个，共 **65** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
+> 仅显示前 60 个，共 **67** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
 
 ## 镜像与加速
 
