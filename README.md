@@ -1,7 +1,7 @@
 # homebrew-loong64
 
 [![arch](https://img.shields.io/badge/arch-loongarch64-blue)](https://loongson.cn)
-[![packages](https://img.shields.io/badge/packages-27-brightgreen)](#-可用软件包)
+[![packages](https://img.shields.io/badge/packages-30-brightgreen)](#-可用软件包)
 [![site](https://img.shields.io/badge/site-homebrewloongarch64.site-0a5)](https://homebrewloongarch64.site)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -91,17 +91,20 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-10-26 07:09 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-10-26 16:41 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
 | **bat** | 0.26.1 | 4.3 MiB | `a652540e6b66` | [bottle](https://homebrewloongarch64.site/brew/bottles/bat--0.26.1.loongarch64.bottle.tar.gz) |
 | **delta** | 0.20.1 | 3.1 MiB | `6fb566f53a0b` | [bottle](https://homebrewloongarch64.site/brew/bottles/delta--0.20.1.loongarch64.bottle.tar.gz) |
+| **direnv** | 2.38.2 | 3.4 MiB | `21e86279a5a0` | [bottle](https://homebrewloongarch64.site/brew/bottles/direnv--2.38.2.loongarch64.bottle.tar.gz) |
+| **dua** | 2.46.0 | 2.3 MiB | `73ed3c0d81b1` | [bottle](https://homebrewloongarch64.site/brew/bottles/dua--2.46.0.loongarch64.bottle.tar.gz) |
 | **dust** | 1.2.6 | 1.2 MiB | `33cf77e6e82c` | [bottle](https://homebrewloongarch64.site/brew/bottles/dust--1.2.6.loongarch64.bottle.tar.gz) |
 | **eza** | 0.23.5 | 1.2 MiB | `51e16f7772b6` | [bottle](https://homebrewloongarch64.site/brew/bottles/eza--0.23.5.loongarch64.bottle.tar.gz) |
 | **fd** | 10.5.0 | 1.3 MiB | `c8ce26b0e755` | [bottle](https://homebrewloongarch64.site/brew/bottles/fd--10.5.0.loongarch64.bottle.tar.gz) |
 | **fzf** | 0.74.5 | 2.1 MiB | `adcc7a15e53f` | [bottle](https://homebrewloongarch64.site/brew/bottles/fzf--0.74.5.loongarch64.bottle.tar.gz) |
 | **hello** | 1.0.0 | 155 B | `e27343330553` | [bottle](https://homebrewloongarch64.site/brew/bottles/hello--1.0.0.loongarch64.bottle.tar.gz) |
+| **hexyl** | 0.17.0 | 525 KiB | `a545292847af` | [bottle](https://homebrewloongarch64.site/brew/bottles/hexyl--0.17.0.loongarch64.bottle.tar.gz) |
 | **hyperfine** | 2.0.0 | 685 KiB | `af23c9b3812b` | [bottle](https://homebrewloongarch64.site/brew/bottles/hyperfine--2.0.0.loongarch64.bottle.tar.gz) |
 | **iperf3** | 3.22 | 85 KiB | `c7b39b6a9c7d` | [bottle](https://homebrewloongarch64.site/brew/bottles/iperf3--3.22.loongarch64.bottle.tar.gz) |
 | **jq** | 1.8.2 | 376 KiB | `acb6139ce84a` | [bottle](https://homebrewloongarch64.site/brew/bottles/jq--1.8.2.loongarch64.bottle.tar.gz) |
