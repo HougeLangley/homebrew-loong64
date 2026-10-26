@@ -1,7 +1,7 @@
 # homebrew-loong64
 
 [![arch](https://img.shields.io/badge/arch-loongarch64-blue)](https://loongson.cn)
-[![packages](https://img.shields.io/badge/packages-86-brightgreen)](#-可用软件包)
+[![packages](https://img.shields.io/badge/packages-87-brightgreen)](#-可用软件包)
 [![site](https://img.shields.io/badge/site-homebrewloongarch64.site-0a5)](https://homebrewloongarch64.site)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -91,7 +91,7 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-10-27 07:15 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-10-27 07:16 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
@@ -109,6 +109,7 @@ end
 | **delta** | 0.20.1 | 3.1 MiB | `6fb566f53a0b` | [bottle](https://homebrewloongarch64.site/brew/bottles/delta--0.20.1.loongarch64.bottle.tar.gz) |
 | **difftastic** | 0.71.0 | 11 MiB | `98edcc089cac` | [bottle](https://homebrewloongarch64.site/brew/bottles/difftastic--0.71.0.loongarch64.bottle.tar.gz) |
 | **direnv** | 2.38.2 | 3.4 MiB | `21e86279a5a0` | [bottle](https://homebrewloongarch64.site/brew/bottles/direnv--2.38.2.loongarch64.bottle.tar.gz) |
+| **dive** | 0.13.1 | 4.0 MiB | `60c662144eb9` | [bottle](https://homebrewloongarch64.site/brew/bottles/dive--0.13.1.loongarch64.bottle.tar.gz) |
 | **doggo** | 1.4.2 | 5.5 MiB | `c0aec63f471c` | [bottle](https://homebrewloongarch64.site/brew/bottles/doggo--1.4.2.loongarch64.bottle.tar.gz) |
 | **dua** | 2.46.0 | 2.3 MiB | `73ed3c0d81b1` | [bottle](https://homebrewloongarch64.site/brew/bottles/dua--2.46.0.loongarch64.bottle.tar.gz) |
 | **duf** | 0.9.1 | 1.5 MiB | `04e99606991a` | [bottle](https://homebrewloongarch64.site/brew/bottles/duf--0.9.1.loongarch64.bottle.tar.gz) |
@@ -154,9 +155,8 @@ end
 | **ouch** | 0.8.3 | 2.7 MiB | `b6a7fb7dd798` | [bottle](https://homebrewloongarch64.site/brew/bottles/ouch--0.8.3.loongarch64.bottle.tar.gz) |
 | **pastel** | 0.12.0 | 548 KiB | `e82729926afe` | [bottle](https://homebrewloongarch64.site/brew/bottles/pastel--0.12.0.loongarch64.bottle.tar.gz) |
 | **pkgconf** | 3.0.10 | 3.2 KiB | `4aac6a85a57a` | [bottle](https://homebrewloongarch64.site/brew/bottles/pkgconf--3.0.10.loongarch64.bottle.tar.gz) |
-| **procs** | 0.14.12 | 2.5 MiB | `382f9c956cf6` | [bottle](https://homebrewloongarch64.site/brew/bottles/procs--0.14.12.loongarch64.bottle.tar.gz) |
 
-> 仅显示前 60 个，共 **86** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
+> 仅显示前 60 个，共 **87** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
 
 ## 镜像与加速
 
