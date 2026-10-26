@@ -1,7 +1,7 @@
 # homebrew-loong64
 
 [![arch](https://img.shields.io/badge/arch-loongarch64-blue)](https://loongson.cn)
-[![packages](https://img.shields.io/badge/packages-82-brightgreen)](#-可用软件包)
+[![packages](https://img.shields.io/badge/packages-86-brightgreen)](#-可用软件包)
 [![site](https://img.shields.io/badge/site-homebrewloongarch64.site-0a5)](https://homebrewloongarch64.site)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -91,12 +91,13 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-10-27 07:08 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-10-27 07:15 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
 | **ast-grep** | 0.51.0 | 7.9 MiB | `f528a9ebd100` | [bottle](https://homebrewloongarch64.site/brew/bottles/ast-grep--0.51.0.loongarch64.bottle.tar.gz) |
 | **atuin** | 18.24.2 | 19 MiB | `bf7a62f6ab90` | [bottle](https://homebrewloongarch64.site/brew/bottles/atuin--18.24.2.loongarch64.bottle.tar.gz) |
+| **bacon** | 3.26.0 | 2.8 MiB | `0637137253cb` | [bottle](https://homebrewloongarch64.site/brew/bottles/bacon--3.26.0.loongarch64.bottle.tar.gz) |
 | **bandwhich** | 0.23.1 | 1.4 MiB | `9ee90b9a5ff4` | [bottle](https://homebrewloongarch64.site/brew/bottles/bandwhich--0.23.1.loongarch64.bottle.tar.gz) |
 | **bat** | 0.26.1 | 4.3 MiB | `a652540e6b66` | [bottle](https://homebrewloongarch64.site/brew/bottles/bat--0.26.1.loongarch64.bottle.tar.gz) |
 | **bottom** | 0.14.9 | 2.0 MiB | `61ebc392cea4` | [bottle](https://homebrewloongarch64.site/brew/bottles/bottom--0.14.9.loongarch64.bottle.tar.gz) |
@@ -118,6 +119,7 @@ end
 | **fend** | 1.5.9 | 2.2 MiB | `ee11a0b0c29b` | [bottle](https://homebrewloongarch64.site/brew/bottles/fend--1.5.9.loongarch64.bottle.tar.gz) |
 | **fx** | 40.0.1 | 5.3 MiB | `cea483081101` | [bottle](https://homebrewloongarch64.site/brew/bottles/fx--40.0.1.loongarch64.bottle.tar.gz) |
 | **fzf** | 0.74.5 | 2.1 MiB | `adcc7a15e53f` | [bottle](https://homebrewloongarch64.site/brew/bottles/fzf--0.74.5.loongarch64.bottle.tar.gz) |
+| **gdu** | 5.38.0 | 8.1 MiB | `200206bc3e1a` | [bottle](https://homebrewloongarch64.site/brew/bottles/gdu--5.38.0.loongarch64.bottle.tar.gz) |
 | **git-cliff** | 2.14.2 | 5.8 MiB | `1112e148366f` | [bottle](https://homebrewloongarch64.site/brew/bottles/git-cliff--2.14.2.loongarch64.bottle.tar.gz) |
 | **gitui** | 0.28.1 | 6.8 MiB | `94be069d60f8` | [bottle](https://homebrewloongarch64.site/brew/bottles/gitui--0.28.1.loongarch64.bottle.tar.gz) |
 | **glow** | 3.0.0 | 6.3 MiB | `dd3144e18f60` | [bottle](https://homebrewloongarch64.site/brew/bottles/glow--3.0.0.loongarch64.bottle.tar.gz) |
@@ -150,13 +152,11 @@ end
 | **nushell** | 0.116.1 | 18 MiB | `763073971f01` | [bottle](https://homebrewloongarch64.site/brew/bottles/nushell--0.116.1.loongarch64.bottle.tar.gz) |
 | **onefetch** | 3.1.0 | 5.9 MiB | `24e9aa34da73` | [bottle](https://homebrewloongarch64.site/brew/bottles/onefetch--3.1.0.loongarch64.bottle.tar.gz) |
 | **ouch** | 0.8.3 | 2.7 MiB | `b6a7fb7dd798` | [bottle](https://homebrewloongarch64.site/brew/bottles/ouch--0.8.3.loongarch64.bottle.tar.gz) |
+| **pastel** | 0.12.0 | 548 KiB | `e82729926afe` | [bottle](https://homebrewloongarch64.site/brew/bottles/pastel--0.12.0.loongarch64.bottle.tar.gz) |
 | **pkgconf** | 3.0.10 | 3.2 KiB | `4aac6a85a57a` | [bottle](https://homebrewloongarch64.site/brew/bottles/pkgconf--3.0.10.loongarch64.bottle.tar.gz) |
 | **procs** | 0.14.12 | 2.5 MiB | `382f9c956cf6` | [bottle](https://homebrewloongarch64.site/brew/bottles/procs--0.14.12.loongarch64.bottle.tar.gz) |
-| **pv** | 1.12.0 | 74 KiB | `8ab20b94f693` | [bottle](https://homebrewloongarch64.site/brew/bottles/pv--1.12.0.loongarch64.bottle.tar.gz) |
-| **qsv** | 26.0.0 | 10 MiB | `5c2d7d6e111b` | [bottle](https://homebrewloongarch64.site/brew/bottles/qsv--26.0.0.loongarch64.bottle.tar.gz) |
-| **ripgrep** | 15.2.0 | 1.8 MiB | `ba4970209ed6` | [bottle](https://homebrewloongarch64.site/brew/bottles/ripgrep--15.2.0.loongarch64.bottle.tar.gz) |
 
-> 仅显示前 60 个，共 **82** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
+> 仅显示前 60 个，共 **86** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
 
 ## 镜像与加速
 
