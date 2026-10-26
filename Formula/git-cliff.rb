@@ -3,7 +3,7 @@ class Git-cliff < Formula
   homepage "https://example.org/git-cliff"
   version "2.13.1"
   url "http://127.0.0.1:8080/brew/bottles/git-cliff--2.13.1.loongarch64.bottle.tar.gz"
-  sha256 "baa5d08d355c5b988543a241c62bd42816b3d388f5a9ccd267505aeeffaeb3fd"
+  sha256 "1112e148366f1752134d43e60f5ed2a3f26ffdedc35ae0afd3fa08fe8d120b0c"
 
   def install
     bin.install "git-cliff"
