@@ -1,7 +1,7 @@
 # homebrew-loong64
 
 [![arch](https://img.shields.io/badge/arch-loongarch64-blue)](https://loongson.cn)
-[![packages](https://img.shields.io/badge/packages-60-brightgreen)](#-可用软件包)
+[![packages](https://img.shields.io/badge/packages-65-brightgreen)](#-可用软件包)
 [![site](https://img.shields.io/badge/site-homebrewloongarch64.site-0a5)](https://homebrewloongarch64.site)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -91,7 +91,7 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-10-26 23:09 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-10-26 23:30 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
@@ -121,6 +121,7 @@ end
 | **gron** | 0.7.1 | 2.7 MiB | `7ee2299a4b18` | [bottle](https://homebrewloongarch64.site/brew/bottles/gron--0.7.1.loongarch64.bottle.tar.gz) |
 | **hello** | 1.0.0 | 155 B | `e27343330553` | [bottle](https://homebrewloongarch64.site/brew/bottles/hello--1.0.0.loongarch64.bottle.tar.gz) |
 | **hexyl** | 0.17.0 | 525 KiB | `a545292847af` | [bottle](https://homebrewloongarch64.site/brew/bottles/hexyl--0.17.0.loongarch64.bottle.tar.gz) |
+| **htop** | 3.5.3 | 174 KiB | `e4d635c5d83b` | [bottle](https://homebrewloongarch64.site/brew/bottles/htop--3.5.3.loongarch64.bottle.tar.gz) |
 | **hyperfine** | 2.0.0 | 685 KiB | `af23c9b3812b` | [bottle](https://homebrewloongarch64.site/brew/bottles/hyperfine--2.0.0.loongarch64.bottle.tar.gz) |
 | **iperf3** | 3.22 | 85 KiB | `c7b39b6a9c7d` | [bottle](https://homebrewloongarch64.site/brew/bottles/iperf3--3.22.loongarch64.bottle.tar.gz) |
 | **jq** | 1.8.2 | 376 KiB | `acb6139ce84a` | [bottle](https://homebrewloongarch64.site/brew/bottles/jq--1.8.2.loongarch64.bottle.tar.gz) |
@@ -140,7 +141,10 @@ end
 | **pkgconf** | 3.0.10 | 3.2 KiB | `4aac6a85a57a` | [bottle](https://homebrewloongarch64.site/brew/bottles/pkgconf--3.0.10.loongarch64.bottle.tar.gz) |
 | **procs** | 0.14.12 | 2.5 MiB | `382f9c956cf6` | [bottle](https://homebrewloongarch64.site/brew/bottles/procs--0.14.12.loongarch64.bottle.tar.gz) |
 | **pv** | 1.12.0 | 74 KiB | `8ab20b94f693` | [bottle](https://homebrewloongarch64.site/brew/bottles/pv--1.12.0.loongarch64.bottle.tar.gz) |
+| **qsv** | 26.0.0 | 10 MiB | `5c2d7d6e111b` | [bottle](https://homebrewloongarch64.site/brew/bottles/qsv--26.0.0.loongarch64.bottle.tar.gz) |
 | **ripgrep** | 15.2.0 | 1.8 MiB | `ba4970209ed6` | [bottle](https://homebrewloongarch64.site/brew/bottles/ripgrep--15.2.0.loongarch64.bottle.tar.gz) |
+| **ripgrep-all** | 0.10.10 | 6.1 MiB | `65f52009830e` | [bottle](https://homebrewloongarch64.site/brew/bottles/ripgrep-all--0.10.10.loongarch64.bottle.tar.gz) |
+| **rsync** | 3.5.1 | 342 KiB | `4335d3ed77c9` | [bottle](https://homebrewloongarch64.site/brew/bottles/rsync--3.5.1.loongarch64.bottle.tar.gz) |
 | **ruff** | 0.17.2 | 10 MiB | `9d521bdacaba` | [bottle](https://homebrewloongarch64.site/brew/bottles/ruff--0.17.2.loongarch64.bottle.tar.gz) |
 | **sd** | 1.1.0 | 962 KiB | `626242bdf11d` | [bottle](https://homebrewloongarch64.site/brew/bottles/sd--1.1.0.loongarch64.bottle.tar.gz) |
 | **sqlite** | 3.54.1 | 980 KiB | `23101a77dfb2` | [bottle](https://homebrewloongarch64.site/brew/bottles/sqlite--3.54.1.loongarch64.bottle.tar.gz) |
@@ -151,10 +155,8 @@ end
 | **tree** | 2.3.2 | 82 KiB | `00e78475fdf5` | [bottle](https://homebrewloongarch64.site/brew/bottles/tree--2.3.2.loongarch64.bottle.tar.gz) |
 | **typos** | 1.51.1 | 4.3 MiB | `59d761210834` | [bottle](https://homebrewloongarch64.site/brew/bottles/typos--1.51.1.loongarch64.bottle.tar.gz) |
 | **watchexec** | 2.8.0 | 4.4 MiB | `9a4a5aff0366` | [bottle](https://homebrewloongarch64.site/brew/bottles/watchexec--2.8.0.loongarch64.bottle.tar.gz) |
-| **xh** | 0.26.3 | 4.1 MiB | `d7986d25b25a` | [bottle](https://homebrewloongarch64.site/brew/bottles/xh--0.26.3.loongarch64.bottle.tar.gz) |
-| **yq** | 4.54.1 | 5.1 MiB | `9f8becb5a18c` | [bottle](https://homebrewloongarch64.site/brew/bottles/yq--4.54.1.loongarch64.bottle.tar.gz) |
-| **zoxide** | 0.10.0 | 551 KiB | `78054be448cc` | [bottle](https://homebrewloongarch64.site/brew/bottles/zoxide--0.10.0.loongarch64.bottle.tar.gz) |
-| **zstd** | 1.5.7 | 566 KiB | `44068455a81b` | [bottle](https://homebrewloongarch64.site/brew/bottles/zstd--1.5.7.loongarch64.bottle.tar.gz) |
+
+> 仅显示前 60 个，共 **65** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
 
 ## 镜像与加速
 
