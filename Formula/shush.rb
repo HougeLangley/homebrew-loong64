@@ -3,7 +3,7 @@ class Shush < Formula
   homepage "https://example.org/shush"
   version "1.5.5"
   url "http://127.0.0.1:8080/brew/bottles/shush--1.5.5.loongarch64.bottle.tar.gz"
-  sha256 "3092368cdb4fffd2c27387597174e61ae64246741d375ece592cf9573e933ffe"
+  sha256 "37a66e0d5b54e67331e74cb515d46919ceb1caaf9e2ce5dc38258f9b233a4062"
 
   def install
     bin.install "shush"

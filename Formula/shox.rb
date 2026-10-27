@@ -3,7 +3,7 @@ class Shox < Formula
   homepage "https://example.org/shox"
   version "0.0.19"
   url "http://127.0.0.1:8080/brew/bottles/shox--0.0.19.loongarch64.bottle.tar.gz"
-  sha256 "c214c6024601a0624c74e0f8a8eacc68466d962b0c72b226d7bee15c49347026"
+  sha256 "c5644c522538d332b92db3f5e6266720f454ddbe38331e3841a90814909ce525"
 
   def install
     bin.install "shox"
