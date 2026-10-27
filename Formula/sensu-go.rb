@@ -3,7 +3,7 @@ class Sensu-go < Formula
   homepage "https://example.org/sensu-go"
   version "6.15.0"
   url "http://127.0.0.1:8080/brew/bottles/sensu-go--6.15.0.loongarch64.bottle.tar.gz"
-  sha256 "e8e4c681ef9189560c63b0b106acb4228f687ed8cfdf88e0d067b5b047eadbe0"
+  sha256 "a58689a3cfbea411a9a764a81351f09bd4d252412f73db45cbd3e791729c6a98"
 
   def install
     bin.install "sensu-go"

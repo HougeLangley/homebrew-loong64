@@ -3,7 +3,7 @@ class Sift < Formula
   homepage "https://example.org/sift"
   version "0.9.2"
   url "http://127.0.0.1:8080/brew/bottles/sift--0.9.2.loongarch64.bottle.tar.gz"
-  sha256 "4d898b25740d247638fa4fdd6008e8650f839a5ce01b4b01d9719a705bcb8bd0"
+  sha256 "e9436d7ad813b76c6792ab65839c8319088e9239fad944c8aa0a266bc41c64d6"
 
   def install
     bin.install "sift"

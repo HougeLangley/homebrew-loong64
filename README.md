@@ -1,7 +1,7 @@
 # homebrew-loong64
 
 [![arch](https://img.shields.io/badge/arch-loongarch64-blue)](https://loongson.cn)
-[![packages](https://img.shields.io/badge/packages-1397-brightgreen)](#-可用软件包)
+[![packages](https://img.shields.io/badge/packages-1406-brightgreen)](#-可用软件包)
 [![site](https://img.shields.io/badge/site-homebrewloongarch64.site-0a5)](https://homebrewloongarch64.site)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -61,7 +61,7 @@ brew install --build-from-source tree
 
 | 问题 | 处理 |
 |---|---|
-| brew ≥6.0 要求 Ruby 4.0，AOSC 只有 3.4 | 固定使用 **brew 5.0.0**（最后支持 Ruby 3.4 的版本） |
+| brew ≥6.0 要求 Ruby 4.0，AOSC 官方源只有 3.4 | 本项目自建 **Ruby 4.0.9** 包，发布在第三方 APT 源；brew 用最新 **7.0.11** |
 | 架构检查写死 x86/ARM | 补丁允许 `loongarch64` |
 | 动态链接器列表缺龙芯 | 补丁加入 `/lib64/ld-linux-loongarch-lp64d.so.1` |
 
@@ -78,6 +78,15 @@ brew install loongarch64/loong64/tree      # 直接从 bottle 灌注，几秒完
 Bottle 由本项目用 brew 自身构建：`brew install --build-bottle` → `brew test` → `brew bottle`，
 产物发布到 <https://homebrewloongarch64.site/brew-bottles/>。
 
+
+### 先安装 Ruby 4.0（一次性）
+
+```bash
+curl -fsSL https://homebrewloongarch64.site/aosc/thirdparty.asc | sudo tee /etc/apt/trusted.gpg.d/homebrew-loong64.gpg >/dev/null
+echo "deb [signed-by=/etc/apt/trusted.gpg.d/homebrew-loong64.gpg] https://homebrewloongarch64.site/aosc stable main" \
+  | sudo tee /etc/apt/sources.list.d/homebrew-loong64.list
+sudo apt update && sudo apt install ruby   # 升级到 4.0.9
+```
 
 **限制**：龙芯没有官方 bottle，所有 formula 都从源码构建；首次安装需要拉取 JSON API（约 20MB）。
 
@@ -133,7 +142,7 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-10-27 21:01 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-10-27 21:10 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
@@ -198,7 +207,7 @@ end
 | **apigeecli** | 2.17.0 | 6.6 MiB | `563bf2a8fc17` | [bottle](https://homebrewloongarch64.site/brew/bottles/apigeecli--2.17.0.loongarch64.bottle.tar.gz) |
 | **apisix-ingress-controller** | 2.2.0 | 16 MiB | `118260e51845` | [bottle](https://homebrewloongarch64.site/brew/bottles/apisix-ingress-controller--2.2.0.loongarch64.bottle.tar.gz) |
 
-> 仅显示前 60 个，共 **1397** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
+> 仅显示前 60 个，共 **1406** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
 
 ## 镜像与加速
 
