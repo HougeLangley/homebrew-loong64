@@ -91,7 +91,7 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-10-27 09:44 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-10-27 09:45 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
@@ -121,14 +121,14 @@ end
 | **fd** | 10.5.0 | 1.3 MiB | `c8ce26b0e755` | [bottle](https://homebrewloongarch64.site/brew/bottles/fd--10.5.0.loongarch64.bottle.tar.gz) |
 | **fend** | 1.5.9 | 2.2 MiB | `ee11a0b0c29b` | [bottle](https://homebrewloongarch64.site/brew/bottles/fend--1.5.9.loongarch64.bottle.tar.gz) |
 | **file** | 5.46 | 3.1 KiB | `ceda6b52c2eb` | [bottle](https://homebrewloongarch64.site/brew/bottles/file--5.46.loongarch64.bottle.tar.gz) |
-| **fx** | 40.0.1 | 5.3 MiB | `cea483081101` | [bottle](https://homebrewloongarch64.site/brew/bottles/fx--40.0.1.loongarch64.bottle.tar.gz) |
+| **fx** | 40.0.1 | 5.3 MiB | `818d0d9480db` | [bottle](https://homebrewloongarch64.site/brew/bottles/fx--40.0.1.loongarch64.bottle.tar.gz) |
 | **fzf** | 0.74.5 | 2.1 MiB | `adcc7a15e53f` | [bottle](https://homebrewloongarch64.site/brew/bottles/fzf--0.74.5.loongarch64.bottle.tar.gz) |
 | **gdu** | 5.38.0 | 8.1 MiB | `200206bc3e1a` | [bottle](https://homebrewloongarch64.site/brew/bottles/gdu--5.38.0.loongarch64.bottle.tar.gz) |
 | **git-cliff** | 2.14.2 | 5.8 MiB | `1112e148366f` | [bottle](https://homebrewloongarch64.site/brew/bottles/git-cliff--2.14.2.loongarch64.bottle.tar.gz) |
 | **gitui** | 0.28.1 | 6.8 MiB | `94be069d60f8` | [bottle](https://homebrewloongarch64.site/brew/bottles/gitui--0.28.1.loongarch64.bottle.tar.gz) |
 | **glow** | 3.0.0 | 6.3 MiB | `dd3144e18f60` | [bottle](https://homebrewloongarch64.site/brew/bottles/glow--3.0.0.loongarch64.bottle.tar.gz) |
 | **gping** | 1.21.0 | 1.3 MiB | `20659ffc1a2f` | [bottle](https://homebrewloongarch64.site/brew/bottles/gping--1.21.0.loongarch64.bottle.tar.gz) |
-| **gron** | 0.7.1 | 2.7 MiB | `7ee2299a4b18` | [bottle](https://homebrewloongarch64.site/brew/bottles/gron--0.7.1.loongarch64.bottle.tar.gz) |
+| **gron** | 0.7.1 | 2.7 MiB | `41ae33cb35aa` | [bottle](https://homebrewloongarch64.site/brew/bottles/gron--0.7.1.loongarch64.bottle.tar.gz) |
 | **gzip** | 1.14 | 50 KiB | `9e57b90b7e6d` | [bottle](https://homebrewloongarch64.site/brew/bottles/gzip--1.14.loongarch64.bottle.tar.gz) |
 | **helix** | 25.07.1 | 7.9 MiB | `c5d634f5c8fa` | [bottle](https://homebrewloongarch64.site/brew/bottles/helix--25.07.1.loongarch64.bottle.tar.gz) |
 | **hello** | 1.0.0 | 155 B | `e27343330553` | [bottle](https://homebrewloongarch64.site/brew/bottles/hello--1.0.0.loongarch64.bottle.tar.gz) |

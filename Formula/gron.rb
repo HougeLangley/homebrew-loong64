@@ -3,7 +3,7 @@ class Gron < Formula
   homepage "https://example.org/gron"
   version "0.7.1"
   url "http://127.0.0.1:8080/brew/bottles/gron--0.7.1.loongarch64.bottle.tar.gz"
-  sha256 "7ee2299a4b18ec822b3a1165302718bb4ace45504840c12a1a3c1c92e0b37f67"
+  sha256 "41ae33cb35aa2b7cd684c1df6c2d2a2a5e7fd9a16dd7c5c4215a870313ebb97a"
 
   def install
     bin.install "gron"
