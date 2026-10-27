@@ -3,7 +3,7 @@ class File.d < Formula
   homepage "https://example.org/file.d"
   version "0.87.6"
   url "http://127.0.0.1:8080/brew/bottles/file.d--0.87.6.loongarch64.bottle.tar.gz"
-  sha256 "3b6f1dd0bb1b94cecf9613122f21e104a70fd083c661dac2a1ba6bbf60d998d4"
+  sha256 "8758ff197bf7a748e6b2a156130fff9830af220deea9e51b9f14fe5d9dae82f5"
 
   def install
     bin.install "file.d"
