@@ -3,7 +3,7 @@ class Mimirtool < Formula
   homepage "https://example.org/mimirtool"
   version "mimir-3.2.3"
   url "http://127.0.0.1:8080/brew/bottles/mimirtool--mimir-3.2.3.loongarch64.bottle.tar.gz"
-  sha256 "3befe75d5c050cfcf099b71e1a3b77320a0e8d428db027e99e8a725df2029dc6"
+  sha256 "90aa66d8424092ccf34a314c0944938151a0ecefcf2a3985afb2aa1449a6ddeb"
 
   def install
     bin.install "mimirtool"
