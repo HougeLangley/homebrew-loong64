@@ -3,7 +3,7 @@ class Shell-operator < Formula
   homepage "https://example.org/shell-operator"
   version "1.21.3"
   url "http://127.0.0.1:8080/brew/bottles/shell-operator--1.21.3.loongarch64.bottle.tar.gz"
-  sha256 "3f77dee3816f95663c5a2815909219c21b6420336c9c7ef3328a007215e55a35"
+  sha256 "aca584c5a49615d0cab41326dea997b0c016e5fb5074f87c84a5ba13a9fa87ae"
 
   def install
     bin.install "shell-operator"
