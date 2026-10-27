@@ -3,7 +3,7 @@ class Dtctl < Formula
   homepage "https://example.org/dtctl"
   version "0.45.0"
   url "http://127.0.0.1:8080/brew/bottles/dtctl--0.45.0.loongarch64.bottle.tar.gz"
-  sha256 "85024b0df9e249a50b3b9984922109699dc4c3815daa40da37646faf00624a8e"
+  sha256 "bfd836c298513139a0e2832b1228d083c37d4841b47b41d5cf1c5aa8a065617b"
 
   def install
     bin.install "dtctl"
