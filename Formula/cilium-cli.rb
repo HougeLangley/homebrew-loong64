@@ -3,7 +3,7 @@ class Cilium-cli < Formula
   homepage "https://example.org/cilium-cli"
   version "0.20.1"
   url "http://127.0.0.1:8080/brew/bottles/cilium-cli--0.20.1.loongarch64.bottle.tar.gz"
-  sha256 "866145ed56b301637604b7224997c54dc827286c3777329f6e8c41db8f971fb1"
+  sha256 "dfd3ae73b3b50645dab4cc2c61d970acb4d41e1a40f43307236d5359aada0b62"
 
   def install
     bin.install "cilium-cli"
