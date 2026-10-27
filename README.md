@@ -1,7 +1,7 @@
 # homebrew-loong64
 
 [![arch](https://img.shields.io/badge/arch-loongarch64-blue)](https://loongson.cn)
-[![packages](https://img.shields.io/badge/packages-1372-brightgreen)](#-可用软件包)
+[![packages](https://img.shields.io/badge/packages-1375-brightgreen)](#-可用软件包)
 [![site](https://img.shields.io/badge/site-homebrewloongarch64.site-0a5)](https://homebrewloongarch64.site)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -38,6 +38,34 @@ LoongArch 是独立于 x86/ARM 的指令集架构。Homebrew 的 formula 大量�
 
 本项目把这条链路补上：**在真实的龙芯机器（3A6000）上逐个编译、校验、签名、发布**，
 并提供国内可直接访问的镜像。
+
+
+## 🍺 在龙芯上安装 Homebrew（本项目核心）
+
+Homebrew 官方不支持 loongarch64。本项目提供了**可用的移植补丁与安装脚本**，让 brew 本体能在龙芯上运行：
+
+```bash
+curl -fsSL https://homebrewloongarch64.site/install-brew.sh | bash
+
+# 或自定义前缀
+curl -fsSL https://homebrewloongarch64.site/install-brew.sh | bash -s -- --prefix ~/.linuxbrew
+```
+
+安装完成后按提示执行 `eval "$(<prefix>/bin/brew shellenv)"`，然后即可：
+
+```bash
+brew install --build-from-source tree
+```
+
+**做了什么适配**（补丁见 [`brew-loongarch64.patch`](https://homebrewloongarch64.site/brew-loongarch64.patch)）：
+
+| 问题 | 处理 |
+|---|---|
+| brew ≥6.0 要求 Ruby 4.0，AOSC 只有 3.4 | 固定使用 **brew 5.0.0**（最后支持 Ruby 3.4 的版本） |
+| 架构检查写死 x86/ARM | 补丁允许 `loongarch64` |
+| 动态链接器列表缺龙芯 | 补丁加入 `/lib64/ld-linux-loongarch-lp64d.so.1` |
+
+**限制**：龙芯没有官方 bottle，所有 formula 都从源码构建；首次安装需要拉取 JSON API（约 20MB）。
 
 ## 快速开始
 
@@ -91,7 +119,7 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-10-27 20:04 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-10-27 20:11 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
@@ -156,7 +184,7 @@ end
 | **apigeecli** | 2.17.0 | 6.6 MiB | `563bf2a8fc17` | [bottle](https://homebrewloongarch64.site/brew/bottles/apigeecli--2.17.0.loongarch64.bottle.tar.gz) |
 | **apisix-ingress-controller** | 2.2.0 | 16 MiB | `118260e51845` | [bottle](https://homebrewloongarch64.site/brew/bottles/apisix-ingress-controller--2.2.0.loongarch64.bottle.tar.gz) |
 
-> 仅显示前 60 个，共 **1372** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
+> 仅显示前 60 个，共 **1375** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
 
 ## 镜像与加速
 
