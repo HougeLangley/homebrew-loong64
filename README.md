@@ -1,7 +1,7 @@
 # homebrew-loong64
 
 [![arch](https://img.shields.io/badge/arch-loongarch64-blue)](https://loongson.cn)
-[![packages](https://img.shields.io/badge/packages-205-brightgreen)](#-可用软件包)
+[![packages](https://img.shields.io/badge/packages-1366-brightgreen)](#-可用软件包)
 [![site](https://img.shields.io/badge/site-homebrewloongarch64.site-0a5)](https://homebrewloongarch64.site)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -91,72 +91,72 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-10-27 19:25 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-10-27 19:51 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
-| **photoview** | 2.4.0 | 1.4 MiB | `e649612afe75` | [bottle](https://homebrewloongarch64.site/brew/bottles/photoview--2.4.0.loongarch64.bottle.tar.gz) |
-| **phrase-cli** | 2.71.0 | 4.5 MiB | `176183e87848` | [bottle](https://homebrewloongarch64.site/brew/bottles/phrase-cli--2.71.0.loongarch64.bottle.tar.gz) |
-| **picoclaw** | 0.3.1 | 3.8 MiB | `1743a337f4fd` | [bottle](https://homebrewloongarch64.site/brew/bottles/picoclaw--0.3.1.loongarch64.bottle.tar.gz) |
-| **piknik** | 0.10.2 | 1.3 MiB | `aed5e335700a` | [bottle](https://homebrewloongarch64.site/brew/bottles/piknik--0.10.2.loongarch64.bottle.tar.gz) |
-| **piko** | 0.10.1 | 4.0 MiB | `ccbf3e8963ea` | [bottle](https://homebrewloongarch64.site/brew/bottles/piko--0.10.1.loongarch64.bottle.tar.gz) |
-| **pinact** | 5.0.2 | 2.7 MiB | `d01107afc4b9` | [bottle](https://homebrewloongarch64.site/brew/bottles/pinact--5.0.2.loongarch64.bottle.tar.gz) |
-| **pint** | 0.89.4 | 9.8 MiB | `26f1ed0b0339` | [bottle](https://homebrewloongarch64.site/brew/bottles/pint--0.89.4.loongarch64.bottle.tar.gz) |
-| **pipeline** | 1.17.1 | 21 MiB | `a21b343b8540` | [bottle](https://homebrewloongarch64.site/brew/bottles/pipeline--1.17.1.loongarch64.bottle.tar.gz) |
-| **pivit** | 0.9.3 | 2.5 MiB | `be65f84a6c9f` | [bottle](https://homebrewloongarch64.site/brew/bottles/pivit--0.9.3.loongarch64.bottle.tar.gz) |
-| **pixiv-cli** | 1.2.1 | 26 MiB | `b21f588e7338` | [bottle](https://homebrewloongarch64.site/brew/bottles/pixiv-cli--1.2.1.loongarch64.bottle.tar.gz) |
-| **pixivbiu** | 3.1.6 | 2.3 MiB | `e4fe7635209a` | [bottle](https://homebrewloongarch64.site/brew/bottles/pixivbiu--3.1.6.loongarch64.bottle.tar.gz) |
-| **pixlet** | 0.55.0 | 3.4 MiB | `4672b6baf3f6` | [bottle](https://homebrewloongarch64.site/brew/bottles/pixlet--0.55.0.loongarch64.bottle.tar.gz) |
-| **pjs** | 0.1.0 | 4.0 MiB | `4df4a4c9d76e` | [bottle](https://homebrewloongarch64.site/brew/bottles/pjs--0.1.0.loongarch64.bottle.tar.gz) |
-| **pkg-config-wrapper** | 0.2.13 | 3.8 MiB | `c87f102ad2ad` | [bottle](https://homebrewloongarch64.site/brew/bottles/pkg-config-wrapper--0.2.13.loongarch64.bottle.tar.gz) |
-| **pkgconf** | 3.0.10 | 3.2 KiB | `4aac6a85a57a` | [bottle](https://homebrewloongarch64.site/brew/bottles/pkgconf--3.0.10.loongarch64.bottle.tar.gz) |
-| **pkgsite** | 0.6.0 | 14 MiB | `8f59fe10ff65` | [bottle](https://homebrewloongarch64.site/brew/bottles/pkgsite--0.6.0.loongarch64.bottle.tar.gz) |
-| **plakar** | 1.1.8 | 20 MiB | `8f9d74800205` | [bottle](https://homebrewloongarch64.site/brew/bottles/plakar--1.1.8.loongarch64.bottle.tar.gz) |
-| **plow** | 1.4.0 | 5.5 MiB | `964327803a53` | [bottle](https://homebrewloongarch64.site/brew/bottles/plow--1.4.0.loongarch64.bottle.tar.gz) |
-| **pluto** | 5.24.4 | 9.1 MiB | `406eba3632c6` | [bottle](https://homebrewloongarch64.site/brew/bottles/pluto--5.24.4.loongarch64.bottle.tar.gz) |
-| **pmg** | 0.33.0 | 5.7 MiB | `00ca7b7cc16e` | [bottle](https://homebrewloongarch64.site/brew/bottles/pmg--0.33.0.loongarch64.bottle.tar.gz) |
-| **pmtiles** | 1.31.2 | 16 MiB | `15cadd8d1460` | [bottle](https://homebrewloongarch64.site/brew/bottles/pmtiles--1.31.2.loongarch64.bottle.tar.gz) |
-| **pocket-id** | 2.19.1 | 2.6 MiB | `3d9c55d33cff` | [bottle](https://homebrewloongarch64.site/brew/bottles/pocket-id--2.19.1.loongarch64.bottle.tar.gz) |
-| **pocketbase** | 0.40.6 | 11 MiB | `85c5b54f2b08` | [bottle](https://homebrewloongarch64.site/brew/bottles/pocketbase--0.40.6.loongarch64.bottle.tar.gz) |
-| **podinfo** | 6.17.0 | 5.0 MiB | `1301bd607584` | [bottle](https://homebrewloongarch64.site/brew/bottles/podinfo--6.17.0.loongarch64.bottle.tar.gz) |
-| **polaris** | 10.2.5 | 14 MiB | `73fe2ca9af1f` | [bottle](https://homebrewloongarch64.site/brew/bottles/polaris--10.2.5.loongarch64.bottle.tar.gz) |
-| **policy-engine** | 1.1.7 | 19 MiB | `59bcc878e9f7` | [bottle](https://homebrewloongarch64.site/brew/bottles/policy-engine--1.1.7.loongarch64.bottle.tar.gz) |
-| **pomo** | 1.2.1 | 26 MiB | `354e0767b612` | [bottle](https://homebrewloongarch64.site/brew/bottles/pomo--1.2.1.loongarch64.bottle.tar.gz) |
-| **popeye** | 0.22.1 | 4.6 MiB | `9ffcc0c899cf` | [bottle](https://homebrewloongarch64.site/brew/bottles/popeye--0.22.1.loongarch64.bottle.tar.gz) |
-| **porter** | 1.6.1 | 4.0 MiB | `dfda2c8ef688` | [bottle](https://homebrewloongarch64.site/brew/bottles/porter--1.6.1.loongarch64.bottle.tar.gz) |
-| **portop** | 0.3.1 | 3.8 MiB | `fdeb51556934` | [bottle](https://homebrewloongarch64.site/brew/bottles/portop--0.3.1.loongarch64.bottle.tar.gz) |
-| **postgresparser** | 1.3.2 | 2.0 MiB | `ba5f679fa4f3` | [bottle](https://homebrewloongarch64.site/brew/bottles/postgresparser--1.3.2.loongarch64.bottle.tar.gz) |
-| **pouch** | 1.3.1 | 2.8 MiB | `7ae83625f48f` | [bottle](https://homebrewloongarch64.site/brew/bottles/pouch--1.3.1.loongarch64.bottle.tar.gz) |
-| **poutine** | 1.1.6 | 15 MiB | `5d11babb6634` | [bottle](https://homebrewloongarch64.site/brew/bottles/poutine--1.1.6.loongarch64.bottle.tar.gz) |
-| **powerline-go** | 1.26 | 1.6 MiB | `72c3b69b141d` | [bottle](https://homebrewloongarch64.site/brew/bottles/powerline-go--1.26.loongarch64.bottle.tar.gz) |
-| **powerman-dockerize** | 0.25.4 | 3.9 MiB | `5083d7b35712` | [bottle](https://homebrewloongarch64.site/brew/bottles/powerman-dockerize--0.25.4.loongarch64.bottle.tar.gz) |
-| **prest** | 2.5.2 | 1.7 MiB | `ae6165bdc2b1` | [bottle](https://homebrewloongarch64.site/brew/bottles/prest--2.5.2.loongarch64.bottle.tar.gz) |
-| **prestd** | 2.5.2 | 1.7 MiB | `44782215d847` | [bottle](https://homebrewloongarch64.site/brew/bottles/prestd--2.5.2.loongarch64.bottle.tar.gz) |
-| **pretender** | 1.4.1 | 2.5 MiB | `ffa0c162a798` | [bottle](https://homebrewloongarch64.site/brew/bottles/pretender--1.4.1.loongarch64.bottle.tar.gz) |
-| **privatebin-cli** | 2.2.1 | 563 B | `584454940f60` | [bottle](https://homebrewloongarch64.site/brew/bottles/privatebin-cli--2.2.1.loongarch64.bottle.tar.gz) |
-| **prm** | 3.6.4 | 3.8 MiB | `dcf7ae1e57e4` | [bottle](https://homebrewloongarch64.site/brew/bottles/prm--3.6.4.loongarch64.bottle.tar.gz) |
-| **process-compose** | 1.124.0 | 15 MiB | `e0fdbf2834b4` | [bottle](https://homebrewloongarch64.site/brew/bottles/process-compose--1.124.0.loongarch64.bottle.tar.gz) |
-| **procoder** | 3.9.2 | 6.4 MiB | `c1517530b543` | [bottle](https://homebrewloongarch64.site/brew/bottles/procoder--3.9.2.loongarch64.bottle.tar.gz) |
-| **procs** | 0.14.12 | 2.5 MiB | `382f9c956cf6` | [bottle](https://homebrewloongarch64.site/brew/bottles/procs--0.14.12.loongarch64.bottle.tar.gz) |
-| **progressbar** | 3.19.1 | 1.7 MiB | `f9d88b1eda6d` | [bottle](https://homebrewloongarch64.site/brew/bottles/progressbar--3.19.1.loongarch64.bottle.tar.gz) |
-| **proji** | 0.20.0 | 14 MiB | `4b079dc65124` | [bottle](https://homebrewloongarch64.site/brew/bottles/proji--0.20.0.loongarch64.bottle.tar.gz) |
-| **prometheus** | 3.15.1 | 26 MiB | `9163b76bdc6e` | [bottle](https://homebrewloongarch64.site/brew/bottles/prometheus--3.15.1.loongarch64.bottle.tar.gz) |
-| **prometheus-msteams** | 1.5.4 | 9.6 MiB | `0c2e6ed072cd` | [bottle](https://homebrewloongarch64.site/brew/bottles/prometheus-msteams--1.5.4.loongarch64.bottle.tar.gz) |
-| **prometheus-operator** | 0.94.2 | 12 MiB | `5d430d7ab47b` | [bottle](https://homebrewloongarch64.site/brew/bottles/prometheus-operator--0.94.2.loongarch64.bottle.tar.gz) |
-| **prompt** | 0.9.3 | 2.5 MiB | `40016be58c4e` | [bottle](https://homebrewloongarch64.site/brew/bottles/prompt--0.9.3.loongarch64.bottle.tar.gz) |
-| **promtail** | 3.7.9 | 21 MiB | `96ea94f6078d` | [bottle](https://homebrewloongarch64.site/brew/bottles/promtail--3.7.9.loongarch64.bottle.tar.gz) |
-| **promxy** | 0.0.97 | 29 MiB | `1757eba848ab` | [bottle](https://homebrewloongarch64.site/brew/bottles/promxy--0.0.97.loongarch64.bottle.tar.gz) |
-| **protoc-gen-go-grpc** | 1.84.0 | 4.2 MiB | `649f4e0d50d1` | [bottle](https://homebrewloongarch64.site/brew/bottles/protoc-gen-go-grpc--1.84.0.loongarch64.bottle.tar.gz) |
-| **proxify** | 0.0.16 | 4.8 MiB | `775e5bab8d30` | [bottle](https://homebrewloongarch64.site/brew/bottles/proxify--0.0.16.loongarch64.bottle.tar.gz) |
-| **pscale** | 0.348.0 | 11 MiB | `0b4483ac4a37` | [bottle](https://homebrewloongarch64.site/brew/bottles/pscale--0.348.0.loongarch64.bottle.tar.gz) |
-| **pspy** | 1.2.1 | 26 MiB | `706f99d49531` | [bottle](https://homebrewloongarch64.site/brew/bottles/pspy--1.2.1.loongarch64.bottle.tar.gz) |
-| **pterm** | 0.12.84 | 902 KiB | `16b053cc50c5` | [bottle](https://homebrewloongarch64.site/brew/bottles/pterm--0.12.84.loongarch64.bottle.tar.gz) |
-| **pug** | 0.6.5 | 6.2 MiB | `0b02cb05d872` | [bottle](https://homebrewloongarch64.site/brew/bottles/pug--0.6.5.loongarch64.bottle.tar.gz) |
-| **pulsarctl** | 4.2.5.2 | 5.0 MiB | `28fed041208c` | [bottle](https://homebrewloongarch64.site/brew/bottles/pulsarctl--4.2.5.2.loongarch64.bottle.tar.gz) |
-| **pulse** | 6.6.0 | 1.9 MiB | `38b346beb69c` | [bottle](https://homebrewloongarch64.site/brew/bottles/pulse--6.6.0.loongarch64.bottle.tar.gz) |
-| **pulumictl** | 0.0.50 | 13 MiB | `dae771155922` | [bottle](https://homebrewloongarch64.site/brew/bottles/pulumictl--0.0.50.loongarch64.bottle.tar.gz) |
+| **a2ps** | 4.15.8 | 176 KiB | `6219fc9df570` | [bottle](https://homebrewloongarch64.site/brew/bottles/a2ps--4.15.8.loongarch64.bottle.tar.gz) |
+| **a52dec** | 0.8.0 | 40 KiB | `9e4c2e03ad27` | [bottle](https://homebrewloongarch64.site/brew/bottles/a52dec--0.8.0.loongarch64.bottle.tar.gz) |
+| **abnfgen** | 0.21 | 21 KiB | `b00dbf1f887f` | [bottle](https://homebrewloongarch64.site/brew/bottles/abnfgen--0.21.loongarch64.bottle.tar.gz) |
+| **abtop** | 0.5.5 | 905 KiB | `ef7bcbaf53c4` | [bottle](https://homebrewloongarch64.site/brew/bottles/abtop--0.5.5.loongarch64.bottle.tar.gz) |
+| **acl** | 2.4.0 | 18 KiB | `d9d41108028e` | [bottle](https://homebrewloongarch64.site/brew/bottles/acl--2.4.0.loongarch64.bottle.tar.gz) |
+| **acmd** | 0.12.0 | 548 KiB | `cfee8281e21e` | [bottle](https://homebrewloongarch64.site/brew/bottles/acmd--0.12.0.loongarch64.bottle.tar.gz) |
+| **aconfig** | 0.19.0 | 193 KiB | `dca5b5b860ba` | [bottle](https://homebrewloongarch64.site/brew/bottles/aconfig--0.19.0.loongarch64.bottle.tar.gz) |
+| **act** | 0.2.89 | 7.6 MiB | `83ab35debd65` | [bottle](https://homebrewloongarch64.site/brew/bottles/act--0.2.89.loongarch64.bottle.tar.gz) |
+| **actionlint** | 1.7.12 | 2.2 MiB | `7616c8912b41` | [bottle](https://homebrewloongarch64.site/brew/bottles/actionlint--1.7.12.loongarch64.bottle.tar.gz) |
+| **actions-batch** | 0.0.3 | 1.6 MiB | `19578ca8971c` | [bottle](https://homebrewloongarch64.site/brew/bottles/actions-batch--0.0.3.loongarch64.bottle.tar.gz) |
+| **actions-runner-controller** | gha-runner-scale-set-0.15.1 | 11 MiB | `2d9895557c12` | [bottle](https://homebrewloongarch64.site/brew/bottles/actions-runner-controller--gha-runner-scale-set-0.15.1.loongarch64.bottle.tar.gz) |
+| **addlicense** | 1.2.0 | 1.2 MiB | `9fc8e9edd0aa` | [bottle](https://homebrewloongarch64.site/brew/bottles/addlicense--1.2.0.loongarch64.bottle.tar.gz) |
+| **addon-controller** | 1.16.1 | 731 KiB | `ee404340ac27` | [bottle](https://homebrewloongarch64.site/brew/bottles/addon-controller--1.16.1.loongarch64.bottle.tar.gz) |
+| **addon-operator** | 1.26.2 | 27 MiB | `3f8f517f4572` | [bottle](https://homebrewloongarch64.site/brew/bottles/addon-operator--1.26.2.loongarch64.bottle.tar.gz) |
+| **advancecomp** | 2.6 | 137 KiB | `4163dd783a82` | [bottle](https://homebrewloongarch64.site/brew/bottles/advancecomp--2.6.loongarch64.bottle.tar.gz) |
+| **aeman** | 0.33.1 | 5.6 MiB | `3eef0d8ad4bd` | [bottle](https://homebrewloongarch64.site/brew/bottles/aeman--0.33.1.loongarch64.bottle.tar.gz) |
+| **aerospace-marks** | 1.0.3 | 1.8 MiB | `7ca7029466b4` | [bottle](https://homebrewloongarch64.site/brew/bottles/aerospace-marks--1.0.3.loongarch64.bottle.tar.gz) |
+| **aerospace-scratchpad** | 0.7.1 | 2.7 MiB | `d2878572cf3f` | [bottle](https://homebrewloongarch64.site/brew/bottles/aerospace-scratchpad--0.7.1.loongarch64.bottle.tar.gz) |
+| **afl++** | 5.03c | 875 B | `0025928cafc1` | [bottle](https://homebrewloongarch64.site/brew/bottles/afl++--5.03c.loongarch64.bottle.tar.gz) |
+| **age** | 1.3.2 | 2.0 MiB | `75ee1bd16b3c` | [bottle](https://homebrewloongarch64.site/brew/bottles/age--1.3.2.loongarch64.bottle.tar.gz) |
+| **agedu** | 20260410 | 47 KiB | `d18bf9fb1c58` | [bottle](https://homebrewloongarch64.site/brew/bottles/agedu--20260410.loongarch64.bottle.tar.gz) |
+| **agent-deck** | 1.16.34 | 17 MiB | `d5f06bd47234` | [bottle](https://homebrewloongarch64.site/brew/bottles/agent-deck--1.16.34.loongarch64.bottle.tar.gz) |
+| **agent-lsp** | 0.23.4 | 3.8 MiB | `2ef6ab0951f3` | [bottle](https://homebrewloongarch64.site/brew/bottles/agent-lsp--0.23.4.loongarch64.bottle.tar.gz) |
+| **agent-manager** | 0.44.0 | 8.5 MiB | `d9be46163e97` | [bottle](https://homebrewloongarch64.site/brew/bottles/agent-manager--0.44.0.loongarch64.bottle.tar.gz) |
+| **agent-notifications** | 1.49.9 | 2.1 MiB | `205dc3fa46cc` | [bottle](https://homebrewloongarch64.site/brew/bottles/agent-notifications--1.49.9.loongarch64.bottle.tar.gz) |
+| **agent-sandbox** | 1.0.8 | 12 MiB | `0b75fb1e2a8c` | [bottle](https://homebrewloongarch64.site/brew/bottles/agent-sandbox--1.0.8.loongarch64.bottle.tar.gz) |
+| **agentdock** | 1.1.1 | 7.1 MiB | `402eaa20c2e6` | [bottle](https://homebrewloongarch64.site/brew/bottles/agentdock--1.1.1.loongarch64.bottle.tar.gz) |
+| **agenticgokit** | 0.5.9 | 5.6 MiB | `c11b2784f34c` | [bottle](https://homebrewloongarch64.site/brew/bottles/agenticgokit--0.5.9.loongarch64.bottle.tar.gz) |
+| **aha** | 0.5.1 | 11 KiB | `972369f574ed` | [bottle](https://homebrewloongarch64.site/brew/bottles/aha--0.5.1.loongarch64.bottle.tar.gz) |
+| **ahoy** | 3.0.2 | 3.2 MiB | `d5b2110cd21c` | [bottle](https://homebrewloongarch64.site/brew/bottles/ahoy--3.0.2.loongarch64.bottle.tar.gz) |
+| **ai-resource-manager** | 5.0.0 | 3.8 MiB | `0840455c2629` | [bottle](https://homebrewloongarch64.site/brew/bottles/ai-resource-manager--5.0.0.loongarch64.bottle.tar.gz) |
+| **aiac** | 5.3.0 | 4.8 MiB | `918443c5e7ef` | [bottle](https://homebrewloongarch64.site/brew/bottles/aiac--5.3.0.loongarch64.bottle.tar.gz) |
+| **aicommit** | 0.6.5 | 6.2 MiB | `ecda7b5580db` | [bottle](https://homebrewloongarch64.site/brew/bottles/aicommit--0.6.5.loongarch64.bottle.tar.gz) |
+| **aide** | 0.19.5 | 96 KiB | `60289ccba32e` | [bottle](https://homebrewloongarch64.site/brew/bottles/aide--0.19.5.loongarch64.bottle.tar.gz) |
+| **ain** | 1.6.0 | 7.1 MiB | `ef91f42bd149` | [bottle](https://homebrewloongarch64.site/brew/bottles/ain--1.6.0.loongarch64.bottle.tar.gz) |
+| **air** | 1.67.4 | 4.3 MiB | `2ab648974f5c` | [bottle](https://homebrewloongarch64.site/brew/bottles/air--1.67.4.loongarch64.bottle.tar.gz) |
+| **airo** | 0.0.1 | 42 KiB | `8ee669ee0708` | [bottle](https://homebrewloongarch64.site/brew/bottles/airo--0.0.1.loongarch64.bottle.tar.gz) |
+| **akamai** | 2.0.5 | 48 MiB | `badec1865237` | [bottle](https://homebrewloongarch64.site/brew/bottles/akamai--2.0.5.loongarch64.bottle.tar.gz) |
+| **akku** | 1.2.0 | 4.5 KiB | `c9c8aee5c797` | [bottle](https://homebrewloongarch64.site/brew/bottles/akku--1.2.0.loongarch64.bottle.tar.gz) |
+| **aklomp-base64** | 0.5.2 | 15 KiB | `9ac84ebdb182` | [bottle](https://homebrewloongarch64.site/brew/bottles/aklomp-base64--0.5.2.loongarch64.bottle.tar.gz) |
+| **alfred-aws-console-services-workflow** | 6.2.0 | 4.7 MiB | `3bfc1d4ca9b2` | [bottle](https://homebrewloongarch64.site/brew/bottles/alfred-aws-console-services-workflow--6.2.0.loongarch64.bottle.tar.gz) |
+| **alfredo** | 0.6.1 | 709 KiB | `d9e5ebe534d9` | [bottle](https://homebrewloongarch64.site/brew/bottles/alfredo--0.6.1.loongarch64.bottle.tar.gz) |
+| **algernon** | 1.17.12 | 16 MiB | `1a83e7ea8036` | [bottle](https://homebrewloongarch64.site/brew/bottles/algernon--1.17.12.loongarch64.bottle.tar.gz) |
+| **algol68g** | 3.13.4 | 672 KiB | `a32825d4e2a4` | [bottle](https://homebrewloongarch64.site/brew/bottles/algol68g--3.13.4.loongarch64.bottle.tar.gz) |
+| **algolia** | 1.18.0 | 2.6 MiB | `cda4bf38a479` | [bottle](https://homebrewloongarch64.site/brew/bottles/algolia--1.18.0.loongarch64.bottle.tar.gz) |
+| **ali** | 0.8.0 | 3.9 MiB | `56f11085fd17` | [bottle](https://homebrewloongarch64.site/brew/bottles/ali--0.8.0.loongarch64.bottle.tar.gz) |
+| **aliae** | 1.6.0 | 7.1 MiB | `e81bc86db71b` | [bottle](https://homebrewloongarch64.site/brew/bottles/aliae--1.6.0.loongarch64.bottle.tar.gz) |
+| **aliddns** | 0.0.23 | 4.4 MiB | `0147f60890b5` | [bottle](https://homebrewloongarch64.site/brew/bottles/aliddns--0.0.23.loongarch64.bottle.tar.gz) |
+| **aliyun-cli** | 3.5.2 | 942 KiB | `e2a970a42040` | [bottle](https://homebrewloongarch64.site/brew/bottles/aliyun-cli--3.5.2.loongarch64.bottle.tar.gz) |
+| **alp** | 1.0.22 | 4.2 MiB | `d7ec584605f7` | [bottle](https://homebrewloongarch64.site/brew/bottles/alp--1.0.22.loongarch64.bottle.tar.gz) |
+| **amass** | 5.1.3 | 4.2 MiB | `3262e9b947ee` | [bottle](https://homebrewloongarch64.site/brew/bottles/amass--5.1.3.loongarch64.bottle.tar.gz) |
+| **amfora** | 1.11.0 | 3.7 MiB | `27b81bf852f2` | [bottle](https://homebrewloongarch64.site/brew/bottles/amfora--1.11.0.loongarch64.bottle.tar.gz) |
+| **antrea** | 2.7.0 | 10 MiB | `6dc6cf2dc6fc` | [bottle](https://homebrewloongarch64.site/brew/bottles/antrea--2.7.0.loongarch64.bottle.tar.gz) |
+| **anubis** | 1.28.2 | 4.6 KiB | `d2549ded6f66` | [bottle](https://homebrewloongarch64.site/brew/bottles/anubis--1.28.2.loongarch64.bottle.tar.gz) |
+| **anvil** | 2.9.0 | 3.1 MiB | `f29ab1c9e2fd` | [bottle](https://homebrewloongarch64.site/brew/bottles/anvil--2.9.0.loongarch64.bottle.tar.gz) |
+| **anycable-go** | 1.6.20 | 12 MiB | `41de4a02ddf1` | [bottle](https://homebrewloongarch64.site/brew/bottles/anycable-go--1.6.20.loongarch64.bottle.tar.gz) |
+| **api-linter** | 2.4.0 | 1.4 MiB | `70d53d982714` | [bottle](https://homebrewloongarch64.site/brew/bottles/api-linter--2.4.0.loongarch64.bottle.tar.gz) |
+| **api-testing** | 0.0.21 | 9.3 MiB | `3288c0e257d5` | [bottle](https://homebrewloongarch64.site/brew/bottles/api-testing--0.0.21.loongarch64.bottle.tar.gz) |
+| **apigeecli** | 2.17.0 | 6.6 MiB | `563bf2a8fc17` | [bottle](https://homebrewloongarch64.site/brew/bottles/apigeecli--2.17.0.loongarch64.bottle.tar.gz) |
+| **apisix-ingress-controller** | 2.2.0 | 16 MiB | `118260e51845` | [bottle](https://homebrewloongarch64.site/brew/bottles/apisix-ingress-controller--2.2.0.loongarch64.bottle.tar.gz) |
 
-> 仅显示前 60 个，共 **205** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
+> 仅显示前 60 个，共 **1366** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
 
 ## 镜像与加速
 
