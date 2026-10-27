@@ -3,7 +3,7 @@ class Proji < Formula
   homepage "https://example.org/proji"
   version "0.20.0"
   url "http://127.0.0.1:8080/brew/bottles/proji--0.20.0.loongarch64.bottle.tar.gz"
-  sha256 "2d5adcb93477201a430a3c92215a5f2ee1cce0ec6f705456e4de9324e8328a9f"
+  sha256 "4b079dc6512483c77bebeec2f0b82ffc42187b7a9b06c2b7c115b2f334bb4e6b"
 
   def install
     bin.install "proji"
