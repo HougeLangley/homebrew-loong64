@@ -3,7 +3,7 @@ class Terraform-provider-http < Formula
   homepage "https://example.org/terraform-provider-http"
   version "3.6.3"
   url "http://127.0.0.1:8080/brew/bottles/terraform-provider-http--3.6.3.loongarch64.bottle.tar.gz"
-  sha256 "b1a6bcad4ea3c253cb6e46aa871831620d2c20e8aa91be7865bd06efd160f549"
+  sha256 "58968d1658b41a32ab50292551b14d88c8269182f65d1d41e82e827973ea5906"
 
   def install
     bin.install "terraform-provider-http"

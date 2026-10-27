@@ -3,7 +3,7 @@ class Terraboard < Formula
   homepage "https://example.org/terraboard"
   version "2.4.0"
   url "http://127.0.0.1:8080/brew/bottles/terraboard--2.4.0.loongarch64.bottle.tar.gz"
-  sha256 "ccf3ee52efdbe4e632350a15af09a498f24986935aa6e472d3f4c27300ded012"
+  sha256 "c515142a1863a902fec975861305cf7e561c06741e590fbf603869bdf0c7207a"
 
   def install
     bin.install "terraboard"

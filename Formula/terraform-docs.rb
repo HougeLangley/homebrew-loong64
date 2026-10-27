@@ -3,7 +3,7 @@ class Terraform-docs < Formula
   homepage "https://example.org/terraform-docs"
   version "0.24.0"
   url "http://127.0.0.1:8080/brew/bottles/terraform-docs--0.24.0.loongarch64.bottle.tar.gz"
-  sha256 "be029c446254abd4894b6573b155aef1c4caa9a398a5874026368218a3026cc3"
+  sha256 "d9f2a861a03b407adc91e497902404a80bfd7cae50761d26a2701fb41c065791"
 
   def install
     bin.install "terraform-docs"

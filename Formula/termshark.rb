@@ -3,7 +3,7 @@ class Termshark < Formula
   homepage "https://example.org/termshark"
   version "2.4.0"
   url "http://127.0.0.1:8080/brew/bottles/termshark--2.4.0.loongarch64.bottle.tar.gz"
-  sha256 "ac71018970e54248448c00b461b9c8766372567e316aa440ef9b3532f939b30e"
+  sha256 "6efce1ee4d7d3cfc7eafb56e78bfcea7e9c36c650cf9209c5afa50057df4fb1e"
 
   def install
     bin.install "termshark"
