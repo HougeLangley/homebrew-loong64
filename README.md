@@ -1,7 +1,7 @@
 # homebrew-loong64
 
 [![arch](https://img.shields.io/badge/arch-loongarch64-blue)](https://loongson.cn)
-[![packages](https://img.shields.io/badge/packages-422-brightgreen)](#-可用软件包)
+[![packages](https://img.shields.io/badge/packages-423-brightgreen)](#-可用软件包)
 [![site](https://img.shields.io/badge/site-homebrewloongarch64.site-0a5)](https://homebrewloongarch64.site)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -91,11 +91,12 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-10-27 12:34 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-10-27 12:44 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
-| **a2ps** | 4.15.8 | 176 KiB | `bf2fe2cad37a` | [bottle](https://homebrewloongarch64.site/brew/bottles/a2ps--4.15.8.loongarch64.bottle.tar.gz) |
+| **a2ps** | 4.15.8 | 176 KiB | `6219fc9df570` | [bottle](https://homebrewloongarch64.site/brew/bottles/a2ps--4.15.8.loongarch64.bottle.tar.gz) |
+| **a52dec** | 0.8.0 | 40 KiB | `9e4c2e03ad27` | [bottle](https://homebrewloongarch64.site/brew/bottles/a52dec--0.8.0.loongarch64.bottle.tar.gz) |
 | **abtop** | 0.5.5 | 905 KiB | `ef7bcbaf53c4` | [bottle](https://homebrewloongarch64.site/brew/bottles/abtop--0.5.5.loongarch64.bottle.tar.gz) |
 | **aconfig** | 0.19.0 | 193 KiB | `dca5b5b860ba` | [bottle](https://homebrewloongarch64.site/brew/bottles/aconfig--0.19.0.loongarch64.bottle.tar.gz) |
 | **act** | 0.2.89 | 7.6 MiB | `83ab35debd65` | [bottle](https://homebrewloongarch64.site/brew/bottles/act--0.2.89.loongarch64.bottle.tar.gz) |
@@ -154,9 +155,8 @@ end
 | **axe** | 1.11.0 | 3.7 MiB | `fc87d244fcb5` | [bottle](https://homebrewloongarch64.site/brew/bottles/axe--1.11.0.loongarch64.bottle.tar.gz) |
 | **aztfexport** | 0.20.0 | 14 MiB | `870e87843cec` | [bottle](https://homebrewloongarch64.site/brew/bottles/aztfexport--0.20.0.loongarch64.bottle.tar.gz) |
 | **azuretls-client** | 1.13.2 | 4.3 MiB | `631b0bdfde69` | [bottle](https://homebrewloongarch64.site/brew/bottles/azuretls-client--1.13.2.loongarch64.bottle.tar.gz) |
-| **bacon** | 3.26.0 | 2.8 MiB | `0637137253cb` | [bottle](https://homebrewloongarch64.site/brew/bottles/bacon--3.26.0.loongarch64.bottle.tar.gz) |
 
-> 仅显示前 60 个，共 **422** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
+> 仅显示前 60 个，共 **423** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
 
 ## 镜像与加速
 

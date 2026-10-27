@@ -3,7 +3,7 @@ class A2ps < Formula
   homepage "https://example.org/a2ps"
   version "4.15.8"
   url "http://127.0.0.1:8080/brew/bottles/a2ps--4.15.8.loongarch64.bottle.tar.gz"
-  sha256 "bf2fe2cad37a537e3fa90e0f400abf556027332d9185e516f0ba8c0d11529112"
+  sha256 "6219fc9df570d42631c9f2b6d19d8ce5ff6f8372ef57c67e315755bfa567647d"
 
   def install
     bin.install "a2ps"
