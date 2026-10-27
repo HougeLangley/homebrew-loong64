@@ -3,7 +3,7 @@ class Gotags < Formula
   homepage "https://example.org/gotags"
   version "1.4.1"
   url "http://127.0.0.1:8080/brew/bottles/gotags--1.4.1.loongarch64.bottle.tar.gz"
-  sha256 "6894e949539ea96a2c3a77e11b759a0d05884f9507326304fa363ca59ee47005"
+  sha256 "1ae8040d9a8a3c13d069ec74314b8de3e1c94dfe77b958ae7f2a52037efaf03d"
 
   def install
     bin.install "gotags"
