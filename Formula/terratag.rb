@@ -3,7 +3,7 @@ class Terratag < Formula
   homepage "https://example.org/terratag"
   version "0.8.1"
   url "http://127.0.0.1:8080/brew/bottles/terratag--0.8.1.loongarch64.bottle.tar.gz"
-  sha256 "970acf72061e2c86f2f3f05a955e94b76cdc30266c554cfe5f5644684847dfbf"
+  sha256 "ab274323296b9f5f00676fdb9c0bdb7c7ed9bd0730186e24e127c13d83ef9c32"
 
   def install
     bin.install "terratag"

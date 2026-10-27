@@ -3,7 +3,7 @@ class Testcontainers-go < Formula
   homepage "https://example.org/testcontainers-go"
   version "0.44.0"
   url "http://127.0.0.1:8080/brew/bottles/testcontainers-go--0.44.0.loongarch64.bottle.tar.gz"
-  sha256 "fddafa0e78c18bcec4b2374d755ef99a354620d96319c708d53280bf8d6f27fd"
+  sha256 "1732b127e4e1f4c4433c2b66db06cb2d2b64c6aa10f59dd6b3bbbd1e95d92666"
 
   def install
     bin.install "testcontainers-go"
