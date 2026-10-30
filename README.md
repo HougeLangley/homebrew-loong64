@@ -71,6 +71,9 @@ brew install --build-from-source tree
 龙芯也有预编译 bottle 了。装好 brew 后：
 
 ```bash
+# 注意：brew tap 要求当天已经执行过 brew update，
+# 否则会报 "You have disabled automatic updates and have not updated today."
+brew update
 brew tap loongarch64/loong64 https://homebrewloongarch64.site/git/brew-tap.git
 brew install loongarch64/loong64/tree      # 直接从 bottle 灌注，几秒完成
 ```
@@ -142,7 +145,7 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-10-30 22:19 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-10-30 22:28 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
