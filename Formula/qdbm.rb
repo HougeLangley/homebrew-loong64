@@ -5,19 +5,16 @@ class Qdbm < Formula
   sha256 "b466fe730d751e4bfc5900d1f37b0fb955f2826ac456e70012785e012cdcb73e"
   license "LGPL-2.1-or-later"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "8777823222638c43365ac7ce0bcb0960c93a2ffd880e60b64116a6ca3d6b6cf7"
+  end
+
   livecheck do
     url :homepage
     regex(/href=.*?qdbm[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    rebuild 4
-    sha256 cellar: :any, arm64_golden_gate: "2ac9f0535a8950ee5b039c0274dd4a31aff23840d2a0574e5fc44b467c421d32"
-    sha256 cellar: :any, arm64_tahoe:       "39f437a07c0042d360d21bfb1d6001d1af034aa544b19ef62bccf7be4f858e8e"
-    sha256 cellar: :any, arm64_sequoia:     "85643dc7b30d1c9743d008801ca71631e93cdcb1c1e364c8cf71a1df4b248bed"
-    sha256 cellar: :any, arm64_linux:       "8269475292a4b33b47ad57c78c14b9877108f1c13a8855b7beae8ea5ae570627"
-    sha256 cellar: :any, x86_64_linux:      "878dcc3b3e52dc428e32d6dc3aa45aa150669a469bcc9252bc4649b372c76ba0"
-  end
 
   # Last release on 2007-12-22. Succeeded by tokyo-cabinet -> kyoto-cabinet -> tkrzw
   deprecate! date: "2026-04-18", because: :unmaintained
