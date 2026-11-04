@@ -7,7 +7,7 @@ class Bwfmetaedit < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "4096dc4cad575eafe8fb2ab8989a0967791ee3167ba0023363117d7437516f55"
+    sha256 cellar: :any, loongarch64_linux: "68992244feb9614d6dfa07ba6d01d919dba291e882ab4f170f2c4c4045d1b3b2"
   end
 
   livecheck do
