@@ -5,16 +5,17 @@ class Reop < Formula
   mirror "https://ftp.openbsd.org/pub/OpenBSD/distfiles/reop-2.1.1.tgz"
   sha256 "fa8ae058c51efec5bde39fab15b4275e6394d9ab1dd2190ffdba3cf9983fdcac"
   license "ISC"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "ffe164ee10d0a5a9578e43f15e06a52533051e2d446b7a4686db50dff93586ff"
+  end
+
   revision 1
 
 
   deprecate! date: "2026-06-27", because: :unmaintained
   disable! date: "2026-09-27", because: :unmaintained
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "cfc2f4859978a9caea61af20f1aa6a0df774fbbd51db3d83e18d70109af26f3a"
-  end
 
   depends_on "libsodium"
 
