@@ -4,18 +4,13 @@ class RonnNg < Formula
   url "https://github.com/apjanke/ronn-ng/archive/refs/tags/v0.10.1.tar.gz"
   sha256 "180f18015ce01be1d10c24e13414134363d56f9efb741fda460358bb67d96684"
   license "MIT"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "34bea9f8805748942ead1a70f7ee6f02c64db970580deca5c65c75c3e4dc926a"
+  end
+
   revision 2
 
-  bottle do
-    rebuild 2
-    sha256 cellar: :any, arm64_golden_gate: "1030b38840a536856013af6907440973b047b9b5abc418a34605d81b16832d0c"
-    sha256 cellar: :any, arm64_tahoe:       "dde9c2f7f7a4408122bf2e436c38950b331b89fbf58033f700145e021e64ff48"
-    sha256 cellar: :any, arm64_sequoia:     "a3dd75ac390b8dad4a71bf0400e8d7bf9f3dfa7e25c562244b7baaef3e778c7b"
-    sha256 cellar: :any, arm64_sonoma:      "c3999ca5ca78a084f011f5f7b5863d2ece2e5bd0d72eac6e47597430c7745151"
-    sha256 cellar: :any, sonoma:            "75fb55360eecf063982b42adbb342e023ea97cb29bc2f86f8b01d1bf524a53bc"
-    sha256 cellar: :any, arm64_linux:       "2f0612ea0a0f30b42d2ecbc8f59320fe91961b46c92a1deecb557bf264481cdb"
-    sha256 cellar: :any, x86_64_linux:      "84de592651e7b58252e8be9069b46c2369731987a872db0810804a0c129d7461"
-  end
 
   depends_on "ruby"
   depends_on "xz"
