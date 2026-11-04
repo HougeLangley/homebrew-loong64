@@ -6,15 +6,16 @@ class Endlessh < Formula
   license "Unlicense"
   head "https://github.com/skeeto/endlessh.git", branch: "master"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "08c78a8e5467677b5c057847fd2d8274c2c7b7f65dbad0090f0357f4e6e7bda0"
+  end
+
 
   uses_from_macos "netcat" => :test
 
   allow_network_access! :test
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "1c24fa9cb1d7e1c14075e74e74b69f2492a185abd6751e3e1f45ff98ced4cafc"
-  end
 
   def install
     inreplace "endlessh.c", "/etc/endlessh/", "#{pkgetc}/"

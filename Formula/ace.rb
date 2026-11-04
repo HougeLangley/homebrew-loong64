@@ -4,6 +4,12 @@ class Ace < Formula
   url "https://github.com/DOCGroup/ACE_TAO/releases/download/ACE%2BTAO-8_0_8/ACE+TAO-8.0.8.tar.bz2"
   sha256 "d7b1d3e1534095b0a627817f4472eed1cc27ccf83fd011557031cf073fc7222a"
   license "DOC"
+  bottle do
+    rebuild 2
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "939840a1d83afac7c88bdb5ff4f2edc0f5dcf8dcc458526493fd9521d3b2ecd6"
+  end
+
   compatibility_version 3
 
   livecheck do
@@ -17,11 +23,6 @@ class Ace < Formula
 
   deny_network_access!
 
-  bottle do
-    rebuild 2
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "6913fbc90dd1092138e7a7e6b2d5eeba46a3422bbb68b1a6c0d5becc955e680c"
-  end
 
   def install
     os = OS.mac? ? "macosx" : "linux"
