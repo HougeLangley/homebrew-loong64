@@ -29,6 +29,9 @@ class Dromeaudio < Formula
   depends_on "libvorbis"
 
   def install
+    # libvorbis 的头文件在 include/vorbis/ 下，DromeAudio 直接 #include <vorbisfile.h>
+    ENV.append "CPPFLAGS", "-I#{Formula["libvorbis"].opt_include}/vorbis"
+    ENV.append "CFLAGS", "-I#{Formula["libvorbis"].opt_include}/vorbis"
     # install FindDromeAudio.cmake under share/cmake/Modules/
     inreplace "share/CMakeLists.txt", "${CMAKE_ROOT}", "#{share}/cmake"
 
