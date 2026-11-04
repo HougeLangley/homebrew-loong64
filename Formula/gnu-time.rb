@@ -8,7 +8,7 @@ class GnuTime < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "f0362b36177cf9c988adbe4abbe4a5145fd795b764d14221c931d9a303fe011d"
+    sha256 cellar: :any, loongarch64_linux: "a5f1e95e68098747c8e74e930f95a47e0e53e2095bd0b2f06a7ad948dc6aa4ce"
   end
 
 
