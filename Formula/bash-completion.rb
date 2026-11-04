@@ -33,7 +33,7 @@ class BashCompletion < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "ef8a3b4a2ea57a09090414423c02aee73a8dc6fc171dd62cb05bba00c113dac9"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "a5b56b0163b30e651248ee7f7c3c137a05103d91dca945b5903e59e3d289aa95"
   end
 
   def install
