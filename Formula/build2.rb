@@ -1,0 +1,100 @@
+class Build2 < Formula
+  desc "C/C++ Build Toolchain"
+  homepage "https://build2.org"
+  url "https://download.build2.org/0.18.1/build2-toolchain-0.18.1.tar.xz"
+  sha256 "a5f3eab9d4522bc22704899593dd6c7013349a1b8c37278c8b2321073e25ff16"
+  license "MIT"
+
+  livecheck do
+    url "https://download.build2.org/toolchain.sha256"
+    regex(/^# (\d+\.\d+\.\d+)(?:\+\d+)?$/i)
+  end
+
+
+  uses_from_macos "curl"
+  uses_from_macos "openssl"
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "dd5b1ab5f1e4ac9ffe59c5510b93b0127a62c3f5ba680d7546c1fcf331fbd169"
+  end
+
+  def install
+    # Suppress loading of default options files.
+    ENV["BUILD2_DEF_OPT"] = "0"
+
+    # Disable the fetch cache since it doesn't buy us much. Moreover, not
+    # doing so may mess up the user's cache by migrating its database schema
+    # before the toolchain is even installed. Note that while we currently
+    # don't run bpkg during installation, let's keep this in case we ever run
+    # it.
+    ENV["BPKG_FETCH_CACHE"] = "0"
+
+    # Note that we disable all warnings since we cannot do anything more
+    # granular during bootstrap stage 1.
+    chdir "build2" do
+      system "make", "-f", "./bootstrap.gmake", "CXXFLAGS=-w"
+
+      system "b/b-boot", "-v",
+             "-j", ENV.make_jobs,
+             "config.build2_toolchain.build.readonly=true",
+             "config.cxx=#{ENV.cxx}",
+             "config.bin.lib=static",
+             "b/exe{b}"
+      mv "b/b", "b/b-boot"
+    end
+
+    # Note that while Homebrew's clang wrapper will strip any optimization
+    # options, we still want to pass them since they will also be included
+    # into the ~host and ~build2 configurations that will be used to build
+    # build-time dependencies and build system modules, respectively, when
+    # the user uses actual clang.
+    system "build2/b/b-boot", "-V",
+           "config.build2_toolchain.build.readonly=true",
+           "config.cxx=#{ENV.cxx}",
+           "config.cc.coptions=-O3",
+           "config.bin.lib=shared",
+           "config.bin.rpath='#{rpath}'",
+           "config.install.root=#{prefix}",
+           "configure"
+
+    system "build2/b/b-boot", "-v",
+           "-j", ENV.make_jobs,
+           "install:", "build2/", "bpkg/", "bdep/"
+
+    ENV.prepend_path "PATH", bin
+
+    system "b", "-v",
+           "-j", ENV.make_jobs,
+           "install:", *Dir["libbuild2-*/"]
+  end
+
+  test do
+    # Suppress loading of default options files.
+    ENV["BUILD2_DEF_OPT"] = "0"
+    ENV["BPKG_DEF_OPT"] = "0"
+    ENV["BDEP_DEF_OPT"] = "0"
+
+    # Disable the fetch cache.
+    ENV["BPKG_FETCH_CACHE"] = "0"
+
+    # Only match the major and minor version numbers since the patch number
+    # may differ. For that, convert the version string to the
+    # '<major>\.<minor>\.\d+' regular expression.
+    vre = version.to_s.sub(/^(\d+)\.(\d+)\.\d+$/, '\1\.\2\.\d+')
+
+    assert_match(/^build2 #{vre}$/, shell_output("#{bin}/b --version"))
+    assert_match(/^build2 #{vre}$/, shell_output("#{bin}/bx --version"))
+    assert_match(/^bpkg #{vre}$/, shell_output("#{bin}/bpkg --version"))
+    assert_match(/^bdep #{vre}$/, shell_output("#{bin}/bdep --version"))
+
+    system bin/"bdep", "new", "--type=lib,no-version", "--lang=c++", "libhello"
+    (testpath/"libhello/build/root.build").append_lines("using autoconf")
+    chdir "libhello" do
+      assert_match "project: libhello", shell_output("#{bin}/b info")
+      system bin/"bdep", "init", "--config-create", "@default", "cc"
+      system bin/"b", "test"
+      system bin/"b", "-V", "noop:", "libhello/" # Show configuration report.
+    end
+  end
+end

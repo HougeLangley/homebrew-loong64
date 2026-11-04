@@ -1,0 +1,34 @@
+class Pawk < Formula
+  include Language::Python::Shebang
+
+  desc "Python line processor (like AWK)"
+  homepage "https://github.com/alecthomas/pawk"
+  url "https://files.pythonhosted.org/packages/6c/90/2165e9fedd33ac172899aa3df6754971d720bf07eef2a0b049db15a7ad69/pawk-0.8.1.tar.gz"
+  sha256 "59ec1a4046cf545e1376c8c0a28f5f178a3b88dbc85fb3772aa3ce8c2e088349"
+  license "MIT"
+
+
+  uses_from_macos "python"
+
+  bottle do
+    rebuild 1
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "1e79f4c2571bcd3805ca1565df00382846d2e4da9c951539173d155f716b11c9"
+  end
+
+  def install
+    rewrite_shebang detected_python_shebang(use_python_from_path: true), "pawk.py"
+    bin.install "pawk.py" => "pawk"
+  end
+
+  test do
+    elements = <<~EOS
+      # Name Symbol
+      Hydrogen  H
+      Helium    He
+      Lithium   Li
+    EOS
+    output = pipe_output("#{bin}/pawk -B 'd={}' -E 'json.dumps(d)' '!/^#/ d[f[1]] = f[0]'", elements, 0)
+    assert_equal '{"H": "Hydrogen", "He": "Helium", "Li": "Lithium"}', output.strip
+  end
+end

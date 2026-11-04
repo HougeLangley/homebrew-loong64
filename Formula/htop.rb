@@ -1,15 +1,56 @@
 class Htop < Formula
-  desc "Interactive process viewer"
-  homepage "https://example.org/htop"
-  version "3.5.3"
-  url "http://127.0.0.1:8080/brew/bottles/htop--3.5.3.loongarch64.bottle.tar.gz"
-  sha256 "e4d635c5d83b4c11e0a88632ee0202e31b7f9c549181d694f42df6de2ef476f7"
+  desc "Improved top (interactive process viewer)"
+  homepage "https://htop.dev/"
+  url "https://github.com/htop-dev/htop/releases/download/3.5.3/htop-3.5.3.tar.xz"
+  sha256 "a8b164386494cb85bb255a415a3f5f80afe7a0c4491da5d113b3a0f951087e65"
+  license "GPL-2.0-or-later"
+
+  livecheck do
+    url :stable
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+  end
+
+
+  head do
+    url "https://github.com/htop-dev/htop.git", branch: "main"
+
+    depends_on "autoconf" => :build
+    depends_on "automake" => :build
+    depends_on "libtool" => :build
+  end
+
+  bottle do
+    rebuild 1
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "d3962c8157756d2e4b39d069fddb9cc4559b0b403efb8fa2610bad7962c93da0"
+  end
+
+  depends_on "pkgconf" => :build
+  depends_on "ncurses" # enables mouse scroll
+
+  on_linux do
+    depends_on "lm-sensors"
+  end
+
+  deny_network_access!
 
   def install
-    bin.install "htop"
+    system "./autogen.sh" if build.head?
+    args = ["--prefix=#{prefix}"]
+    args << "--enable-sensors" if OS.linux?
+    system "./configure", *args
+    system "make", "install"
+  end
+
+  def caveats
+    <<~EOS
+      htop requires root privileges to correctly display all running processes,
+      so you will need to run `sudo htop`.
+      You should be certain that you trust any software you grant root privileges.
+    EOS
   end
 
   test do
-    system "#{bin}/htop"
+    pipe_output(bin/"htop", "q", 0)
   end
 end

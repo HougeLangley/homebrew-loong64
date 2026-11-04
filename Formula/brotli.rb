@@ -1,0 +1,48 @@
+class Brotli < Formula
+  desc "Generic-purpose lossless compression algorithm by Google"
+  homepage "https://github.com/google/brotli"
+  url "https://github.com/google/brotli/archive/refs/tags/v1.2.1.tar.gz"
+  mirror "http://fresh-center.net/linux/misc/brotli-1.2.1.tar.gz"
+  mirror "http://fresh-center.net/linux/misc/legacy/brotli-1.2.1.tar.gz"
+  sha256 "98d35d11a78dc453aebb7d10c3748f3f73ff78c8267c0dc697b8631f67bf7e8f"
+  license "MIT"
+  compatibility_version 1
+  head "https://github.com/google/brotli.git", branch: "master"
+
+  livecheck do
+    url :stable
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+  end
+
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "1e82223cf48cb1016e26ee5444c91f76ab82a3bf3ae49a69bfb311129a2a7c3a"
+  end
+
+  patch do
+    url "https://homebrewloongarch64.site/brew-patches/brotli.patch"
+    sha256 "d6c6a8998c27c1e1db68273330bdf280c02c8aa07489635e37c20eb140dae9ba"
+  end
+
+  depends_on "cmake" => :build
+
+  deny_network_access!
+
+  def install
+    system "cmake", "-S", ".", "-B", "build", "-DCMAKE_INSTALL_RPATH=#{rpath}", *std_cmake_args
+    system "cmake", "--build", "build", "--verbose"
+    system "ctest", "--test-dir", "build", "--verbose"
+    system "cmake", "--install", "build"
+    system "cmake", "-S", ".", "-B", "build-static", "-DBUILD_SHARED_LIBS=OFF", *std_cmake_args
+    system "cmake", "--build", "build-static"
+    lib.install buildpath.glob("build-static/*.a")
+  end
+
+  test do
+    (testpath/"file.txt").write("Hello, World!")
+    system bin/"brotli", "file.txt", "file.txt.br"
+    system bin/"brotli", "file.txt.br", "--output=out.txt", "--decompress"
+    assert_equal (testpath/"file.txt").read, (testpath/"out.txt").read
+  end
+end

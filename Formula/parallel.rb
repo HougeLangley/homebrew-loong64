@@ -1,0 +1,52 @@
+class Parallel < Formula
+  desc "Shell command parallelization utility"
+  homepage "https://savannah.gnu.org/projects/parallel/"
+  url "https://ftpmirror.gnu.org/parallel/parallel-20260922.tar.bz2"
+  mirror "https://ftp.gnu.org/gnu/parallel/parallel-20260922.tar.bz2"
+  sha256 "54837e9e8c16134a3c2e95f91c5fe2f7893d4cc89f252b26735713ceca866387"
+  license "GPL-3.0-or-later"
+  version_scheme 1
+  head "https://git.savannah.gnu.org/git/parallel.git", branch: "master"
+
+  livecheck do
+    url :homepage
+    regex(/GNU Parallel v?(\d{6,8}).*? released/i)
+  end
+
+  bottle do
+    sha256 cellar: :any_skip_relocation, all: "c567cf1575436e70f7380593d5f1d94d3a64a2be7a59531b42345dd8df102008"
+  end
+
+  conflicts_with "moreutils", because: "both install a `parallel` executable"
+
+  deny_network_access!
+
+  def install
+    # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
+    %w[config.sub config.guess].each do |cf|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+        src = "/usr/share/libtool/build-aux/#{cf}"
+        cp src, dest if File.exist?(dest) && File.exist?(src)
+      end
+    end
+
+    ENV.append_path "PATH", bin
+
+    system "./configure", "--build=loongarch64-unknown-linux-gnu", "--prefix=#{prefix}"
+    system "make", "install"
+    bash_completion.install share/"bash-completion/completions/parallel"
+  end
+
+  def caveats
+    <<~EOS
+      To use the --csv option, the Perl Text::CSV module has to be installed.
+      You can install it via:
+        perl -MCPAN -e'install Text::CSV'
+    EOS
+  end
+
+  test do
+    assert_equal "test\ntest\n",
+                 shell_output("#{bin}/parallel --will-cite echo ::: test test")
+  end
+end

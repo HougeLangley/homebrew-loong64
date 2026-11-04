@@ -1,0 +1,28 @@
+class BashUnit < Formula
+  desc "Bash unit testing enterprise edition framework for professionals"
+  homepage "https://github.com/bash-unit/bash_unit"
+  url "https://github.com/bash-unit/bash_unit/archive/refs/tags/v2.3.3.tar.gz"
+  sha256 "a2f76ddca88e2bef7c628c8cac6bf68b93a388fce143f6a4dc770fe1b3584307"
+  license "GPL-3.0-only"
+
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "fb84a8cec65ddbb45c71792bf7ad9685737b612e667dadea1064a61981886baa"
+  end
+
+  def install
+    bin.install "bash_unit"
+    man1.install "docs/man/man1/bash_unit.1"
+  end
+
+  test do
+    (testpath/"test.sh").write <<~SHELL
+      test_addition() {
+        RES="$((2+2))"
+        assert_equals "${RES}" "4"
+      }
+    SHELL
+    assert "addition", shell_output("#{bin}/bash_unit test.sh")
+  end
+end

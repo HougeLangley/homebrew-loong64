@@ -1,0 +1,30 @@
+class Trimal < Formula
+  desc "Automated alignment trimming in large-scale phylogenetic analyses"
+  homepage "https://trimal.readthedocs.io/"
+  url "https://github.com/inab/trimal/archive/refs/tags/v1.5.1.tar.gz"
+  sha256 "58751054861b152e92214ff8c01a132071230614e8e777a7c9280d03648cde3b"
+  license "GPL-3.0-only"
+  head "https://github.com/inab/trimal.git", branch: "trimAl"
+
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "2b6ddb12e668aa190c6cd3a51851b5bf24f6c3ea33fae90deb0dd611470930aa"
+  end
+
+  def install
+    cd "source" do
+      system "make"
+      bin.install "readal", "trimal", "statal"
+    end
+  end
+
+  test do
+    (testpath/"test.fasta").write <<~FASTA
+      >U00096.2:1-70
+      AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC
+    FASTA
+    system bin/"trimal", "-in", "test.fasta", "-out", "out.fasta"
+    assert_path_exists "out.fasta"
+  end
+end

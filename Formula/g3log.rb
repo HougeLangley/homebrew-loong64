@@ -1,0 +1,44 @@
+class G3log < Formula
+  desc "Asynchronous, 'crash safe', logger that is easy to use"
+  homepage "https://github.com/KjellKod/g3log"
+  url "https://github.com/KjellKod/g3log/archive/refs/tags/2.6.2.tar.gz"
+  sha256 "def0e36d3e4a4382f73c3e28949cb2506ee53952c2d209dd1584f4de71880f57"
+  license "Unlicense"
+
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "3c92e01df30a2fd4e0d16ab92a9b533119900acc73733882038cd3d1bd4d9306"
+  end
+
+  depends_on "cmake" => :build
+
+  deny_network_access!
+
+  def install
+    system "cmake", "-S", ".", "-B", "build", "-DADD_G3LOG_UNIT_TEST=OFF", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
+  end
+
+  test do
+    (testpath/"test.cpp").write <<~CPP
+      #include <g3log/g3log.hpp>
+      #include <g3log/logworker.hpp>
+      int main()
+      {
+        auto worker = g3::LogWorker::createLogWorker();
+        worker->addDefaultLogger("test", "#{testpath}");
+        g3::initializeLogging(worker.get());
+        LOG(DEBUG) << "Hello World";
+        return 0;
+      }
+    CPP
+    system ENV.cxx, "-std=c++17", "test.cpp", "-L#{lib}", "-lg3log", "-o", "test"
+    system "./test"
+
+    log = testpath.glob("test.g3log.*.log").first
+    refute_nil log, "Expected log file"
+    assert_match "\tDEBUG [test.cpp->main:8]\tHello World\n", log.read
+  end
+end

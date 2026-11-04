@@ -1,15 +1,63 @@
 class Mtr < Formula
-  desc "Network diagnostic tool (traceroute + ping)"
-  homepage "https://example.org/mtr"
-  version "0.96"
-  url "http://127.0.0.1:8080/brew/bottles/mtr--0.96.loongarch64.bottle.tar.gz"
-  sha256 "6606186e4f3a69ab6d03c3247cba1fd9983b55a4fe5453b69af007bde73dac55"
+  desc "'traceroute' and 'ping' in a single tool"
+  homepage "https://www.bitwizard.nl/mtr/"
+  url "https://github.com/traviscross/mtr/archive/refs/tags/v0.96.tar.gz"
+  sha256 "73e6aef3fb6c8b482acb5b5e2b8fa7794045c4f2420276f035ce76c5beae632d"
+  # Main license is GPL-2.0-only but some compatibility code is under other licenses:
+  # 1. portability/queue.h is BSD-3-Clause
+  # 2. portability/error.* is LGPL-2.0-only (only used on macOS)
+  # 3. portability/getopt.* is omitted as unused
+  license all_of: ["GPL-2.0-only", "BSD-3-Clause", "LGPL-2.0-only"]
+  compatibility_version 1
+  head "https://github.com/traviscross/mtr.git", branch: "master"
+
+
+  bottle do
+    rebuild 1
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "3c22b4eb6e7d03684462a7681b0c71b8a74f97b9b0d6bacefe377e5dec342e2c"
+  end
+
+  depends_on "autoconf" => :build
+  depends_on "automake" => :build
+  depends_on "pkgconf" => :build
+  depends_on "jansson"
 
   def install
-    bin.install "mtr"
+    # Fix UNKNOWN version reported by `mtr --version`.
+    inreplace "configure.ac",
+              "m4_esyscmd([build-aux/git-version-gen .tarball-version])",
+              version.to_s
+
+    args = %W[
+      --disable-silent-rules
+      --without-glib
+      --without-gtk
+      --with-bashcompletiondir=#{bash_completion}
+    ]
+    system "./bootstrap.sh"
+    system "./configure", *args, *std_configure_args
+    system "make", "install"
+  end
+
+  def caveats
+    <<~EOS
+      mtr requires root privileges so you will need to run `sudo mtr`.
+      You should be certain that you trust any software you grant root privileges.
+    EOS
   end
 
   test do
-    system "#{bin}/mtr"
+    # We patch generation of the version, so let's check that we did that properly.
+    assert_match "mtr #{version}", shell_output("#{sbin}/mtr --version")
+    if OS.mac?
+      # mtr will not run without root privileges
+      assert_match "Failure to open", shell_output("#{sbin}/mtr google.com 2>&1", 1)
+      assert_match "Failure to open", shell_output("#{sbin}/mtr --json google.com 2>&1", 1)
+    else
+      # mtr runs but won't produce useful output without extra privileges
+      assert_match "2.|-- ???", shell_output("#{sbin}/mtr google.com 2>&1")
+      assert_match '"dst": "google.com"', shell_output("#{sbin}/mtr --json google.com 2>&1")
+    end
   end
 end

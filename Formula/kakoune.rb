@@ -1,0 +1,45 @@
+class Kakoune < Formula
+  desc "Selection-based modal text editor"
+  homepage "https://github.com/mawww/kakoune"
+  url "https://github.com/mawww/kakoune/releases/download/v2026.05.21/kakoune-2026.05.21.tar.bz2"
+  sha256 "be1deb3fe9808a0733ab1057309da380bb757307e8fdbb22dc478b674b6bad34"
+  license "Unlicense"
+  head "https://github.com/mawww/kakoune.git", branch: "master"
+
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
+
+  on_linux do
+    depends_on "binutils" => :build
+  end
+
+  fails_with :clang do
+    build 1200
+    cause "Requires C++20"
+  end
+
+  # See <https://github.com/mawww/kakoune/blob/v2022.10.31/README.asciidoc#building>
+  fails_with :gcc do
+    version "10.2"
+    cause "Requires GCC >= 10.3"
+  end
+
+  bottle do
+    rebuild 2
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "96fbc367303a180f5c3c4d0fe3d0a87a964dfb710ffc99181866f21318b87eaa"
+  end
+
+  def install
+    system "make", "install", "debug=no", "PREFIX=#{prefix}"
+  end
+
+  test do
+    system bin/"kak", "-ui", "dummy", "-e", "q"
+
+    assert_match version.to_s, shell_output("#{bin}/kak -version")
+  end
+end

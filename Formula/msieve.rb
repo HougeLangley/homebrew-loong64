@@ -1,0 +1,76 @@
+class Msieve < Formula
+  desc "C library for factoring large integers"
+  homepage "https://sourceforge.net/projects/msieve/"
+  url "https://downloads.sourceforge.net/project/msieve/msieve/Msieve%20v1.53/msieve153_src.tar.gz"
+  sha256 "c5fcbaaff266a43aa8bca55239d5b087d3e3f138d1a95d75b776c04ce4d93bb4"
+  license :public_domain
+
+  livecheck do
+    url :stable
+    regex(%r{url=.*?/Msieve%20v?(\d+(?:\.\d+)+)/}i)
+  end
+
+  bottle do
+    rebuild 1
+    sha256 cellar: :any,                 arm64_golden_gate: "851cc3fa44a545820ec049816d0c8a0dc4cd0fc4f9c4b5bacca156c5cb6642e0"
+    sha256 cellar: :any,                 arm64_tahoe:       "7e5d447bbc245a2b91d8993937c87c8e559678ebd68f972905d6c11e0d2b29bf"
+    sha256 cellar: :any,                 arm64_sequoia:     "73413cbe23c21e464017e6abe5b7b10bf2e3e384e2e23f51dceef0be7bddc051"
+    sha256 cellar: :any,                 arm64_sonoma:      "b35f5ce318727e40a0c2d540707475a883853effa8ea4c5214dec80f776b15ed"
+    sha256 cellar: :any,                 sonoma:            "ca06f592fd7bc5ab600f422c05facec833296457fc5b9f511d80eae85b9537f3"
+    sha256 cellar: :any_skip_relocation, arm64_linux:       "5f469949e04536f662b6f3d7f8a4afdded9af65d7f4feefcb7fd9670dd92f3e0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:      "00366a1231d99d1ecb28d24e714467b1a5f4437504934d882fcb64fc35338ee5"
+  end
+
+  depends_on "gmp"
+
+  on_linux do
+    depends_on "zlib-ng-compat"
+  end
+
+  def install
+    # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
+    %w[conf-cc conf-cxx].each do |cf|
+      next unless File.exist?(cf)
+      _c = File.read(cf).strip
+      File.write(cf, _c + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types\n") unless _c.include?("gnu17")
+    end
+    # cc 命令改写（Makefile 里写死 cc 而非 $(CC) 时）
+    Dir["Makefile", "**/Makefile", "**/GNUmakefile", "**/Makefile.*"].each do |mkf|
+      next unless File.exist?(mkf)
+      _m = File.read(mkf)
+      _m = _m.gsub(/^(	| {0,4})(cc|gcc)([ 	])/) { "#{$1}$(CC)#{$3}" }
+      File.write(mkf, _m)
+    end
+    # CMake 标志追加
+    _cmflags = ["-DCMAKE_C_FLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "-DCMAKE_CXX_FLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"].freeze
+    # ENV.cc 追加
+    _extra = "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types".split
+    Dir["Makefile", "GNUmakefile", "makefile", "src/Makefile"].each do |mkf|
+      next unless File.exist?(mkf)
+      _m = File.read(mkf)
+      _m = _m.gsub(/-std=(c|gnu)(89|99|11|17|2x)/, "")
+      File.write(mkf, _m)
+    end
+    # Makefile 里面追加（硬编码 CFLAGS 时 ENV 追加不生效）
+    Dir["Makefile", "GNUmakefile", "makefile", "**/Makefile", "**/GNUmakefile", "**/makefile", "**/Makefile.*"].each do |mkf|
+      next unless File.exist?(mkf)
+      _m = File.read(mkf)
+      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types" }
+      File.write(mkf, _m)
+    end
+    # CFLAGS 里面追加（configure 硬编码时 ENV 追加不生效）
+    if File.exist?("configure")
+      _cfg = File.read("configure")
+      _cfg = _cfg.gsub(/^CFLAGS="([^"]*)"/) { 'CFLAGS="' + $1 + ' -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types' }
+      File.write("configure", _cfg)
+    end
+    ENV.append_to_cflags "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"
+    ENV.append "MACHINE_FLAGS", "-include sys/time.h"
+    system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "all"
+    bin.install "msieve"
+  end
+
+  test do
+    assert_match "20\np1: 2\np1: 2\np1: 5", shell_output("#{bin}/msieve -q 20")
+  end
+end

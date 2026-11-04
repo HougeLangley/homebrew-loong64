@@ -1,0 +1,31 @@
+class Desk < Formula
+  desc "Lightweight workspace manager for the shell"
+  homepage "https://github.com/jamesob/desk"
+  url "https://github.com/jamesob/desk/archive/refs/tags/v0.6.0.tar.gz"
+  sha256 "620bfba5b285d4d445e3ff9e399864063d7b0e500ef9c70d887fb7b157576c45"
+  license "MIT"
+
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "90aef84c8c68e18d9931b2a90e91c12a73c2aab57718fbdce1ddacbe80f8c4ad"
+  end
+
+  def install
+    bin.install "desk"
+    bash_completion.install "shell_plugins/bash/desk"
+    zsh_completion.install "shell_plugins/zsh/_desk"
+    fish_completion.install "shell_plugins/fish/desk.fish"
+  end
+
+  test do
+    (testpath/".desk/desks/test-desk.sh").write <<~SHELL
+      #
+      # Description: A test desk
+      #
+    SHELL
+    list = pipe_output("#{bin}/desk list")
+    assert_match "test-desk", list
+    assert_match "A test desk", list
+  end
+end

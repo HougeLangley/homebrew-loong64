@@ -1,15 +1,22 @@
 class Goto < Formula
-  desc "Easy to use terminal SSH manager with advanced features. Binaries included! 😉"
-  homepage "https://example.org/goto"
-  version "1.6.1"
-  url "http://127.0.0.1:8080/brew/bottles/goto--1.6.1.loongarch64.bottle.tar.gz"
-  sha256 "5bbe3c74d6947f943e87346f55f08bcd212414ba8b97ed92b165fd51111b1e2f"
+  desc "Bash tool for navigation to aliased directories with auto-completion"
+  homepage "https://iridakos.com/programming/2019/04/10/shell-navigation-with-autocomplete"
+  url "https://github.com/iridakos/goto/archive/refs/tags/v2.0.0.tar.gz"
+  sha256 "460fe3994455501b50b2f771f999ace77ade295122e90e959084047dbfb1f0dc"
+  license "MIT"
+
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "84e03e4670d271217a823a1dfb918dcca35eac0f047672ded2c211005e6a66fe"
+  end
 
   def install
-    bin.install "goto"
+    bash_completion.install "goto.sh"
   end
 
   test do
-    system "#{bin}/goto"
+    assert_match "-F _complete_goto_bash",
+      shell_output("bash -c 'source #{bash_completion}/goto.sh && complete -p goto'")
   end
 end
