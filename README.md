@@ -1,7 +1,7 @@
 # homebrew-loong64
 
 [![arch](https://img.shields.io/badge/arch-loongarch64-blue)](https://loongson.cn)
-[![packages](https://img.shields.io/badge/packages-2006-brightgreen)](#-可用软件包)
+[![packages](https://img.shields.io/badge/packages-2010-brightgreen)](#-可用软件包)
 [![site](https://img.shields.io/badge/site-homebrewloongarch64.site-0a5)](https://homebrewloongarch64.site)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -146,7 +146,7 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-11-04 11:23 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-11-04 11:34 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
@@ -159,7 +159,7 @@ end
 | **abook** | 0.6.2 | 114 KiB | `bd10eeaa231a` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/abook--0.6.2.loongarch64_linux.bottle.tar.gz) |
 | **abpoa** | 1.5.7 | 123 KiB | `8ccf6ab9cfc7` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/abpoa--1.5.7.loongarch64_linux.bottle.1.tar.gz) |
 | **abseil** | 20260817.0 | 2.3 MiB | `b1a623e1adbd` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/abseil--20260817.0.loongarch64_linux.bottle.2.tar.gz) |
-| **ace** | 8.0.8 | 5.0 MiB | `6913fbc90dd1` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/ace--8.0.8.loongarch64_linux.bottle.1.tar.gz) |
+| **ace** | 8.0.8 | 5.0 MiB | `939840a1d83a` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/ace--8.0.8.loongarch64_linux.bottle.1.tar.gz) |
 | **aces_container** | 1.0.2 | 58 KiB | `0b23e5b0a39b` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aces_container--1.0.2.loongarch64_linux.bottle.1.tar.gz) |
 | **acl** | 2.4.0 | 187 KiB | `2ae7f6a8f50f` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/acl--2.4.0.loongarch64_linux.bottle.1.tar.gz) |
 | **acme** | 0.97 | 114 KiB | `4bdb29791299` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/acme--0.97.loongarch64_linux.bottle.2.tar.gz) |
@@ -211,7 +211,7 @@ end
 | **apr-util** | 1.6.5_1 | 612 KiB | `650e8690586a` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/apr-util--1.6.5_1.loongarch64_linux.bottle.1.tar.gz) |
 | **archivemount** | 1c | 31 KiB | `772263040fcd` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/archivemount--1c.loongarch64_linux.bottle.1.tar.gz) |
 
-> 仅显示前 60 个，共 **2006** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
+> 仅显示前 60 个，共 **2010** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
 
 ## 镜像与加速
 

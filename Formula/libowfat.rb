@@ -7,22 +7,16 @@ class Libowfat < Formula
   license "GPL-2.0-only"
   head ":pserver:cvs:@cvs.fefe.de:/cvs", using: :cvs
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "545cbbaae71d5682d88ac03a2a94c035e5fa6abf8aa92defee6e423d30233655"
+  end
+
   livecheck do
     url :homepage
     regex(/href=.*?libowfat[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "b7adf30d6fb1dc1a586f8b504251c094e7240637c7e44bb29b101367d727d025"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "bc30d254df3bcd360e4f3171d2afc99997cadfec8fd46a90f2c56991677ee87b"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "c3846b7776a5350100cf8a734e0a45fcbe822f53128ab88bce24cfb259b3d27c"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:      "60f9182c837f2b6ff6a79e76e7c4965c717055448b3c2928baf297fd944c3035"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:     "b9f9d4615bb4f889dad22f8b880d2e197a7fb0caa7f48d20acb459ad868635d2"
-    sha256 cellar: :any_skip_relocation, sonoma:            "a0c8d5df1d6c01a6d36098ad87a856d8a223df535e5829ada59ecde849e54bd4"
-    sha256 cellar: :any_skip_relocation, ventura:           "7f442fd43af0708854473e6c97e5da531f8b1605180bc237e815beae3e40cf55"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "17c1d34c4f362a68196eef92ec8d8621a4af98d94e5120a637cca1c987f20bd7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "9033e9d8c499e2a37af9a3b0110206e494306bbc855e7e9d16d3cd3adf291801"
-  end
 
   def install
     # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
@@ -52,7 +46,7 @@ class Libowfat < Formula
     Dir["Makefile", "GNUmakefile", "makefile", "**/Makefile", "**/GNUmakefile", "**/makefile", "**/Makefile.*"].each do |mkf|
       next unless File.exist?(mkf)
       _m = File.read(mkf)
-      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration" }
+      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration " }
       File.write(mkf, _m)
     end
     # CFLAGS 里面追加（configure 硬编码时 ENV 追加不生效）
