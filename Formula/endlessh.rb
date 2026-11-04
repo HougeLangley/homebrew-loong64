@@ -8,7 +8,7 @@ class Endlessh < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "2d2d318377d8ff7ab5de50a97b0316d84a88e1627fb1dadb2ae71287e57be785"
+    sha256 cellar: :any, loongarch64_linux: "e7ef7a07b3f1de2b3d891b0a80fc07fbdf18516809c166fab0935c894fdcc9ff"
   end
 
 
