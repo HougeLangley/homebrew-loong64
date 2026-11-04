@@ -8,7 +8,7 @@ class BashCompletion < Formula
   license "GPL-2.0-or-later"
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "43603498a046c5130940c4ce2cb27e3607a8bfc679eb952ba3bca2a2f2a31e4f"
+    sha256 cellar: :any, loongarch64_linux: "eee2d87a5df7b61e4fda20e1982006a4e65ab661393ffe3094faf9c5d679f852"
   end
 
   revision 3

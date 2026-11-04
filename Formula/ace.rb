@@ -7,7 +7,7 @@ class Ace < Formula
   bottle do
     rebuild 2
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "676b8761890a0e5f2b5a334f056e0ab0f25fcb9cb8ecad253dd019d3f6e83709"
+    sha256 cellar: :any, loongarch64_linux: "e685e219e5a58450eec5936ad7c8af3c3291c2ad9efbc36bf7807b8cfadb7cf7"
   end
 
   compatibility_version 3
