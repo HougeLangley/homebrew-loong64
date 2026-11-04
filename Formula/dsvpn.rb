@@ -8,7 +8,7 @@ class Dsvpn < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "a10b9c6cc36db1e84a8608b7305ad072de877c280b496cbe880825bb90232e69"
+    sha256 cellar: :any, loongarch64_linux: "77ed91f92c00632cd642f8151c4aa502aa993b3affd6dac16c9fdb8c70f37b58"
   end
 
 
