@@ -146,7 +146,7 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-11-04 21:04 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-11-04 21:14 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
@@ -159,7 +159,7 @@ end
 | **abook** | 0.6.2 | 114 KiB | `bd10eeaa231a` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/abook--0.6.2.loongarch64_linux.bottle.tar.gz) |
 | **abpoa** | 1.5.7 | 123 KiB | `8ccf6ab9cfc7` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/abpoa--1.5.7.loongarch64_linux.bottle.1.tar.gz) |
 | **abseil** | 20260817.0 | 2.3 MiB | `b1a623e1adbd` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/abseil--20260817.0.loongarch64_linux.bottle.2.tar.gz) |
-| **ace** | 8.0.8 | 5.0 MiB | `8857b8de146f` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/ace--8.0.8.loongarch64_linux.bottle.1.tar.gz) |
+| **ace** | 8.0.8 | 5.0 MiB | `9f9222623999` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/ace--8.0.8.loongarch64_linux.bottle.1.tar.gz) |
 | **aces_container** | 1.0.2 | 58 KiB | `0b23e5b0a39b` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aces_container--1.0.2.loongarch64_linux.bottle.1.tar.gz) |
 | **acl** | 2.4.0 | 187 KiB | `2ae7f6a8f50f` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/acl--2.4.0.loongarch64_linux.bottle.1.tar.gz) |
 | **acme** | 0.97 | 114 KiB | `4bdb29791299` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/acme--0.97.loongarch64_linux.bottle.2.tar.gz) |
