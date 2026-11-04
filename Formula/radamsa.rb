@@ -5,6 +5,11 @@ class Radamsa < Formula
   sha256 "d9a6981be276cd8dfc02a701829631c5a882451f32c202b73664068d56f622a2"
   license "MIT"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "bc9f610128bdcb1cf1d98793e4e16b2bc02fcb02f1a2496eb6e33efacd7d5721"
+  end
+
 
   # https://gitlab.com/akihe/radamsa/-/blob/v#{version}/Makefile?ref_type=tags#L7
   resource "ol.c" do
@@ -18,10 +23,6 @@ class Radamsa < Formula
     end
   end
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "26f7bc5dbb03ed21dbc15cf66aff482a6450b1b6afb20940da134af502d9e15a"
-  end
 
   def install
     resource("ol.c").stage { buildpath.install Dir["*"].first => "ol.c" }
