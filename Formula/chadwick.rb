@@ -7,7 +7,7 @@ class Chadwick < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "14653c3fddd19e6a8931811f755228c0e33f477a4706ab0e95758a28bca6977e"
+    sha256 cellar: :any, loongarch64_linux: "7c2a32617dbf6dc61884d9afbbd090b58786c7f5dfed331e74283c3326d60f79"
   end
 
   livecheck do
