@@ -8,7 +8,7 @@ class Bsdconv < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "43ec43b1e59ce82939605e3bb8278f27bc064be648da098ba1b42ef89290434c"
+    sha256 cellar: :any, loongarch64_linux: "72a2086b3c424160b4748835c1a5e692c42bb842bf6d4f1377333d854d5e23ba"
   end
 
 
