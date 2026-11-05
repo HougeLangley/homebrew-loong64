@@ -36,23 +36,29 @@ class Ronn < Formula
   # Accept the array `template_path` returned by mustache 1.1.3 and later
   patch :DATA
 
+  resource "hpricot" do
+    url "https://rubygems.org/downloads/hpricot-0.8.6.gem"
+    sha256 "dfe8f4b3414ba8377d7626030f3aa605caadee9de87cffbeadf8a50359eac8ca"
+  end
+
   def install
     ENV["GEM_HOME"] = libexec
 
     # hpricot 0.8.6 predates Ruby 4's strict callback prototypes. Patch its
     # rescue callback and pass the compatibility flag directly to extconf;
     # Homebrew's generic CFLAGS do not reach this nested gem installation.
-    system "gem", "fetch", "hpricot", "-v", "0.8.6"
-    system "gem", "unpack", "hpricot-0.8.6.gem"
-    inreplace "hpricot-0.8.6/ext/fast_xs/fast_xs.c",
-              "static VALUE unpack_uchar(VALUE self)\n{",
-              "static VALUE unpack_uchar(VALUE self, VALUE exc)\n{\n\t(void)exc;"
-    cd "hpricot-0.8.6" do
-      system "ruby", "-rrubygems/package", "-e",
-             's = Gem::Package.new("../hpricot-0.8.6.gem").spec; File.write("hpricot.gemspec", s.to_ruby)'
-      system "gem", "build", "hpricot.gemspec"
-      system "gem", "install", "--local", "--no-document", "hpricot-0.8.6.gem", "--",
-             "--with-cflags=-Wno-error=incompatible-pointer-types"
+    resource("hpricot").stage do
+      system "gem", "unpack", "hpricot-0.8.6.gem"
+      inreplace "hpricot-0.8.6/ext/fast_xs/fast_xs.c",
+                "static VALUE unpack_uchar(VALUE self)\n{",
+                "static VALUE unpack_uchar(VALUE self, VALUE exc)\n{\n\t(void)exc;"
+      cd "hpricot-0.8.6" do
+        system "ruby", "-rrubygems/package", "-e",
+               's = Gem::Package.new("../hpricot-0.8.6.gem").spec; File.write("hpricot.gemspec", s.to_ruby)'
+        system "gem", "build", "hpricot.gemspec"
+        system "gem", "install", "--local", "--no-document", "hpricot-0.8.6.gem", "--",
+               "--with-cflags=-Wno-error=incompatible-pointer-types"
+      end
     end
 
     system "gem", "build", "ronn.gemspec"
