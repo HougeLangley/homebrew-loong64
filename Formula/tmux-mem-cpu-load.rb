@@ -4,13 +4,14 @@ class TmuxMemCpuLoad < Formula
   url "https://github.com/thewtex/tmux-mem-cpu-load/archive/refs/tags/v3.8.3.tar.gz"
   sha256 "ea7a24802d6d1223831f749e68ef29c07c9c5e45dff570022f844ce37eb56c85"
   license "Apache-2.0"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "a08c5624d5f332870d6dbe8aa5e8c0a5fe7e3139f4c5b6ff9e3638f4f6d4a548"
+  end
+
   head "https://github.com/thewtex/tmux-mem-cpu-load.git", branch: "master"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "18e1045d3b3a697887b305ddcb3832ca160c4a5be4165ec16f144ed8d3419f41"
-  end
 
   depends_on "cmake" => :build
 
