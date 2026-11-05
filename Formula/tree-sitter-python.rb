@@ -5,6 +5,12 @@ class TreeSitterPython < Formula
   sha256 "7bce887eb2f33e94bf74a69645cf5138d4096720e54fd3269a6124c06b93c584"
   license "MIT"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "e8af2746e18c844c36209b4fb00e1182bbcec3d10562ef4924cbd4a07cc3d338"
+  end
+
+
 
   depends_on "tree-sitter" => :test
 

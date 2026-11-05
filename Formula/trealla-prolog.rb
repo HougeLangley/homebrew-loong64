@@ -4,6 +4,11 @@ class TreallaProlog < Formula
   url "https://github.com/trealla-prolog/trealla-prolog/archive/refs/tags/v3.14.10.tar.gz"
   sha256 "cd9cd85ebbb0d26003dc1ab7951802b9913c8ca2e57a7ba5abe53bc659f1ed92"
   license "MIT"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "dcc81dcf2ddbc68d6425ae41f49e6cfc57fa2074449eb0a95908a66d86cfa0b7"
+  end
+
   head "https://github.com/trealla-prolog/trealla-prolog.git", branch: "main"
 
   livecheck do
@@ -11,10 +16,6 @@ class TreallaProlog < Formula
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "85af776bb49869421caf57b0418af1f1311f6387025206e78c3a0319431842b5"
-  end
 
   depends_on "openssl@4"
 
