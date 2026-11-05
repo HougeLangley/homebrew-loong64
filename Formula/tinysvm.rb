@@ -6,26 +6,16 @@ class Tinysvm < Formula
   sha256 "e377f7ede3e022247da31774a4f75f3595ce768bc1afe3de9fc8e962242c7ab8"
   license "LGPL-2.1-or-later"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "bc2fccc02589ab36bd0fea4e3735fe621bddbeb2de8fe9af3b1bdade49a3649f"
+  end
+
   livecheck do
     url :homepage
     regex(/href=.*?TinySVM[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "12c8b0663ab9ad8523195fe0e567559e17648e9e462386ab9fb9a61f04ffc1bf"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "a2eb89bfd1881f7b67dce74b71a07303f8fb67833fb83d269f1a5546ef23250f"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "abf56f8965d9604d945e925ce1d7fe4bb6dfe40a3290f7e60dd7308be6f7e211"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:      "75db20d17ee9a60546200f1a0329d5f9c66ae6f162d7b821ac888a27016bfc79"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:     "9d10346e2bcb343d454ce390ad8388b25b3fd0040e9d0d163cf34db818b3d124"
-    sha256 cellar: :any_skip_relocation, arm64_monterey:    "6c2118088fe8eead47f050a218c6c7c5928f1c127cfebfb6652f845d5fa195fd"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:     "0bc765f1a83890ba72ab3ddd3b7c43d947b4f8e2aaac19807e7703c6ee58158b"
-    sha256 cellar: :any_skip_relocation, sonoma:            "12ea52272fb0b0d6d7a3dbd64037a014c0c8be9c5c1f1d32b1ea89626bb76041"
-    sha256 cellar: :any_skip_relocation, ventura:           "0fed16a29b53d89101342664aed44ff3c3341d012ff02ba3b17de3bec6e5ceda"
-    sha256 cellar: :any_skip_relocation, monterey:          "06e39f32239001cf5191e4896a8c8714c598513769e08129c182f47aa7f47366"
-    sha256 cellar: :any_skip_relocation, big_sur:           "2ead575e862216b468d3f55c0b20789405f25e03667838da0fadeb0bd3931d37"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "b94cad8abff9ac7cd69e6e0946255e477dba4c6038e1ff8609b9ea499c9d5e1e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "8706fa788fd556b7f18b3c1aee12390a933b5eafaa909508304d6992f218e02d"
-  end
 
   # Use correct compilation flag, via MacPorts.
   patch :p0 do
@@ -38,7 +28,7 @@ class Tinysvm < Formula
     %w[conf-cc conf-cxx].each do |cf|
       next unless File.exist?(cf)
       _c = File.read(cf).strip
-      File.write(cf, _c + " -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration\n") unless _c.include?("gnu17")
+      File.write(cf, _c + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types\n") unless _c.include?("gnu17")
     end
     # cc 命令改写（Makefile 里写死 cc 而非 $(CC) 时）
     Dir["Makefile", "**/Makefile", "**/GNUmakefile", "**/Makefile.*"].each do |mkf|
@@ -48,9 +38,9 @@ class Tinysvm < Formula
       File.write(mkf, _m)
     end
     # CMake 标志追加
-    _cmflags = ["-DCMAKE_C_FLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration", "-DCMAKE_CXX_FLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"].freeze
+    _cmflags = ["-DCMAKE_C_FLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "-DCMAKE_CXX_FLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"].freeze
     # ENV.cc 追加
-    _extra = "-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration".split
+    _extra = "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types".split
     Dir["Makefile", "GNUmakefile", "makefile", "src/Makefile"].each do |mkf|
       next unless File.exist?(mkf)
       _m = File.read(mkf)
@@ -61,7 +51,7 @@ class Tinysvm < Formula
     Dir["Makefile", "GNUmakefile", "makefile", "**/Makefile", "**/GNUmakefile", "**/makefile", "**/Makefile.*"].each do |mkf|
       next unless File.exist?(mkf)
       _m = File.read(mkf)
-      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration " }
+      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types " }
       File.write(mkf, _m)
     end
     # 老包自带的 config.sub/config.guess 不认 loongarch64，用系统版本替换
@@ -74,10 +64,10 @@ class Tinysvm < Formula
     # CFLAGS 里面追加（configure 硬编码时 ENV 追加不生效）
     if File.exist?("configure")
       _cfg = File.read("configure")
-      _cfg = _cfg.gsub(/^CFLAGS="([^"\\]*)"/) { 'CFLAGS="' + $1 + ' -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"' }
+      _cfg = _cfg.gsub(/^CFLAGS="([^"\\]*)"/) { 'CFLAGS="' + $1 + ' -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"' }
       File.write("configure", _cfg)
     end
-    ENV.append_to_cflags "-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"
+    ENV.append_to_cflags "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"
     # Needed to select proper getopt, per MacPorts
     ENV.append_to_cflags "-D__GNU_LIBRARY__"
 
@@ -89,7 +79,7 @@ class Tinysvm < Formula
     args << "--host=aarch64-unknown-linux-gnu" if OS.linux? && Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
 
     system "./configure", "--build=loongarch64-unknown-linux-gnu", "--mandir=#{man}", "--disable-shared", *args, *std_configure_args
-    system "make", "CFLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration", "CXXFLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
+    system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
   end
 
   test do
