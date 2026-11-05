@@ -4,12 +4,18 @@ class Unyaffs < Formula
   url "https://deb.debian.org/debian/pool/main/u/unyaffs/unyaffs_0.9.7.orig.tar.gz"
   sha256 "099ee9e51046b83fe8555d7a6284f6fe4fbae96be91404f770443d8129bd8775"
   license "GPL-2.0-only"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "f3c16887ed05d3c693159d9dba0047807e608e386980bb26a24b08ef1832f80f"
+  end
+
   revision 1
 
   livecheck do
     url "https://deb.debian.org/debian/pool/main/u/unyaffs/"
     regex(/href=.*?unyaffs[._-]v?(\d+(?:\.\d+)+)\.orig\.t/i)
   end
+
 
 
   def install
