@@ -37,44 +37,24 @@ class Ronn < Formula
   patch :DATA
 
   def install
-    # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
-    %w[conf-cc conf-cxx].each do |cf|
-      next unless File.exist?(cf)
-      _c = File.read(cf).strip
-      File.write(cf, _c + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types\n") unless _c.include?("gnu17")
-    end
-    # cc 命令改写（Makefile 里写死 cc 而非 $(CC) 时）
-    Dir["Makefile", "**/Makefile", "**/GNUmakefile", "**/Makefile.*"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.gsub(/^(	| {0,4})(cc|gcc)([ 	])/) { "#{$1}$(CC)#{$3}" }
-      File.write(mkf, _m)
-    end
-    # CMake 标志追加
-    _cmflags = ["-DCMAKE_C_FLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "-DCMAKE_CXX_FLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"].freeze
-    # ENV.cc 追加
-    _extra = "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types".split
-    Dir["Makefile", "GNUmakefile", "makefile", "src/Makefile"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.gsub(/-std=(c|gnu)(89|99|11|17|2x)/, "")
-      File.write(mkf, _m)
-    end
-    # Makefile 里面追加（硬编码 CFLAGS 时 ENV 追加不生效）
-    Dir["Makefile", "GNUmakefile", "makefile", "**/Makefile", "**/GNUmakefile", "**/makefile", "**/Makefile.*"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types " }
-      File.write(mkf, _m)
-    end
-    # CFLAGS 里面追加（configure 硬编码时 ENV 追加不生效）
-    if File.exist?("configure")
-      _cfg = File.read("configure")
-      _cfg = _cfg.gsub(/^CFLAGS="([^"]*)"/) { 'CFLAGS="' + $1 + ' -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types' }
-      File.write("configure", _cfg)
-    end
-    ENV.append_to_cflags "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"
     ENV["GEM_HOME"] = libexec
+
+    # hpricot 0.8.6 predates Ruby 4's strict callback prototypes. Patch its
+    # rescue callback and pass the compatibility flag directly to extconf;
+    # Homebrew's generic CFLAGS do not reach this nested gem installation.
+    system "gem", "fetch", "hpricot", "-v", "0.8.6"
+    system "gem", "unpack", "hpricot-0.8.6.gem"
+    inreplace "hpricot-0.8.6/ext/fast_xs/fast_xs.c",
+              "static VALUE unpack_uchar(VALUE self)\n{",
+              "static VALUE unpack_uchar(VALUE self, VALUE exc)\n{\n\t(void)exc;"
+    cd "hpricot-0.8.6" do
+      system "ruby", "-rrubygems/package", "-e",
+             's = Gem::Package.new("../hpricot-0.8.6.gem").spec; File.write("hpricot.gemspec", s.to_ruby)'
+      system "gem", "build", "hpricot.gemspec"
+      system "gem", "install", "--local", "--no-document", "hpricot-0.8.6.gem", "--",
+             "--with-cflags=-Wno-error=incompatible-pointer-types"
+    end
+
     system "gem", "build", "ronn.gemspec"
     system "gem", "install", "ronn-#{version}.gem"
     bin.install libexec/"bin/ronn"

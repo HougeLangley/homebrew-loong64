@@ -4,6 +4,11 @@ class Streamripper < Formula
   url "https://downloads.sourceforge.net/project/streamripper/streamripper%20%28current%29/1.64.6/streamripper-1.64.6.tar.gz"
   sha256 "c1d75f2e9c7b38fd4695be66eff4533395248132f3cc61f375196403c4d8de42"
   license "GPL-2.0-or-later"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "94dce88ccf32dcee59ce0318f52aece9bcd5d29b7ac9c8e8ede893b4cbb18ff5"
+  end
+
   revision 2
 
   livecheck do
@@ -11,18 +16,6 @@ class Streamripper < Formula
     regex(%r{url=.*?/streamripper[._-]v?(\d+(?:\.\d+)+)\.t}i)
   end
 
-  bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_golden_gate: "17bfd81013bb8b7e7c502f89583f4993b6df1bb8635b1d32edf987f3a179e911"
-    sha256 cellar: :any,                 arm64_tahoe:       "f0f900d7d9b50f242d815eb6826684b2e6d2c76f7a3bc58f08ce6f06cd1302aa"
-    sha256 cellar: :any,                 arm64_sequoia:     "6ec682174a122bdb8b6fdae00b16f25ac6a0325c9c6d0dcb930b03679986f34e"
-    sha256 cellar: :any,                 arm64_sonoma:      "fa05b4cc2fe0be48ae3d3ddd929e597a17c35645e0f4609493eb200686da521d"
-    sha256 cellar: :any,                 arm64_ventura:     "e00ae4c681568844df42dc75ee116a92763644a041542480b8224beda1acc35d"
-    sha256 cellar: :any,                 sonoma:            "b193b872eaa4c70fa51fd38c22c378e0143a275a268ddcfcb5721045b2637235"
-    sha256 cellar: :any,                 ventura:           "d5c5fcdcfc5cdb06479e7bbfc95de83614ccdfe67b50d30bfbeb89d8ee46e11b"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "987a8725e3adbfb98f1b5916f7fe4eb5727e61bea35d5265a038473616ceae83"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "0e98a61e5ba076e3a325d7df46e9ec8d90104f15acc1ac302d6307ba984eb053"
-  end
 
   depends_on "pkgconf" => :build
   depends_on "glib"
