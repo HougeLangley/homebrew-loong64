@@ -6,7 +6,7 @@ class BerkeleyDbAT5 < Formula
   license "Sleepycat"
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "3176b6ff29b0b373bc52ff8f299ac40121b709899a5b9a5d4b793f58bb3c4c4b"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "f3dbe434a4a9affaf5278c1915b826bf9cfee22a02037da6e6c393c9607e38b3"
   end
 
   revision 1

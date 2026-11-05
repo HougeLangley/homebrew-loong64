@@ -6,27 +6,16 @@ class T1lib < Formula
   sha256 "821328b5054f7890a0d0cd2f52825270705df3641dbd476d58d17e56ed957b59"
   license "GPL-2.0-only"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "c507a73e9b0b724d83b4b3e09293024b4263b1679967be8adac8cc4b4ab6e711"
+  end
+
   livecheck do
     url "https://www.ibiblio.org/pub/Linux/libs/graphics/"
     regex(/href=.*?t1lib[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    rebuild 2
-    sha256                               arm64_golden_gate: "57c81750cb5074f5de318ff1e6afaf983bdd514981d0844a197756281c4ca131"
-    sha256                               arm64_tahoe:       "8d2eebfeac867815095b36e655608d597e57085aaf03946b961fd50b551ba984"
-    sha256                               arm64_sequoia:     "b13bdc384d062e0a30c75b4ec280865e39273acb787acf872d98a416a5b08ffd"
-    sha256                               arm64_sonoma:      "549b1729a39ffb52fa0a6e733d43f73d371bcbaea936270c5ad22e421c923127"
-    sha256                               arm64_ventura:     "4178a1b4a03a25c8216994221938a31ea77cf68bc4e80e61995d3375423d12f2"
-    sha256                               arm64_monterey:    "015a6d7c251045c97f334922342d56d1ba93a398f32ba4c0b32ce9ef494fa02a"
-    sha256                               arm64_big_sur:     "e9a134358b78dfcbf7d13a6edc7de434eb72981c14ec81d461527b05f2e32b1d"
-    sha256                               sonoma:            "aaa86e53a2f28e3edae8eaad292cbb7beddc1251160bc9d28b7d6ae09e4cae7e"
-    sha256                               ventura:           "54dc8980970a69062fe9eb15c368ad93b5d589fbea5e14766d6c2d22103d3506"
-    sha256                               monterey:          "3989c26968d5f2d39ee4f6677121b3bafc455f7780eeb1394250792535f2392e"
-    sha256                               big_sur:           "297e202327e6968bb7bd6d6ebff52205128189fa91bfc37785d45b4df028d3b6"
-    sha256                               arm64_linux:       "53645a5cb98164213a964a7f5f38412e4ce9290e83d6147cb5d2cdf676354869"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "51b691773063f4f7c0e6cbfa5be259516c77ad7b1c52bb189d045b8056216bf9"
-  end
 
   def install
     # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
@@ -74,6 +63,7 @@ class T1lib < Formula
     end
     ENV.append_to_cflags "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"
     ENV.append "LDFLAGS", "-Wl,-z,max-page-size=16384"
+    ENV.deparallelize
     # Workaround for newer Clang
     ENV.append_to_cflags "-Wno-implicit-int" if DevelopmentTools.clang_build_version >= 1403
 
