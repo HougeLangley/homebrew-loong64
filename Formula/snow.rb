@@ -6,6 +6,11 @@ class Snow < Formula
   sha256 "c0b71aa74ed628d121f81b1cd4ae07c2842c41cfbdf639b50291fc527c213865"
   license "Apache-2.0"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "445fed284bdd8a94157bc60d252602f5ea15636ec7b3781bac60b94c2eaf8eaa"
+  end
+
   livecheck do
     url :homepage
     regex(/href=.*?snow[._-]v?(\d+(?:\.\d+)*)\.t/i)
@@ -13,6 +18,7 @@ class Snow < Formula
 
 
   conflicts_with "snowflake-cli", because: "both install `snow` binaries"
+
 
   def install
     # main.c:180:10: error: call to undeclared library function 'strcmp' with type 'int (const char *, const char *)'

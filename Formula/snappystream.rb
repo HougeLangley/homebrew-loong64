@@ -7,6 +7,12 @@ class Snappystream < Formula
   revision 1
   head "https://github.com/hoxnox/snappystream.git", branch: "master"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "4ca2e4ebfc99aafbf8c0965780f0e2fb17dbb829f5810a67c3509dc544d9b843"
+  end
+
+
 
   depends_on "cmake" => :build
   depends_on "snappy"

@@ -6,11 +6,12 @@ class Spaceship < Formula
   license "MIT"
   head "https://github.com/spaceship-prompt/spaceship-prompt.git", branch: "master"
 
-
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "18ffbc3326452a5fad7d73425dd9c17f94163233435cb960cd3fcd3d6550f5a4"
+    sha256 cellar: :any, loongarch64_linux: "523ff4a5cb8573fa00ccbd5d98c1158672273dbac1a5c2576c75d64d2589fa9e"
   end
+
+
 
   depends_on "zsh-async"
   uses_from_macos "zsh" => :test

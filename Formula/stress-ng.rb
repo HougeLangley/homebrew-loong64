@@ -1,0 +1,45 @@
+class StressNg < Formula
+  desc "Stress test a computer system in various selectable ways"
+  homepage "https://wiki.ubuntu.com/Kernel/Reference/stress-ng"
+  url "https://github.com/ColinIanKing/stress-ng/archive/refs/tags/V0.22.01.tar.gz"
+  sha256 "67e75894da3f634b85992069b0a888893221a77a3db5e3293cdddd0b1c0d4705"
+  license "GPL-2.0-or-later"
+
+  bottle do
+    rebuild 1
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "8ef8f64371778e8fa3f9001e9e6b2d01f2a405ea2a29e4f07450a5edbb541b9f"
+  end
+
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
+
+  uses_from_macos "libxcrypt"
+
+  on_linux do
+    depends_on "acl"
+    depends_on "zlib-ng-compat"
+  end
+
+
+  def install
+    # disable target_clones so no non-baseline (AVX-512) code lands in the bottle
+    ENV.append_to_cflags "-DHAVE_BUILD_SMALL" if Hardware::CPU.intel?
+
+    inreplace "Makefile" do |s|
+      s.gsub! "/usr", prefix
+      s.change_make_var! "BASHDIR", prefix/"etc/bash_completion.d"
+    end
+    system "make"
+    system "make", "install"
+    bash_completion.install "bash-completion/stress-ng"
+  end
+
+  test do
+    output = shell_output("#{bin}/stress-ng -c 1 -t 1 2>&1")
+    assert_match "successful run completed", output
+  end
+end

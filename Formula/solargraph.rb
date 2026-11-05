@@ -1,0 +1,54 @@
+class Solargraph < Formula
+  desc "Ruby language server"
+  homepage "https://solargraph.org"
+  # Must be git, because solargraph.gemspec uses git ls-files
+  url "https://github.com/castwide/solargraph.git",
+      tag:      "v0.61.0",
+      revision: "01e9bd8277634144b5fb4fe8d83eb24a9ee251c0"
+  license "MIT"
+
+  bottle do
+    rebuild 1
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "a6f9958198e533349e1688fb162eb6850181e6f532d60a2aea0b61a317a7a050"
+  end
+
+
+
+  depends_on "ruby"
+  depends_on "xz"
+
+  on_linux do
+    depends_on "zlib-ng-compat"
+  end
+
+  def install
+    ENV["GEM_HOME"] = libexec
+    system "gem", "build", "#{name}.gemspec"
+    system "gem", "install", "#{name}-#{version}.gem"
+    bin.install libexec/"bin/#{name}"
+    bin.env_script_all_files(libexec/"bin", GEM_HOME: ENV["GEM_HOME"])
+  end
+
+  test do
+    require "open3"
+
+    json = <<~JSON
+      {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "method": "initialize",
+        "params": {
+          "rootUri": null,
+          "capabilities": {}
+        }
+      }
+    JSON
+
+    Open3.popen3(bin/"solargraph", "stdio") do |stdin, stdout, _, _|
+      stdin.write "Content-Length: #{json.size}\r\n\r\n#{json}"
+      sleep 3
+      assert_match(/^Content-Length: \d+/i, stdout.readline)
+    end
+  end
+end

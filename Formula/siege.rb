@@ -5,20 +5,16 @@ class Siege < Formula
   sha256 "78af482fc655f1cf7270fdbc3171581ed4cb3163009f7f4f056fc2b7e2d24453"
   license "GPL-3.0-or-later"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "d52fa915c875687c01aa0e8d8d739892154b104a6ad554568cb17ddda21ec783"
+  end
+
   livecheck do
     url "https://download.joedog.org/siege/?C=M&O=D"
     regex(/href=.*?siege[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    sha256 arm64_golden_gate: "1719d07849fc2f551e059679af70b8eed354e282c0c16240cccb0cf601ed537f"
-    sha256 arm64_tahoe:       "3186ecf8ef3b546c3b2bb32dc002c954e66d093b7a7448fd78e5adaf923a8d24"
-    sha256 arm64_sequoia:     "ecd09a37f6ffb889db49b639abc0d2f3178a66c53cd5a1b0254a8c3eab96fdd0"
-    sha256 arm64_sonoma:      "ec7d129c7ebecabd7dbf124362ebf27fd0d5efb2e88b5080f7e7203afa6798b3"
-    sha256 sonoma:            "d82d56e7d981fa198ee87a7f35cc2676e0b92ca10a9cadc02514eda7113ec0d3"
-    sha256 arm64_linux:       "efa16f2f8c71eb84d4e98ead888de7d2aab940e95dfe19bd40a3960de22b6f89"
-    sha256 x86_64_linux:      "770a4c20b41bcd77a748cd667255508b882bd1449440799104a950058ce38635"
-  end
 
   depends_on "openssl@4"
 

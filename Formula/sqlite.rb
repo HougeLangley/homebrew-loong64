@@ -1,4 +1,9 @@
 class Sqlite < Formula
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "1bce4c5c0736c19762d3134e6bb94c02c37f18986c11d1cff5c6e0776b9348a4"
+  end
+
   desc "SQL database engine (system stub)"
   homepage "https://www.gnu.org/"
   url "file:///home/houge/infra/srv/stubs/sqlite-3.53.3.tar.gz"
