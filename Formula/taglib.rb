@@ -4,14 +4,15 @@ class Taglib < Formula
   url "https://taglib.org/releases/taglib-2.3.2.tar.gz"
   sha256 "3ca2d8afaa7f1cf7f6ed10e511ebc368bfacd6dcaa3dbfa690b89e502e8963dc"
   license any_of: ["LGPL-2.1-only", "MPL-1.1"]
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "d1bfcba9fe8e8127b03f35f0f637cc9f5d9cd205022098bca0931d5af2e9058b"
+  end
+
   compatibility_version 1
   head "https://github.com/taglib/taglib.git", branch: "master"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "535fcd099ff1b1a96f679bff55649b70d7340ec3bdb5ad48916f596ad5e2762a"
-  end
 
   depends_on "cmake" => :build
   depends_on "utf8cpp"
