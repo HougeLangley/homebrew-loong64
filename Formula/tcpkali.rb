@@ -6,19 +6,10 @@ class Tcpkali < Formula
   license "BSD-2-Clause"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:    "b35b2a69212122e9fe05744632f7e9d4fb424881dc430216559df87f797d4239"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "d3356d233dace7efe54b216d5ba97ed31a4ad7e800bb94ad5bc078dcdda8e7a0"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e39e3dddac6717a918e86cb86f552ccc71c2a828b361599083a0d36fa3e79780"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a4e360c9b9f4e392e429075847cf3d4f02d0318668d19d5745a7f0108c381330"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1da7a44e7f3a40440cbb5ac8fa5fde5156c22125080daf5c6afc884b3f8dc264"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "7e7b45ed05cf7d7ad1dde75394b670e192c217cdfe98012e8da514cf6717d64a"
-    sha256 cellar: :any_skip_relocation, sonoma:         "647259f0136c276ba922e9b437821f4f6b7c6211532827fe70fb363bca4cf2ac"
-    sha256 cellar: :any_skip_relocation, ventura:        "e3a2e0de9e4081e5f2720aec73737040ad1449b1d69d4ce7fbd1cad1940f4c11"
-    sha256 cellar: :any_skip_relocation, monterey:       "4fb40f82ea3e44a7903dea3e1ef6a950833368346a5810a91b393b7537ec8bd6"
-    sha256 cellar: :any_skip_relocation, big_sur:        "6496fe2ab336a75fecc905017ea8886c67dff3e13139b37474e6f500eb98e0fa"
-    sha256 cellar: :any_skip_relocation, arm64_linux:    "a21cdba0e1d2863bb691ab0b2a6b416f801b38236a399a3bd8d6cfc67762f539"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ae1230bcf9879d1d8f09d5e0a3b80c9baf7f59c2bfa77a296a06ed6a821d5be7"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "8741646d9a8ee35a23fcb28d8080dc37626f7d960e6724c8ba882b60e33c22a6"
   end
+
 
   deprecate! date: "2025-03-19", because: :repo_removed
   disable! date: "2026-03-19", because: :repo_removed
