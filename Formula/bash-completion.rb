@@ -6,11 +6,6 @@ class BashCompletion < Formula
   url "https://src.fedoraproject.org/repo/pkgs/bash-completion/bash-completion-1.3.tar.bz2/a1262659b4bbf44dc9e59d034de505ec/bash-completion-1.3.tar.bz2"
   sha256 "8ebe30579f0f3e1a521013bcdd183193605dab353d7a244ff2582fb3a36f7bec"
   license "GPL-2.0-or-later"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "fff53e4804f1c2b004dd88fef80d7f78d0e64b74a6b0c4307927fb2f8fe0e7e8"
-  end
-
   revision 3
 
   livecheck do
@@ -36,6 +31,10 @@ class BashCompletion < Formula
 
   deny_network_access!
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "fff53e4804f1c2b004dd88fef80d7f78d0e64b74a6b0c4307927fb2f8fe0e7e8"
+  end
 
   def install
     inreplace "bash_completion" do |s|
