@@ -6,7 +6,7 @@ class Dsvpn < Formula
   license "MIT"
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "91bcf83a7cd6309ed2270171d2d546384daffb0241f2264b1a51fcecba6f5b4c"
+    sha256 cellar: :any, loongarch64_linux: "2012a2ba17c8356de761384583a99f711e513c505713069273a056f5f511d95a"
   end
 
   head "https://github.com/jedisct1/dsvpn.git", branch: "master"
