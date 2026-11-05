@@ -1,0 +1,29 @@
+class Trurl < Formula
+  desc "Command-line tool for URL parsing and manipulation"
+  homepage "https://curl.se/trurl/"
+  url "https://github.com/curl/trurl/releases/download/trurl-0.16.1/trurl-0.16.1.tar.gz"
+  sha256 "aac947d4fb421a58abc19a3771e87942cd4721b8f855c433478c94c11a8203ba"
+  license "curl"
+  bottle do
+    rebuild 1
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "17d3c4b5c9812390fade6dff79b60d16c33b0f1e1afd840243a9cf251abed4b3"
+  end
+
+  head "https://github.com/curl/trurl.git", branch: "master"
+
+
+  uses_from_macos "curl", since: :ventura # uses CURLUE_NO_ZONEID, available since curl 7.81.0
+
+
+  def install
+    system "make"
+    system "make", "install", "PREFIX=#{prefix}"
+  end
+
+  test do
+    output = shell_output("#{bin}/trurl https://example.com/hello.html " \
+                          "--default-port --get '{scheme} {port} {path}'").chomp
+    assert_equal "https 443 /hello.html", output
+  end
+end
