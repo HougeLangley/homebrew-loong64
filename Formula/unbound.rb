@@ -4,6 +4,11 @@ class Unbound < Formula
   url "https://nlnetlabs.nl/downloads/unbound/unbound-1.26.2.tar.gz"
   sha256 "d8ee7aa6bbb3ff1be7d9e57637d0d0ec2f18273a8efff1a0afe2c665858b96f7"
   license "BSD-3-Clause"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "08e3d7525c2ed571ad02e6f09576f861adda2e6082948e7bb6fcaa74737740a1"
+  end
+
   compatibility_version 1
   head "https://github.com/NLnetLabs/unbound.git", branch: "master"
 
@@ -15,13 +20,6 @@ class Unbound < Formula
     regex(/^(?:release-)?v?(\d+(?:\.\d+)+)$/i)
   end
 
-  bottle do
-    sha256 arm64_golden_gate: "e45285e85ad19dcd50a8477b2fc32077c3e1fabec3c434dfff44c9d8b415fc1a"
-    sha256 arm64_tahoe:       "1ab3daeafae3e6dffa51583b8878e125c0aac2f68cfeddbfd2985a13b8c6cc85"
-    sha256 arm64_sequoia:     "37bed88914f3c5c272129ffc1f2dea45580955cc115ac9237d599121c57d6661"
-    sha256 arm64_linux:       "d9df0b4a4bd31fb7bd3b84796d51064378d41a7c8a427744b2bbdd75ccf71a07"
-    sha256 x86_64_linux:      "03bdb0c1c8806af2ab7837786e8c64bd56ddaae1f320a0a90b476367b9645ed6"
-  end
 
   depends_on "libevent"
   depends_on "libnghttp2"
