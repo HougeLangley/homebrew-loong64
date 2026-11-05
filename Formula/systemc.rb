@@ -5,16 +5,17 @@ class Systemc < Formula
   sha256 "9b3693ed286aab958b9e5d79bb0ad3bc523bbc46931100553275352038f4a0c4"
   license "Apache-2.0"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "768d94eb4a5cffef328a19973b1762211dccc03390518e707689a3c7ac2dc56a"
+  end
+
   livecheck do
     url :stable
     regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "e7cc18c948d9c14fe47f60438348b1d80a2e5cb206a29fbb002ea23f72687810"
-  end
 
   depends_on "cmake" => :build
 
