@@ -6,21 +6,16 @@ class Tinc < Formula
   sha256 "f63b7e21c32c4c637576d85f36bdd28ea678b5aa17fad02427645dea30e52ac7"
   license "GPL-2.0-or-later" => { with: "openvpn-openssl-exception" }
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "3e3e50c9e8197707eb8b3d7b716531e5807e6641baf830030538827d7e8106be"
+  end
+
   livecheck do
     url "https://www.tinc-vpn.org/download/"
     regex(/href=.*?tinc[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_golden_gate: "f0793c40c70e0c2c946c05f27293bec76ab2366c88832a9ec2e381cdfbb6735c"
-    sha256 cellar: :any,                 arm64_tahoe:       "787c187e6c7506a56b7c112480a601d7e881a17e52429c0f30e4f2b63d39ff5e"
-    sha256 cellar: :any,                 arm64_sequoia:     "85c840467466955dc20f3b7bf38e814da2c30495fd31bb9ddc843292096d5ad5"
-    sha256 cellar: :any,                 arm64_sonoma:      "4e905858ac8c591b769fbed72a4a9f139c786cc36ef1e7cdb20a88f0b303eb94"
-    sha256 cellar: :any,                 sonoma:            "bc75d6f63b2643ccbf66658b8186511ae6fc65dfecba334c917af3511ac4eaaa"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "f779b6e945b036f06086c7ccf55c615c172c68d4cf62eb0fa3555fbda893f1a7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "f2873265ddb0e5e93829694b60d4aa6a15690b54dd1b170c3e2586f3df9988f6"
-  end
 
   depends_on "lzo"
   depends_on "openssl@4"

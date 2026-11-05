@@ -4,6 +4,11 @@ class Tinycdb < Formula
   url "https://www.corpit.ru/mjt/tinycdb/tinycdb-0.81.tar.gz"
   sha256 "469de2d445bf54880f652f4b6dc95c7cdf6f5502c35524a45b2122d70d47ebc2"
   license :public_domain
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "08ec3d9889a1e9ed6ded8265a7acafb2090f72159ae66fd94adfacdf796cefb6"
+  end
+
   revision 1
 
   livecheck do
@@ -18,10 +23,6 @@ class Tinycdb < Formula
     "1"
   end
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "f2b1b59a85d710b9818d3d934aab5c97fccd04d4688e92b83060c03cbfffb86f"
-  end
 
   def install
     system "make"
