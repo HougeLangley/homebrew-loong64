@@ -6,7 +6,7 @@ class Bsdconv < Formula
   license "BSD-2-Clause"
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "0c1feb8f154a7e38d19ab0d146c6b2c99e9eddd2ccaa239970b4398e0bae6119"
+    sha256 cellar: :any, loongarch64_linux: "6d1842e080cbf8ee65611960eeeb9dd8dfc52d92abf21f2cbb0dc24145c37947"
   end
 
   head "https://github.com/buganini/bsdconv.git", branch: "master"

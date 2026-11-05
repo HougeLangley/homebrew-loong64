@@ -5,27 +5,16 @@ class Sntop < Formula
   sha256 "943a5af1905c3ae7ead064e531cde6e9b3dc82598bbda26ed4a43788d81d6d89"
   license "GPL-2.0-only"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "e1c891bcfdd4f065d2b1d407b6cfee51c0cf0fb81bf6110330ae871863e02d41"
+  end
+
   livecheck do
     url :stable
     regex(%r{url=.*?/sntop[._-]v?(\d+(?:\.\d+)+)\.t}i)
   end
 
-  bottle do
-    rebuild 1
-    sha256 arm64_golden_gate: "0a9f69e12e52c1779d1bff4b5c8aa64526e65e053d0f54be2aa1b21bb0e5d982"
-    sha256 arm64_tahoe:       "e40298eeb9619591443c8ba0e977cc63a5d61a2508e4d3695dd0dc8292eb9f34"
-    sha256 arm64_sequoia:     "f815f00571ebdc127b745bd5e895cc486b35b3a38380c3be316ec453c47c0e62"
-    sha256 arm64_sonoma:      "40fa74f055bb892c9e7b31a1269ab2d0cda8f13fd214132a79fc2c04944e29dc"
-    sha256 arm64_ventura:     "b482ea74af9def4d942033c23ddacc43c16935bcd7e9094506e0008e8c69eed0"
-    sha256 arm64_monterey:    "88c1bf529d00acd5093a911407aae68da341df753371f81d319862e9bafe2407"
-    sha256 arm64_big_sur:     "0674ad1a5387fadc27e9132d36bef2178e3ea821e9e05fadcc3a4d97b90a5758"
-    sha256 sonoma:            "f671d2b759a74c2cb3957d15df12b117c0c8823cb8414375c8c54c55ebdd887b"
-    sha256 ventura:           "20498a6ce6ef87de7400188bcbc095b7ea0fb1e2c90e02c35042b324835110ab"
-    sha256 monterey:          "339487a2777504f99d3a3d9b9ae4f9d10de35d4e694a1708784e55ca2c586e09"
-    sha256 big_sur:           "ea8df8c0dbf95ed5686009df6bd7742d6f4a4a2e4c6132a02e6273ccfd21cc67"
-    sha256 arm64_linux:       "11c8dd26262b37cddb345a83ffa42e900d813158ed2bbca49586ad042f2bcb29"
-    sha256 x86_64_linux:      "15e6f3f42a8d6afa68d48744f2673142104a0cfb84daff23c6706db8adbe6536"
-  end
 
   depends_on "fping"
 
@@ -36,7 +25,7 @@ class Sntop < Formula
     %w[conf-cc conf-cxx].each do |cf|
       next unless File.exist?(cf)
       _c = File.read(cf).strip
-      File.write(cf, _c + " -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration\n") unless _c.include?("gnu17")
+      File.write(cf, _c + " -std=gnu17 -D_GNU_SOURCE -DRETSIGTYPE=void -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types\n") unless _c.include?("gnu17")
     end
     # cc 命令改写（Makefile 里写死 cc 而非 $(CC) 时）
     Dir["Makefile", "**/Makefile", "**/GNUmakefile", "**/Makefile.*"].each do |mkf|
@@ -46,9 +35,9 @@ class Sntop < Formula
       File.write(mkf, _m)
     end
     # CMake 标志追加
-    _cmflags = ["-DCMAKE_C_FLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration", "-DCMAKE_CXX_FLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"].freeze
+    _cmflags = ["-DCMAKE_C_FLAGS=-std=gnu17 -D_GNU_SOURCE -DRETSIGTYPE=void -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "-DCMAKE_CXX_FLAGS=-std=gnu17 -D_GNU_SOURCE -DRETSIGTYPE=void -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"].freeze
     # ENV.cc 追加
-    _extra = "-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration".split
+    _extra = "-std=gnu17 -D_GNU_SOURCE -DRETSIGTYPE=void -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types".split
     Dir["Makefile", "GNUmakefile", "makefile", "src/Makefile"].each do |mkf|
       next unless File.exist?(mkf)
       _m = File.read(mkf)
@@ -59,16 +48,16 @@ class Sntop < Formula
     Dir["Makefile", "GNUmakefile", "makefile", "**/Makefile", "**/GNUmakefile", "**/makefile", "**/Makefile.*"].each do |mkf|
       next unless File.exist?(mkf)
       _m = File.read(mkf)
-      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration " }
+      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -std=gnu17 -D_GNU_SOURCE -DRETSIGTYPE=void -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types " }
       File.write(mkf, _m)
     end
     # CFLAGS 里面追加（configure 硬编码时 ENV 追加不生效）
     if File.exist?("configure")
       _cfg = File.read("configure")
-      _cfg = _cfg.gsub(/^CFLAGS="([^"]*)"/) { 'CFLAGS="' + $1 + ' -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration' }
+      _cfg = _cfg.gsub(/^CFLAGS="([^"]*)"/) { 'CFLAGS="' + $1 + ' -std=gnu17 -D_GNU_SOURCE -DRETSIGTYPE=void -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types' }
       File.write("configure", _cfg)
     end
-    ENV.append_to_cflags "-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"
+    ENV.append_to_cflags "-std=gnu17 -D_GNU_SOURCE -DRETSIGTYPE=void -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"
     # Workaround for newer Clang
     ENV.append_to_cflags "-Wno-implicit-int" if DevelopmentTools.clang_build_version >= 1403
 
@@ -78,7 +67,7 @@ class Sntop < Formula
     etc.mkpath
     bin.mkpath
     man1.mkpath
-    system "make", "CFLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration", "CXXFLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
+    system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -DRETSIGTYPE=void -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -DRETSIGTYPE=void -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
   end
 
   def caveats
