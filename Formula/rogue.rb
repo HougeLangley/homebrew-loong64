@@ -11,8 +11,6 @@ class Rogue < Formula
     regex(/href=.*?rogue-?v?(\d+(?:\.\d+)+)(?:-src)?\.t/i)
   end
 
-  no_autobump! because: :incompatible_version_format
-
   bottle do
     rebuild 2
     sha256 cellar: :any_skip_relocation, arm64_golden_gate: "bb66d519f8babebcd01225f18b8d61cca9b2d97ed13ddb6e10f0bb80a9c640a8"

@@ -4,12 +4,12 @@ class Dsvpn < Formula
   url "https://github.com/jedisct1/dsvpn/archive/refs/tags/0.1.5.tar.gz"
   sha256 "53c9ff2518acea188926a4f10d38929da7b61b6770d6ec00f73a4c82ff918c5e"
   license "MIT"
-  head "https://github.com/jedisct1/dsvpn.git", branch: "master"
-
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "b3ec4f739b07dbe334418a53eea3dd9871f595fca1f3c9c0c7430fe1f72efaed"
+    sha256 cellar: :any, loongarch64_linux: "ee724296b3528e463355a6355700e9c338e6a5c35cbed4184f8fada1e7d17356"
   end
+
+  head "https://github.com/jedisct1/dsvpn.git", branch: "master"
 
 
 

@@ -4,12 +4,12 @@ class Endlessh < Formula
   url "https://github.com/skeeto/endlessh/archive/refs/tags/1.1.tar.gz"
   sha256 "786cea9e2c8e0a37d3d4ecd984ca4a0ae0b2d6e2b8da37e3cdbb9d49ccdecbf0"
   license "Unlicense"
-  head "https://github.com/skeeto/endlessh.git", branch: "master"
-
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "34d2fb68492134917db7b9a56f68b9cf8a3f9a913a16fef9ff24eda2d37bdbf7"
+    sha256 cellar: :any, loongarch64_linux: "d0de84b5790224a1cb0094c3a303de05bcdeaee133046bcc9272f34ce1e95377"
   end
+
+  head "https://github.com/skeeto/endlessh.git", branch: "master"
 
 
   uses_from_macos "netcat" => :test
