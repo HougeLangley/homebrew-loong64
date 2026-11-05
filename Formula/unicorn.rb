@@ -4,16 +4,17 @@ class Unicorn < Formula
   url "https://github.com/unicorn-engine/unicorn/archive/refs/tags/2.1.4.tar.gz"
   sha256 "ea8863f095a0136388694e5a6063afd9bb7650e30243dd6251af59c5ce5601f4"
   license all_of: [
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "fba70f159b6dad214cace802881fe6f073fd9b985e81cbbe3129ae6a102e0287"
+  end
+
     "GPL-2.0-only",
     "GPL-2.0-or-later", # glib, qemu
   ]
   head "https://github.com/unicorn-engine/unicorn.git", branch: "master"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "53f0209c2fd5c80bf808bc46698f742bc27e32ddad0820783109136ed99e8010"
-  end
 
   depends_on "cmake" => :build
   depends_on "pkgconf" => :build

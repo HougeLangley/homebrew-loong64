@@ -5,6 +5,11 @@ class Unixodbc < Formula
   mirror "https://github.com/lurcher/unixODBC/releases/download/v2.3.14/unixODBC-2.3.14.tar.gz"
   sha256 "4e2814de3e01fc30b0b9f75e83bb5aba91ab0384ee951286504bb70205524771"
   license all_of: [
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "4b9d8c9476005fed855270543b343b19a9dd599c584c4e5e54231e4efc962755"
+  end
+
     "LGPL-2.1-or-later", # libraries
     "GPL-2.0-or-later",  # programs
   ]
@@ -15,15 +20,6 @@ class Unixodbc < Formula
     regex(/href=.*?unixODBC[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    sha256 arm64_golden_gate: "6f32ea57dad323ab65185f585787172a966b2fbd984fe6527ecafa3ef1ac3833"
-    sha256 arm64_tahoe:       "16b4c2a9d565749bae947c75a100ec4628e57c427af5b542593f67474077b3cb"
-    sha256 arm64_sequoia:     "e1522105d20545743c713e90c17bf6393d7a829ec01137ec0d6942bbc04ea2d2"
-    sha256 arm64_sonoma:      "39f022a55a502b3b1d46769705cc46c4aa9f9206b902558ed56cd47aab3d54d8"
-    sha256 sonoma:            "6fc56b53e2abd5b38ed655c2c32caae95753e6b6f5a9fe0a10c4b760a3974d2e"
-    sha256 arm64_linux:       "8e6e9979f6e88ae812222d215688d5b044e25f3182a70e3fbeec3ca07dd9f3d9"
-    sha256 x86_64_linux:      "3f04884aa241e341fea833df1fcb51ec7b181e5a75ff4a7b86ca87dc4c7a24dd"
-  end
 
   head do
     url "https://github.com/lurcher/unixODBC.git", branch: "master"
