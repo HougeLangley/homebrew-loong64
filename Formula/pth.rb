@@ -7,21 +7,10 @@ class Pth < Formula
   license "LGPL-2.1-or-later"
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any,                 arm64_golden_gate: "5559de3beb57b2b7e04a6625648a716136848b387fd9531aa8a3b115b318af7f"
-    sha256 cellar: :any,                 arm64_tahoe:       "5d78afef8be0d57784a9fba9321b7939ac9e57492d9e1ff68192c465d1f001e6"
-    sha256 cellar: :any,                 arm64_sequoia:     "ebea43fc620e5a3ca68ab4b1f05222b45ff99430e0572ad43a26ba2dc08178d2"
-    sha256 cellar: :any,                 arm64_sonoma:      "2d11f5c8d0c953bd31407c69a481501bac6a990a0ca174304b0e9eae67028a6f"
-    sha256 cellar: :any,                 arm64_ventura:     "fab1a0762b2bb6d4a662d7584e7e53a40c0c6e0a47173ee1b352ba5df0307d4c"
-    sha256 cellar: :any,                 arm64_monterey:    "43290f4af74260a674cffc3fa75fc0576a89e4040f57473e0601ff3052eca8e9"
-    sha256 cellar: :any,                 arm64_big_sur:     "746ea3501c80f444585f9e8c532815ff97cc94e050d1f5672307451abfb1bcfa"
-    sha256 cellar: :any,                 sonoma:            "42572a1ad204768fb92064ab80052ae590b6fb75428bfdd3211c3ed15518138c"
-    sha256 cellar: :any,                 ventura:           "eb899862aa5c37f46b09b483a9dd2808fd3459f459fa0ebb715a56055e501e1f"
-    sha256 cellar: :any,                 monterey:          "13d83d8a576279a5487fe65a8973ac416aacec3f2ca87a8ab3a85bb46b169148"
-    sha256 cellar: :any,                 big_sur:           "ce0bf2885f2ff76922d2306e84e328b3bcbe5b3c8365806a66f75d5fce0568fb"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "a8ac563cbeacea2eab01935e62cc4835b1811dfac30f9fb3c0d6a80cfc8b3f41"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "66cd52703b09b137d33237be545677ba50729264ef0ad34d5f4c3891bba86173"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "f8c744981b6d69c6a579d37d44472b0933964613bf5b1e7bde6d607a13ef9b51"
   end
+
 
   def install
     # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
@@ -82,8 +71,10 @@ class Pth < Formula
 
     # NOTE: The shared library will not be build with --disable-debug, so don't add that flag
     system "./configure", "--build=loongarch64-unknown-linux-gnu", "--prefix=#{prefix}", "--mandir=#{man}", *args
-    system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat"
-    system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
+    # Keep the compiler name used by configure: this old libtool cannot infer
+    # a tagged configuration when make overrides CC with an absolute wrapper.
+    system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"
+    system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "install"
   end
 
   test do
