@@ -14,7 +14,6 @@ class Pythia < Formula
     end
   end
 
-  no_autobump! because: :incompatible_version_format
 
   bottle do
     sha256 arm64_golden_gate: "e4445e451928da92135dbbb8800d527a58bd53bc3be424c765112022a9bf0423"

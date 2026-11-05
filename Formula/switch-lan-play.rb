@@ -6,11 +6,12 @@ class SwitchLanPlay < Formula
       revision: "c0c663e3fdc95d6d6e8ab401caa2bfb5b5872e00"
   license "GPL-3.0-or-later"
 
-
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "abe11bee5dd4166510c9863e59e27f91d980bc37541caea40a066d67b49b7779"
+    sha256 cellar: :any, loongarch64_linux: "c5ab9a3cccb3c8af47f552a4e4ff1c36a846feac44fd054deca191db61f405bf"
   end
+
+
 
   depends_on "cmake" => :build
 
