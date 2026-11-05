@@ -73,6 +73,7 @@ class T1lib < Formula
       File.write("configure", _cfg)
     end
     ENV.append_to_cflags "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"
+    ENV.append "LDFLAGS", "-Wl,-z,max-page-size=16384"
     # Workaround for newer Clang
     ENV.append_to_cflags "-Wno-implicit-int" if DevelopmentTools.clang_build_version >= 1403
 
@@ -81,8 +82,9 @@ class T1lib < Formula
     args << "--build=aarch64-unknown-linux-gnu" if OS.linux? && Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
 
     system "./configure", "--build=loongarch64-unknown-linux-gnu", *args, *std_configure_args
-    system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "without_doc"
-    system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
+    # Do not override CC with a wrapper: this old libtool cannot infer its tag.
+    system "make", "without_doc"
+    system "make", "install"
     share.install "Fonts" => "fonts"
   end
 
@@ -115,7 +117,7 @@ class T1lib < Formula
       }
     C
 
-    system ENV.cc, *_extra, "test.c", "-I#{include}", "-L#{lib}", "-lt1", "-o", "test"
+    system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-lt1", "-o", "test"
 
     testpath.install_symlink Formula["t1lib"].opt_share/"fonts/afm/bchr.afm"
     testpath.install_symlink Formula["t1lib"].opt_share/"fonts/type1/bchr.pfb"

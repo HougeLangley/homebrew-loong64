@@ -6,7 +6,7 @@ class BerkeleyDbAT5 < Formula
   license "Sleepycat"
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "36b8718e442c18facb42cc31fe8aaa6ede2fffbb640ba3db4d6c13e500dfce25"
+    sha256 cellar: :any, loongarch64_linux: "3176b6ff29b0b373bc52ff8f299ac40121b709899a5b9a5d4b793f58bb3c4c4b"
   end
 
   revision 1
@@ -82,6 +82,7 @@ class BerkeleyDbAT5 < Formula
       File.write("configure", _cfg)
     end
     ENV.append_to_cflags "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"
+    ENV.append "LDFLAGS", "-Wl,-z,max-page-size=16384"
     # BerkeleyDB dislikes parallel builds
     ENV.deparallelize
 
