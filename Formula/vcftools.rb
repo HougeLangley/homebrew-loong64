@@ -6,15 +6,10 @@ class Vcftools < Formula
   license "LGPL-3.0-only"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "acf44e2e1d16b466f597ae33c3fd269bd230caa5eae23e336eff43e444df60a9"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "6f628a8d64c2eef1dad37e8c4f74ebe84029e88b6098266085ad3e90802a71f9"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "3951341670d6519250d8d09cf76707d7acc47dccd7d88b7b5fd104016eb240d0"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:      "b8a9fdf5d69e89f4655f32901c739196746b0a3339b3f9afcf4295d5bc739830"
-    sha256 cellar: :any_skip_relocation, sonoma:            "ca8e6beee74be0ab28d3e157f639e304cf6466621d3b075484abf813da706f7c"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "bd5e186291430a0211b96f314e128cedb8bbac12ff3528a69e3c8ab8e5d6046a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "208f9816c84abebadc3e94a42e3d3970ae2e303f4bee9afc390545455e7c4810"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "0756f598b2be1564f3fe7f26c1e4f6b2d7c8c2df13ad09feb9c20dfd531d9002"
   end
+
 
   depends_on "pkgconf" => :build
   depends_on "htslib"
