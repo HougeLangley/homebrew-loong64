@@ -5,13 +5,13 @@ class Radamsa < Formula
   sha256 "d9a6981be276cd8dfc02a701829631c5a882451f32c202b73664068d56f622a2"
   license "MIT"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "bc9f610128bdcb1cf1d98793e4e16b2bc02fcb02f1a2496eb6e33efacd7d5721"
-  end
-
 
   # https://gitlab.com/akihe/radamsa/-/blob/v#{version}/Makefile?ref_type=tags#L7
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "22b7b5878379d9b3cad23ddfb8bcac17e501e9787a98b1bc6fb06f15c6e23627"
+  end
+
   resource "ol.c" do
     url "https://haltp.org/files/ol-0.2.2.c.gz"
     version "0.2.2"
