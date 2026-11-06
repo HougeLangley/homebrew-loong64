@@ -6,13 +6,11 @@ class Slivar < Formula
   license "MIT"
   head "https://github.com/brentp/slivar.git", branch: "master"
 
+
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "78abec40a54f30bc5bc7d30e3ede2c3a5b504e18cde66dacc7f87c3510109da3"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "78abec40a54f30bc5bc7d30e3ede2c3a5b504e18cde66dacc7f87c3510109da3"
   end
-
-
 
   depends_on "nim" => :build
   depends_on "htslib"

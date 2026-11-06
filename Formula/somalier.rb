@@ -4,13 +4,12 @@ class Somalier < Formula
   url "https://github.com/brentp/somalier/archive/refs/tags/v0.3.6.tar.gz"
   sha256 "7dc3c8764d9dd962221b653353be0e444ac98e53d1c872e47d745674215f2da2"
   license "MIT"
-  head "https://github.com/brentp/somalier.git", branch: "master"
-
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "8297aa5123fed4744e2dfaae9586e4ced6436822c72b02a9c838bb33f8719c72"
+    sha256 cellar: :any, loongarch64_linux: "8e9e6a04d6ee592c86b22e2d619aa73a477832f733fe59fb60c03bef64dc6e85"
   end
+
+  head "https://github.com/brentp/somalier.git", branch: "master"
 
 
 
