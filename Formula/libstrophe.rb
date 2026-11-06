@@ -6,13 +6,7 @@ class Libstrophe < Formula
   license all_of: ["GPL-3.0-only", "MIT"]
   revision 1
 
-  bottle do
-    sha256 cellar: :any, arm64_golden_gate: "9d7e8c18a0b80ac3779819038ed50480ed8f2659730cdaeef0adb2201a8fda70"
-    sha256 cellar: :any, arm64_tahoe:       "ef631131d639fb46c768687982c6f0a01469e9fd0f6e684352a25a39e1142ab4"
-    sha256 cellar: :any, arm64_sequoia:     "fa404216bb1400211b77a36f83b7da42aae0a55912265bea6acb8079bfb47355"
-    sha256 cellar: :any, arm64_linux:       "9d4d1c11a69109fa009f68deb99fcbd91147ca2522dcfd097ff25c0e15b34b06"
-    sha256 cellar: :any, x86_64_linux:      "ea0283e684daf2c5abdc3a4f7b760476036efce0ed17d1eb06f7f0b8e7a34e2e"
-  end
+
 
   head do
     url "https://github.com/strophe/libstrophe.git", branch: "master"
@@ -32,6 +26,14 @@ class Libstrophe < Formula
   end
 
   def install
+    # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
+    %w[config.sub config.guess].each do |cf|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+        src = "/usr/share/libtool/build-aux/#{cf}"
+        cp src, dest if File.exist?(dest) && File.exist?(src)
+      end
+    end
+
     # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
     %w[conf-cc conf-cxx].each do |cf|
       next unless File.exist?(cf)
