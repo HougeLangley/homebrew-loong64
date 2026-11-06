@@ -6,9 +6,15 @@ class Scs < Formula
   license "MIT"
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "1b57dc30e47ba394ed0f8c6085a3d21a24fadb709cd7bf8278c7221edefd47ec"
+  end
+
   on_linux do
     depends_on "openblas"
   end
+
 
   def install
     system "make", "install", "PREFIX=#{prefix}"

@@ -5,11 +5,6 @@ class Bwfmetaedit < Formula
   sha256 "6650b61fab0bd752b907fda5ca3bdce5bb349e12d9a6f618e8ebfc52839bbd1f"
   license "0BSD"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "1f4230986b75046fa2f50c217040bcf560f5dbc70bacac0840859af0be7d21db"
-  end
-
   livecheck do
     url "https://mediaarea.net/BWFMetaEdit/Download/Source"
     regex(/href=.*?bwfmetaedit[._-]v?(\d+(?:\.\d+)+)\.t/i)
@@ -17,6 +12,11 @@ class Bwfmetaedit < Formula
 
 
   deny_network_access!
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "3d65cda78507e58e18fc27b7e0017cfbace3d10d53dcffc40488c0ea80e3bcbf"
+  end
 
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换

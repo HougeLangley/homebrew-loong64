@@ -6,7 +6,7 @@ class Endlessh < Formula
   license "Unlicense"
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "712de0241a982048628898b3a2524974fdcd0d4c6b46c62a004d89e59510218b"
+    sha256 cellar: :any, loongarch64_linux: "91d8b44fd8cc4f114acca108106c508f8df3d52a4359974cf88d07059d8251f2"
   end
 
   head "https://github.com/skeeto/endlessh.git", branch: "master"
