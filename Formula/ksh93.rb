@@ -4,13 +4,14 @@ class Ksh93 < Formula
   url "https://github.com/ksh93/ksh/archive/refs/tags/v1.0.10.tar.gz"
   sha256 "9f4c7a9531cec6941d6a9fd7fb70a4aeda24ea32800f578fd4099083f98b4e8a"
   license "EPL-2.0"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "5eaec4f2bed8e9b1ea30dd868082239ce3d69a179e3775b2b57b36df5ad9da84"
+  end
+
   head "https://github.com/ksh93/ksh.git", branch: "dev"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "43f0510f6e48a0fb5570e54f64d6cf050f943c2c1e328eac6d55b97ca8a8ace0"
-  end
 
   def install
     ENV.append "LDFLAGS", "-Wl,-rpath,#{lib}"
