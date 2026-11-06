@@ -45,11 +45,6 @@ class Shaderc < Formula
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "16d67bca8f47bdcec8cfce88d1af9b20e496d108861c9339466908f5d153d1f7"
-  end
-
   head do
     url "https://github.com/google/shaderc.git", branch: "main"
 
@@ -66,6 +61,10 @@ class Shaderc < Formula
     end
   end
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "16d67bca8f47bdcec8cfce88d1af9b20e496d108861c9339466908f5d153d1f7"
+  end
 
   depends_on "cmake" => :build
 
