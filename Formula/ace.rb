@@ -4,10 +4,11 @@ class Ace < Formula
   url "https://github.com/DOCGroup/ACE_TAO/releases/download/ACE%2BTAO-8_0_8/ACE+TAO-8.0.8.tar.bz2"
   sha256 "d7b1d3e1534095b0a627817f4472eed1cc27ccf83fd011557031cf073fc7222a"
   license "DOC"
+
   bottle do
     rebuild 2
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "1fae675c36f7c4c0f3305c997e8d19a313fdbf953c2f3e501ad0d0d56ecdfc82"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "ad927a435e0e9b5cddba8de2672bd6dea65dde5447f04ca79a6c5e0a459753ee"
   end
 
   compatibility_version 3
