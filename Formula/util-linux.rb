@@ -4,6 +4,11 @@ class UtilLinux < Formula
   url "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.42/util-linux-2.42.4.tar.xz"
   sha256 "fbd62a100ab7bb8746ba0661255c3c48185b1e9021507c624da01fbc696330ec"
   license all_of: [
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "72798c5cbe69031e738316a3dda93d67efe7f6859f8b615ebd073d2da909a5f0"
+  end
+
     "BSD-3-Clause",
     "BSD-4-Clause-UC",
     "GPL-2.0-only",
@@ -24,13 +29,6 @@ class UtilLinux < Formula
     regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
-  bottle do
-    sha256 arm64_golden_gate: "fbc4e7669248f29d3ec91b3724b4a1fc0383c624d4f6e09ae643703e879f8e0a"
-    sha256 arm64_tahoe:       "aba531ed615bc666cee842fbda966f2aa513e9801c73974f758e4a1b15aea602"
-    sha256 arm64_sequoia:     "46746bd46db509001b062ffe3d13b3428e7bf274884afbadd25e44bb400b4025"
-    sha256 arm64_linux:       "98d4c3f1afb746272ba0b5b134c5717df6e1796b50103f9072abe34083a7d43d"
-    sha256 x86_64_linux:      "a2f2f02b1a397f4bbda2832fc1403c55daff00e3c52c6a8c970d0c98fff95139"
-  end
 
   keg_only :shadowed_by_macos, "macOS provides the uuid.h header"
 
