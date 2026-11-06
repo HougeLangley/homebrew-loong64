@@ -8,7 +8,6 @@ class Libavif < Formula
 
 
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
     sha256 cellar: :any_skip_relocation, loongarch64_linux: "d79d7aa82140aed4902ef2aae090c29624a178704de0a1b755bbf9c2259151e5"
   end
