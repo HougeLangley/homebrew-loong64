@@ -8,7 +8,7 @@ class Jpeg < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "cb1952fe1b8f498170c2893c03fc6a7ed42703e6c59f3858ce4afa8f7a246598"
+    sha256 cellar: :any, loongarch64_linux: "4f8b314aa906bd690f1aea498358472bd5166dd92971ce37ed663bef3ac83223"
   end
 
   livecheck do
