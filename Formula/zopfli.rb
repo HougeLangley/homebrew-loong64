@@ -5,13 +5,14 @@ class Zopfli < Formula
   sha256 "e955a7739f71af37ef3349c4fa141c648e8775bceb2195be07e86f8e638814bd"
   license "Apache-2.0"
   revision 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "95a11e818e56cd38b3bd2624337ff6055b35a0dd95789e5d43f05583bb0a6850"
+  end
+
   head "https://github.com/google/zopfli.git", branch: "master"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "156ac8228b717a927b855f983c021619cf9f45876ef3f5b3dd040c3494d2730e"
-  end
 
   depends_on "cmake" => :build
 
