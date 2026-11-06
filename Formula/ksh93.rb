@@ -6,7 +6,7 @@ class Ksh93 < Formula
   license "EPL-2.0"
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "5eaec4f2bed8e9b1ea30dd868082239ce3d69a179e3775b2b57b36df5ad9da84"
+    sha256 cellar: :any, loongarch64_linux: "ea1fd58d25c0089f5e434d3d7591ce0bc0f9e049180d98b793c414e21740a018"
   end
 
   head "https://github.com/ksh93/ksh.git", branch: "dev"

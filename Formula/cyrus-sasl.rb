@@ -5,13 +5,13 @@ class CyrusSasl < Formula
   mirror "http://fresh-center.net/linux/misc/cyrus-sasl-2.1.28.tar.gz"
   sha256 "7ccfc6abd01ed67c1a0924b353e526f1b766b21f42d4562ee635a8ebfc5bb38c"
   license "BSD-3-Clause-Attribution"
+  revision 4
+
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
     sha256 cellar: :any, loongarch64_linux: "2da7a5b69590f2e050f7782557ac5a3a31cb7a5b146f6314450f3d6a5162156c"
   end
-
-  revision 4
-
 
   head do
     url "https://github.com/cyrusimap/cyrus-sasl.git", branch: "master"
