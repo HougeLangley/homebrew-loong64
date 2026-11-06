@@ -10,13 +10,10 @@ class BaculaFd < Formula
     regex(%r{url=.*?/bacula(?:(?!/[^/]*beta[^/]*)/[^/]+)*/bacula[._-]v?(\d+(?:\.\d+)+)\.t}i)
   end
 
+
   bottle do
-    rebuild 3
-    sha256               arm64_golden_gate: "9d6cf94bc8c18cdf8870fcf9b003f9b5013f108ce440703c47594978e3028217"
-    sha256               arm64_tahoe:       "5688de1c1f3e7c7b1efc8e82286760a82e302f920d98f156a904d98d642396ed"
-    sha256               arm64_sequoia:     "069a15c74ec03e935573c9fca3d24dc68523bbb5e61dd6a2e7ed7c3ecd00d9b0"
-    sha256               arm64_linux:       "cd2207345e5e6999c3658f03b0847294d82cd7d1c9efe8cafc36b472c5ec3783"
-    sha256 cellar: :any, x86_64_linux:      "bdc741dd0a0b94175a12fd623ba9e88fa8ac508cc03dd4803d89927753ad2109"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "c54391abfbcee87f54c1f76340861846e60b04689d1a95eda49287c70ec02933"
   end
 
   depends_on "openssl@4"

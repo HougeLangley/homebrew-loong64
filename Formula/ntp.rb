@@ -11,7 +11,6 @@ class Ntp < Formula
     regex(/href=.*?ntp[._-]v?(\d+(?:\.\d+)+(?:p\d+)?)\.t/i)
   end
 
-  no_autobump! because: :incompatible_version_format
 
   bottle do
     sha256 cellar: :any,                 arm64_golden_gate: "056306bba2e7c882887f7a80e6ec87a6bf2a1a15c968c1f1fb794734e9294004"

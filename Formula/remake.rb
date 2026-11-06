@@ -17,7 +17,6 @@ class Remake < Formula
     end
   end
 
-  no_autobump! because: :incompatible_version_format
 
   bottle do
     rebuild 1

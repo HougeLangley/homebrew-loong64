@@ -17,7 +17,6 @@ class Libtrace < Formula
 
 
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
     sha256 cellar: :any_skip_relocation, loongarch64_linux: "be34482e75d2ace0184d40ef055d3a5a8cf8112abacea9c23c958d1d9c4f7ea1"
   end
