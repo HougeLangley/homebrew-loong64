@@ -7,11 +7,6 @@ class Xdpyinfo < Formula
 
 
 
-  bottle do
-    rebuild 1
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "fb50b9b4e26d6b767fbdf187c0cdea2ccb53c3724f5cd9a1a35fabe64a5a8b7c"
-  end
 
   depends_on "pkgconf" => :build
 
