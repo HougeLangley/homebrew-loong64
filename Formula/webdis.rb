@@ -6,6 +6,12 @@ class Webdis < Formula
   license "BSD-2-Clause"
 
 
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "bde276f8586c7fbf90c3dc18a200035e0d91ab2a23ae90c98569730bb648e96e"
+  end
+
   depends_on "libevent"
 
   allow_network_access! :test

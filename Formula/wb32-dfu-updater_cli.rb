@@ -4,11 +4,6 @@ class Wb32DfuUpdaterCli < Formula
   url "https://github.com/WestberryTech/wb32-dfu-updater/archive/refs/tags/1.0.0.tar.gz"
   sha256 "2b1c5b5627723067168af9740cb25c5c179634e133e4ced06028462096de5699"
   license "Apache-2.0"
-  bottle do
-    rebuild 1
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "c373744e3ac73c04984e7c31214d5e983500031bca43e9f32c9686799fedde5c"
-  end
 
   head "https://github.com/WestberryTech/wb32-dfu-updater.git", branch: "master"
 

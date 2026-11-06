@@ -12,9 +12,10 @@ class Webfs < Formula
   end
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "5097b4a6b69805a01f2d9105a45351ed2c9a140b3c50b64646cf2f71dc739785"
+    sha256 cellar: :any, loongarch64_linux: "4c2de8e904f53e329fee114a8e21666d8b0e6d41a5943510bb164c716d5200c6"
   end
 
   depends_on "httpd" => :build
