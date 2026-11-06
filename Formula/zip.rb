@@ -17,7 +17,7 @@ class Zip < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "da1abdc1a3268e4c32c4000e37ae02e79c64d9bb7238a569c60f2f7815d13ad5"
+    sha256 cellar: :any, loongarch64_linux: "30236d36448002e39b7a15e238e69d67567b97ee493cc15c30eedc84db1e2ddd"
   end
 
   uses_from_macos "bzip2"
