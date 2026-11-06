@@ -11,12 +11,10 @@ class Tarsnap < Formula
     regex(/href=.*?tarsnap-autoconf[._-]v?(\d+(?:\.\d+)+[a-z]?)\.t/i)
   end
 
+
   bottle do
-    sha256 cellar: :any, arm64_golden_gate: "edf38bffee38408a67cb3602464df3846aa647147b402f67d543f6cac9c2a694"
-    sha256 cellar: :any, arm64_tahoe:       "88c8a369498d4e6b18cf3dcacd10b4854e04364e223db84f39de615866efc17c"
-    sha256 cellar: :any, arm64_sequoia:     "f513c4189124d4f2e08b76d6aec73ce877e93c58a2726292a3abeaac9d0253a9"
-    sha256 cellar: :any, arm64_linux:       "df6ca5ccd9adad2e6db4a96051fc308b0273c20e856ee5d36b028c2e240dbd2d"
-    sha256 cellar: :any, x86_64_linux:      "f899cadade85f722572115bc7ba833f48c38b7ac3c9e6f6fb72638ebef6dd581"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "4fb487ae248b03dea3f7b6628e023210f05f66382a019b0d7e14d9c558f2df0a"
   end
 
   head do
