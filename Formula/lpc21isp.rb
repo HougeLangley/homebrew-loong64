@@ -9,9 +9,10 @@ class Lpc21isp < Formula
 
   deny_network_access!
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "b72fea2ccd42f66c52a7c2123d03b037285e96837fb6a5ec01dade72d84ae439"
+    sha256 cellar: :any, loongarch64_linux: "d4453d22b65980a6d47febe364e3e42f56c26999f6865dec7215ed15fc555db8"
   end
 
   def install

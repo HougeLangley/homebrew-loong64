@@ -12,12 +12,13 @@ class Lemon < Formula
 
 
   # Submitted the patch via email to the upstream
-  patch :DATA
-
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "a35c106ed8500369d617b654a5c01010a7f6a2ac2a3378e5053baa414a54c98a"
+    sha256 cellar: :any, loongarch64_linux: "654e7740170c5d1c056b81d15c09374c4173e24a6db2a35409075c9ff89f05c3"
   end
+
+  patch :DATA
+
 
   def install
     pkgshare.install "tool/lempar.c"
