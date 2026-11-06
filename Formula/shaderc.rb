@@ -45,13 +45,12 @@ class Shaderc < Formula
   end
 
 
-  head do
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "19affe4fd5a6b5450fc4fda5b72fe894afa7219ab5d078ea8fb0710c0bf50027"
+    sha256 cellar: :any, loongarch64_linux: "16d67bca8f47bdcec8cfce88d1af9b20e496d108861c9339466908f5d153d1f7"
   end
 
+  head do
     url "https://github.com/google/shaderc.git", branch: "main"
 
     resource "glslang" do
