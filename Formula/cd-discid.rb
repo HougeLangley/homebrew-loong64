@@ -2,6 +2,11 @@ class CdDiscid < Formula
   desc "Read CD and get CDDB discid information"
   homepage "https://linukz.org/cd-discid.shtml"
   license "GPL-2.0-or-later"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "4dd0f9fad57f0c19fb36f4b483888e6b4a837fa4c3a01dfb28adfa7a50863e18"
+  end
+
   revision 2
   head "https://github.com/taem/cd-discid.git", branch: "master"
 
@@ -22,10 +27,6 @@ class CdDiscid < Formula
   deprecate! date: "2025-10-16", because: :unmaintained
   disable! date: "2026-10-16", because: :unmaintained
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "39572e602594adfcecf7fd995cd71cf5682a40409ac4f38c242c6ecda44aefa8"
-  end
 
   def install
     system "make", "CC=#{ENV.cc}"

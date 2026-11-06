@@ -7,7 +7,7 @@ class Ace < Formula
   bottle do
     rebuild 2
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "4f48e4fea23a7ff78d92d723305ccdaf1a78b18391e7c2e16e447d84cd34f6d6"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "1fae675c36f7c4c0f3305c997e8d19a313fdbf953c2f3e501ad0d0d56ecdfc82"
   end
 
   compatibility_version 3
@@ -50,6 +50,9 @@ class Ace < Formula
 
   test do
     cp_r "#{pkgshare}/examples/Log_Msg/.", testpath
+    # cp_r moves the binary away from pkgshare, so its $ORIGIN RPATH no longer
+    # reaches the matching Cellar lib directory.
+    ENV["LD_LIBRARY_PATH"] = lib.to_s
     system "./test_callback"
   end
 end
