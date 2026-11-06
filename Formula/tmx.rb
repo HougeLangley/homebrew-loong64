@@ -6,9 +6,8 @@ class Tmx < Formula
   license "BSD-2-Clause"
 
   bottle do
-    rebuild 2
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "ef89eb73aa4fc0d332f2058c1bbfed431110a065adee07bf8b0d9e7e9207f43c"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "8eb2d8ccf4ea33cd68b2c21b2e49c7b1d8689333e911e962fbf1f2b2e3ebad4f"
   end
 
 
