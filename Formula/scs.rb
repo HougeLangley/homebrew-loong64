@@ -6,10 +6,6 @@ class Scs < Formula
   license "MIT"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "1b57dc30e47ba394ed0f8c6085a3d21a24fadb709cd7bf8278c7221edefd47ec"
-  end
 
   on_linux do
     depends_on "openblas"
@@ -26,6 +22,7 @@ class Scs < Formula
       #include <rw.h>
       #include <scs.h>
       #include <util.h>
+      #include <cones.h>
       int main() {
         ScsData *d; ScsCone *k; ScsSettings *stgs;
         ScsSolution *sol = scs_calloc(1, sizeof(ScsSolution));
@@ -35,7 +32,7 @@ class Scs < Formula
         _scs_read_data("#{pkgshare}/random_prob", &d, &k, &stgs);
         result = scs(d, k, stgs, sol, &info);
 
-        _scs_free_data(d); _scs_free_data(k); _scs_free_sol(sol);
+        _scs_free_data(d); _scs_free_cone(k); _scs_free_sol(sol);
         return result - SCS_SOLVED;
       }
     C

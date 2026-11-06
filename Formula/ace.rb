@@ -5,12 +5,6 @@ class Ace < Formula
   sha256 "d7b1d3e1534095b0a627817f4472eed1cc27ccf83fd011557031cf073fc7222a"
   license "DOC"
 
-  bottle do
-    rebuild 2
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "ad927a435e0e9b5cddba8de2672bd6dea65dde5447f04ca79a6c5e0a459753ee"
-  end
-
   compatibility_version 3
 
   livecheck do
@@ -24,6 +18,12 @@ class Ace < Formula
 
   deny_network_access!
 
+
+  bottle do
+    rebuild 2
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "ad927a435e0e9b5cddba8de2672bd6dea65dde5447f04ca79a6c5e0a459753ee"
+  end
 
   def install
     os = OS.mac? ? "macosx" : "linux"

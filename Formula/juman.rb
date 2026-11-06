@@ -19,10 +19,6 @@ class Juman < Formula
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "523ab1e2b46a2231a3991eea5f090d79de6a2a3c9ba528cd1f17908d468abd1e"
-  end
 
   head do
     url "https://github.com/ku-nlp/juman.git", branch: "master"

@@ -18,7 +18,7 @@ class Jpeg < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "87b7071e45d1ddf94437fada12adca066013147e49286b78b15fac559366314a"
+    sha256 cellar: :any, loongarch64_linux: "45435ee2bc68d93decc5d78ea3e4e024d2341fd436f81be7ab95625e2d1d612c"
   end
 
   def install

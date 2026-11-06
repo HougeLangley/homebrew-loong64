@@ -12,10 +12,6 @@ class Libusb < Formula
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "46763e1c469050c84daf129c8f23a1edb7530a0e21094e97de06307ad4a2583c"
-  end
 
   head do
     url "https://github.com/libusb/libusb.git", branch: "master"

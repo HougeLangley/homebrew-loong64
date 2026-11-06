@@ -12,10 +12,6 @@ class Minizip < Formula
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "1cf7d45a9b80084e1456748a7b46985b953f85174b3787501afe609717a1154d"
-  end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
