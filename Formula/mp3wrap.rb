@@ -10,25 +10,14 @@ class Mp3wrap < Formula
     regex(%r{url=.*?/mp3wrap[._-]v?(\d+(?:\.\d+)+)(?:-src)?\.t}i)
   end
 
-  bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "f4dd154085337ac800077f2a87be01e487528973e8ba4948465b055ca0591f59"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "28af69383fd4f657495f0aedda9e53ac66cccce24bda0a280ebf5a79939cce6e"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "881da7c1c1c1d3b667f6524d66c01de8d73e8a113b84763ea0d57395518c3523"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:      "b5c9848d068d5f4f3758dc2629daea1ac755ce288b9663b302b13045bc9a1e0e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:     "e2bf343f21cede8d098ddb1c389818e91d8aaa8363601b1c3f56d02b2152285f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey:    "5a84d1acbd3aaa6432bf22d6052c1d8afa5b54145e1ecec0a16c6da05cf2df95"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:     "9ee84cc1015ba99900a71896d7055b3fcf305828dc6a8430da552b0fee18a01b"
-    sha256 cellar: :any_skip_relocation, sonoma:            "73592a53432ef216313142884f12af2b40c2a62b86d4ed1539b3824d7c66f675"
-    sha256 cellar: :any_skip_relocation, ventura:           "6f72f17884f6f657f8c8db28383b880d6fb4448181689997c9834d860d28b7bf"
-    sha256 cellar: :any_skip_relocation, monterey:          "e07fa1bc62342d8166accae07efd264b0449ee57ed27224f05897444bbec43fc"
-    sha256 cellar: :any_skip_relocation, big_sur:           "fb2198208b5da896231a815235652c3342ed305a858950c9fb10bc7e296d1e34"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "962b508b014f584bcb0ea88a84e150e6c0ebdb80573252a7ffca2c6bc25bb567"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "e666ba56f6a93702e3a37b4dd6f8d908b6a16246ba9ad5467518c970f4ac30ab"
-  end
 
   deprecate! date: "2026-07-17", because: :unmaintained
   disable! date: "2027-01-17", because: :unmaintained
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "d9a33165a459e547a83d7fec9602fd83d089cca6a48910fae95ed6ffa3a39c9c"
+  end
 
   def install
     # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
@@ -58,13 +47,13 @@ class Mp3wrap < Formula
     Dir["Makefile", "GNUmakefile", "makefile", "**/Makefile", "**/GNUmakefile", "**/makefile", "**/Makefile.*"].each do |mkf|
       next unless File.exist?(mkf)
       _m = File.read(mkf)
-      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types" }
+      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types " }
       File.write(mkf, _m)
     end
     # CFLAGS 里面追加（configure 硬编码时 ENV 追加不生效）
     if File.exist?("configure")
       _cfg = File.read("configure")
-      _cfg = _cfg.gsub(/^CFLAGS="([^"]*)"/) { 'CFLAGS="' + $1 + ' -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types' }
+      _cfg = _cfg.gsub(/^CFLAGS="([^"\\]*)"/) { 'CFLAGS="' + $1 + ' -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"' }
       File.write("configure", _cfg)
     end
     ENV.append_to_cflags "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"

@@ -5,18 +5,15 @@ class Lwtools < Formula
   sha256 "9bb97e987d486d7abd85d04cb98a53f666f02785c108647b795c4a111c5eb09f"
   license "GPL-3.0-only"
 
-  bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "77612ade9fcd6272b8f4f5f27c9ed4ab80616130067e51f9b823d42c8219dc3b"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ffe93d375d527663e0ecf2e291752893016d59dcb1809fc44038370233ce08af"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "7cc667f7f9f67f5eb787badbe49bbfaf7928ee788ce9d02c73860a63e05a88cd"
-    sha256 cellar: :any_skip_relocation, sonoma:        "4ad4a15723bf7a7a6652c028036befaea96881c5e4625064c7640ca615a7021c"
-    sha256 cellar: :any,                 arm64_linux:   "9ea661cad88ac0099fcc28c1ecd7a2947190b05962403aa12755350d101df574"
-    sha256 cellar: :any,                 x86_64_linux:  "aeb524b30f7e8867525e95cc255fbac0b62902a692d1b6b18488195733978689"
-  end
 
   # TODO: Can be considered for undeprecation if upstream verifies checksum change
   deprecate! date: "2026-09-18", because: :checksum_mismatch
   disable! date: "2027-09-18", because: :checksum_mismatch
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "56989e0ca046ddd8a99d0e1e2a064e1f6e9bbfb3c6dd11abe6cab75ff88bb00b"
+  end
 
   def install
     system "make"

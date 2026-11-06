@@ -9,6 +9,11 @@ class Doh < Formula
 
   uses_from_macos "curl"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "579e93306e548fe2755211596bb119252e932b5c92b9757a95d7c2caa248958b"
+  end
+
   def install
     system "make"
     bin.install "doh"
