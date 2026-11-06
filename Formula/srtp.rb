@@ -6,6 +6,11 @@ class Srtp < Formula
   license "BSD-3-Clause"
   revision 1
   compatibility_version 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "cdd5e840cb41a7105955d4d78a553c4e2f8e0588cc997348b4dac5915aecd939"
+  end
+
   head "https://github.com/cisco/libsrtp.git", branch: "main"
 
   livecheck do
@@ -13,13 +18,6 @@ class Srtp < Formula
     strategy :github_latest
   end
 
-  bottle do
-    sha256 cellar: :any, arm64_golden_gate: "d5a490871797cd5365e57a7f4717a5045d4131566746acb89b70475494c961e0"
-    sha256 cellar: :any, arm64_tahoe:       "6fee7517c6f9311d72dc993c4f95994680159abdf469c4efaa8584bce449e951"
-    sha256 cellar: :any, arm64_sequoia:     "544b884e67367bbe4e81cbf182995f08522a4c4971f6071ce9c696d018abd5e5"
-    sha256 cellar: :any, arm64_linux:       "202bed5466d2ca7d0680cd56019088ef20f4c4a211fd18c98f5fc78886f73c1e"
-    sha256 cellar: :any, x86_64_linux:      "3e0d054d4f65dead5a69281e2d956210c5f83d452bcb22259ba392c1380bf6a8"
-  end
 
   depends_on "pkgconf" => :build
   depends_on "openssl@4"
