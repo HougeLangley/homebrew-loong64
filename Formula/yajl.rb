@@ -7,9 +7,10 @@ class Yajl < Formula
   revision 1
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "c0e6d8a8634136c8bdd2094c59495e282daee5f1f9ec999e3ade3b5ab0bedd71"
+    sha256 cellar: :any, loongarch64_linux: "c849fad11cd1bea0492bc98919e20060a30095423a1380ad64ea9588b47839e0"
   end
 
   depends_on "cmake" => :build
