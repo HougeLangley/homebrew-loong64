@@ -10,21 +10,10 @@ class Icoutils < Formula
     regex(/href=.*?icoutils[._-](\d+(?:\.\d+)+)\.t/i)
   end
 
+
   bottle do
-    rebuild 1
-    sha256 cellar: :any, arm64_golden_gate: "93cf10e38bd52d721bea5b6b13f1281e1b6a1cd481bd2132dac68faded9de977"
-    sha256 cellar: :any, arm64_tahoe:       "5f28e12b6168d398c1b6a45fdd31fbe562734bf4e0bb9b92473326fe3652db3c"
-    sha256 cellar: :any, arm64_sequoia:     "1f134eb8d5bfda13e1afd2742d87488abb2bd651f0ec059b6bbea76add8a647f"
-    sha256 cellar: :any, arm64_sonoma:      "273cfd4c47669dcb185b256f41952316faeb9c7f263c86e602b81e5b1d4c9302"
-    sha256 cellar: :any, arm64_ventura:     "6d0b6015b32488d5eadeed7af574b0b07c8071dfaae487a41f5306585eb8510b"
-    sha256 cellar: :any, arm64_monterey:    "cca2c49761f3c0c2c4d8261af392cb156b43d49e99d16af0962584717c1e2ad3"
-    sha256 cellar: :any, arm64_big_sur:     "561bdf394863bd566ebfd0f9f5c5cb084d9eeeeb21c4013dc67f49ca2f382d68"
-    sha256 cellar: :any, sonoma:            "09886292b02d85b40a34e8dfe38379b89455ed50cb0002313f88e022906e4927"
-    sha256 cellar: :any, ventura:           "bc125498f4fb92c602479703be80ef4e1870dd4f74159e1ed0d2fd801179ba75"
-    sha256 cellar: :any, monterey:          "23f46510e0108a2342a83ba36aa2b11346d18a3f5ae29aa238cb249f3e4fa3e8"
-    sha256 cellar: :any, big_sur:           "2f71fa8b1131f534d2d7d674642091a80f61108a376240bd6e19c92d436aecfe"
-    sha256               arm64_linux:       "628929761f445827749c377cd6309471d0f4f5e70f3f70b6004d052f3dd8d1d0"
-    sha256               x86_64_linux:      "4bcbbfe1270c90d060baf5fe79eea7cd07daaae074c110b57e8505eac348cdb8"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "bf7e61c4afe27a50d40deb0e2c43e8d22971225b7014b1f9efd44514b1209f2d"
   end
 
   depends_on "libpng"
@@ -36,11 +25,19 @@ class Icoutils < Formula
   end
 
   def install
+    # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
+    %w[config.sub config.guess].each do |cf|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+        src = "/usr/share/libtool/build-aux/#{cf}"
+        cp src, dest if File.exist?(dest) && File.exist?(src)
+      end
+    end
+
     # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
     %w[conf-cc conf-cxx].each do |cf|
       next unless File.exist?(cf)
       _c = File.read(cf).strip
-      File.write(cf, _c + " -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration\n") unless _c.include?("gnu17")
+      File.write(cf, _c + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types\n") unless _c.include?("gnu17")
     end
     # cc 命令改写（Makefile 里写死 cc 而非 $(CC) 时）
     Dir["Makefile", "**/Makefile", "**/GNUmakefile", "**/Makefile.*"].each do |mkf|
@@ -50,9 +47,9 @@ class Icoutils < Formula
       File.write(mkf, _m)
     end
     # CMake 标志追加
-    _cmflags = ["-DCMAKE_C_FLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration", "-DCMAKE_CXX_FLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"].freeze
+    _cmflags = ["-DCMAKE_C_FLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "-DCMAKE_CXX_FLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"].freeze
     # ENV.cc 追加
-    _extra = "-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration".split
+    _extra = "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types".split
     Dir["Makefile", "GNUmakefile", "makefile", "src/Makefile"].each do |mkf|
       next unless File.exist?(mkf)
       _m = File.read(mkf)
@@ -63,7 +60,7 @@ class Icoutils < Formula
     Dir["Makefile", "GNUmakefile", "makefile", "**/Makefile", "**/GNUmakefile", "**/makefile", "**/Makefile.*"].each do |mkf|
       next unless File.exist?(mkf)
       _m = File.read(mkf)
-      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration " }
+      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types " }
       File.write(mkf, _m)
     end
     # 老包自带的 config.sub/config.guess 不认 loongarch64，用系统版本替换
@@ -76,10 +73,10 @@ class Icoutils < Formula
     # CFLAGS 里面追加（configure 硬编码时 ENV 追加不生效）
     if File.exist?("configure")
       _cfg = File.read("configure")
-      _cfg = _cfg.gsub(/^CFLAGS="([^"\\]*)"/) { 'CFLAGS="' + $1 + ' -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"' }
+      _cfg = _cfg.gsub(/^CFLAGS="([^"\\]*)"/) { 'CFLAGS="' + $1 + ' -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"' }
       File.write("configure", _cfg)
     end
-    ENV.append_to_cflags "-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"
+    ENV.append_to_cflags "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"
     # Workaround to avoid C23
     ENV["ac_cv_prog_cc_c23"] = "no"
 
@@ -89,7 +86,7 @@ class Icoutils < Formula
     system "autoreconf", "--force", "--install", "--verbose" if OS.mac? && MacOS.version >= :monterey
 
     system "./configure", "--build=loongarch64-unknown-linux-gnu", "--disable-rpath", *std_configure_args
-    system "make", "CFLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration", "CXXFLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
+    system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
   end
 
   test do

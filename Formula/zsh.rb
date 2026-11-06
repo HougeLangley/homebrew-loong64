@@ -28,14 +28,10 @@ class Zsh < Formula
     url "https://sourceforge.net/projects/zsh/rss?path=/zsh"
   end
 
+
   bottle do
-    sha256 arm64_golden_gate: "81bc9913604d0b354ea0a36053e8b619808a0d9c08a6472a1ef15f8ad9cd24da"
-    sha256 arm64_tahoe:       "7618b2874959eecd76463c8d78747074e94121074b7df1a663b8c01e0155c280"
-    sha256 arm64_sequoia:     "2755dbf52a9eb647285732df520d3fd202b6f7d815c761386e6dd57b0bedf9bf"
-    sha256 arm64_sonoma:      "991385b48f8767e6119df36c1c400f9697b2f40e157e7df5b1229c2b6aea530f"
-    sha256 sonoma:            "6a59dc38fe84a329977fb79f76f84cce057e23c99930652dd188c0da0f560af9"
-    sha256 arm64_linux:       "e516bc11ee0252de694e5da3caa775284d9f0696389a35ac85de388afc37c5f7"
-    sha256 x86_64_linux:      "36eb699ea0d90cea4cc87514dfb0bc4ee853af432fdbc28688f314fd5a8d9dd6"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "be8c0063fe99aaf834bc913e126e18ac16ac7c335c65b263504e3d6376cc56f7"
   end
 
   head do
