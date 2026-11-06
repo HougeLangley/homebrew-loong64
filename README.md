@@ -1,7 +1,7 @@
 # homebrew-loong64
 
 [![arch](https://img.shields.io/badge/arch-loongarch64-blue)](https://loongson.cn)
-[![packages](https://img.shields.io/badge/packages-2370-brightgreen)](#-可用软件包)
+[![packages](https://img.shields.io/badge/packages-2372-brightgreen)](#-可用软件包)
 [![site](https://img.shields.io/badge/site-homebrewloongarch64.site-0a5)](https://homebrewloongarch64.site)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -146,7 +146,7 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-11-07 01:14 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-11-07 01:24 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
@@ -167,6 +167,7 @@ end
 | **acpica** | 20260408 | 1.3 MiB | `8f85a6d8863c` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/acpica--20260408.loongarch64_linux.bottle.1.tar.gz) |
 | **activemq-cpp** | 3.9.5_2 | 26 MiB | `d7ce5896d2ad` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/activemq-cpp--3.9.5_2.loongarch64_linux.bottle.tar.gz) |
 | **adamstark-audiofile** | 1.1.4 | 16 KiB | `303a29daf658` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/adamstark-audiofile--1.1.4.loongarch64_linux.bottle.1.tar.gz) |
+| **admesh** | 0.98.5 | 67 KiB | `0e9c36e80a00` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/admesh--0.98.5.loongarch64_linux.bottle.1.tar.gz) |
 | **adns** | 1.7.0 | 419 KiB | `240061e69baa` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/adns--1.7.0.loongarch64_linux.bottle.1.tar.gz) |
 | **adplug** | 2.4 | 1.2 MiB | `49641483f57a` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/adplug--2.4.loongarch64_linux.bottle.tar.gz) |
 | **adr-tools** | 3.0.0 | 8.8 KiB | `c8cab39f83ff` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/adr-tools--3.0.0.loongarch64_linux.bottle.3.tar.gz) |
@@ -209,9 +210,8 @@ end
 | **apparix** | 11-062 | 128 KiB | `ac09d409fb44` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/apparix--11-062.loongarch64_linux.bottle.2.tar.gz) |
 | **apr** | 1.7.6 | 612 KiB | `650e8690586a` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/apr--1.7.6.loongarch64_linux.bottle.tar.gz) |
 | **apr-util** | 1.6.5_1 | 612 KiB | `650e8690586a` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/apr-util--1.6.5_1.loongarch64_linux.bottle.1.tar.gz) |
-| **archivemount** | 1c | 31 KiB | `772263040fcd` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/archivemount--1c.loongarch64_linux.bottle.1.tar.gz) |
 
-> 仅显示前 60 个，共 **2370** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
+> 仅显示前 60 个，共 **2372** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
 
 ## 镜像与加速
 
