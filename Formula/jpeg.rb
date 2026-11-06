@@ -6,11 +6,6 @@ class Jpeg < Formula
   sha256 "8b9eaa13242690ebd03e1728ab1edf97a81a78ed6e83624d493655f31ac95ab5"
   license "IJG"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "b37a537f0acc0bd95fc184f3f89205573223727ee1923b69b739763cf32adcc2"
-  end
-
   livecheck do
     url "https://www.ijg.org/files/"
     regex(/href=.*?jpegsrc[._-]v?(\d+[a-z]?)\.t/i)
@@ -20,6 +15,11 @@ class Jpeg < Formula
   keg_only "it conflicts with `jpeg-turbo`"
 
   deny_network_access!
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "87b7071e45d1ddf94437fada12adca066013147e49286b78b15fac559366314a"
+  end
 
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换

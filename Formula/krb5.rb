@@ -33,15 +33,13 @@ class Krb5 < Formula
     regex(/Current release: .*?>krb5[._-]v?(\d+(?:\.\d+)+)</i)
   end
 
-  bottle do
-    sha256 arm64_golden_gate: "678c05de46229f5b35631196808a7f6e4a32f9a18bc9574ec447f6c8290dfff7"
-    sha256 arm64_tahoe:       "8fc14b442b666d56a994cfddb47cd86071b6408905be70f10f7fcf668fc9e1cf"
-    sha256 arm64_sequoia:     "8bc2adf379fd6e0d0dd3bbe663effe87f625f25b9aa5a1bac71aef4b450ccc23"
-    sha256 arm64_linux:       "ac8557d7c89e6ee7e4d736baf925469fefe3837b1aa804623b0638a227f5567d"
-    sha256 x86_64_linux:      "587ada42216850382fedbfa4707b7aed405fb6934d8ed0650567a7a488162d1c"
-  end
 
   keg_only :provided_by_macos
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "356c82f9f2cd2033d0f16a7d30c683429f02468fb3d60276d1784123d88e819c"
+  end
 
   depends_on "openssl@4"
 

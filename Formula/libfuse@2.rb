@@ -9,16 +9,16 @@ class LibfuseAT2 < Formula
   ]
   compatibility_version 1
 
-  bottle do
-    rebuild 1
-    sha256 arm64_linux:  "df8b668765d688eb5a516eaa67a73d1750b5ce6bab91b1924def3b7fd0d85aac"
-    sha256 x86_64_linux: "2f5566126dd96e6a9c0329b6321db145d1815690cf5d4cf51d62b762493ca19b"
-  end
 
   keg_only :versioned_formula
 
   deprecate! date: "2026-06-21", because: :unmaintained
   disable! date: "2027-06-21", because: :unmaintained
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "7eb7ea11968fed558de22fe00350544622efde6633175444d1794a9e225d2e6b"
+  end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build

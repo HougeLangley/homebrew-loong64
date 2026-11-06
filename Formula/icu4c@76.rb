@@ -5,11 +5,6 @@ class Icu4cAT76 < Formula
   version "76.1"
   sha256 "dfacb46bfe4747410472ce3e1144bf28a102feeaa4e3875bac9b4c6cf30f4f3e"
   license "Unicode-3.0"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "e30e734906d7559b8ba16d405e16032e452ba5fc09576e2423ebacb0a3aa8f37"
-  end
-
   revision 2
 
 
@@ -18,6 +13,11 @@ class Icu4cAT76 < Formula
   # Deprecated with ICU 77.1 release
   deprecate! date: "2025-03-29", because: :versioned_formula
   disable! date: "2026-03-29", because: :versioned_formula
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "3d71c4455d4584784fb259f3115f3585f9f748793282a1bc53c09bb25a38bd29"
+  end
 
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换

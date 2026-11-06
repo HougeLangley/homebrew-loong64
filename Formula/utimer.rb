@@ -4,17 +4,17 @@ class Utimer < Formula
   url "https://launchpad.net/utimer/0.4/0.4/+download/utimer-0.4.tar.gz"
   sha256 "07a9d28e15155a10b7e6b22af05c84c878d95be782b6b0afaadec2f7884aa0f7"
   license "GPL-3.0-or-later"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "0371f19a88b1d9049e8340dd3e0c3647aeacd38398ae82e79e50bf434748db6f"
-  end
-
   revision 1
 
   livecheck do
     skip "No longer developed or maintained"
   end
 
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "0371f19a88b1d9049e8340dd3e0c3647aeacd38398ae82e79e50bf434748db6f"
+  end
 
   depends_on "gettext" => :build
   depends_on "intltool" => :build

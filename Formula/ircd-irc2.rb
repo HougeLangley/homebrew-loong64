@@ -14,19 +14,6 @@ class IrcdIrc2 < Formula
     :cannot_represent, # ircd/{res_comp.c,res_init.c,res_mkquery.c,resolv_def.h}
   ]
 
-  bottle do
-    rebuild 2
-    sha256 arm64_tahoe:    "e60037ded349a9107379774d16764e0cd9506b7c24134f8f22f0f9d30b8214c1"
-    sha256 arm64_sequoia:  "11a1e704e3078514219037593b14351817074e38045f95a056d048ced644fed1"
-    sha256 arm64_sonoma:   "c45a5b7682ca7ac5d07f883a2aa981c835ef3ecf2b25602099eb8c27331e4398"
-    sha256 arm64_ventura:  "692fa84b509e25774b65bd12c281990093c6f6563447d2a62ca6e1f13f04ea69"
-    sha256 arm64_monterey: "bd6adad56faafcb7ac533e5bb8668e689b8017a6b0ad336715d02b00b824b882"
-    sha256 sonoma:         "f5fcb1c6dea38be635adcc3bb4a6b32d8034d4c02ee5ea1034a66e6b64059cbd"
-    sha256 ventura:        "fcde6372721ec2700d587fd077cb410df0afdc5100d8181576a5f905728e7ed9"
-    sha256 monterey:       "90c0639ec3e7ab17eaa97b90af15b30b14896d23f7f3c492b88a3190555781ff"
-    sha256 arm64_linux:    "6dab067580b38df4623c5256bb04d641f108ec8997491b483e91b58df06e9257"
-    sha256 x86_64_linux:   "524aef733a367cce6eb115c4453ec851ffe7ac7d731c3d5ce91195be201bddb1"
-  end
 
   def default_ircd_conf
     <<~EOS
@@ -52,6 +39,11 @@ class IrcdIrc2 < Formula
   # Last release on 2010-08-13 and site is down
   deprecate! date: "2025-04-06", because: :unmaintained
   disable! date: "2026-04-06", because: :unmaintained
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "1ccc0217d6920dcddb50d1c87fc70c8400e90995d223893ea4849ac344cecc7f"
+  end
 
   uses_from_macos "libxcrypt"
 

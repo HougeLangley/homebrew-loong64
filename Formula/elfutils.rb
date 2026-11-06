@@ -15,9 +15,10 @@ class Elfutils < Formula
     regex(%r{href=(?:["']?v?(\d+(?:\.\d+)+)/?["' >]|.*?elfutils[._-]v?(\d+(?:\.\d+)+)\.t)}i)
   end
 
+
   bottle do
-    sha256 arm64_linux:  "016cf02a099a01e3bd164512c49cc98de5e4c7d8b810bd184d5f2ef814d63848"
-    sha256 x86_64_linux: "8d8590853f50dc056092afa497854439954ae8c768c1330450a553f702f492ae"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "0144d385741b94130e8732fc16ccbf83aa00743c530976fa6c250cd8ddb1700b"
   end
 
   depends_on "m4" => :build

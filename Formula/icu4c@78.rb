@@ -4,11 +4,6 @@ class Icu4cAT78 < Formula
   url "https://github.com/unicode-org/icu/releases/download/release-78.3/icu4c-78.3-sources.tgz"
   sha256 "3a2e7a47604ba702f345878308e6fefeca612ee895cf4a5f222e7955fabfe0c0"
   license "Unicode-3.0"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "1a6a70570a05843cd2269214819734eca01b96455d93d1ded9aaabd2d70eaca7"
-  end
-
   revision 1
   compatibility_version 1
 
@@ -27,6 +22,11 @@ class Icu4cAT78 < Formula
   disable! date: "2027-10-30", because: :versioned_formula
 
   deny_network_access!
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "e55e96381c6a2f91e3562bbb7c90c30f616a03b7998ca06c99d0f21e23cf6afc"
+  end
 
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换

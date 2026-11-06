@@ -11,6 +11,11 @@ class E2fsprogs < Formula
     "MIT",               # lib/et, lib/ss
   ]
   compatibility_version 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "e3622a377df772ebae1c01abfed32df78b248fc44d50018faac0a93e3b1125ef"
+  end
+
   head "https://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git", branch: "master"
 
   livecheck do
@@ -18,15 +23,6 @@ class E2fsprogs < Formula
     regex(%r{url=.*?/e2fsprogs[._-]v?(\d+(?:\.\d+)+)\.t}i)
   end
 
-  bottle do
-    sha256 arm64_golden_gate: "0973c1fb0fbc8a20d7890376c52e992ba79433ee7e3fd79a43639f318bf35ee2"
-    sha256 arm64_tahoe:       "f8024861ae8b5a645374d7960a5b5e3c41576c792712925d55deb186a74a1d06"
-    sha256 arm64_sequoia:     "753c95aef34725e1bc3a4778a6c3073596b8b3a2b32bb18ec4f361fce747813b"
-    sha256 arm64_sonoma:      "c2c812d2da0ef0aa70a6f4962c832fd6636efad99344941ce0654173e7c8a297"
-    sha256 sonoma:            "5985432543778c6ebd6358ecaa2f9fb508c1a9cc6393117597d505b489d8a7a3"
-    sha256 arm64_linux:       "7dc8e4683b77882347b8dcd2cc2b82f2943fca8c30db51795bf33d2f260fd7f5"
-    sha256 x86_64_linux:      "28c57ec49ba06d7c371755737e6ab04a23fa733ef82a83b05a9da2871e8f8215"
-  end
 
   keg_only :shadowed_by_macos
 
