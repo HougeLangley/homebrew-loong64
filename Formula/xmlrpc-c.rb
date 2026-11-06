@@ -6,12 +6,10 @@ class XmlrpcC < Formula
   license "BSD-3-Clause"
   revision 1
 
+
   bottle do
-    sha256 cellar: :any, arm64_golden_gate: "320d56ff6025d45887470bee950ecfb5cdfda6f7739cefd2b6845e3de7ae3ae1"
-    sha256 cellar: :any, arm64_tahoe:       "e6b25a7720dd3c8f45f6d0e39d0e571b6e07af1a63a1b88ef50af33c56f147b5"
-    sha256 cellar: :any, arm64_sequoia:     "5cad13b02fa09ff044cc43d72f4f19a6893799d9b28b14df5eb724b82bfdfac4"
-    sha256 cellar: :any, arm64_linux:       "a03eb071175741b250d64748c13d226b2affbc19809ba29c39a967107ddf28bb"
-    sha256 cellar: :any, x86_64_linux:      "6a5262279f39aa1051f03f4ec43526aee049a5ff93f1062332fa6c13dfd1dad9"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "975574736914bb1331d2c3b5e3f9d5fc83f6d2ebf067f8eadba8a0826940c46a"
   end
 
   depends_on "pkgconf" => :build
@@ -21,6 +19,14 @@ class XmlrpcC < Formula
   uses_from_macos "libxml2"
 
   def install
+    # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
+    %w[config.sub config.guess].each do |cf|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+        src = "/usr/share/libtool/build-aux/#{cf}"
+        cp src, dest if File.exist?(dest) && File.exist?(src)
+      end
+    end
+
     # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
     %w[conf-cc conf-cxx].each do |cf|
       next unless File.exist?(cf)
