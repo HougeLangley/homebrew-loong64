@@ -1,0 +1,55 @@
+class Wasm3 < Formula
+  desc "High performance WebAssembly interpreter"
+  homepage "https://twitter.com/wasm3_engine"
+  url "https://github.com/wasm3/wasm3/archive/refs/tags/v0.9.0.tar.gz"
+  sha256 "cab79ce74bcac25bbf80b5ebe14af9795b9bac30b05ee8f620a3bc8002f3b8e6"
+  license "MIT"
+
+  livecheck do
+    url :stable
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+  end
+
+
+
+  bottle do
+    rebuild 1
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "dec21a8731f497a62c5fde8714ce54add3d52ec1a91666dfd6e70df7dfdd6250"
+  end
+
+  depends_on "cmake" => :build
+  depends_on "uvwasi"
+
+  resource "homebrew-fib32.wasm", :test do
+    url "https://github.com/wasm3/wasm3/raw/ae7b69b6d2f4d8561c907d1714d7e68b48cddd9e/test/lang/fib32.wasm"
+    sha256 "80073d9035c403b6caf62252600c5bda29cf2fb5e3f814ba723640fe047a6b87"
+  end
+
+  allow_network_access! :test
+
+  def install
+    # Unbundle uvwasi and link to shared library
+    inreplace "CMakeLists.txt",
+              "target_link_libraries(${OUT_FILE} uvwasi_a uv_a)",
+              "target_link_libraries(${OUT_FILE} uvwasi::uvwasi)"
+
+    # We bypass brew's dependency provider to set `FETCHCONTENT_TRY_FIND_PACKAGE_MODE`
+    # which redirects FetchContent_Declare() to find_package() and helps find our `uvwasi`.
+    # To re-block fetches, we use the not-recommended `FETCHCONTENT_FULLY_DISCONNECTED`.
+    system "cmake", "-S", ".", "-B", "build",
+                    "-DHOMEBREW_ALLOW_FETCHCONTENT=ON",
+                    "-DFETCHCONTENT_FULLY_DISCONNECTED=ON",
+                    "-DFETCHCONTENT_TRY_FIND_PACKAGE_MODE=ALWAYS",
+                    *std_cmake_args
+    system "cmake", "--build", "build"
+    bin.install "build/wasm3"
+  end
+
+  test do
+    testpath.install resource("homebrew-fib32.wasm")
+
+    # Run function fib(24) and check the result is 46368
+    assert_equal "Result: 46368", shell_output("#{bin}/wasm3 --func fib fib32.wasm 24 2>&1").strip
+  end
+end
