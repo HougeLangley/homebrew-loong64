@@ -78,7 +78,7 @@ class Readline < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "7b46a47e3fe2491f2ea9b8e28ad03aad1f4593103a499565ef49d1cb2264ea3d"
+    sha256 cellar: :any, loongarch64_linux: "25aee8761247dcc74bec3af00fbdbb74fea760bc5d4f25657a79093c6ad5d9f4"
   end
 
   uses_from_macos "ncurses"
