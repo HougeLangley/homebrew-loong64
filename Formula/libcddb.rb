@@ -6,20 +6,20 @@ class Libcddb < Formula
   license "LGPL-2.0-or-later"
   revision 5
 
-  bottle do
-    sha256 cellar: :any, arm64_golden_gate: "a1f48c53dc3320669db5527e455948f1dd68894c46f36918163994fd14ace9d6"
-    sha256 cellar: :any, arm64_tahoe:       "f0a1bd45cdf2b26cc99ab0206abb9cbbe41f2d76b7f15e19be180a4d36c46291"
-    sha256 cellar: :any, arm64_sequoia:     "88b9e48b5e68d994010a18cfda8862b7bd561c85814e23d01fdb3384a3da3951"
-    sha256 cellar: :any, arm64_sonoma:      "a3d83ba8561cabef84fb98eb97f270aea3770da1420ba460267faa6fb47864d6"
-    sha256 cellar: :any, sonoma:            "1d0899b18cfd4aa5c68b5378d7b13a18d8dc2dea9ce43c8cb32bce3016800a9a"
-    sha256 cellar: :any, arm64_linux:       "e948881758d30afcd4fce9291384cf3d669534a1fdabea6edcaf1372a98eb659"
-    sha256 cellar: :any, x86_64_linux:      "21fb0f06d53ff95e28280df8a7f49d9614e98e3ae62d44f6e2bc0e2a4cfd5053"
-  end
+
 
   depends_on "pkgconf" => :build
   depends_on "libcdio"
 
   def install
+    # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
+    %w[config.sub config.guess].each do |cf|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+        src = "/usr/share/libtool/build-aux/#{cf}"
+        cp src, dest if File.exist?(dest) && File.exist?(src)
+      end
+    end
+
     # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
     %w[conf-cc conf-cxx].each do |cf|
       next unless File.exist?(cf)
@@ -67,6 +67,7 @@ class Libcddb < Formula
     args = []
     # Help old config scripts identify arm64 linux
     args << "--build=aarch64-unknown-linux-gnu" if OS.linux? && Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+    args << "--build=loongarch64-unknown-linux-gnu" if OS.linux? && Hardware::CPU.arch == :loongarch64
 
     system "./configure", "--build=loongarch64-unknown-linux-gnu", *args, *std_configure_args
     system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
