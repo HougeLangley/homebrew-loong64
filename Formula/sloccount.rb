@@ -5,17 +5,16 @@ class Sloccount < Formula
   sha256 "fa7fa2bbf2f627dd2d0fdb958bd8ec4527231254c120a8b4322405d8a4e3d12b"
   license "GPL-2.0-or-later"
 
-  bottle do
-    rebuild 2
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "fb30294947044067855c05c86ffc89c88d37225ce49207a2d8c4d4ebe2fafc51"
-  end
-
   livecheck do
     url :homepage
     regex(/href=.*?sloccount[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "38d3eef8170ad591a16baa5f20ea20cc3dfc02d3aa40bf7e63d302f9eaea01ed"
+  end
 
   uses_from_macos "flex" => :build
 
