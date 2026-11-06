@@ -12,20 +12,21 @@ class Ssed < Formula
     regex(/href=.*?ssed[._-]v?(\d+(?:\.\d+)+)\.orig\.t/i)
   end
 
+
   bottle do
-    rebuild 3
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "ac0344a899cb6d01665d2fa1316c7274e512fcedb528abd9eb1c505bcdc6102c"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "7f320800bb3b956cc9b1c04587ac2c93bf44dfea273107a9930a767bfa970f44"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "92006e68fb2c4e57950c340c9ccef34132c2577f7341b79c168ca906bd400018"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:      "c90bd4517877eb2e72ed8ddfd9ebd830d781d10f3e1e21f81013ea76fc75816d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:     "145cb1b805276d6a61df5d706fac9e96cd1dd98f0e1e4f2a9bafe1af52fcef47"
-    sha256 cellar: :any_skip_relocation, sonoma:            "fd6689f0fb272be1bf808fc7989f2c8d1223d684a76882e6f889f84f20642303"
-    sha256 cellar: :any_skip_relocation, ventura:           "5bbc6dfa3c280d9cc26fe8d0516d0ce558cf1e81bdd546dc3ce897eb66f3c4f7"
-    sha256                               arm64_linux:       "c8fc6e6bc3c579dfafeeaf205989db9d1048b345c30db3ef691593503ebcce17"
-    sha256                               x86_64_linux:      "3c4df17253d6bc34e6b2d0df8fc7bc9034185a67701b9bf29bf4d5dafd3fe266"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "827c07259a242472456cd06212a7055deec7b789adee056d1c8d1ede7b16715e"
   end
 
   def install
+    # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
+    %w[config.sub config.guess].each do |cf|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+        src = "/usr/share/libtool/build-aux/#{cf}"
+        cp src, dest if File.exist?(dest) && File.exist?(src)
+      end
+    end
+
     # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
     %w[conf-cc conf-cxx].each do |cf|
       next unless File.exist?(cf)
@@ -80,6 +81,7 @@ class Ssed < Formula
     ]
     # Help old config scripts identify arm64 linux
     args << "--build=aarch64-unknown-linux-gnu" if OS.linux? && Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+    args << "--build=loongarch64-unknown-linux-gnu" if OS.linux? && Hardware::CPU.arch == :loongarch64
 
     system "./configure", "--build=loongarch64-unknown-linux-gnu", *args, *std_configure_args
     system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
