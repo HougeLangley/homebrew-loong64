@@ -5,6 +5,7 @@ class Miniupnpc < Formula
   sha256 "d52a0afa614ad6c088cc9ddff1ae7d29c8c595ac5fdd321170a05f41e634bd1a"
   license "BSD-3-Clause"
   compatibility_version 1
+
   head "https://github.com/miniupnp/miniupnp.git", branch: "master"
 
   livecheck do
@@ -18,10 +19,6 @@ class Miniupnpc < Formula
 
   deny_network_access!
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "504f8fa8c9aa1ec584e1cd6c4ad80af02c5fbf8a13a48300464fe2a690c11ffc"
-  end
 
   def install
     # When building from head we have to cd into the miniupnpc directory
