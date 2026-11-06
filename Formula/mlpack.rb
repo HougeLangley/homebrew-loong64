@@ -4,6 +4,11 @@ class Mlpack < Formula
   url "https://mlpack.org/files/mlpack-4.8.0.tar.gz"
   sha256 "0ab06e5c506c7ed5f072faa4c04477c65624e4a1ff62eee8c0d996ef850ec51c"
   license all_of: ["BSD-3-Clause", "MPL-2.0", "BSL-1.0", "MIT"]
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "674b68b7ad846652f90bffcce3ccb91af9770f82a272589ba01250466debb216"
+  end
+
   head "https://github.com/mlpack/mlpack.git", branch: "master"
 
   livecheck do
@@ -12,11 +17,6 @@ class Mlpack < Formula
   end
 
 
-  bottle do
-    rebuild 1
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "8a145280f5fbd27959f7f7b51eb92c7bfd25e269893df7583f6d3e555d8e3e37"
-  end
 
   depends_on "cmake" => :build
   depends_on "pkgconf" => :build
