@@ -16,7 +16,7 @@ class Mecab < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "f5b1c3699a14a3e20680c791ad5fa815f8434e852908c1ee5184b7e122ad7d31"
+    sha256 cellar: :any, loongarch64_linux: "7dde8c1142f50136eb6d9dc2458252e3052c01dad966961676276b912146948f"
   end
 
   def install

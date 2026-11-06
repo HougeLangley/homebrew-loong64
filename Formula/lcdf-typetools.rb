@@ -4,10 +4,6 @@ class LcdfTypetools < Formula
   url "https://www.lcdf.org/type/lcdf-typetools-2.110.tar.gz"
   sha256 "517f9ee879208679d3224a14d5e6eb20598fc648d5c3562708083d003088a934"
   license "GPL-2.0-or-later"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "6756965e120dc871b290796f293fdfe77d2a893dfa06ffd44a6e74e287f9ce9c"
-  end
 
   head "https://github.com/kohler/lcdf-typetools.git", branch: "master"
 

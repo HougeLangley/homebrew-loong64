@@ -13,12 +13,14 @@ class Minizip < Formula
 
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "e493b2d9ed1f2c6abf87ace433a6a4ec2416ed5ed4d880f93bfc925f51ede7c0"
+  end
+
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
-
-  uses_from_macos "unzip" => :test
-  uses_from_macos "zip" => :test
 
   on_linux do
     depends_on "zlib-ng-compat"
@@ -86,12 +88,12 @@ class Minizip < Formula
       }
     C
 
-    system "zip", "-r", testpath/"test.zip", prefix
+    system "/usr/bin/zip", "-r", testpath/"test.zip", prefix
     system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-lminizip", "-o", "test"
 
     test_results = shell_output(testpath/"test").lines.map(&:split)
 
-    unzip_listing = shell_output("unzip -lv #{testpath}/test.zip").lines
+    unzip_listing = shell_output("/usr/bin/unzip -lv #{testpath}/test.zip").lines
     unzip_listing = unzip_listing.slice(3..(unzip_listing.length - 3))
     unzip_indices_to_keep = [0, 1, 2, 6, 7]
     unzip_results = unzip_listing.map do |item|

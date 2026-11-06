@@ -7,6 +7,11 @@ class Scs < Formula
 
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "1adbba63d36993680e348b06d8ea6ccbb57ba86170efa80b6ed5755ebc3081ac"
+  end
+
   on_linux do
     depends_on "openblas"
   end

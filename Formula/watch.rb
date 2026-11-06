@@ -1,0 +1,65 @@
+class Watch < Formula
+  desc "Executes a program periodically, showing output fullscreen"
+  homepage "https://gitlab.com/procps-ng/procps"
+  url "https://downloads.sourceforge.net/project/procps-ng/Production/procps-ng-4.0.7.tar.xz"
+  sha256 "9d2021f47a4501c667862c9942a92d1953694b21d11bcd1702e83eb594e3d67d"
+  license all_of: ["GPL-2.0-or-later", "LGPL-2.1-or-later"]
+
+
+  bottle do
+    rebuild 1
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "882da4bf7bf0bc6d37276c04956c7ef8537426bf801b905458b9fbd4208fe07f"
+  end
+
+  head do
+    url "https://gitlab.com/procps-ng/procps.git", branch: "master"
+
+    depends_on "autoconf" => :build
+    depends_on "automake" => :build
+    depends_on "gettext" => :build
+    depends_on "libtool" => :build
+  end
+
+
+  depends_on "pkgconf" => :build
+  depends_on "ncurses"
+
+  conflicts_with "visionmedia-watch"
+
+  deny_network_access!
+
+  def install
+    args = %w[
+      --disable-nls
+      --enable-watch8bit
+    ]
+    args << "--disable-pidwait" if OS.mac?
+
+    system "autoreconf", "--force", "--install", "--verbose" if build.head?
+    system "./configure", *args, *std_configure_args
+    system "make", "src/watch"
+    bin.install "src/watch"
+    man1.install "man/watch.1"
+  end
+
+  test do
+    assert_match version.to_s, shell_output("#{bin}/watch --version")
+
+    require "pty"
+    output = []
+    PTY.spawn("#{bin}/watch --errexit --chgexit --interval 1 date") do |r, w, pid|
+      r.winsize = [24, 160]
+      begin
+        r.each_char { |char| output << char }
+      rescue Errno::EIO
+        # GNU/Linux raises EIO when read is done on closed pty
+      end
+    ensure
+      r.close
+      w.close
+      Process.wait(pid)
+    end
+    assert_match "Every 1.0s: date", output.join
+  end
+end

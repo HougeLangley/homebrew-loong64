@@ -16,10 +16,6 @@ class Jpeg < Formula
 
   deny_network_access!
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "45435ee2bc68d93decc5d78ea3e4e024d2341fd436f81be7ab95625e2d1d612c"
-  end
 
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
