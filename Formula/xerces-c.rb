@@ -7,9 +7,10 @@ class XercesC < Formula
   license "Apache-2.0"
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "4d045fcdc4667f82115c0a794cebba1bdad00765bbf3b32ede37aaf187434bd1"
+    sha256 cellar: :any, loongarch64_linux: "212bf0335a94577df68f03d9706e244395a3e4fdb74946264cf9312264808dfd"
   end
 
   depends_on "cmake" => :build
