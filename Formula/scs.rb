@@ -9,7 +9,7 @@ class Scs < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "1adbba63d36993680e348b06d8ea6ccbb57ba86170efa80b6ed5755ebc3081ac"
+    sha256 cellar: :any, loongarch64_linux: "00e5a78ae2f2cb97602e91bc7f4ead6add7b6b727208088b2734632c37c0f417"
   end
 
   on_linux do

@@ -15,19 +15,10 @@ class MecabIpadic < Formula
     regex(/href=.*?mecab-ipadic[._-]v?(\d+(?:\.\d+)+(?:-\d+)?)(?:\+main)?\.orig\.t/i)
   end
 
+
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "1dad4b22266ef949d6db8a6dc3f1a98d4f23baf7f31e477d5968ffb4ebe3fa71"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "3bdeed6d823a573bbac30e4994b79e26ae025379d2cb9b2193128b0cda7aca85"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "b0b12716ef5436fca113fb97c824e532b50b86ef59cb5b035498d00f54579286"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:      "2ab9a752833b99a87201dc1217e3774ca21aac1a87971dac1196bed13d1b428a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:     "23c4ce0042e583b45fe99a339a10c481f80d5d2055ca896924e3e4c764460dc6"
-    sha256 cellar: :any_skip_relocation, arm64_monterey:    "68eec45d5e084ffeab687ccd95391dcbb1cfd80ddb73232253304a1ea1fb0be0"
-    sha256 cellar: :any_skip_relocation, sonoma:            "12212f7bc769338a7747d2ac184bf669454486336ca32335f15f140d3a0121bf"
-    sha256 cellar: :any_skip_relocation, ventura:           "d901a98d8d01869855c5e55a35f4c252749306ee5a5eb44030f8c811885b44ed"
-    sha256 cellar: :any_skip_relocation, monterey:          "6285de6570c904239f3f07fe0b8bb5c707b23c0741e36170ebc28aaed3da0b6d"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "0c7669401d92374cb6f57a0f71be0b65bc73c0fabcd62e1d2fd0480cadf9d697"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "23ec6f722695c38dc93487d1320dc7e34c79b359647d4c8edd2cef0a045ed851"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "da41c201fa44e169bbfe1fb1661f94843bdde1acfc8d7fa8d4e74256bd397fc5"
   end
 
   depends_on "mecab"
