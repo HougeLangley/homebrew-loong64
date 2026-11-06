@@ -49,6 +49,7 @@ class Libidl < Formula
     # Help old config scripts identify arm64 linux
     args << "--build=aarch64-unknown-linux-gnu" if OS.linux? && Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
     args << "--build=loongarch64-unknown-linux-gnu" if OS.linux? && Hardware::CPU.arch == :loongarch64
+    args << "--build=loongarch64-unknown-linux-gnu" if OS.linux? && Hardware::CPU.arch == :loongarch64
 
     system "./configure", "LIBS=-lfl", *args, *std_configure_args
     system "make", "LIBS=-lfl", "install"
