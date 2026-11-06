@@ -12,9 +12,10 @@ class Voroxx < Formula
   end
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "effa0cdb12790fe7b9f81d3ac65a8c417b923fbb0b44859d117ab7fb252e5eca"
+    sha256 cellar: :any, loongarch64_linux: "4b1b936952443771aa84906ba2ea18ddb0b1c99a39ff4865e1cdd3a9e443a570"
   end
 
   def install
