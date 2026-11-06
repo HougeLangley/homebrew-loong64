@@ -5,6 +5,11 @@ class Mandoc < Formula
   mirror "http://mandoc.bsd.lv/snapshots/mandoc-1.14.6.tar.gz"
   sha256 "8bf0d570f01e70a6e124884088870cbed7537f36328d512909eb10cd53179d9c"
   license "ISC"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "e09c82bf75d0d14747f047c7f82741c9c83d1c72744398dad3cc9d8a8dcb9e25"
+  end
+
   revision 1
   head "anoncvs@mandoc.bsd.lv:/cvs", using: :cvs
 
@@ -13,16 +18,6 @@ class Mandoc < Formula
     regex(/href=.*?mandoc[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    rebuild 1
-    sha256                               arm64_golden_gate: "d88c02e1b52a9f98180b1bf6e4e0124d487e8693f34cb83547984baba2e41fd4"
-    sha256                               arm64_tahoe:       "025ae8796e204d45e8fee68828ec019cbab0e8e91f34b2fd08b3a6520622f840"
-    sha256                               arm64_sequoia:     "70ad41c8cf8cff6992d5b628bd25d3a20f5b4308d1cac0e5a5dc32c73e4a51ce"
-    sha256                               arm64_sonoma:      "d452cac1d934d46addb3ad4738d92ec5b61ed555678fa0656445d040aabb7516"
-    sha256 cellar: :any_skip_relocation, sonoma:            "69da4a405b25fdd41e53b14db916b83b22546bc83f9531cb50223f72c649b36a"
-    sha256                               arm64_linux:       "f6bee14a821f1b72189e1428d1fde1507e4eae4ade75247fa16b15ba48adbef7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "00e953d4aff486cf7042ec8adb5cea2069458d739681b0383568b1c8346db23c"
-  end
 
   on_linux do
     depends_on "zlib-ng-compat"

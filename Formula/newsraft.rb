@@ -6,12 +6,10 @@ class Newsraft < Formula
   license "ISC"
 
   bottle do
-    sha256 cellar: :any, arm64_golden_gate: "771e56d73f43ab07b8fcb90cfa36eb1653711085b0e68ef45dd316dbf72da1b5"
-    sha256 cellar: :any, arm64_tahoe:       "447bd4cd76b0489da0f0f59e82b56b8edaac09bbf4ca9a833296ef78da8b734f"
-    sha256 cellar: :any, arm64_sequoia:     "e458f48acd960f29a3c215fe11a685519f4de5b0cd12f19c6c4cd50c3358a355"
-    sha256 cellar: :any, arm64_linux:       "26c054c51276d9634a304bfc0d22f21f3192f9c647d6e5ccf6d2fc28ec36ad30"
-    sha256 cellar: :any, x86_64_linux:      "5352ed608aaac177ef060b26b45ab06bca89a3eda3a7395c7de357bd7550a06d"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "f72c7139163230886c416ef5d1b215fffb8c5a1a488558bcc227cabb5e7a9f71"
   end
+
 
   depends_on "scdoc" => :build
   depends_on "gumbo-parser"

@@ -4,6 +4,11 @@ class Libarchive < Formula
   url "https://www.libarchive.org/downloads/libarchive-3.8.10.tar.xz"
   sha256 "56cad765459d5ee25a3b761f90c47d99379d28297fbfb72d908880d6b875fb96"
   license "BSD-2-Clause"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "055cacbb062c4cdbbf3818c9c171e0bc5674a23d47a4e37151d3a5a041b5f52e"
+  end
+
   compatibility_version 1
 
   livecheck do
@@ -11,13 +16,6 @@ class Libarchive < Formula
     regex(/href=.*?libarchive[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    sha256 cellar: :any, arm64_golden_gate: "f3af08b47c55d5b0b5730240978c899590b9cb66ddc77341b15a1c4bbe73d76d"
-    sha256 cellar: :any, arm64_tahoe:       "18b30e3f5753983dc16c61cc3bb127ce02818085b8c6483f3d720dbfe78d5aaf"
-    sha256 cellar: :any, arm64_sequoia:     "171706f55d0de1d512524bf20a62b1053b42603436a86fe4631043b7ac7be842"
-    sha256 cellar: :any, arm64_linux:       "3e326062ac2d7d1a6033b22c6892cd7fec33287ffd3da77c73e7380844621d39"
-    sha256 cellar: :any, x86_64_linux:      "bf0fc9aae7fa43927149765d4903eb38e91c59d35006d854480732c10dc9f61c"
-  end
 
   keg_only :provided_by_macos
 

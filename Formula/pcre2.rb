@@ -1,4 +1,9 @@
 class Pcre2 < Formula
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "7c0d38e87f5ef4e5ac5924b5015b865b0dc510cdfe026279a86698d85b902698"
+  end
+
   desc "Perl compatible regular expressions library (system stub)"
   homepage "https://www.pcre.org/"
   url "file:///home/houge/infra/srv/stubs/pcre2-10.48.tar.gz"

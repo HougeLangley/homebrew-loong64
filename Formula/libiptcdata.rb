@@ -5,6 +5,11 @@ class Libiptcdata < Formula
   sha256 "c094d0df4595520f194f6f47b13c7652b7ecd67284ac27ab5f219bc3985ea29e"
   license "LGPL-2.0-only"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "fd7c039790c4be665cd660815a56323ce22096aeaadeaa7bcc07bb341a6f7d16"
+  end
+
   livecheck do
     url :stable
     regex(/^release[._-]v?(\d+(?:[._]\d+)+)$/i)
@@ -13,15 +18,6 @@ class Libiptcdata < Formula
     end
   end
 
-  bottle do
-    sha256 arm64_golden_gate: "784d1a0c481c74e53c4640ecf8ce7ca957927d8ac82991372cc2fd0885b96a62"
-    sha256 arm64_tahoe:       "56f886ae4863583e9c8d911dd0f312b1ddb7330043e3296eb5cdeeb14cdf13f2"
-    sha256 arm64_sequoia:     "b05cc07d640693e52679619487e236f3685a1d35ad1af434d44f231a1d26601f"
-    sha256 arm64_sonoma:      "4768dd0ed241d95b8b309564e91ef6dcaeeadc6d5f3a177822f693dd668ee0c2"
-    sha256 sonoma:            "3f94564c26a2283a245b5593d1e9082440932730071ae8527ba51f927b1997c5"
-    sha256 arm64_linux:       "b9007e8fd2a48d129709d296367e69eaa4c6d5b20a3682590f91fe5110c153e8"
-    sha256 x86_64_linux:      "5118f85e9d7a8cdc95465502824841fa6dc745d481dabc5f5d09686ba8872534"
-  end
 
   on_macos do
     depends_on "gettext"

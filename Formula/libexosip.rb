@@ -6,19 +6,16 @@ class Libexosip < Formula
   sha256 "5b7823986431ea5cedc9f095d6964ace966f093b2ae7d0b08404788bfcebc9c2"
   license "GPL-2.0-or-later"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "900766a2daeee5f96730112e1b7c493a1688927cd6b81d9e168a5b33a8dca1a7"
+  end
+
   livecheck do
     url "https://download.savannah.gnu.org/releases/exosip/"
     regex(/href=.*?libexosip2[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    rebuild 2
-    sha256 cellar: :any, arm64_golden_gate: "2d36e210652e3d69b74813ca3df06b03b4cd4a31734fd1026e066d9bba213ea4"
-    sha256 cellar: :any, arm64_tahoe:       "fd656403b8e8d5437cb745a7bdd4361a91e7d2189f047feb8fc666e2986ea6d8"
-    sha256 cellar: :any, arm64_sequoia:     "5ef1ade494065b22d7fad22c10f08cba832b76773fca7de7bae22661f13af8df"
-    sha256 cellar: :any, arm64_linux:       "652d6f38ba6fb236578ddc94d3d8188d682a791b1a5c89719f72140b80d5c830"
-    sha256 cellar: :any, x86_64_linux:      "045476fc48b507eaa2ac61574dd617897df6a8682057b82ceaabd1b65cf20457"
-  end
 
   depends_on "pkgconf" => :build
   depends_on "c-ares"

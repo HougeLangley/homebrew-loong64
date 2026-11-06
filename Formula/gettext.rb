@@ -1,4 +1,9 @@
 class Gettext < Formula
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "ef5c11cad6c17338514c09b3e412591e6e04abdc99f64197e12659072ee5c082"
+  end
+
   desc "GNU internationalization library (system stub)"
   homepage "https://www.gnu.org/software/gettext/"
   url "file:///home/houge/infra/srv/stubs/gettext-1.0.tar.gz"

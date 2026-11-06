@@ -5,15 +5,16 @@ class Libnftnl < Formula
   sha256 "c97abc3409f8fa396b4462b2bb7f147a3a47a4ddc97cfa0b2f18890c9cfde8b0"
   license "GPL-2.0-or-later"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "c70cc35c4440f8a73f6017b1a5090819ad035fb7b1d5fcfe47fc62a0e4ab76f8"
+  end
+
   livecheck do
     url "https://www.netfilter.org/projects/libnftnl/downloads.html"
     regex(/href=.*?libnftnl[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    sha256 cellar: :any, arm64_linux:  "8bb88e18c2ec7f3ee73a0b4dff7c70bcafb1f837486d1f97284e8e028486a3ce"
-    sha256 cellar: :any, x86_64_linux: "3b2e888c2d03cd2f07f1eac05e3e406aea7004d1499bbe96a08ce5230063366e"
-  end
 
   depends_on "pkgconf" => [:build, :test]
   depends_on "libmnl"

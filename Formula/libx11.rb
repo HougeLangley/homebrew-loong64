@@ -4,15 +4,13 @@ class Libx11 < Formula
   url "https://xorg.freedesktop.org/archive/individual/lib/libX11-1.8.14.tar.gz"
   sha256 "ebb8a58549ddde50aa2e742b3b256557f451053d173be8dbfc2e8ac078eee1d6"
   license "MIT"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "a050d3f76f369fd66e71df7da9848e2235d75d4ff5ea8533a06d9f01c49054be"
+  end
+
   compatibility_version 1
 
-  bottle do
-    sha256 arm64_golden_gate: "f16e804d426ea8b43df43c0a6207a106a342b35275e5c061ec8f89ad032140a1"
-    sha256 arm64_tahoe:       "38fbafb4e0ff48cf924f110e1e11442df06091298dfce50b82866dcb7355cb1b"
-    sha256 arm64_sequoia:     "fdc6503c67fb5814bf7de665629b8dbda0807eda7b07d3c2668807768b4ae103"
-    sha256 arm64_linux:       "4fee0a56737a4d2f402edaa3e4b762c45766790c2903899a9a062f3e081b8d19"
-    sha256 x86_64_linux:      "f45a8c9534486b9537d4be52ac32b0742f72d7faf485b99e0f089f07803be224"
-  end
 
   depends_on "pkgconf" => :build
   depends_on "util-macros" => :build

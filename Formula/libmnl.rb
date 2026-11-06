@@ -4,6 +4,11 @@ class Libmnl < Formula
   url "https://www.netfilter.org/projects/libmnl/files/libmnl-1.0.5.tar.bz2"
   sha256 "274b9b919ef3152bfb3da3a13c950dd60d6e2bcd54230ffeca298d03b40d0525"
   license "LGPL-2.1-or-later"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "941d3dddd015033857fb69111ad7cdd7658e31973fc8f30c78a08e2e21d7b6cf"
+  end
+
   compatibility_version 1
 
   livecheck do
@@ -11,11 +16,6 @@ class Libmnl < Formula
     regex(/href=.*?libmnl[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_linux:  "a2f88b9fc807bcdbc77da6579b9937d9c993a637187f1b98c85b82ef6d2f5c98"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "7dc8eaa75b820802be23b7ba7a95e3fe7b4788b0ec8f2d1f1f8180dea1a7daa4"
-  end
 
   depends_on :linux
 

@@ -4,6 +4,11 @@ class AlsaLib < Formula
   url "https://www.alsa-project.org/files/pub/lib/alsa-lib-1.2.16.1.tar.bz2"
   sha256 "f740db7f488255944ffd4428416ee3390a96742856916433df468c281436480e"
   license all_of: ["LGPL-2.1-or-later", "GPL-2.0-or-later"]
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "b7fe8d46cb6eafeb5efdda4b75b287603758e765ab7c9bb4e0dcdfedb058f327"
+  end
+
   revision 1
   compatibility_version 1
 
@@ -12,10 +17,6 @@ class AlsaLib < Formula
     regex(/href=.*?alsa-lib[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    sha256 arm64_linux:  "b1ae855e221183539e46de1223bd314cada603de3e8d4b34737774cbe272d0d1"
-    sha256 x86_64_linux: "2585ca003b5d398419bffad120e55d7b0429c0986e70bf03e7435329136013ac"
-  end
 
   depends_on :linux
 

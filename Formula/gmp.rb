@@ -1,4 +1,9 @@
 class Gmp < Formula
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "66c83d97e0a5841ab84c59e22efa96ec71f1469064f4ef9d559e00d3cf046b3a"
+  end
+
   desc "GNU multiple precision arithmetic library (system stub)"
   homepage "https://www.gnu.org/"
   url "file:///home/houge/infra/srv/stubs/gmp-6.3.0.tar.gz"

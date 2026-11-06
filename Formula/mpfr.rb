@@ -1,4 +1,9 @@
 class Mpfr < Formula
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "4e4c23afa58bf74dfab0550fdaf66af5f18f28d0bccec310cd80ac60b7844e39"
+  end
+
   desc "Multiple-precision floating-point library (system stub)"
   homepage "https://www.gnu.org/"
   url "file:///home/houge/infra/srv/stubs/mpfr-4.2.2.tar.gz"

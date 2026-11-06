@@ -4,6 +4,11 @@ class OsspUuid < Formula
   url "https://deb.debian.org/debian/pool/main/o/ossp-uuid/ossp-uuid_1.6.2.orig.tar.gz"
   sha256 "11a615225baa5f8bb686824423f50e4427acd3f70d394765bdff32801f0fd5b0"
   license "BSD-1-Clause"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "d99052fe5fe0b31f6e5708a0dacff70f88b9ce331f6c75bd17bff2dd4d5d62f5"
+  end
+
   revision 2
 
   livecheck do
@@ -11,21 +16,6 @@ class OsspUuid < Formula
     regex(/href=["']?ossp-uuid[._-]v?(\d+(?:\.\d+)+)\.orig\.t/i)
   end
 
-  bottle do
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "43b6cf5a50fccd89540a90d0eeaee77c2fff228128c0291096f2a78950af211d"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "d25ab2444dc60f7fec95cbdc75fee7b6594071e0cb203fd395e6fe29fefae1db"
-    sha256 cellar: :any,                 arm64_sequoia:     "54fe9ac592343b06d7ce62e286cf0afd06f90be6c9aebd779102403c51cd55ea"
-    sha256 cellar: :any,                 arm64_sonoma:      "54b71284924df66d47fb0544f6a20c058e4118b0b6c7e4e25938a9e5db0b19f9"
-    sha256 cellar: :any,                 arm64_ventura:     "3285f1a05e275068e1c5aee7036066c23859b53f56fff5795e08cf18cd6d4d75"
-    sha256 cellar: :any,                 arm64_monterey:    "09aff0ba17ad31b748e80e71d1138b457798a9bff6cb101750343b47f9db06d9"
-    sha256 cellar: :any,                 arm64_big_sur:     "e0ce19ff28fdcdd2f39dfc8706124f4d9b75e5fc3865ba2fc17c1de2fb9b9f29"
-    sha256 cellar: :any,                 sonoma:            "f1055cbbeef1485ae007d2a71818cfb7f2a3b1e4a4cb6e7d69f7bf79796dfaf5"
-    sha256 cellar: :any,                 ventura:           "be5ba7669ab915635b5d56d6bccfbaf39f6706acb66329e1ad194177eae2cb5b"
-    sha256 cellar: :any,                 monterey:          "46c913bd5d404f0ea9dc7467a072ddf3d29f64dff75bfa4527476a5ed67ffd87"
-    sha256 cellar: :any,                 big_sur:           "610cf9d70494965c79a4f1fc39a7b9e2854efa0e69fdd152cf54485e2d6b7958"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "d085b0474a2dce5f3e7c587c3fdce4c41a1ae312c5f75657494f69dab899bd8f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "ec70863fae3001fc9281f76cef9ac231bd6dbb957c6382457a5848312ee1f1b0"
-  end
 
   on_linux do
     conflicts_with "util-linux", because: "both install `uuid.3` file"

@@ -5,6 +5,11 @@ class Neon < Formula
   mirror "https://fossies.org/linux/www/neon-0.37.1.tar.gz"
   sha256 "a99b7262525a454d1065cf76dd17240fd808dfc4ef15636990ff83a5d0d9e740"
   license "LGPL-2.0-or-later"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "a5c4f85eba4899453e0a25e66c45f6020c11130c2c423bf8ef9e1e5a6895972d"
+  end
+
   revision 1
   compatibility_version 1
 
@@ -13,13 +18,6 @@ class Neon < Formula
     regex(/href=.*?neon[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    sha256 cellar: :any, arm64_golden_gate: "873bb4028810772ed1b8210fd6aadec048f467cfe9bb8d8f105942cd344eccd9"
-    sha256 cellar: :any, arm64_tahoe:       "7183fc8bc520c33bc6035e9db16944041d3404bdde0c4502e7dc24c792c15647"
-    sha256 cellar: :any, arm64_sequoia:     "e8b86db494627b56ab14aedd7352968826dacfbdce7aa3245e7e04b9277e07ac"
-    sha256 cellar: :any, arm64_linux:       "ea160910186091672a20ba35055567c08c19f007d47f92023e64f5ad8c574074"
-    sha256 cellar: :any, x86_64_linux:      "665399ebe0bfac48688b3ca348b3deb5dfcad05f08c47a7c94a7fb2ceab4c6f0"
-  end
 
   depends_on "pkgconf" => :build
   depends_on "xmlto" => :build

@@ -5,6 +5,11 @@ class Libart < Formula
   sha256 "fdc11e74c10fc9ffe4188537e2b370c0abacca7d89021d4d303afdf7fd7476fa"
   license "LGPL-2.0-or-later"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "c24bf279efcb3473d8b7b9957788f3f7f190ebf37cb31439e86942671b52766c"
+  end
+
   # We use a common regex because libart doesn't use GNOME's "even-numbered
   # minor is stable" version scheme.
   livecheck do
@@ -12,16 +17,6 @@ class Libart < Formula
     regex(/libart_lgpl[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    rebuild 1
-    sha256 cellar: :any, arm64_golden_gate: "be799736f6211c996469b082d4c80e54069a7dee71712d3c55cb9902f7d38a0b"
-    sha256 cellar: :any, arm64_tahoe:       "53304bb1b776948ef6b9bd1a57a6f18be0b60fefee04e6fc107ece7e31939f3f"
-    sha256 cellar: :any, arm64_sequoia:     "de3242b54a2271d41f9a2ad9a54ad56211a71d20a98efdceaebf8202e39cd304"
-    sha256 cellar: :any, arm64_sonoma:      "a9fbb96bc9d2b1ecabb2ae03143bc1f722e655a09fc057e5e88f3c1dd3c03701"
-    sha256 cellar: :any, sonoma:            "2297b2b9a168d0870e069efa0718ef30ebd0afcb0af636e35922e6b1665ad373"
-    sha256 cellar: :any, arm64_linux:       "4df630f902f3e455534208b71838cb1919ff13564a48797a992b5394bc3ca11b"
-    sha256 cellar: :any, x86_64_linux:      "348b3a8eafa51bc243132a60926c566d942e2fe9d67f8fe3d5028dbfd6abe536"
-  end
 
   deprecate! date: "2026-07-17", because: :repo_archived
   disable! date: "2027-01-17", because: :repo_archived

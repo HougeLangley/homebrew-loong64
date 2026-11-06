@@ -6,6 +6,11 @@ class Libssh2 < Formula
   mirror "http://download.openpkg.org/components/cache/libssh2/libssh2-1.11.1.tar.gz"
   sha256 "d9ec76cbe34db98eec3539fe2c899d26b0c837cb3eb466a56b0f109cabf658f7"
   license "BSD-3-Clause"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "56c1bef99af62416f3a69eef44d3bf9cc6a5f7efe0cd929c8bf4e1f347399f03"
+  end
+
   revision 7
   compatibility_version 1
 
@@ -14,13 +19,6 @@ class Libssh2 < Formula
     regex(/href=.*?libssh2[._-]v?(\d+(?:\.\d+)+)\./i)
   end
 
-  bottle do
-    sha256 cellar: :any, arm64_golden_gate: "5556a728575577915ed43171a3881c8aeed3d0d62c24d1eb13798f8a6a03834d"
-    sha256 cellar: :any, arm64_tahoe:       "d51f26fef662c9f562f8d6bee348c9e9fdd2a917cc96bb1b26aa53116b9e7481"
-    sha256 cellar: :any, arm64_sequoia:     "e0cd7666188510728b2e133ddfab7357437f4df5c347dfbe12cc89d8c06bd2ee"
-    sha256 cellar: :any, arm64_linux:       "d429e38ea1d9345a3590d16e1ef79b2d10b9689ac1b02f175c3725ded666d76e"
-    sha256 cellar: :any, x86_64_linux:      "67939513d8a056ee430572396dcae0446e75f7a6963cc34771971fc9eb2dfefb"
-  end
 
   head do
     url "https://github.com/libssh2/libssh2.git", branch: "master"

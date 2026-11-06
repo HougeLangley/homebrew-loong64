@@ -5,16 +5,16 @@ class LibnetfilterQueue < Formula
   sha256 "f9ff3c11305d6e03d81405957bdc11aea18e0d315c3e3f48da53a24ba251b9f5"
   license "LGPL-2.0-or-later"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "8367b9ad9f274337557636077cbc0d2958ebc18d7b3f67e0c52402ef366a6745"
+  end
+
   livecheck do
     url "https://www.netfilter.org/projects/libnetfilter_queue/downloads.html"
     regex(/href=.*?libnetfilter_queue[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_linux:  "0d88b35944420ead47b296ddc1e8a374591138b640c4aeede86e02b0104de7c4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "92a395a74268dd17a019cf43ca0a5bbe38ad52e045697e403657abc3250e3f6e"
-  end
 
   depends_on "pkgconf" => :build
   depends_on "libmnl"

@@ -1,4 +1,9 @@
 class Mpg123 < Formula
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "47c15340db934890c7b46d0d43ce419aad5793334079d89c0d224451c5ccb41e"
+  end
+
   desc "MP3 decoding library (system stub)"
   homepage "https://www.gnu.org/"
   url "file:///home/houge/infra/srv/stubs/mpg123-1.32.8.tar.gz"

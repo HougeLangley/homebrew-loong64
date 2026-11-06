@@ -5,21 +5,16 @@ class Libdsk < Formula
   sha256 "71eda9d0e33ab580cea1bb507467877d33d887cea6ec042b8d969004db89901a"
   license "LGPL-2.0-or-later"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "d18ee593cb74a2832933a549eadd0f7752ad70f30b2da91fcff086bd9c9f0ce3"
+  end
+
   livecheck do
     url :homepage
     regex(/Stable version.*?href=.*?libdsk[._-]v?(\d+(?:\.\d+)+)\.t/im)
   end
 
-  bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_golden_gate: "7d6acb7b39f9adb2a83c29887510282805108a9e6c69ffbb076aa3494e8a4912"
-    sha256 cellar: :any,                 arm64_tahoe:       "feb56e14f0d05e880c42e25c4780cba7eb930b9e1aa4a313045accd8abdf4e49"
-    sha256 cellar: :any,                 arm64_sequoia:     "1d621ecbf36e2c65f1c29143004543db6864aa372b487fad25587e36ce42bbf9"
-    sha256 cellar: :any,                 arm64_sonoma:      "4cb16e1f82fdffbf20ecd541d2bfb9cccc58a47c8b1342293aace84fe2a19ec5"
-    sha256 cellar: :any,                 sonoma:            "c747e86cb14f14a46f3cc70433d08d9825d5b5c13b179457a53c136960b3cbf0"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "ff17529b023259b9a186572ad5a7ebef05b0b69854816925bd050a3dbb95818d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "73e738d8f00362818ad45c1f155f52b99c97d72a2b56dae78390ff01f702bf99"
-  end
 
   on_linux do
     depends_on "zlib-ng-compat"

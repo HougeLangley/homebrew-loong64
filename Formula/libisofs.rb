@@ -3,6 +3,11 @@ class Libisofs < Formula
   homepage "https://dev.lovelyhq.com/libburnia/libisofs"
   license "GPL-2.0-or-later"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "ffe99df97e149a4cc0ae5f5b13c75a8c814a12d945b3c8259b87e09603597e20"
+  end
+
   stable do
     url "https://files.libburnia-project.org/releases/libisofs-1.5.8.pl02.tar.gz"
     version "1.5.8.pl02"
@@ -19,15 +24,6 @@ class Libisofs < Formula
     regex(/href=.*?libisofs[._-]v?(\d+(?:\.\d+)+(?:[._-]pl\d+)?)\.t/i)
   end
 
-  bottle do
-    sha256 cellar: :any,                 arm64_golden_gate: "bf46780c17dcbdea3a3bc2971920726c9a97fdac5851a01a1435fe0c0b834e4f"
-    sha256 cellar: :any,                 arm64_tahoe:       "4caf29734bf7eb3a310526591fac0928f2acf0dfc5ebbbefa52538e86eb4cb47"
-    sha256 cellar: :any,                 arm64_sequoia:     "23a869971b25f3aa47b71e513a8dcd254c9454d18854e00c253eae764c7173af"
-    sha256 cellar: :any,                 arm64_sonoma:      "87396de437ed3ac87b2032ea5ec5ea44a549120f17fe79b2249f42eb8455ac5e"
-    sha256 cellar: :any,                 sonoma:            "03c40a2bdd94a05d62fff7347badefdff3219fd46317900bb4ba177a9e9406ef"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "41ce7c37d05ce2943118be30d4fbb8a6f88359eaa519b42479748fe23595d61a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "0281b9ef58dea6c3529d3614d3aa8e8078ba4368c4d41b61ce7af6f70ea81259"
-  end
 
   head do
     url "https://dev.lovelyhq.com/libburnia/libisofs.git", branch: "master"

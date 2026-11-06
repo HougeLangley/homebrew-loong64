@@ -4,18 +4,14 @@ class Libmowgli < Formula
   url "https://github.com/atheme/libmowgli-2/archive/refs/tags/v2.1.3.tar.gz"
   sha256 "b7faab2fb9f46366a52b51443054a2ed4ecdd04774c65754bf807c5e9bdda477"
   license "ISC"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "56ace073b56041fe8a1d629eed475c9802948e844893e2258a7e317beeb73836"
+  end
+
   revision 1
   head "https://github.com/atheme/libmowgli-2.git", branch: "master"
 
-  bottle do
-    rebuild 2
-    sha256 cellar: :any, arm64_golden_gate: "9f0a38e5b357eb81d5c8e17c8f6e00a2974b874764fe3b1fc74297c73ee43f21"
-    sha256 cellar: :any, arm64_tahoe:       "e474d2310973130f4e8a7a027f7e0bbb6d09a6f302a8333fbf6f72957658976d"
-    sha256 cellar: :any, arm64_sequoia:     "e9b11ec4c11869ec8d32a9bff60576e35bc8b3046f24222f150efc3bf21b65a2"
-    sha256 cellar: :any, arm64_sonoma:      "4783618f3b79ef69afb32934018b69da53dd39c29ac7f23b158bb5fa827adc1c"
-    sha256 cellar: :any, arm64_linux:       "1104dcc85ec062f874eeb26db299f6e41cf03f8fb61311c72c993ca43c8e1084"
-    sha256 cellar: :any, x86_64_linux:      "4239622c39f18f4866995a42fcba92052c60592e256a87a8f958948b1dd64be4"
-  end
 
   depends_on "openssl@4"
 

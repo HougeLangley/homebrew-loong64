@@ -4,6 +4,11 @@ class Libnfnetlink < Formula
   url "https://www.netfilter.org/projects/libnfnetlink/files/libnfnetlink-1.0.2.tar.bz2"
   sha256 "b064c7c3d426efb4786e60a8e6859b82ee2f2c5e49ffeea640cfe4fe33cbc376"
   license "LGPL-2.1-or-later"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "e92f764de933f2033e23d23d2bea7fdad91b835be948b1b5c22b188a97a96b02"
+  end
+
   compatibility_version 1
 
   livecheck do
@@ -11,11 +16,6 @@ class Libnfnetlink < Formula
     regex(/href=.*?libnfnetlink[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_linux:  "29a3d3fc305c9252a22b3bce85447d2f895924c959185c00889cedc2d23fc78b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "927f6b62c2f87ff79d92d07e52bb312d3fb24731e694cc804179730b08f15eae"
-  end
 
   depends_on :linux
 

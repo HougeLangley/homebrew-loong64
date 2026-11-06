@@ -4,6 +4,11 @@ class Libunibreak < Formula
   url "https://github.com/adah1972/libunibreak/releases/download/libunibreak_8_0/libunibreak-8.0.tar.gz"
   sha256 "9c4fad6e517338a098373acc9f35579ae2c325e6446666fb9ac2666ba15ceba4"
   license "Zlib"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "ec432bff9b8f15d77d51f6084234e3b020f87ce40d21653a23b3115de4b4a4a2"
+  end
+
   compatibility_version 3
 
   livecheck do
@@ -14,13 +19,6 @@ class Libunibreak < Formula
     end
   end
 
-  bottle do
-    sha256 cellar: :any, arm64_golden_gate: "aacd69ecf3c43aca5ffd2b37d41cb7de99fd5a1d2e48ffc9cdf2c0a66c717408"
-    sha256 cellar: :any, arm64_tahoe:       "b5ea43d5ae7e12db466b52c75ae517be48aa31c270e9dbb2cb8a9412d94f1aff"
-    sha256 cellar: :any, arm64_sequoia:     "fdd04ab1291384622b07b5409786fd297ddb2ceec4715074f9f35c807649ff50"
-    sha256 cellar: :any, arm64_linux:       "216db2d318c3de5b050e09fc11eda2e201f2e6fdab7a1efc32614a77831fe7c5"
-    sha256 cellar: :any, x86_64_linux:      "b26dbb5d7886f37e4300d510a1d0947b5044ed4871039a4064cb258bf21e1083"
-  end
 
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换

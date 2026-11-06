@@ -5,6 +5,11 @@ class GnupgAT14 < Formula
   mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/gnupg/gnupg-1.4.23.tar.bz2"
   sha256 "c9462f17e651b6507848c08c430c791287cd75491f8b5a8b50c6ed46b12678ba"
   license "GPL-3.0-or-later"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "50cf042376acb7085cd5ad362d716132cfcc679ab41bb6287a44d6b3e7926d89"
+  end
+
   revision 1
 
   livecheck do
@@ -12,16 +17,6 @@ class GnupgAT14 < Formula
     regex(/href=.*?gnupg[._-]v?(1\.4(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    rebuild 1
-    sha256 arm64_golden_gate: "8145761e15098691b4b7cbf5493be21a4d6f7b850095f2880fefcd57d7720bc4"
-    sha256 arm64_tahoe:       "4ca96fcb6e85fd587e3716a10c8aadc3117fd1055e368627efb8eb8ecbbd486f"
-    sha256 arm64_sequoia:     "d7ac6385a597f2793c1da1f6a037d44009827fe6f8e92780121ba6a7d66c422a"
-    sha256 arm64_sonoma:      "9fc6d326a446c03cea4d945563169f5209a8585a5a882f7df7550dbb58664c4b"
-    sha256 sonoma:            "7721cebd4f645feeb8b7587177c0553377a1589ab89023dced381afdec98788f"
-    sha256 arm64_linux:       "15bb19626345f79fdb0ad5be25352cb1622d71de933e907384195dc3ada271af"
-    sha256 x86_64_linux:      "7f184495fcd172935dea746755da90bb1fe3fb04e0b59e1faecc426a8325b8bc"
-  end
 
   on_linux do
     depends_on "zlib-ng-compat"

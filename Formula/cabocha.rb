@@ -7,27 +7,16 @@ class Cabocha < Formula
   sha256 "9db896d7f9d83fc3ae34908b788ae514ae19531eb89052e25f061232f6165992"
   license any_of: ["BSD-3-Clause", "LGPL-2.1-or-later"]
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "d5c0144a1efa3c5cc47f8f35c63c0addf90f1b1768bfa264b196fa6caf8d817f"
+  end
+
   livecheck do
     url :homepage
     regex(%r{>\d{4}/\d{2}/\d{2}\s+(\d+(?:\.\d+)+)<}i)
   end
 
-  bottle do
-    rebuild 1
-    sha256 arm64_golden_gate: "20575b4e20e45470fac00148ba0f4aafb0f814bf7a3ec70d7054bf2df90fc7ae"
-    sha256 arm64_tahoe:       "e3862dcd2820bd7abc7984b1ac9449398cad2ec280ca1f757b3809ef7ad8f227"
-    sha256 arm64_sequoia:     "10a190b7fea68a71d42b2b95bbae271c6e9c86792c46023b85d8197d9fc1b1f5"
-    sha256 arm64_sonoma:      "245d5a46edaedab3ee594cc9aa77d702087daae32db1ff28a70c6207bc0b01b2"
-    sha256 arm64_ventura:     "50e7ebda3eb0424fd7e9f7654ecf854c8f3dff2673e257225013f3d3085e7967"
-    sha256 arm64_monterey:    "c61f5a8df81d52575b991108e2683c27d94a4dcd62cd50d4396cb65234453b22"
-    sha256 arm64_big_sur:     "6db92d4bc14b2b1045601758c9ad2d528fda7ce0029316a2b296c63c4953c54d"
-    sha256 sonoma:            "c878b08aec360a527c8a78d449889abfc8b122e59589a9b21cba4826f213daa7"
-    sha256 ventura:           "f4f6ff225aba6446a3d140dc258f66c55dd8b7077297fae888054c6e10d21c0d"
-    sha256 monterey:          "7002f27098ec51a1832a5a39e1f8d55eb7d11b7fe37ce005ff0dfe7bb1be9e59"
-    sha256 big_sur:           "1dd5c1474946aaab675326323c8f7e3d101687b50d5542464558f54a8c477cc8"
-    sha256 arm64_linux:       "96598b2e47622193fb852eda64753fecff40b088afff67c37538a57f5600e912"
-    sha256 x86_64_linux:      "182dfe90c7dcc7c8bf00ece489a1d03b39b1dc66719a58c52efce8f8a8b30b96"
-  end
 
   depends_on "crf++"
   depends_on "mecab"

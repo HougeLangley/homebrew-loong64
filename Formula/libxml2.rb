@@ -1,4 +1,9 @@
 class Libxml2 < Formula
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "0d8f7f93e87f372650f28f73560303bbaadaff8d4d72f4739e10e6488f7751b0"
+  end
+
   desc "GNOME XML library (system stub)"
   homepage "https://xmlsoft.org/"
   url "file:///home/houge/infra/srv/stubs/libxml2-2.15.4.tar.gz"

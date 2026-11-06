@@ -6,13 +6,10 @@ class FdkAacEncoder < Formula
   license "Zlib"
 
   bottle do
-    sha256 cellar: :any, arm64_tahoe:   "f1c1fa5d09f586ff7e3f04ef45245f493528edb401ce03e83f85eac867f5a7fd"
-    sha256 cellar: :any, arm64_sequoia: "0ae138a3038c2e26515b4dc174562beb546fcd2e521dbccb1cd0f1f71ead14a0"
-    sha256 cellar: :any, arm64_sonoma:  "368665916e8f662bf0ae024e7b2f0ae156e8b6af164043bcb2726bc88f909563"
-    sha256 cellar: :any, sonoma:        "e161eb23fead9c0646bf359bc34052e93dc4103c09245c40c848e107e0f4c47c"
-    sha256 cellar: :any, arm64_linux:   "b2ecbe10dbeb30842b8fc1ba8ad168677efdf5e76d8c7848c4b55b9b408e7aff"
-    sha256 cellar: :any, x86_64_linux:  "e20859b8cd9a5fc3095f7b63fa0c7b6a1ce0147958ca93a043e6ce84b510532f"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "ea9305a17bf9f0e07cdf9eea57a49e01def9f672bd0f3cc79fd166cd9ca72df5"
   end
+
 
   deprecate! date: "2026-09-13", because: "needs `fdk-aac` which does not meet the license policy"
   disable! date: "2026-09-13", because: "needs `fdk-aac` which does not meet the license policy"

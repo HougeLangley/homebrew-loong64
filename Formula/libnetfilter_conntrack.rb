@@ -5,15 +5,16 @@ class LibnetfilterConntrack < Formula
   sha256 "769d3eaf57fa4fbdb05dd12873b6cb9a5be7844d8937e222b647381d44284820"
   license "GPL-2.0-or-later"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "d71d5587fd33174b7e9d09d487c5fd102d1cbac08cacdf5bf9cde2fba4189430"
+  end
+
   livecheck do
     url "https://www.netfilter.org/projects/libnetfilter_conntrack/downloads.html"
     regex(/href=.*?libnetfilter_conntrack[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    sha256 cellar: :any_skip_relocation, arm64_linux:  "0c7acb47bfd4c7e21ee0d3d6454b387d8b74d13bd6fbbaf375ad85b405d3d132"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "af64ee07b344180676533bdd4b495741cf69afd3fd483c166e8d672cc414692e"
-  end
 
   depends_on "pkgconf" => [:build, :test]
   depends_on "libmnl"

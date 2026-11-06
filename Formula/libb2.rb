@@ -1,4 +1,9 @@
 class Libb2 < Formula
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "92892be3d46ebc01f8400776bd0d7a8aaef4a04468441d995526ddfcb5a48a52"
+  end
+
   desc "BLAKE2 hash function library (system stub)"
   homepage "https://www.gnu.org/"
   url "file:///home/houge/infra/srv/stubs/libb2-0.98.1.tar.gz"

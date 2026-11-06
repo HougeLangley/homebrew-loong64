@@ -5,19 +5,16 @@ class Pkcs11Tools < Formula
   sha256 "ef6d07b5527214cf8dcbed4f017569146f74dd6eb6aa9d5e7297418299b7947d"
   license "Apache-2.0"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "b12aa889509ae9ed5b153bc4ae33d6cd3b0ff8049913f82471d90e7b81fc4113"
+  end
+
   livecheck do
     url :stable
     strategy :github_latest
   end
 
-  bottle do
-    rebuild 1
-    sha256 cellar: :any, arm64_golden_gate: "5f1ddaac2436b52d4f53e142dad53244cc357c761d917aa9ac17309740b204e9"
-    sha256 cellar: :any, arm64_tahoe:       "4e8af23b372d81d18520d03a18c24ee9359195a75930277f1241a40b6630cbad"
-    sha256 cellar: :any, arm64_sequoia:     "3ad645671e964f43b7987c1c7f5f39bcd2d44a80e62a1f6a7a419e1e73d84e77"
-    sha256 cellar: :any, arm64_linux:       "b097d6d0f3f0b46e7275a554ad46507fa0bc9595a6bc6ced13b23fd1796f857f"
-    sha256 cellar: :any, x86_64_linux:      "93d2a134dff573b95c6e877bf7120b7bb6048a35ae24b9442bf7435e9038298b"
-  end
 
   depends_on "pkgconf" => :build
   depends_on "softhsm" => :test

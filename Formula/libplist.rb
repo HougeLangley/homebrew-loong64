@@ -4,16 +4,14 @@ class Libplist < Formula
   url "https://github.com/libimobiledevice/libplist/releases/download/2.8.0/libplist-2.8.0.tar.bz2"
   sha256 "b1f59f7634c58b2481325a23ff4e3bf51574a42d868cbe466d2b39b04550752a"
   license "LGPL-2.1-or-later"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "c4bede8ad2163e53c25b0e01965a5a88f2684bb2bbb0fa55283fc952408a64bb"
+  end
+
   compatibility_version 2
   head "https://github.com/libimobiledevice/libplist.git", branch: "master"
 
-  bottle do
-    sha256 cellar: :any, arm64_golden_gate: "321b77f9c5a6a7432162874392635b3a543ca4db397c422a49471d9762af86c9"
-    sha256 cellar: :any, arm64_tahoe:       "f013f0d6a0440dd4f2236afed2ffd2599f9519081a75a4d4bda8c6de33bb7e86"
-    sha256 cellar: :any, arm64_sequoia:     "a19201d621e6181184e7c77a0ba59ca08f7566b42e168f746509f370ae8dbbc5"
-    sha256 cellar: :any, arm64_linux:       "3d7d4814dc13e834074d6d36e1ababe85919660c8d0228117270c6cf7ab4f070"
-    sha256 cellar: :any, x86_64_linux:      "9d284d178d84186d816b342c71f08d88ec9d3d1bf6036cc0faea091c6bda12d9"
-  end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build

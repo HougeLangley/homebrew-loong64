@@ -5,21 +5,16 @@ class Imageworsener < Formula
   sha256 "a7fbb65c5ade67d9ebc32e52c58988a4f986bacc008c9021fe36b598466d5c8d"
   license "MIT"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "4609a9295d2a0f36a14cbf4db52f69a6a14739c52e596a68546b727d4d8fccff"
+  end
+
   livecheck do
     url :homepage
     regex(/href=.*?imageworsener[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_golden_gate: "dda7a0476e4344ec68ad0c238472eeaed772b03ed38ea12484e76d16b0ee2eb5"
-    sha256 cellar: :any,                 arm64_tahoe:       "2ea02018611e3a89bd678dc6e1daa778ed958dc03d69bdc4a447cd6c43502ff7"
-    sha256 cellar: :any,                 arm64_sequoia:     "0631ddddd165edc2731f57d2b3cf01513c202b4fb68a8b8d9eece1c24ce9c487"
-    sha256 cellar: :any,                 arm64_sonoma:      "b68eec2280cf90bec44ef151944a540252118d79233acbcf67e9211a7a4c0a47"
-    sha256 cellar: :any,                 sonoma:            "f3207ea97421c3105dda00945d0382f71fc3c2345b9171c28325cb032094878d"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "0211d900e4e2ec8d216be3435a9146a811c259add289e0b92e53deca7596f83a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "b929b424d3049ee109d5974d83589f92d3f7303b35a597a429334f62bb4e8e4e"
-  end
 
   head do
     url "https://github.com/jsummers/imageworsener.git", branch: "master"

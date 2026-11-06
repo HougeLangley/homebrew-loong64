@@ -5,16 +5,13 @@ class ActivemqCpp < Formula
   mirror "https://archive.apache.org/dist/activemq/activemq-cpp/3.9.5/activemq-cpp-library-3.9.5-src.tar.bz2"
   sha256 "6bd794818ae5b5567dbdaeb30f0508cc7d03808a4b04e0d24695b2501ba70c15"
   license "Apache-2.0"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "d7ce5896d2adeda3ce31f1b694b21f89c951c5bf79c74609a8140f33f212f89e"
+  end
+
   revision 2
 
-  bottle do
-    rebuild 1
-    sha256 cellar: :any, arm64_golden_gate: "6e323f753dd000afbbdc44da469b9fa7ce351c2dfa8eddaba51525570b11a972"
-    sha256 cellar: :any, arm64_tahoe:       "9c9a911b431b088b643b759c0ae1a33e0ed6933671138960ba934dad44b32ad9"
-    sha256 cellar: :any, arm64_sequoia:     "c2ffccf0fbcb9a47d9d9c3ed078bc26579d49e6aeeed67d9c521993d4de17bf8"
-    sha256 cellar: :any, arm64_linux:       "dc3f782fb1c9048884d840a923ea68ea3bbf374685d63adc41b804817e20b40a"
-    sha256 cellar: :any, x86_64_linux:      "d9b4c2ef7112a22d178a3e7e6ec339db26fa6036a64be65691d02dd088dc8c65"
-  end
 
   depends_on "pkgconf" => :build
   depends_on "apr"

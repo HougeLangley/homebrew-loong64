@@ -4,6 +4,11 @@ class Kpcli < Formula
   url "https://downloads.sourceforge.net/project/kpcli/kpcli-4.1.3.pl"
   sha256 "c91363e4e07f3521a867f68db602c95b53dc167e4366ee7ff254252b4176c62f"
   license any_of: ["Artistic-1.0-Perl", "GPL-1.0-or-later"]
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "2cd75179fbc520a20c25b5327982b3869a372661f7c3ab2e068a18fd249dcffe"
+  end
+
   revision 3
 
   livecheck do
@@ -11,13 +16,6 @@ class Kpcli < Formula
     regex(%r{url=.*?/kpcli[._-]v?(\d+(?:\.\d+)+)\.pl}i)
   end
 
-  bottle do
-    sha256 cellar: :any, arm64_golden_gate: "e1c9015e6bae196f284393624e2cbab15f1dde99bd052f290ab30042ed7e8954"
-    sha256 cellar: :any, arm64_tahoe:       "ef1bdb8f3ce84f2ad240d1f35b01078f10335681bb997a29723cbbc62248a3f4"
-    sha256 cellar: :any, arm64_sequoia:     "d97d19bdd97f231d2fe2843fab67760583fb97a39bfc8c3d4530ace29eecaf34"
-    sha256 cellar: :any, arm64_linux:       "a0e600b5481b43071d2e156898ed6840f1776268ae63cd12f3404ca3f99025f0"
-    sha256 cellar: :any, x86_64_linux:      "85c7bfb89f3a3f9e61025cd117f6bdeefd9d952b6fa1e0316b689514e8764f08"
-  end
 
   depends_on "readline"
 

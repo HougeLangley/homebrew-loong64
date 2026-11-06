@@ -6,12 +6,10 @@ class Ipmiutil < Formula
   license all_of: ["BSD-2-Clause", "BSD-3-Clause", "GPL-2.0-or-later"]
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "fda0c56a5e063da36dc5dac65d5177ea71b96a95291983dba841945420d19a4f"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "a5d4ccf2640a189664e4f20c510ed907fa2e48790cb9ab46cddb39e5b7d30ae0"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "4abd8e74b57ceaa509a3bcf60e6c47036ba82a84d2ac27e4195f3e319356a6c9"
-    sha256 cellar: :any,                 arm64_linux:       "196301447dfbe6861e9feb19d9ce087d3727ae2a5a347d5c61aa8e3eedf6bd61"
-    sha256 cellar: :any,                 x86_64_linux:      "7be92b64f4654a015e09f28d74e09b362aa0d570cf8c680a65e271aa6610da82"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "c3046d8132a3e0a37e58f27f13d9bc61f37660322161df9256e8c3b54d1cddbc"
   end
+
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build

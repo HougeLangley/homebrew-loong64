@@ -4,6 +4,11 @@ class BcGh < Formula
   url "https://github.com/gavinhoward/bc/releases/download/7.0.3/bc-7.0.3.tar.xz"
   sha256 "91eb74caed0ee6655b669711a4f350c25579778694df248e28363318e03c7fc4"
   license "BSD-2-Clause"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "d9f89d8652c15441f328d80291c32bd7a7949e6be8421e7c0ea3bc46d9870f43"
+  end
+
   head "https://github.com/gavinhoward/bc.git", branch: "master"
 
   livecheck do
@@ -11,17 +16,6 @@ class BcGh < Formula
     strategy :github_latest
   end
 
-  bottle do
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "5f217f49d45e07616875014f7a5c2f8ab101515d9f0ba6481fc77f430c8e2438"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "fa3bec57b187a0ccac9514b08d6782f93b7090917598f37c1f6bfa1ba21bcb9f"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "9c25b6baed11d3e111039ea04100d211d37874750f42e2137d78e7774646e06b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:      "68e9138e7ca909ceffb94ef103feec58eb0c6fe84f315dc290ee3ad41597f163"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:     "60a78a50e4599775dd214f3c04662a918f0ca3ba7a4329e55334b8839f746bb1"
-    sha256 cellar: :any_skip_relocation, sonoma:            "523f2085ce15b58bd77afc8324da625747be012b5706135c567d51a45ce906fb"
-    sha256 cellar: :any_skip_relocation, ventura:           "ac2490db545515f79aea51d3433aa0bedef36f220fb0948851921c63cf5d82c9"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "c3c909b75dd473d2d9f9e7a266a485c23867721b4e1c08b41c68225ceccb5ac2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "99d223ee8690ef3a798c6c342faa78b304230ea30cb4957ce7e06b89fc213866"
-  end
 
   keg_only :provided_by_macos # since Ventura
 
