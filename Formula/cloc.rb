@@ -4,6 +4,11 @@ class Cloc < Formula
   url "https://github.com/AlDanial/cloc/archive/refs/tags/v2.10.tar.gz"
   sha256 "a8fac35f4cf42728765580ba11afc2568ad205509a22204663f526169548436d"
   license "GPL-2.0-or-later"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "2bfe4b51d529265042c3beb55912d0b9462607373d0cc7d5162761c2d3983fb2"
+  end
+
   head "https://github.com/AlDanial/cloc.git", branch: "master"
 
 
@@ -47,6 +52,7 @@ class Cloc < Formula
   end
 
   deny_network_access!
+
 
   def install
     ENV.prepend_create_path "PERL5LIB", libexec/"lib/perl5"

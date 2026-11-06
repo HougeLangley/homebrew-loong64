@@ -4,6 +4,11 @@ class Clib < Formula
   url "https://github.com/clibs/clib/archive/refs/tags/2.8.7.tar.gz"
   sha256 "83d5767e363c3ed4b4271000b9ce63b6e11b6c4740df910e0074f844fb34258e"
   license "MIT"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "0dee65aea15f63936ac07e002e69105dc3d956dd2dcef7d3d835cd3a03ec66c4"
+  end
+
   head "https://github.com/clibs/clib.git", branch: "master"
 
   livecheck do
@@ -13,6 +18,7 @@ class Clib < Formula
 
 
   uses_from_macos "curl"
+
 
   def install
     system "make", "install", "PREFIX=#{prefix}"
