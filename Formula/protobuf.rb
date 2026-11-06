@@ -13,7 +13,6 @@ class Protobuf < Formula
 
 
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
     sha256 cellar: :any_skip_relocation, loongarch64_linux: "f13227171a09fa49ddaff6a0c8cb8921fa65046cb44685133172e4eec1fcc4d5"
   end
