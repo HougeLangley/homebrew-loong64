@@ -5,6 +5,11 @@ class Slrn < Formula
   sha256 "3ba8a4d549201640f2b82d53fb1bec1250f908052a7983f0061c983c634c2dac"
   license "GPL-2.0-or-later"
   revision 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "03bc3bab7dcf1755c0fe38bead7aee87d30db7961869c4beae4847ab9a397469"
+  end
+
   head "git://git.jedsoft.org/git/slrn.git", branch: "master"
 
   livecheck do
@@ -12,21 +17,19 @@ class Slrn < Formula
     regex(/href=.*?slrn[._-]v?(\d+(?:\.\d+)+(?:[a-z]?\d*)?)\.t/i)
   end
 
-  bottle do
-    rebuild 3
-    sha256 arm64_golden_gate: "d35692c90fa33ff4897c9d1751fafb62f8bcfb4b97c228872337576cb2a332a5"
-    sha256 arm64_tahoe:       "d12aa6f4674216c6c7ceb66061ea61501d3ef0697e2544309b9534b22072cf77"
-    sha256 arm64_sequoia:     "2414f63cb9c68b2fcf95b67d049d1399b444731a278de210f593cbdba0bf3bfb"
-    sha256 arm64_sonoma:      "2117e0a8177c4b02606d061f4cd6e7a1ec0b9d9a45414442fc6a4216fc7b74b1"
-    sha256 sonoma:            "849607a38e934b1cde9460b3b3fac5d9bbbe52e6a6eae58771d71acedf97b1cc"
-    sha256 arm64_linux:       "659efed3f9437c38028c8c48922eaf0ec6c65afe781f703883e3db08699f4061"
-    sha256 x86_64_linux:      "a47454b9d0afb4578fcd6dd2c7258aec6396edea231b18f167171f4ed9f1dad3"
-  end
 
   depends_on "openssl@4"
   depends_on "s-lang"
 
   def install
+    # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
+    %w[config.sub config.guess].each do |cf|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+        src = "/usr/share/libtool/build-aux/#{cf}"
+        cp src, dest if File.exist?(dest) && File.exist?(src)
+      end
+    end
+
     # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
     %w[conf-cc conf-cxx].each do |cf|
       next unless File.exist?(cf)
