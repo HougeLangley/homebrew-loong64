@@ -8,7 +8,7 @@ class Zpaq < Formula
   revision 1
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "58b765463f954272a28da3adc0a0eacf789af82b5ebb21fec51fcc4a482982d2"
+    sha256 cellar: :any, loongarch64_linux: "543fb8bded0dd74eec0318545e3077efa2f7f361c5399cb22f3ed42780a6b48e"
   end
 
   head "https://github.com/zpaq/zpaq.git", branch: "master"
