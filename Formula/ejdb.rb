@@ -7,7 +7,7 @@ class Ejdb < Formula
   license "MIT"
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "d86f7c8a49f2603e44e347c8a3e4495ddfbce6e94d39440290ac305f3124bf0a"
+    sha256 cellar: :any, loongarch64_linux: "4d2bcf80d615ce6c4802c320092029e66e6da0b8a8343d65b6290946020baef5"
   end
 
   head "https://github.com/Softmotions/ejdb.git", branch: "master"
