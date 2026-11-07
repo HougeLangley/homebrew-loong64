@@ -6,9 +6,10 @@ class Snooze < Formula
   license :public_domain
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "f456144ee3aa0d3e286d41d369082fa13b521a1a5f9d6207622d80100bcd74f5"
+    sha256 cellar: :any, loongarch64_linux: "ee4dfcbc2d3cc804b4790ccbe6a4c711c3bfc4a9bbbe310b4b153bbb45b3ac23"
   end
 
   def install
