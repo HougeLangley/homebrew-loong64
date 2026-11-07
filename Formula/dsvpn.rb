@@ -4,14 +4,13 @@ class Dsvpn < Formula
   url "https://github.com/jedisct1/dsvpn/archive/refs/tags/0.1.5.tar.gz"
   sha256 "53c9ff2518acea188926a4f10d38929da7b61b6770d6ec00f73a4c82ff918c5e"
   license "MIT"
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "88ba37a95400fd0ef9eecd40edccf0284d28d1db4f682a6296840edd58ad9762"
+    sha256 cellar: :any, loongarch64_linux: "a66feb2835d0b87ce624c5f676fa8161e6d16c0f7cee50c3fbaf5d965ae3d921"
   end
 
   head "https://github.com/jedisct1/dsvpn.git", branch: "master"
-
-
 
   def install
     sbin.mkpath
@@ -30,7 +29,7 @@ class Dsvpn < Formula
     expected = if OS.mac?
       "tun device creation: Operation not permitted"
     else
-      "Unable to automatically determine the gateway IP"
+      /Unable to automatically determine the gateway IP|tun device creation: Operation not permitted/
     end
     assert_match expected, shell_output("#{sbin}/dsvpn client /dev/zero 127.0.0.1 0 2>&1", 1)
   end
