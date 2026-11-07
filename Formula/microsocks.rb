@@ -4,6 +4,10 @@ class Microsocks < Formula
   url "https://github.com/rofl0r/microsocks/archive/refs/tags/v1.0.5.tar.gz"
   sha256 "939d1851a18a4c03f3cc5c92ff7a50eaf045da7814764b4cb9e26921db15abc8"
   license "MIT"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "5ae774c30c5fd6469d6246f44d4cdf8c37cabff808e993ed8a6c27b65d5c4f86"
+  end
 
   head "https://github.com/rofl0r/microsocks.git", branch: "master"
 
