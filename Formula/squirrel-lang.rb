@@ -4,6 +4,11 @@ class SquirrelLang < Formula
   url "https://downloads.sourceforge.net/project/squirrel/squirrel3/squirrel%203.2%20stable/squirrel_3_2_stable.tar.gz"
   sha256 "211f1452f00b24b94f60ba44b50abe327fd2735600a7bacabc5b774b327c81db"
   license "MIT"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "785c9f41d42cad1481c291ba100198f3fc09e29577f0a41b45e18083d6ad1bb2"
+  end
+
   head "https://github.com/albertodemichelis/squirrel.git", branch: "master"
 
   livecheck do
@@ -17,10 +22,6 @@ class SquirrelLang < Formula
 
   conflicts_with "sequoia-sq", "sq", because: "both install `sq` binaries"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "0ba66feae2d24fcf39bcedceda2d51ebfbcf72ee6d6b3cce28c91240a33b879b"
-  end
 
   def install
     # The tarball files are in a subdirectory, unlike the upstream repository.
