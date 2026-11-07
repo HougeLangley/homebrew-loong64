@@ -6,14 +6,7 @@ class Libfreefare < Formula
   license "LGPL-3.0-or-later"
   revision 4
 
-  bottle do
-    rebuild 1
-    sha256 cellar: :any, arm64_golden_gate: "48352143ce917eaff9a274b3cee3fc577c979499ffb33cb84bc38cbe9c09c65a"
-    sha256 cellar: :any, arm64_tahoe:       "31739c64def98786772cde5e4beb73baec881f6728e43de69be29e1f69473a5f"
-    sha256 cellar: :any, arm64_sequoia:     "96edea38dd2aed66c6a60e72e31ac575ca66363d765cca646cfbbffd77787cc0"
-    sha256 cellar: :any, arm64_linux:       "23ea0557012764a0d818be457e8b260330f3a5edf217aa39a9cbe2545ebcca18"
-    sha256 cellar: :any, x86_64_linux:      "ebe02580028a909396a60c07c7a3a0d3cd55e26ecc0ad8c9694b7dc8861988d4"
-  end
+
 
   depends_on "pkgconf" => :build
   depends_on "libnfc"
