@@ -6,15 +6,16 @@ class Pict < Formula
   license "MIT"
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "f640043ddc8676f512418137b81dbcf5056aa8efd77e4050f89e3b769c5c430e"
+  end
+
   resource "testfile", :test do
     url "https://gist.githubusercontent.com/glsorre/9f67891c69c21cbf477c6cedff8ee910/raw/84ec65cf37e0a8df5428c6c607dbf397c2297e06/pict.txt"
     sha256 "ac5e3561f9c481d2dca9d88df75b58a80331b757a9d2632baaf3ec5c2e49ccec"
   end
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "a588897bb2053193df9345f7ee2c1f9028fd1909700be3419e0aec9283567965"
-  end
 
   def install
     system "make"
