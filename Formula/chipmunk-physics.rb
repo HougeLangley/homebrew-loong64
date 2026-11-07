@@ -6,12 +6,18 @@ class ChipmunkPhysics < Formula
   mirror "https://www.mirrorservice.org/sites/distfiles.macports.org/chipmunk/Chipmunk-7.0.3.tgz"
   sha256 "048b0c9eff91c27bab8a54c65ad348cebd5a982ac56978e8f63667afbb63491a"
   license "MIT"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "bc7c5c8128119371b81713f5eb0c3763ecf99cb8988a6db2bb389bc8a0037b9b"
+  end
+
   head "https://codeberg.org/slembcke/Chipmunk2D.git", branch: "master"
 
   livecheck do
     url "https://chipmunk-physics.net/downloads.php"
     regex(/>\s*Chipmunk2D\s+v?(\d+(?:\.\d+)+)\s*</i)
   end
+
 
 
   depends_on "cmake" => :build
