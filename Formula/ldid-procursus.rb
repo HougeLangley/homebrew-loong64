@@ -5,7 +5,7 @@ class LdidProcursus < Formula
   revision 3
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "c02785cce520d48a29a1c0bdd33b6feaa9b803015d0e7316fab07f95dd8187ac"
+    sha256 cellar: :any, loongarch64_linux: "db4c6ee28eada01fb181e7f7fb9b7743f08a0adbf87f9e6618710afc673b0469"
   end
 
   head "https://github.com/ProcursusTeam/ldid.git", branch: "master"

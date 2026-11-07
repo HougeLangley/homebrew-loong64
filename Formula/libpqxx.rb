@@ -7,10 +7,10 @@ class Libpqxx < Formula
   compatibility_version 2
 
 
+
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "3df82c66f9299004bf9c842055ebc3aa564e102e2b69184d94d09badac6b1e39"
+    sha256 cellar: :any, loongarch64_linux: "0f5d27a988c290cd3e4f91e509d135890864a780d0077968bf268460edca51bb"
   end
 
   depends_on "cmake" => :build
