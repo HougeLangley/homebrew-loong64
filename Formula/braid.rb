@@ -9,9 +9,8 @@ class Braid < Formula
 
 
   bottle do
-    rebuild 2
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "dd0397b69d705089f5a89002777c0db8fea77df85c48fe2042c3263089b8be67"
+    sha256 cellar: :any, loongarch64_linux: "ef991ca792b56cc1fe3017d168b51d3b0aeb5e2d18d875c6508907e00d8bc0e0"
   end
 
   depends_on "ruby"

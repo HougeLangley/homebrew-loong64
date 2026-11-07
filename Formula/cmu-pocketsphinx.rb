@@ -4,12 +4,18 @@ class CmuPocketsphinx < Formula
   url "https://github.com/cmusphinx/pocketsphinx/archive/refs/tags/v5.1.1.tar.gz"
   sha256 "e2db414eb66618cd0a98de77507db32517a48f6900b06bfb94c0acc4bef5761d"
   license "BSD-2-Clause"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "545f347aafa8288889cf9a58f4bd4339562b58796c0db08dcf99be796b7cd54f"
+  end
+
   head "https://github.com/cmusphinx/pocketsphinx.git", branch: "main"
 
   livecheck do
     url :stable
     regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
+
 
 
   depends_on "cmake" => :build

@@ -8,7 +8,7 @@ class Check < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "e1583a48b0410f670fd02c6073c651336be8b60d70ca3ae17d9810656cddd64e"
+    sha256 cellar: :any, loongarch64_linux: "d16e0221aa9b138367aae13de367c104e4b2805c14f02ef24e1074c0c9b59380"
   end
 
   on_linux do
