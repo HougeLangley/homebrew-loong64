@@ -14,6 +14,7 @@ class Genders < Formula
     end
   end
 
+  no_autobump! because: :incompatible_version_format
 
   bottle do
     sha256 cellar: :any,                 arm64_golden_gate: "550247ee2322f4f9b607bfeb3a51faa4c7ba714a6b25834806a25e6204267b14"
@@ -57,7 +58,6 @@ class Genders < Formula
     args = []
     # Help old config scripts identify arm64 linux
     args << "--build=aarch64-unknown-linux-gnu" if OS.linux? && Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-    args << "--build=loongarch64-unknown-linux-gnu" if OS.linux? && Hardware::CPU.arch == :loongarch64
     args << "--build=loongarch64-unknown-linux-gnu" if OS.linux? && Hardware::CPU.arch == :loongarch64
 
     system "./configure", "--with-java-extensions=no", *args, *std_configure_args
