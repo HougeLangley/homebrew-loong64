@@ -4,11 +4,6 @@ class Kakoune < Formula
   url "https://github.com/mawww/kakoune/releases/download/v2026.05.21/kakoune-2026.05.21.tar.bz2"
   sha256 "be1deb3fe9808a0733ab1057309da380bb757307e8fdbb22dc478b674b6bad34"
   license "Unlicense"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "e0140ce7ac040a55bd5b0a55846a21ded16ae4361fb66566c6e8f13df34b58b3"
-  end
-
   head "https://github.com/mawww/kakoune.git", branch: "master"
 
   livecheck do
@@ -32,6 +27,10 @@ class Kakoune < Formula
     cause "Requires GCC >= 10.3"
   end
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "e0140ce7ac040a55bd5b0a55846a21ded16ae4361fb66566c6e8f13df34b58b3"
+  end
 
   def install
     system "make", "install", "debug=no", "PREFIX=#{prefix}"
