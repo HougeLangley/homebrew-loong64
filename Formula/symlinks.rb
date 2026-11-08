@@ -7,10 +7,6 @@ class Symlinks < Formula
 
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "93da1fa30673c1fe96abfa81b2580c45fb7eebaf1b43a6a4b98569460db9db23"
-  end
 
   def install
     system "make", "install"
