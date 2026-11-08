@@ -7,17 +7,24 @@ class Liburing < Formula
   license any_of: ["MIT", "LGPL-2.1-only"]
   head "https://github.com/axboe/liburing.git", branch: "master"
 
-
   bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "9a263a19d5f0a767128ed0d1e49fd639834a13f8f82b1f03a1c8c12d114bd39b"
+    sha256 cellar: :any, arm64_linux:  "5c14e93ed3fef11f661c7a2c57683d4c6aae389719b00464c7669769bd25a483"
+    sha256 cellar: :any, x86_64_linux: "fd4d058f57bb17d59ad2ed868146a48b857b9a7caeb38917d7555fccf2562e15"
   end
 
   depends_on :linux
 
   def install
+    # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
+    %w[config.sub config.guess].each do |cf|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+        src = "/usr/share/libtool/build-aux/#{cf}"
+        cp src, dest if File.exist?(dest) && File.exist?(src)
+      end
+    end
+
     # not autotools based configure, so std_configure_args is not suitable
-    system "./configure", "--prefix=#{prefix}", "--libdir=#{lib}", "--mandir=#{man}"
+    system "./configure", "--build=loongarch64-unknown-linux-gnu", "--prefix=#{prefix}", "--libdir=#{lib}", "--mandir=#{man}"
     system "make"
     system "make", "install"
   end
