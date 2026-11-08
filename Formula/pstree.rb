@@ -12,10 +12,6 @@ class Pstree < Formula
   deny_network_access!
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "cd9af409eba67162c3cd5a9f4f9eb57a416eaaafbbda2292f0f9faa32fb1ccb9"
-  end
 
   def install
     system "make", "pstree"
