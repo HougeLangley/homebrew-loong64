@@ -13,6 +13,10 @@ class Chadwick < Formula
 
   deny_network_access!
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "72690146711d242daae6bb09350ee04186500efac777500f8f63db121c33dd86"
+  end
 
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
