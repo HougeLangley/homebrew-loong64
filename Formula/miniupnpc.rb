@@ -5,6 +5,10 @@ class Miniupnpc < Formula
   sha256 "d52a0afa614ad6c088cc9ddff1ae7d29c8c595ac5fdd321170a05f41e634bd1a"
   license "BSD-3-Clause"
   compatibility_version 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "c968c00a8cbc63c65b69180e9b076780a5949c7549159ccee22772a477fb8fa7"
+  end
 
   head "https://github.com/miniupnp/miniupnp.git", branch: "master"
 
