@@ -9,7 +9,7 @@ class Radamsa < Formula
   # https://gitlab.com/akihe/radamsa/-/blob/v#{version}/Makefile?ref_type=tags#L7
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "c43e5d696687d23531e5f9feeff2ef55622210f17f642b963373b6c12f5ffafe"
+    sha256 cellar: :any, loongarch64_linux: "11401a34c0bf721e612a9fa421246e3680e0c5bbb878ab00281cb2f8c2c27f1d"
   end
 
   resource "ol.c" do
