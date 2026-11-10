@@ -5,22 +5,24 @@ class X265 < Formula
   sha256 "83c53e4c8bbb8f1e33ed59e10a7d621d1d7801ca853910c3eb41f038b8ffb121"
   license "GPL-2.0-or-later"
   compatibility_version 2
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "ee3b139eec5b4b8e95ac060059a66a45f56367e3b67dbafff0153be607482792"
+  end
+
   head "https://github.com/Multicorewareinc/x265.git", branch: "master"
 
-  bottle do
-    rebuild 1
-    sha256 cellar: :any, arm64_golden_gate: "df60f322e2ea139e4f3075fcf93e09d02249f183084d1ffa2d8f0cc9427de882"
-    sha256 cellar: :any, arm64_tahoe:       "46dd2b3656ec8e99438a789b627e41a25e3a24407dc76a3a6b88cf159b447858"
-    sha256 cellar: :any, arm64_sequoia:     "18e89a5822e2f4f91f919c5bf2fbac31433a561c48174fc15e13b4911a1232ac"
-    sha256 cellar: :any, arm64_linux:       "f30cc9469b596d98729aec68017e7a671d5cc5244e72314583bc6a08eec4a7a6"
-    sha256 cellar: :any, x86_64_linux:      "d9ce6c22591a7e62792420fafc0d717daa6e15ecf90d5ee58d8c8440f3408c31"
-  end
 
   # Backport the upstream LoongArch multi-bit-depth fix. The 10/12-bit
   # libraries use C primitives; the 8-bit build retains LSX/LASX assembly.
   patch do
     url "https://github.com/Multicorewareinc/x265/commit/af35fda1b45bd575b713aef979eed9352e7be1ec.patch"
     sha256 "802b0404a3e298be40368e5504c5ea4ccc321114935302b874988dc7fa011bd0"
+  end
+
+  patch do
+    url "https://github.com/Multicorewareinc/x265/commit/98eec4057fc20850b59ed292b3f13ddeefc2f93f.patch"
+    sha256 "466fc516462b5ca8544b2ea7571d04e2019de085866a6d153bb06f2d324936be"
   end
 
   depends_on "cmake" => :build
@@ -91,19 +93,17 @@ class X265 < Formula
   test do
     resource("homebrew-test_video").stage testpath
     yuv_path = testpath/"RTn23_80x44p15_f15.yuv"
-    x265_path = testpath/"x265.265"
-    system bin/"x265", "--input-res", "360x640", "--fps", "60", "--input", yuv_path, "-o", x265_path
+    x265_path = testpath/"x265-8bit.265"
     header = "AAAAAUABDAH//w=="
-    assert_equal header.unpack("m"), [x265_path.read(10)]
-
     assert_match "version #{version}", shell_output("#{bin}/x265 -V 2>&1")
 
-    %w[10 12].each do |depth|
+    %w[8 10 12].each do |depth|
       output = testpath/"x265-#{depth}bit.265"
-      system bin/"x265", "--input-res", "360x640", "--fps", "60",
-             "--output-depth", depth, "--input", yuv_path, "-o", output
-      assert_path_exists output
+      log = shell_output("#{bin}/x265 --input-res 80x44 --fps 15 --frames 15 --ctu 32 " \
+                         "--output-depth #{depth} --no-progress --input #{yuv_path} -o #{output} 2>&1")
+      assert_match "encoded 15 frames", log
       assert output.size > 10
     end
+    assert_equal header.unpack("m"), [x265_path.read(10)]
   end
 end
