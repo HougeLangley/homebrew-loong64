@@ -10,20 +10,10 @@ class Aview < Formula
     regex(%r{url=.*?/aview[._-]v?(\d+(?:\.\d+)+(?:[a-z]+\d*)?)\.t}i)
   end
 
+
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "9b949abce90f4864849059649db389e841c730c1d844749d8e8e33e0dd98c5f5"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "f995d46c12b61d831e06aa42646204b6a732b3841ba9ba9e262d3f25ac81f901"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "e0d6d2b0ec534cc1f23d9a43cca5d6e56afae2da62b68eb2f0675907456e0ad6"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:      "0209d8c38cb00d749453ae8525b7f54f730930f497026b01d4192c1a732deea8"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:     "bab18a87647013db5d6556072629a8e138e664a7c7b8f2154179b5eaa6379f7d"
-    sha256 cellar: :any_skip_relocation, arm64_monterey:    "91d8305546f435e4702c333f28d0ce8590c8b14d8b37707ff2ce398d0b618ff5"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:     "4616c937f328391a9ad212bbdd51818d97c629eeaa649ddcdf97e0332e7964bf"
-    sha256 cellar: :any_skip_relocation, sonoma:            "9aadc4e50975200d3ed6fe3a2172a516aefece83c83c80ea56bb107b5f8f5891"
-    sha256 cellar: :any_skip_relocation, ventura:           "093f941166a79fd776fafdf09576b47208a1a18ce02aa26f404e2b16fe74ed69"
-    sha256 cellar: :any_skip_relocation, monterey:          "2d671edc613c82993fae031b0a2795aae4a88a19ca4051095ae174aed038b100"
-    sha256 cellar: :any_skip_relocation, big_sur:           "7a32c517ba508c6febe9605d4c9f4d8bde9200393cd8e4dd51adeb7c6e85fb6f"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "3223307ac974a5f3c1c4720b8ae6f1a5f8560eb8e8fd03882c2ffba1fb5a76ca"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "f2a611a1c3b2b1c76816dffcef6b3aff9f4ea88f6fbd87729dc987c39bd7cc2a"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "6ba08869ac7df3d4364c1ab9683c0b27141b406ed8e522cfd07f7a2837ebf00c"
   end
 
   depends_on "aalib"
@@ -36,53 +26,21 @@ class Aview < Formula
   deny_network_access!
 
   def install
-    # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
-    %w[conf-cc conf-cxx].each do |cf|
-      next unless File.exist?(cf)
-      _c = File.read(cf).strip
-      File.write(cf, _c + " -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration\n") unless _c.include?("gnu17")
+    # The absolute wrapper appends GCC 16 compatibility flags to every
+    # configure probe and make compile without replacing Makefile variables.
+    cc = "/home/houge/infra/ci/bin/cc-compat"
+    cxx = "/home/houge/infra/ci/bin/cxx-compat"
+    %w[config.sub config.guess].each do |name|
+      source = "/usr/share/libtool/build-aux/#{name}"
+      cp source, name if File.exist?(name) && File.exist?(source)
     end
-    # cc 命令改写（Makefile 里写死 cc 而非 $(CC) 时）
-    Dir["Makefile", "**/Makefile", "**/GNUmakefile", "**/Makefile.*"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.gsub(/^(	| {0,4})(cc|gcc)([ 	])/) { "#{$1}$(CC)#{$3}" }
-      File.write(mkf, _m)
-    end
-    # CMake 标志追加
-    _cmflags = ["-DCMAKE_C_FLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration", "-DCMAKE_CXX_FLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"].freeze
-    # ENV.cc 追加
-    _extra = "-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration".split
-    Dir["Makefile", "GNUmakefile", "makefile", "src/Makefile"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.gsub(/-std=(c|gnu)(89|99|11|17|2x)/, "")
-      File.write(mkf, _m)
-    end
-    # Makefile 里面追加（硬编码 CFLAGS 时 ENV 追加不生效）
-    Dir["Makefile", "GNUmakefile", "makefile", "**/Makefile", "**/GNUmakefile", "**/makefile", "**/Makefile.*"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration " }
-      File.write(mkf, _m)
-    end
-    # CFLAGS 里面追加（configure 硬编码时 ENV 追加不生效）
-    if File.exist?("configure")
-      _cfg = File.read("configure")
-      _cfg = _cfg.gsub(/^CFLAGS="([^"\\]*)"/) { 'CFLAGS="' + $1 + ' -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"' }
-      File.write("configure", _cfg)
-    end
-    ENV.append_to_cflags "-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"
-    # Fix compile with newer Clang
-    if DevelopmentTools.clang_build_version >= 1403
-      ENV.append_to_cflags "-Wno-implicit-function-declaration -Wno-implicit-int"
-    end
-
-    system "./configure", "--disable-debug",
-                          "--disable-dependency-tracking",
-                          "--prefix=#{prefix}",
-                          "--mandir=#{man}"
-    system "make", "CFLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration", "CXXFLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
+    ENV["CC"] = cc
+    ENV["CXX"] = cxx
+    system("./configure",
+           "--build=loongarch64-unknown-linux-gnu",
+           "--disable-debug", "--disable-dependency-tracking",
+           "--prefix=#{prefix}", "--mandir=#{man}")
+    system "make", "CC=#{cc}", "CXX=#{cxx}", "install"
   end
 
   test do
