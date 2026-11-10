@@ -27,12 +27,17 @@ class Passt < Formula
 
     pidfile = testpath/"pasta.pid"
     begin
-      # Just check failure as unable to use pasta or passt on unprivileged Docker
-      output = shell_output("#{bin}/pasta --pid #{pidfile} 2>&1", 1)
-      assert_match "Unable to create user namespace", output
+      # This host supports user namespaces; verify successful daemon startup.
+      shell_output("#{bin}/pasta --pid #{pidfile} 2>&1")
+      assert_path_exists pidfile
+      assert_operator pidfile.read.to_i, :>, 0
     ensure
       if pidfile.exist? && (pid = pidfile.read.to_i).positive?
-        Process.kill("TERM", pid)
+        begin
+          Process.kill("TERM", pid)
+        rescue Errno::ESRCH
+          # pasta may already have exited after the expected namespace failure
+        end
       end
     end
   end

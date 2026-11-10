@@ -10,9 +10,7 @@ class Bwfmetaedit < Formula
     regex(/href=.*?bwfmetaedit[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-
   deny_network_access!
-
 
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
@@ -31,8 +29,9 @@ class Bwfmetaedit < Formula
 
   test do
     test_wav = test_fixtures("test.wav")
-    output = shell_output("#{bin}/bwfmetaedit --out-tech #{test_wav} 2>&1", 1)
+    output = shell_output("#{bin}/bwfmetaedit --out-tech #{test_wav} 2>&1")
     assert_match "FileName,FileSize,DateCreated,DateModified,Format,CodecID,Channels,SampleRate,BitRate", output
-    assert_match "#{test_wav}: Is read only", output
+    assert_match "#{test_wav},", output
+    assert_match ",Wave,0001,1,8000,", output
   end
 end

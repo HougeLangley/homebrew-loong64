@@ -14,6 +14,11 @@ class Chadwick < Formula
   deny_network_access!
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "ce1cb73adc94c06273a13aa55eaee42624a38b191e04251e4c3f0901c56267f3"
+  end
+
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
@@ -122,31 +127,40 @@ class Chadwick < Formula
     out = shell_output(exec_str.sub("-X", ""))
     assert_match "Game of #{date_m_d_y} -- #{attr[:visitor_city]} at #{attr[:home_city]}", out
 
-    # check chadwick's xml output
+    # check chadwick's xml output without the non-default rexml gem
     out_xml = shell_output(exec_str)
-    require "rexml/document"
-    doc = REXML::Document.new(out_xml)
-    assert root = doc.root
+    root_match = out_xml.match(/<([A-Za-z_][\w.-]*)\b([^>]*)>/m)
+    assert root_match
+    root_attributes = root_match[2].scan(/([:\w-]+)="([^"]*)"/).to_h
 
     # check the root attributes
-    attr_map_info.each { |_, ch_at, v| assert v == root.attributes[ch_at.to_s] if ch_at }
-    attr.each { |ch_at, v| assert v == root.attributes[ch_at.to_s] }
+    attr_map_info.each { |_, ch_at, v| assert v == root_attributes[ch_at.to_s] if ch_at }
+    attr.each { |ch_at, v| assert v == root_attributes[ch_at.to_s] }
 
     # check the computed scores
-    exp_linescore.each { |k, v| assert v == root.elements["linescore"].attributes[k.to_s] }
-    assert root.elements.to_a("linescore/inning_line_score").size == exp_innings_cnt
+    linescore_attributes = out_xml.match(/<linescore\b([^>]*)>/)[1].scan(/([:\w-]+)="([^"]*)"/).to_h
+    exp_linescore.each { |k, v| assert v == linescore_attributes[k.to_s] }
+    inning_scores = out_xml.scan(/<inning_line_score\b([^>]*)>/).flatten
+    assert inning_scores.size == exp_innings_cnt
 
-    root.elements.to_a("linescore/inning_line_score").each_with_index do |ing_line_score, idx|
-      exp_ing_ln_score.each do |k, values|
-        assert ing_line_score.attributes[k.to_s] == values[idx.to_i]
+    inning_scores.each_with_index do |attributes, idx|
+      values = attributes.scan(/([:\w-]+)="([^"]*)"/).to_h
+      exp_ing_ln_score.each do |k, expected|
+        assert values[k.to_s] == expected[idx.to_i]
       end
     end
 
     # check the player count and that their full names have been fetched from the roster files
-    assert root.elements["players[@team='#{attr[:visitor]}']"].elements.size == exp_tmplayers_cnt
-    assert root.elements["players[@team='#{attr[:home]}']"].elements.size == exp_tmplayers_cnt
-    root.elements.each("players/player") do |e|
-      assert (!e.attributes["fname"].empty? && !e.attributes["lname"].empty?)
+    [attr[:visitor], attr[:home]].each do |team|
+      section = out_xml[/<players\b[^>]*\bteam="#{Regexp.escape(team)}"[^>]*>(.*?)<\/players>/m, 1]
+      refute_nil section
+      players = section.scan(/<player\b([^>]*)>/).flatten
+      assert players.size == exp_tmplayers_cnt
+      players.each do |attributes|
+        values = attributes.scan(/([:\w-]+)="([^"]*)"/).to_h
+        assert !values.fetch("fname", "").empty?
+        assert !values.fetch("lname", "").empty?
+      end
     end
   end
 end

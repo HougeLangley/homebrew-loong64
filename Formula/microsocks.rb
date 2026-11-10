@@ -5,6 +5,11 @@ class Microsocks < Formula
   sha256 "939d1851a18a4c03f3cc5c92ff7a50eaf045da7814764b4cb9e26921db15abc8"
   license "MIT"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "35a5923ae6fb1c47f85ab8117cd056e4ba0c49efbcb03ecb7214f8859b2d0373"
+  end
+
   head "https://github.com/rofl0r/microsocks.git", branch: "master"
 
   def install
