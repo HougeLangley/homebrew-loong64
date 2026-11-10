@@ -6,7 +6,10 @@ class Ttf2eot < Formula
   license any_of: ["LGPL-2.0-or-later", "BSD-2-Clause"]
 
 
-
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "dc35262250f2476caced940d1cb93775f2e1892bd53eafc8bbf92e9c1f0f8894"
+  end
 
   def install
     system "make"
