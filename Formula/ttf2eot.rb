@@ -7,10 +7,6 @@ class Ttf2eot < Formula
 
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "4d0f8a4fa11afb5fa99223b9f9283f80a350cf108ff27cdd907a34db88397216"
-  end
 
   def install
     system "make"
