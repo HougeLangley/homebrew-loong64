@@ -6,7 +6,7 @@ class Powerlevel10k < Formula
   license "MIT"
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "dedc7f91d520bf31c4472baab9510287a2eb19422afb56a9b54c0011211a42a8"
+    sha256 cellar: :any, loongarch64_linux: "76d4403b7b2a6c4c5de414350c14b4176344c91a346cafb1e4a65eb4f5df9095"
   end
 
   head "https://github.com/romkatv/powerlevel10k.git", branch: "master"
