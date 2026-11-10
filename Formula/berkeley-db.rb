@@ -15,15 +15,13 @@ class BerkeleyDb < Formula
     end
   end
 
-  bottle do
-    sha256 cellar: :any, arm64_golden_gate: "9a6b14a95512978cc752fe673e49ad604422350f72beb47c7f9f1676b8277164"
-    sha256 cellar: :any, arm64_tahoe:       "d94e51bc4878ddf195920e8a64c9f1ec2f513671c64c2862937ae034d5e3708f"
-    sha256 cellar: :any, arm64_sequoia:     "56f53021c4758ce4b4860aa1b6567f2128c5badabb6ebd8c3fd87d093e24c05a"
-    sha256 cellar: :any, arm64_linux:       "aae5235e0a9113eb9f9193e98823f90cc07ddc74061c819a778c999ed6515945"
-    sha256 cellar: :any, x86_64_linux:      "c94fb50d96ac4591613e5432955dadb3cf352a4f2412ccf7758df1776505b674"
-  end
 
   keg_only :provided_by_macos
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "2f62e153a11f1a54b569cb16645e78c656ad9fa15dd50f618167fb4f08fc849e"
+  end
 
   depends_on "openssl@4"
 
@@ -35,12 +33,12 @@ class BerkeleyDb < Formula
   end
 
   def install
-    # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
+    # LoongArch triplet and GCC 16 compatibility without overriding Berkeley's
+    # Makefile CFLAGS (which carry its required include paths).
+    ENV.append_to_cflags "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
-        src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
-      end
+      src = "/usr/share/libtool/build-aux/#{cf}"
+      cp src, "dist/#{cf}" if File.exist?(src)
     end
 
     # Work around undefined NULL causing incorrect detection of thread local storage class
