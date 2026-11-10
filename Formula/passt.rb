@@ -5,13 +5,10 @@ class Passt < Formula
   version "2026_10_02.cba3570"
   sha256 "aa75616cc43925f0bd6c05bcfbbaecd77397c03d7bd23591b34ef535be5dfcdc"
   license all_of: ["GPL-2.0-or-later", "BSD-3-Clause"]
+
   head "git://passt.top/passt", branch: "master"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "f0f5da88b604e4a0d1fa39917033e36f91b9a063959ab1aeb43426d914049ab2"
-  end
 
   depends_on :linux
 

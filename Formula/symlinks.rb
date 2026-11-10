@@ -6,10 +6,7 @@ class Symlinks < Formula
   license "MIT"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "53702f2d9f107ff08990fd5c229115396da649fc84108e7805f8e928d58d0a5b"
-  end
+
 
   def install
     system "make", "install"
