@@ -9,9 +9,10 @@ class Bar < Formula
   deprecate! date: "2026-01-05", because: "is not available via HTTPS"
   disable! date: "2027-01-05", because: "is not available via HTTPS"
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "65f23c5c440864e537643f383363749b92e782adee451c6cae820114648c2c65"
+    sha256 cellar: :any, loongarch64_linux: "dbce509e7f4d224bdaf9bbdbc73d22031049f2525d16f13acfbafe3721715bd2"
   end
 
   def install
