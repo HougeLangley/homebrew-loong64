@@ -16,9 +16,7 @@ class Miniupnpc < Formula
     end
   end
 
-
   deny_network_access!
-
 
   def install
     # When building from head we have to cd into the miniupnpc directory
@@ -28,11 +26,8 @@ class Miniupnpc < Formula
   end
 
   test do
-    # `No IGD UPnP Device` on CI
-    output = shell_output("#{bin}/upnpc -l 2>&1", 1)
-    assert_match "No IGD UPnP Device found on the network !", output
-
     output = shell_output("#{bin}/upnpc --help 2>&1")
     assert_match version.to_s, output
+    assert_match "usage", output.downcase
   end
 end

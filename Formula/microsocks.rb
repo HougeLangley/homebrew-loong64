@@ -7,17 +7,44 @@ class Microsocks < Formula
 
   head "https://github.com/rofl0r/microsocks.git", branch: "master"
 
-
-
   def install
     system "make", "install", "prefix=#{prefix}"
   end
 
   test do
-    port = free_port
-    spawn bin/"microsocks", "-p", port.to_s
-    sleep 2
-    output = shell_output("curl --socks5 0.0.0.0:#{port} https://brew.sh")
-    assert_match "The Package Manager for Everywhere", output
+    require "socket"
+
+    server = TCPServer.new("127.0.0.1", 0)
+    http_port = server.addr[1]
+    body = "microsocks-loopback-ok\n"
+    responder = Thread.new do
+      client = server.accept
+      begin
+        while (line = client.gets)
+          break if line == "\r\n"
+        end
+        client.write "HTTP/1.1 200 OK\r\nContent-Length: #{body.bytesize}\r\nConnection: close\r\n\r\n#{body}"
+      ensure
+        client.close
+      end
+    end
+
+    socks_port = free_port
+    socks_pid = spawn bin/"microsocks", "-p", socks_port.to_s
+    begin
+      sleep 2
+      output = shell_output("curl --noproxy \"\" --fail --silent --show-error " \
+                            "--socks5 127.0.0.1:#{socks_port} http://127.0.0.1:#{http_port}/")
+      assert_equal body, output
+    ensure
+      Process.kill("TERM", socks_pid)
+      begin
+        Process.wait(socks_pid)
+      rescue Errno::ECHILD
+      end
+      responder.kill
+      responder.join
+      server.close
+    end
   end
 end

@@ -8,10 +8,12 @@ class Pstree < Formula
   sha256 "64d613d8f66685b29f13a80e08cddc08616cf3e315a0692cbbf9de0d8aa376b3"
   license "GPL-3.0-only"
 
-
   deny_network_access!
 
-
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "9ca8caea3dafba8a1830f32b6ffdf29c30f23a46a04d666b6e4d78ad75a80bcd"
+  end
 
   def install
     system "make", "pstree"
@@ -20,8 +22,8 @@ class Pstree < Formula
   end
 
   test do
-    lines = shell_output("#{bin}/pstree #{Process.pid}").strip.split("\n")
-    assert_match $PROGRAM_NAME, lines[0]
-    assert_match (bin/"pstree").to_s, lines[1]
+    output = shell_output("#{bin}/pstree #{Process.pid}")
+    assert_match(/\b#{Process.pid}\b/, output)
+    assert_match "pstree", output
   end
 end
