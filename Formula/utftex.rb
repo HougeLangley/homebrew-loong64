@@ -5,20 +5,16 @@ class Utftex < Formula
   sha256 "8ca5a11d387631a34979295f73f9a2eccc87e17c690dcd4c1454eb65a9e372bc"
   license "GPL-3.0-only"
 
+
   bottle do
-    sha256 cellar: :any,                 arm64_golden_gate: "722818368fa6cae9bd97bedbbe7edd4f851f74fa452e03e1d29ae21197e82426"
-    sha256 cellar: :any,                 arm64_tahoe:       "a323b3b8def5c96c03e8ba1a158b38a636088317d9630f5978b7dec3a2a7b212"
-    sha256 cellar: :any,                 arm64_sequoia:     "53240cfcf74836902e57d90eae41cdf8d47709b4c66d07676cdde2ac3c63da0c"
-    sha256 cellar: :any,                 arm64_sonoma:      "17ebd4a3d357197efcb58c44bc0b1a4595f453dd7b51616c41c680055cd2e938"
-    sha256 cellar: :any,                 sonoma:            "79913315c9d2ec3c2d3ac57d2ea7f395839278f7b8ce1c48181ea55b19704ba4"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "144a0233f593829f428859642ed231bdf300378afdccf48c7a5887f5a9b23769"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "733b373d361275776ee9e70d15b02336adb869b19401d4b700545000b144b3a0"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "42b464d240d7ca8ccbbf9cdcd042429179da2a2fcaa598a9c7b32fb723ba6e03"
   end
 
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

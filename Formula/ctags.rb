@@ -2,11 +2,6 @@ class Ctags < Formula
   desc "Reimplementation of ctags(1)"
   homepage "https://ctags.sourceforge.net/"
   license all_of: ["GPL-2.0-or-later", "LGPL-2.1-or-later"]
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "7d8719712d4a50f79ff2c8f63280ff1faee19d614f1da5caae81dd4e9c3b99bd"
-  end
-
   revision 2
 
   stable do
@@ -37,6 +32,11 @@ class Ctags < Formula
   end
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "4a28a5131978a750e637aa3c4450fc14eda7adba27dffa4632bf2aea54f93797"
+  end
+
   head do
     url "https://svn.code.sf.net/p/ctags/code/trunk"
     depends_on "autoconf" => :build
@@ -56,7 +56,7 @@ class Ctags < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

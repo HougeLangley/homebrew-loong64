@@ -24,15 +24,16 @@ class Wordplay < Formula
 
   # Fixes compiler warnings on Darwin, via MacPorts.
   # Point to words file in share.
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "64e7a04500425a372a378b96fddc650d40ac4167b5845fd4d4316a682b44feb7"
+  end
+
   patch :p0 do
     file "Patches/wordplay/patch-wordplay.c"
     type :unofficial
   end
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "6f3f2f4d35323164dd3581f95ab145f347fac73924ae6d7ee97ba2ac8b142e3e"
-  end
 
   def install
     inreplace "wordplay.c", "@PREFIX@", prefix
