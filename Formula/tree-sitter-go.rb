@@ -6,9 +6,10 @@ class TreeSitterGo < Formula
   license "MIT"
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "90a95ae3682957dd96918f993f9cce58adaca273e4c0cfb2c6f8a9a8733bd99c"
+    sha256 cellar: :any, loongarch64_linux: "fde7f4a41ca84baf5b15baa22b933d69ab3dab3b7c7eacf486909eef8d3c9739"
   end
 
   depends_on "tree-sitter" => :test

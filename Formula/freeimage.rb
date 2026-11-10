@@ -112,7 +112,7 @@ class Freeimage < Formula
          exit(0);
       }
     C
-    system ENV.cc, *_extra, "test.c", "-I#{include}", "-L#{lib}", "-lfreeimage", "-o", "test"
+    system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-lfreeimage", "-o", "test"
     system "./test"
   end
 end

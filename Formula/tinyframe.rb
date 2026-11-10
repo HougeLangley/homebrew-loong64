@@ -5,12 +5,10 @@ class Tinyframe < Formula
   sha256 "181e18bf3e8067b5415f0179d1b35286bf1d379ba71bb89c8e6cc2a73c3cec8d"
   license "GPL-3.0-or-later"
 
+
   bottle do
-    sha256 cellar: :any, arm64_golden_gate: "7c4a52ea7a2018bf86a62e6fe77450e7273ad3270332657fe723b5cd835c95b7"
-    sha256 cellar: :any, arm64_tahoe:       "45c5916e69f53b359e526884988785d523e80fdbc62a8e9ff45b63839d68eb4f"
-    sha256 cellar: :any, arm64_sequoia:     "10e9111fef322f83934a25fd824796e014340dfa3d530da1df69807bdde33e1c"
-    sha256 cellar: :any, arm64_linux:       "3988479d468def85c0bce52961953f0b887b080a0331ebf91eca59e9932d3dd7"
-    sha256 cellar: :any, x86_64_linux:      "8b2d8f36f095b68be6d7d6fa5c810d36a602af8ce8abb1f669e04842ae7f9954"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "256ab6ebd7584dcef02d4e4edb3e2e96cccda645d1648fda70b0fe4319c474f7"
   end
 
   depends_on "pkgconf" => :test
@@ -27,7 +25,7 @@ class Tinyframe < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
