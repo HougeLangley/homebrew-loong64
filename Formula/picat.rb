@@ -14,13 +14,10 @@ class Picat < Formula
     end
   end
 
+
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "7c78f2020d268c556bf9ecf324b7ed75e230177aef48f02b4dc23abcc674a489"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "96e54aaf25f40b328f5b46086782d64006789a374a3b9d20fb909e4851bc1f45"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "bcf8820453e7a55a6dd0e0abed110cf3cd60e071c7e0599c7128afbf1f88ad6b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:      "dda9e7c68bb84c5f1f25ab3e3467c1bd1e492d34423a5b69fbee7fc539b35508"
-    sha256 cellar: :any,                 arm64_linux:       "f7af4ba06b779531cc0619e23988afb47302b8f2c79fa543ae6dd58911208aab"
-    sha256 cellar: :any,                 x86_64_linux:      "d766512892f2c060ed297311fd7a0adc0f582ccaef1eb1cc9d98aa18a2200822"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "58128c317a0a32e55de78e145fce7f93c51e5e06db3dd3b1370037ae352875e5"
   end
 
   def install
@@ -34,6 +31,8 @@ class Picat < Formula
       ENV.cxx11
       "Makefile.linux64"
     end
+    # Espresso rules use ESPRESSO_FLAGS, not the main CFLAGS variable.
+    inreplace "emu/common.mak", /^ESPRESSO_FLAGS =/, "ESPRESSO_FLAGS = -Wno-error=incompatible-pointer-types" unless OS.mac?
     system "make", "-C", "emu", "-f", makefile
     bin.install "emu/picat"
     prefix.install "lib" => "pi_lib"

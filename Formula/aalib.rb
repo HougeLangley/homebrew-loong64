@@ -18,6 +18,11 @@ class Aalib < Formula
   # Fix underquoted definition of AM_PATH_AALIB in aalib.m4
   # Fix implicit function declarations
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "b89244ed89768ec536417d02dafb8835a873fd3197ae1035b5f6627481ee8ed6"
+  end
+
   patch do
     file "Patches/aalib/1.4rc5.patch"
     type :unofficial
@@ -99,6 +104,8 @@ class Aalib < Formula
   end
 
   test do
+    # aainfo requires terminal capabilities even when its output is redirected.
+    ENV["TERM"] = "xterm"
     output = shell_output("#{bin}/aainfo -width 100 -height 50")
     assert_match "AAlib version:#{version.major_minor}", output
     assert_match(/Width +:100$/, output)

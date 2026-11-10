@@ -1,7 +1,7 @@
 # homebrew-loong64
 
 [![arch](https://img.shields.io/badge/arch-loongarch64-blue)](https://loongson.cn)
-[![packages](https://img.shields.io/badge/packages-2405-brightgreen)](#-可用软件包)
+[![packages](https://img.shields.io/badge/packages-2407-brightgreen)](#-可用软件包)
 [![site](https://img.shields.io/badge/site-homebrewloongarch64.site-0a5)](https://homebrewloongarch64.site)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -146,12 +146,12 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-11-10 19:31 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-11-10 19:41 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
 | **a52dec** | 0.8.0 | 105 KiB | `328fcae652f2` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/a52dec--0.8.0.loongarch64_linux.bottle.1.tar.gz) |
-| **aalib** | 1.4rc5_2 | 194 KiB | `0cb450e45368` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aalib--1.4rc5_2.loongarch64_linux.bottle.1.tar.gz) |
+| **aalib** | 1.4rc5_2 | 194 KiB | `b89244ed8976` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aalib--1.4rc5_2.loongarch64_linux.bottle.1.tar.gz) |
 | **aamath** | 0.3 | 55 KiB | `9557d9bfdf2d` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aamath--0.3.loongarch64_linux.bottle.tar.gz) |
 | **abcm2ps** | 8.14.18 | 273 KiB | `b3d7b1a272af` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/abcm2ps--8.14.18.loongarch64_linux.bottle.1.tar.gz) |
 | **abcmidi** | 2026.10.23 | 657 KiB | `c6da3317eb76` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/abcmidi--2026.10.23.loongarch64_linux.bottle.1.tar.gz) |
@@ -211,7 +211,7 @@ end
 | **apng2gif** | 1.8 | 19 KiB | `351a9ac006a1` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/apng2gif--1.8.loongarch64_linux.bottle.2.tar.gz) |
 | **apparix** | 11-062 | 128 KiB | `ac09d409fb44` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/apparix--11-062.loongarch64_linux.bottle.2.tar.gz) |
 
-> 仅显示前 60 个，共 **2405** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
+> 仅显示前 60 个，共 **2407** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
 
 ## 镜像与加速
 
