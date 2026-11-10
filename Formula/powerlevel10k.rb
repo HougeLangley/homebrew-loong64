@@ -51,5 +51,10 @@ class Powerlevel10k < Formula
   test do
     output = shell_output("zsh -fic '. #{pkgshare}/powerlevel10k.zsh-theme && (( ${+P9K_SSH} )) && echo SUCCESS'")
     assert_match "SUCCESS", output
+
+    input = testpath/"gitstatus-input"
+    input.binwrite "hello\037\036"
+    output = shell_output("#{pkgshare}/gitstatus/usrbin/gitstatusd < #{input}")
+    assert_equal "hello\0370\036", output
   end
 end

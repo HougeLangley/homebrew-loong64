@@ -11,9 +11,10 @@ class BashSnippets < Formula
   conflicts_with "pwned", because: "both install `pwned` binaries"
   conflicts_with "todoman", because: "both install `todo` binaries"
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "d7a4e4cf3cedc96ab438c65c04b59bc951b03dc46e8cc3b951384bf142e7f9a3"
+    sha256 cellar: :any, loongarch64_linux: "6e49d2a69c5c16f7ca8c4cec1bd5849e958b23814299171a4674862ba7287cb7"
   end
 
   def install
