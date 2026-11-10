@@ -7,6 +7,11 @@ class X264 < Formula
   version "r3222"
   license "GPL-2.0-or-later"
   compatibility_version 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "f5a70c8ae2cd7c921c5eae30d138168aaa7b8bd3e204725ff1f917c85a979e1f"
+  end
+
   head "https://code.videolan.org/videolan/x264.git", branch: "master"
 
   # Cross-check the abbreviated commit hashes from the release filenames with
@@ -39,19 +44,7 @@ class X264 < Formula
     end
   end
 
-  no_autobump! because: :incompatible_version_format
 
-  bottle do
-    sha256 cellar: :any,                 arm64_golden_gate: "e5a7b434d9bd236891bdf8ec5621ec092d358922f9b4a3417059b201fdfd870d"
-    sha256 cellar: :any,                 arm64_tahoe:       "b631667b5ad55c6c3ae383484f658c5b4ba14da8a2fbb1d537975695852529ca"
-    sha256 cellar: :any,                 arm64_sequoia:     "a613d44ead5d3999270970f41283eadfad8001061faf063945def6b8fb5145f4"
-    sha256 cellar: :any,                 arm64_sonoma:      "6a932a218451e42a2678ea041e7453e7836249eb6b7013f8d2a3e8bfbb80a574"
-    sha256 cellar: :any,                 arm64_ventura:     "2f620df0464c5bce04ab31c0ad8a4c0ecc8a2684b94815b41795125ba3a62415"
-    sha256 cellar: :any,                 sonoma:            "3a260293e96e74afe7c763841d42085092f66711b6cec8aa693a1458e26eae3a"
-    sha256 cellar: :any,                 ventura:           "ae46d51d6cfe33e0af6dae3b8e71e622903f2cce96000abda646e5a37d0f2fb7"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "ebafe98d77b8826fcf5412762db4dfce34bb491e4bd658eedc25a1e49f18f040"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "4ec18379e16e4e5fd740518dd8964472392725b10dcde1e726f02a34bcba813e"
-  end
 
   on_intel do
     depends_on "nasm" => :build
@@ -60,7 +53,7 @@ class X264 < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

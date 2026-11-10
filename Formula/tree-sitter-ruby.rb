@@ -6,9 +6,10 @@ class TreeSitterRuby < Formula
   license "MIT"
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "83f1a7f3c81d60a76a960b7e968b299ff079b648b91efb74b8495c85c65586e2"
+    sha256 cellar: :any, loongarch64_linux: "b9bdb3cf1cad0e53bb75726516777540021701b3979534348cb7b7be7eceb013"
   end
 
   depends_on "tree-sitter" => :test

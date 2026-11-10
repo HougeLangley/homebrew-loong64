@@ -5,10 +5,7 @@ class Libcpuid < Formula
   sha256 "be05cbafa086850a15b7d6f6cee3e72ae73a2b2ac75c0b2c6fc77611dede73b8"
   license "BSD-2-Clause"
 
-  bottle do
-    sha256 cellar: :any, arm64_linux:  "af61a19db58ffe3df890fc79f40d8ce6b24261ce3a5bad74bf33b8b2d1425708"
-    sha256 cellar: :any, x86_64_linux: "4475f8da6b5e52c68d2e07b62eb526d491caa8c6a23f2c96d510124acd795b82"
-  end
+
 
   head do
     url "https://github.com/anrieff/libcpuid.git", branch: "master"
@@ -31,7 +28,7 @@ class Libcpuid < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
