@@ -10,9 +10,15 @@ class Chadwick < Formula
     strategy :github_latest
   end
 
+  bottle do
+    sha256 cellar: :any, arm64_golden_gate: "ce822e855a64af561898b6cf0e0e1f2808423f6aa2152cda73234c7b2f867cc5"
+    sha256 cellar: :any, arm64_tahoe:       "f8bd05653549c37aff0d59d0d90e427d9c4a7dfeee7eee3c3a66025ab28b5f02"
+    sha256 cellar: :any, arm64_sequoia:     "867e32fe0431a8f586de718749d7200bcea71ed7b5d8864feb07cc4967bc6ca5"
+    sha256 cellar: :any, arm64_linux:       "c3496351228e24e59078cc2457b492564a566f42fe531cbf9c66de3ab9bec56c"
+    sha256 cellar: :any, x86_64_linux:      "65b1646953bf82d1577caffb08a232757a87344f69d31974bc3ab5e332db065e"
+  end
 
   deny_network_access!
-
 
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
