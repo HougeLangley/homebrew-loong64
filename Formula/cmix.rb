@@ -2,6 +2,11 @@ class Cmix < Formula
   desc "Data compression program with high compression ratio"
   homepage "https://www.byronknoll.com/cmix.html"
   license "GPL-3.0-or-later"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "90165193edb2b9e7d2ab2f6ae313452b363852a0ad1bd85741353e8fa60d72dc"
+  end
+
   head "https://github.com/byronknoll/cmix.git", branch: "master"
 
   stable do
@@ -32,19 +37,16 @@ class Cmix < Formula
     end
   end
 
-  bottle do
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "ee59958b82daf7623229e0e92b75d9001be5b02e9da9cfbd3a5633c4f295d4e0"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "379aab1a270951b5ba407f3e8bcc4f63acb751dca478600943ba06137f87d510"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "24a3714aab5a450ebea1c2ffcbc6162259fd28a48c996116d1476d254c6266c7"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:      "22caa14e1877a3352912eb0be97b97ee9be649167d76448d34a6c9537f405e03"
-    sha256 cellar: :any_skip_relocation, sonoma:            "020968e1af5885da7049c369f4afd706a31c77d780fbf74e8daaf00ab3132058"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "4dd768510439ff99e1e5c47dbe7f9559005bbd26999d706276daba9b18073c9d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "b9cf2a6c621b035fe17a770bc368b684240e193bc294f92e9d415bd88f1618d1"
-  end
 
   def install
     inreplace "src/preprocess/preprocessor.cpp", "#include <cstdlib>\n",
               "#include <cstdlib>\n#include <cstdint>\n"
+    inreplace "src/models/paq8.cpp", "#include <stdlib.h>\n",
+              "#include <stdlib.h>\n#include <cstdint>\n"
+    inreplace "src/models/fxcmv1.cpp", "#include <stdlib.h>\n",
+              "#include <stdlib.h>\n#include <cstdint>\n"
+    inreplace "src/enwik9-preproc/phda9_preprocess.h", "#include <stdlib.h>\n",
+              "#include <stdlib.h>\n#include <cstdint>\n"
     system "make", "CXX=#{ENV.cxx}"
     bin.install "cmix"
   end
