@@ -10,7 +10,23 @@ class Gengetopt < Formula
     depends_on "texinfo" => :build
   end
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "8d350989d6e64374aec5d062c1eeeef7b5f57c17844dc431599d56fc45583ca4"
+  end
+
   def install
+    # gnulib 2025 redeclares bsearch after including glibc 2.44's C23
+    # const-generic macro. Keep the function, but remove only that macro.
+    inreplace "gl/stdlib.in.h",
+              "#@INCLUDE_NEXT@ @NEXT_STDLIB_H@\n\n#ifndef _@GUARD_PREFIX@_STDLIB_H\n#define _@GUARD_PREFIX@_STDLIB_H",
+              "#@INCLUDE_NEXT@ @NEXT_STDLIB_H@\n\n#ifdef bsearch\n# undef bsearch\n#endif\n\n#ifndef _@GUARD_PREFIX@_STDLIB_H\n#define _@GUARD_PREFIX@_STDLIB_H"
+    string_macros = %w[memchr strchr strrchr strpbrk strstr]
+    undefines = string_macros.map { |name| "#ifdef #{name}\n# undef #{name}\n#endif" }.join("\n")
+    inreplace "gl/string.in.h",
+              "#undef _@GUARD_PREFIX@_ALREADY_INCLUDING_STRING_H\n\n#ifndef _@GUARD_PREFIX@_STRING_H",
+              "#undef _@GUARD_PREFIX@_ALREADY_INCLUDING_STRING_H\n\n#{undefines}\n\n#ifndef _@GUARD_PREFIX@_STRING_H"
+
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
                           "--mandir=#{man}"
