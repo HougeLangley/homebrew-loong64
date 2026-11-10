@@ -6,19 +6,20 @@ class Bittwist < Formula
   license "GPL-2.0-or-later"
 
 
-  uses_from_macos "libpcap"
-
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "0000000000000000000000000000000000000000000000000000000000000000"
+    sha256 cellar: :any, loongarch64_linux: "0e9462842556243d349b167c62bb752add9bc5c32d15ce3afcb95e2e6647d330"
   end
 
+  depends_on "libnl"
+  uses_from_macos "libpcap"
+
   def install
-    # --- 追加缺失库 ---
-    ENV.append "LIBS", "-lnl -lnl-genl-3"
-    ENV.append "LDFLAGS", "-lnl -lnl-genl-3"
-    system "make", "LIBS=-lnl -lnl-genl-3"
-    system "make", "LIBS=-lnl -lnl-genl-3", "install", "prefix=#{prefix}"
+    # The Linux Makefile links libpcap statically through LPCAP, not LIBS.
+    # Keep netlink after libpcap and use the real libnl-3 library name.
+    lpcap = "-Wl,-Bstatic -lpcap -Wl,-Bdynamic -lnl-genl-3 -lnl-3"
+    system "make", "LPCAP=#{lpcap}"
+    system "make", "install", "prefix=#{prefix}"
   end
 
   test do
