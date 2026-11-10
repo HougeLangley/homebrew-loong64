@@ -13,6 +13,10 @@ class Bwfmetaedit < Formula
 
   deny_network_access!
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "aab35340a3ed2c7c28358cbc3737fdaeb56b916ea85456f7623ab7a79d52bb3f"
+  end
 
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
