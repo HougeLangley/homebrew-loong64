@@ -35,7 +35,12 @@ class Powerlevel10k < Formula
     deps.mkpath
     cp libgit2.cached_download, deps/"libgit2-tag-2ecf33948a4df9ef45a66c68b8ef24a5e60eaac6.tar.gz"
     cd "gitstatus" do
-      system "./build", "-m", "loongarch64"
+      # Isolate the pinned static archive from Homebrew library/CMake search
+      # paths. The upstream static-PIE binary still runs both protocol self-tests.
+      system "env", "-i", "PATH=/usr/bin:/bin", "HOME=#{ENV["HOME"]}",
+             "TMPDIR=/home/houge/infra/src/tmp", "LC_ALL=C",
+             "CC=/usr/bin/gcc", "CXX=/usr/bin/g++",
+             "CXXFLAGS=-Wno-error=unused-result", "./build", "-m", "loongarch64"
     end
     system "make", "zwc"
     pkgshare.install Dir["*"]
