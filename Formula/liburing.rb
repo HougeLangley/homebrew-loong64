@@ -5,34 +5,28 @@ class Liburing < Formula
   url "https://github.com/axboe/liburing/archive/refs/tags/liburing-2.15.tar.gz"
   sha256 "8d052f2622dcb3678cbaee5ff582a87572672a6c0a56533cdda5b65cb636120a"
   license any_of: ["MIT", "LGPL-2.1-only"]
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "28163d3823503d95985c0f18973524d9b3cc4bf49b2b6589ab622b756a50bf0d"
+  end
+
   head "https://github.com/axboe/liburing.git", branch: "master"
 
-  bottle do
-    sha256 cellar: :any, arm64_linux:  "5c14e93ed3fef11f661c7a2c57683d4c6aae389719b00464c7669769bd25a483"
-    sha256 cellar: :any, x86_64_linux: "fd4d058f57bb17d59ad2ed868146a48b857b9a7caeb38917d7555fccf2562e15"
-  end
 
   depends_on :linux
 
   def install
-    # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
-    %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
-        src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
-      end
-    end
-
     # not autotools based configure, so std_configure_args is not suitable
-    system "./configure", "--build=loongarch64-unknown-linux-gnu", "--prefix=#{prefix}", "--libdir=#{lib}", "--mandir=#{man}"
+    system "./configure", "--prefix=#{prefix}", "--libdir=#{lib}", "--mandir=#{man}"
     system "make"
     system "make", "install"
   end
 
   test do
-    # io_uring_queue_init test is required to modify sysctl options or run as root
-    # and so it is expected to fail in general
+    # CI often denies io_uring with EPERM, but the native RT kernel allows it.
+    # Exercise and clean up a real ring when permitted; accept only EPERM otherwise.
     (testpath/"test.c").write <<~C
+      #include <errno.h>
       #include <liburing.h>
       #include <stdio.h>
       #include <string.h>
@@ -41,15 +35,21 @@ class Liburing < Formula
         struct io_uring ring;
 
         int ret = io_uring_queue_init(1, &ring, 0);
+        if (ret == -EPERM) {
+          puts("queue_init: Operation not permitted");
+          return 0;
+        }
         if (ret < 0) {
-          fprintf(stderr, "queue_init: %s", strerror(-ret));
+          fprintf(stderr, "queue_init: %s\\n", strerror(-ret));
           return 1;
         }
 
+        io_uring_queue_exit(&ring);
+        puts("queue_init: success");
         return 0;
       }
     C
     system ENV.cc, "test.c", "-L#{opt_lib}", "-luring", "-o", "test"
-    assert_match "queue_init: Operation not permitted", shell_output("./test 2>&1", 1)
+    assert_match(/queue_init: (?:success|Operation not permitted)/, shell_output("./test 2>&1"))
   end
 end
