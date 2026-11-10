@@ -5,6 +5,11 @@ class BundlerCompletion < Formula
   sha256 "cbcd002bba2a43730cff54f5386565917913d9dec16dcd89345fbe298fe4316b"
   license "MIT"
   version_scheme 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "db445f2bc5f58a752fbd048dfa5022e8fb855d6bada69467300cf37a9c6ee7da"
+  end
+
   head "https://github.com/mernen/completion-ruby.git", branch: "main"
 
   livecheck do
@@ -12,10 +17,6 @@ class BundlerCompletion < Formula
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "27d21d2e7722f7767fd06fc021ec842dd01bee7b805880bc9499688d84347982"
-  end
 
   def install
     bash_completion.install "completion-bundle" => "bundler"
