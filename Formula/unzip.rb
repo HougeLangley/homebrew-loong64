@@ -12,20 +12,13 @@ class Unzip < Formula
     regex(%r{url=.*?(?:%20)?v?(\d+(?:\.\d+)+)/unzip\d+\.t}i)
   end
 
-  bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "525f5587e23a595a3e3e1d11a574c29c5a475585fd19b0c7f675895ef41c9608"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "be1cb055cbcf3e1420ea25a48ab6da010c2e70efff5ffe7e4e91dac7231c4ae2"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "fe1f7ac37950ec13dde20b2ab1eb86eb45f066a305df1fa6c8349d6de0e14dec"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:      "e7bb9045e4d39a6409b1eaa113ccd21337374726d74a9b4b2344ea6a87f13543"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:     "28765484286482079acb25eebf967819544b1a86daf3b92f6c19d282296e3915"
-    sha256 cellar: :any_skip_relocation, sonoma:            "ecb59929e280df14e71d9f163de7aa1613f005fb4d44dd40fc1a811ea5d61132"
-    sha256 cellar: :any_skip_relocation, ventura:           "76363f884cbb100c668adea01a3d72a8efadc23e5bee125182ad030d6fd3685f"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "8c82849237d428857a01410f203b89819f02e7ab28651400d6ebefe46f3feca4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "0e3fe87c9f438d2012de977edf649608574a8c3265797fb693923bdca9227a7d"
-  end
 
   keg_only :provided_by_macos
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "16db86efdde791bbbd7980d7a55b5a8e745837ddf60859f5c802e031fa6b8585"
+  end
 
   uses_from_macos "zip" => :test
   uses_from_macos "bzip2"
@@ -75,43 +68,6 @@ class Unzip < Formula
   deny_network_access!
 
   def install
-    # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
-    %w[conf-cc conf-cxx].each do |cf|
-      next unless File.exist?(cf)
-      _c = File.read(cf).strip
-      File.write(cf, _c + " -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration\n") unless _c.include?("gnu17")
-    end
-    # cc 命令改写（Makefile 里写死 cc 而非 $(CC) 时）
-    Dir["Makefile", "**/Makefile", "**/GNUmakefile", "**/Makefile.*"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.gsub(/^(	| {0,4})(cc|gcc)([ 	])/) { "#{$1}$(CC)#{$3}" }
-      File.write(mkf, _m)
-    end
-    # CMake 标志追加
-    _cmflags = ["-DCMAKE_C_FLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration", "-DCMAKE_CXX_FLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"].freeze
-    # ENV.cc 追加
-    _extra = "-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration".split
-    Dir["Makefile", "GNUmakefile", "makefile", "src/Makefile"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.gsub(/-std=(c|gnu)(89|99|11|17|2x)/, "")
-      File.write(mkf, _m)
-    end
-    # Makefile 里面追加（硬编码 CFLAGS 时 ENV 追加不生效）
-    Dir["Makefile", "GNUmakefile", "makefile", "**/Makefile", "**/GNUmakefile", "**/makefile", "**/Makefile.*"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration " }
-      File.write(mkf, _m)
-    end
-    # CFLAGS 里面追加（configure 硬编码时 ENV 追加不生效）
-    if File.exist?("configure")
-      _cfg = File.read("configure")
-      _cfg = _cfg.gsub(/^CFLAGS="([^"\\]*)"/) { 'CFLAGS="' + $1 + ' -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"' }
-      File.write("configure", _cfg)
-    end
-    ENV.append_to_cflags "-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"
     # These macros also follow Ubuntu, and are required:
     # - to correctly handle large archives (> 4GB)
     # - extract & print archive contents with non-latin characters
@@ -123,9 +79,18 @@ class Unzip < Formula
       -DNO_WORKING_ISPRINT
     ]
     cflags = ENV.cflags.to_s.split
+    cflags.concat %w[
+      -std=gnu17
+      -D_GNU_SOURCE
+      -Wno-error=implicit-int
+      -Wno-implicit-int
+      -Wno-error=implicit-function-declaration
+      -Wno-error=int-conversion
+      -Wno-error=incompatible-pointer-types
+    ]
     cflags << "-DNO_LCHMOD" unless OS.mac?
     args = %W[
-      CC=#{ENV.cc} -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration
+      CC=#{ENV.cc}
       CFLAGS=#{cflags.join(" ")}
       LOC=#{loc_macros.join(" ")}
       D_USE_BZ2=-DUSE_BZIP2
@@ -136,8 +101,8 @@ class Unzip < Formula
     else
       args << "unzips"
     end
-    system "make", "CFLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration", "CXXFLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "-f", "unix/Makefile", *args
-    system "make", "CFLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration", "CXXFLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "-f", "unix/Makefile", "prefix=#{prefix}", "MANDIR=#{man1}", "install"
+    system "make", "-f", "unix/Makefile", *args
+    system "make", "-f", "unix/Makefile", "prefix=#{prefix}", "MANDIR=#{man1}", "install"
   end
 
   test do
