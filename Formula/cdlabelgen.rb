@@ -11,9 +11,10 @@ class Cdlabelgen < Formula
   end
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "8f925515b35eb6e257e22fd0eb14b5a8e9e15dcbf03e7336e3363c5c649e3a16"
+    sha256 cellar: :any, loongarch64_linux: "30cb9dbc9ffb9c00824d13454ce6418221899009dd7ae4a2d007b2b8d6aeb74b"
   end
 
   def install
