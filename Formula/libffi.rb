@@ -12,10 +12,6 @@ class Libffi < Formula
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "c4772e1af84f6d4b6d50a6f98abc9d0c1afbaf780e54f0d3ab16ab064e4c7a5f"
-  end
 
   head do
     url "https://github.com/libffi/libffi.git", branch: "master"
