@@ -6,10 +6,7 @@ class Flash < Formula
   license "MIT"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "e23b51db72fe7f6a8a01c61dac0eb83ec70b82c5336ee403049e9376fc4cc7c5"
-  end
+
 
   def install
     bin.install "flash"

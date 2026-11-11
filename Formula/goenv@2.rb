@@ -21,7 +21,7 @@ class GoenvAT2 < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "845751b74c522f71e4c4b277363ebba6aa8f8afaad353e0563a5ebe96d9e3c87"
+    sha256 cellar: :any, loongarch64_linux: "03bb48e15744950be150edee6f833d7fa7e8e2ae1d1b7d743fa42f489b86792b"
   end
 
   def install
@@ -41,6 +41,12 @@ class GoenvAT2 < Formula
   end
 
   test do
-    assert_match "Warning: no Go detected on the system", shell_output("#{bin}/goenv versions 2>&1", 1)
+    # Upstream's test assumes no system Go; our build hosts have Go in PATH,
+    # making `goenv versions` exit 0. Use a hermetic GOENV_ROOT like the
+    # project's own bats tests instead of depending on the host environment.
+    root = testpath/"goenv-root"
+    (root/"versions/1.21.0").mkpath
+    ENV["GOENV_ROOT"] = root
+    assert_match "1.21.0", shell_output("#{bin}/goenv versions 2>&1")
   end
 end
