@@ -4,13 +4,14 @@ class Flatcc < Formula
   url "https://github.com/dvidelabs/flatcc/archive/refs/tags/v0.6.4.tar.gz"
   sha256 "463c1cbc95777a01e103a6c961325f28e8876cb44a195b5c0f8d1117ae019580"
   license "Apache-2.0"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "26735e4ad4bd90f3c69d23a71832bcd15418ee6eb618745435443711880a71f0"
+  end
+
   head "https://github.com/dvidelabs/flatcc.git", branch: "master"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "f2d50e4b0a5593b828203120592720fdef14a6e09dece22d862780921819ef8b"
-  end
 
   depends_on "cmake" => :build
 

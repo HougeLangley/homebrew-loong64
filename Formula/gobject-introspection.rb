@@ -5,6 +5,11 @@ class GobjectIntrospection < Formula
   sha256 "b2713708fd401048ab81d0099f379ef88aa0a75275ecc82fba8e19f584dfefe1"
   version "1.86.0"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "483216e6fee50eb2d26f46ac103a28607ebead80a4ef4a64bd8dc79fe0507cd9"
+  end
+
   def install
     bin.mkpath; lib.mkpath; include.mkpath
     (include/"gobject-introspection-1.0").mkpath

@@ -6,9 +6,10 @@ class Inchi < Formula
   license "MIT"
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "dcd0193dd0b1c3aa06b62ced5d64b80f4294ace3bb1cfdd3fb0a1cfd72142197"
+    sha256 cellar: :any, loongarch64_linux: "b24158b715cdc84ab68de2415b9c3603df244a2cf6297396be5c17be1e105c8a"
   end
 
   depends_on "cmake" => :build
