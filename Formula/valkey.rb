@@ -10,13 +10,14 @@ class Valkey < Formula
     "MIT", # deps/lua
     any_of: ["CC0-1.0", "BSD-2-Clause"], # deps/hdr_histogram
   ]
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "776dd9bf9898f43c4b9e6c2c9785dd5561f8c63fe46db9a602e38cb673f3cadb"
+  end
+
   head "https://github.com/valkey-io/valkey.git", branch: "unstable"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "1a9474be11a34e43d009145abebbdbe8ef88ba239602f8e03332660c59663430"
-  end
 
   depends_on "openssl@4"
 

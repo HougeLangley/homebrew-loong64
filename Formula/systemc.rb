@@ -13,12 +13,24 @@ class Systemc < Formula
 
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "2bdd10e9cdbfc7624171c0c1583387fe9e33335c72dfdca16fad55b5e8ce2e54"
+  end
+
   depends_on "cmake" => :build
 
   deny_network_access!
 
   def install
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    # systemc bakes the C++ standard into its ABI symbol name
+    # (sc_api_version_..._cxx201703L vs _cxx202002L). GCC 16's default
+    # builds the library as C++20 while the upstream test compiles with
+    # -std=gnu++17, causing an undefined-reference at link. Pin the whole
+    # build to C++17 so library and test ABIs match.
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args,
+           "-DCMAKE_CXX_STANDARD=17",
+           "-DCMAKE_CXX_EXTENSIONS=ON"
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
   end

@@ -8,6 +8,10 @@ class ZlibNgCompat < Formula
   license "Zlib"
   revision 1
   compatibility_version 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "5e357118611fdaff35650a9d0b0f52dbcd880e5d23748e051ab6020c218e9171"
+  end
 
   head "https://github.com/zlib-ng/zlib-ng.git", branch: "develop"
 
