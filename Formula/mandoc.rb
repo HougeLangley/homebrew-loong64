@@ -5,12 +5,12 @@ class Mandoc < Formula
   mirror "http://mandoc.bsd.lv/snapshots/mandoc-1.14.6.tar.gz"
   sha256 "8bf0d570f01e70a6e124884088870cbed7537f36328d512909eb10cd53179d9c"
   license "ISC"
+  revision 1
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "e09c82bf75d0d14747f047c7f82741c9c83d1c72744398dad3cc9d8a8dcb9e25"
+    sha256 cellar: :any, loongarch64_linux: "fca3943698e1ce095ddf07d8f520029db6a4d2a1e68cabc5366f2eb509948220"
   end
 
-  revision 1
   head "anoncvs@mandoc.bsd.lv:/cvs", using: :cvs
 
   livecheck do
@@ -26,7 +26,7 @@ class Mandoc < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

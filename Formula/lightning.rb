@@ -5,13 +5,13 @@ class Lightning < Formula
   mirror "https://ftp.gnu.org/gnu/lightning/lightning-2.2.3.tar.gz"
   sha256 "c045c7a33a00affbfeb11066fa502c03992e474a62ba95977aad06dbc14c6829"
   license "GPL-3.0-or-later"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "8da1003dfa5695c02fd2777dbf82012fb9cc7be4a6550610012e9df9455dd0a0"
-  end
-
   revision 1
 
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "a722d4adc8b1d009d9f8355c85dc05865c19930eb574c82ca9e29dbd60ac07c5"
+  end
 
   depends_on "binutils" => :build # for libopcodes.a
 
@@ -26,7 +26,7 @@ class Lightning < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
