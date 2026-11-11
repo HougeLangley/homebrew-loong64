@@ -22,7 +22,6 @@ class Xmodmap < Formula
     system "./configure", *std_configure_args
     system "make"
     system "make", "install"
-  end
 
     # The Cellar-relocated RUNPATH resolves libX11 to the brew prefix build,
     # whose teardown aborts (free(): invalid pointer) on this host — even for
@@ -33,6 +32,7 @@ class Xmodmap < Formula
       lib.mkpath
       FileUtils.ln_sf(src, lib/so)
     end
+  end
 
   test do
     # Upstream's test drives Xvfb; brew's Xvfb cannot initialize its virtual

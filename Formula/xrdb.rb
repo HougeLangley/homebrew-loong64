@@ -8,6 +8,11 @@ class Xrdb < Formula
 
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "dd89de0510c420e600825ce6ccffd6ec90531ffd707d7d0aa0b574c0a552314b"
+  end
+
   depends_on "pkgconf" => :build
   depends_on "xorg-server" => :test
 
@@ -21,7 +26,6 @@ class Xrdb < Formula
   def install
     system "./configure", "--with-cpp=/usr/bin/cpp", *std_configure_args
     system "make", "install"
-  end
 
     # The Cellar-relocated RUNPATH resolves libX11 to the brew prefix build,
     # whose teardown aborts (free(): invalid pointer) on this host — even for
@@ -32,6 +36,7 @@ class Xrdb < Formula
       lib.mkpath
       FileUtils.ln_sf(src, lib/so)
     end
+  end
 
   test do
     # Upstream's test drives Xvfb; brew's Xvfb cannot initialize its virtual
