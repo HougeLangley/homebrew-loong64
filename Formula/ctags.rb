@@ -33,6 +33,11 @@ class Ctags < Formula
 
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "c90e69696e53f10a8394635fb924d183d36720a90b05b7db5044b61a2f23a83d"
+  end
+
   head do
     url "https://svn.code.sf.net/p/ctags/code/trunk"
     depends_on "autoconf" => :build
@@ -67,10 +72,17 @@ class Ctags < Formula
     ENV.append_to_cflags "-Wno-implicit-function-declaration" if DevelopmentTools.clang_build_version >= 1200
     ENV.append_to_cflags "-Wno-implicit-int" if DevelopmentTools.clang_build_version >= 1403
 
+    # GCC >= 14 makes implicit-int / implicit-function-declaration hard
+    # errors. ctags 5.8's "if regcomp works" configure test uses a K&R style
+    # conftest (implicit-int main, undeclared exit), so under GCC 16 the test
+    # fails to compile and configure wrongly defines REGCOMP_BROKEN, dropping
+    # regex support ("+regex" missing from --version). Keep modern C but
+    # downgrade those two diagnostics so the runtime check compiles and runs.
     system "./configure", "--build=loongarch64-unknown-linux-gnu", "--prefix=#{prefix}",
                           "--enable-macro-patterns",
                           "--mandir=#{man}",
-                          "--with-readlib"
+                          "--with-readlib",
+                          "CC=#{ENV.cc} -Wno-error=implicit-int -Wno-error=implicit-function-declaration"
     system "make", "install"
   end
 
