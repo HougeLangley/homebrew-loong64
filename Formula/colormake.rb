@@ -4,13 +4,14 @@ class Colormake < Formula
   url "https://github.com/pagekite/Colormake/archive/refs/tags/0.9.20140503.tar.gz"
   sha256 "a3f9fae9a455ac96be1cce0371b28bda33a9af73b06fa8e4329aa2f693d68d22"
   license "GPL-2.0-or-later"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "1a39889b44806061c60466001119c5932206e741179528a341b425d01db13ac2"
+  end
+
   head "https://github.com/pagekite/Colormake.git", branch: "master"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "b4e324fe4a683844ce2dca6f291436eef1f47ed27542be7a47ed61656c48ec3c"
-  end
 
   def install
     inreplace "colormake", "colormake.pl", "#{libexec}/colormake.pl"
