@@ -7,15 +7,13 @@ class Libngtcp2 < Formula
   license "MIT"
   revision 1
   compatibility_version 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "31346ccc668ad94b5e5a2b2cb1e5c31560bba00cfe3aad47d2e283d8dab199f0"
+  end
+
   head "https://github.com/ngtcp2/ngtcp2.git", branch: "main"
 
-  bottle do
-    sha256 cellar: :any, arm64_golden_gate: "540de48789ba48e74fd5d802db03bd3cba790336251d073396147f4079f31416"
-    sha256 cellar: :any, arm64_tahoe:       "6f3de07772fcd0b2c34b03276526de3c9ede59dbde95f6a5fafd7c5f9c584173"
-    sha256 cellar: :any, arm64_sequoia:     "9213450a97f4ddc6a0dbcdf1b2280b93efd0f02818d953b6935995d12a885ea3"
-    sha256 cellar: :any, arm64_linux:       "dba9d8ecbe77ccab7a7ed61dbfe900c7a0103afead91f3ba5a646f22cac4b15f"
-    sha256 cellar: :any, x86_64_linux:      "b277f7073873058bf547f6e6b75ac3a1f4dbea6a0a30704710b89a7e70c942a8"
-  end
 
   depends_on "pkgconf" => :build
   depends_on "openssl@4"
@@ -25,7 +23,7 @@ class Libngtcp2 < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
