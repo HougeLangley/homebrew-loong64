@@ -12,13 +12,10 @@ class Socat < Formula
     regex(/href=.*?socat[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
+
   bottle do
-    rebuild 1
-    sha256 cellar: :any, arm64_golden_gate: "8216d9bb5ee04d0c8c8099711a81846dbd5b90e8b012ba9be3205a5e4cd3be6d"
-    sha256 cellar: :any, arm64_tahoe:       "f59f7e2df3f1428f970cd4d7c260f316ff1378895319a6de915836d27eaf7ead"
-    sha256 cellar: :any, arm64_sequoia:     "31d9e7870de62e53e7735298a2f1757581053ddc78fddab97eec0a53097b999e"
-    sha256 cellar: :any, arm64_linux:       "fdb97fc1cb97cb27468ef27e9174aaa9a773200944917d1e73639256194014ba"
-    sha256 cellar: :any, x86_64_linux:      "f65c3124803b8f92bc474a82009327ed5420794cc82d0bccce827d065f94b909"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "7ab096ef95eb0dcf7611d0aacb9772b909b805c7647dc437af48b3851d5c2e49"
   end
 
   depends_on "openssl@4"
@@ -37,7 +34,7 @@ class Socat < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

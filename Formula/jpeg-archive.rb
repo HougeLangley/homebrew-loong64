@@ -9,7 +9,17 @@ class JpegArchive < Formula
 
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "267d7e72fb25d1dfd0381c27fcf78a6a28ba2f1e4444b3590d597a3f9bb912f9"
+  end
+
   depends_on "mozjpeg"
+
+  # Our keg bundles libjpeg.so.62/libturbojpeg.so.0 shims into mozjpeg (see
+  # install). Linking those SONAMEs into the prefix would collide with other
+  # libjpeg builds, so keep the formula keg-only.
+  keg_only "ships mozjpeg libjpeg SONAME shims that conflict in the prefix"
 
   def install
     # Work around failure from GCC 10+ using default of `-fno-common`
@@ -23,13 +33,17 @@ class JpegArchive < Formula
     # symbols incl. jpeg_c_int_param_supported). The prefix-level lib dir
     # exposes other libjpeg builds with the same SONAME that shadow mozjpeg
     # at runtime through the relocated RUNPATH, causing "undefined symbol:
-    # jpeg_c_int_param_supported, version LIBJPEG_6.2". Place mozjpeg's
-    # library inside our keg so the first RUNPATH entry ($ORIGIN/../lib)
-    # always resolves to it.
+    # jpeg_c_int_param_supported, version LIBJPEG_6.2". Place RELATIVE
+    # symlinks to mozjpeg's Cellar libraries inside our keg lib so the first
+    # RUNPATH entry ($ORIGIN/../lib) always resolves to mozjpeg and the
+    # bottle stays prefix-relocatable.
     mozjpeg = Formula["mozjpeg"]
+    lib.mkpath
     %w[libjpeg.so.62 libturbojpeg.so.0].each do |so|
-      src = mozjpeg.opt_lib/so
-      lib.install_symlink src => so if File.exist?(src)
+      src = mozjpeg.lib/so
+      next unless File.exist?(src)
+      dst = lib/so
+      FileUtils.ln_sf(src.expand_path.relative_path_from(dst.expand_path.parent), dst)
     end
   end
 

@@ -4,12 +4,12 @@ class Radare2 < Formula
   url "https://github.com/radareorg/radare2/archive/refs/tags/6.2.4.tar.gz"
   sha256 "24f3f7ad24f44defc8fd1460a210f08a40980e0d5555b8e8439da8a92c54dac5"
   license "LGPL-3.0-only"
-  head "https://github.com/radareorg/radare2.git", branch: "master"
-
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "5af71a85f19d3a9e91ef44c27ec3bc9ee569504f752a40893fee565c85e58037"
+    sha256 cellar: :any, loongarch64_linux: "a5177dff300489b2be4190e13fa208e1286d1d7f8f3cb94143ff945fac1f8eb7"
   end
+
+  head "https://github.com/radareorg/radare2.git", branch: "master"
 
   livecheck do
     url :stable
@@ -23,7 +23,7 @@ class Radare2 < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
