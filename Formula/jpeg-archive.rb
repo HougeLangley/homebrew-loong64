@@ -9,7 +9,7 @@ class JpegArchive < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "bec39b77d4779e74551574c02c6b44d6834d024085e4a8b8227d6dc78bd796c2"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "03a8a553b962a99a2690e87c7dc348283c65c2babb9b6efbeb162a8086350aec"
   end
 
   depends_on "mozjpeg"
