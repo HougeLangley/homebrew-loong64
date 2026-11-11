@@ -5,11 +5,6 @@ class Intercal < Formula
   sha256 "b55e8edc68e2517a067a902766e2f57b97b502553fdcbae2b5ab2463ba58f0e1"
   license "GPL-2.0-or-later"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "59a11954c79e640998fab8a7fd419eb35d78e8b144794274fa8b989d2f0f1e91"
-  end
-
   # The latest version tags in the Git repository are `0.31` (2019-06-12) and
   # `0.30` (2015-04-02) but there are older versions like `1.27` (2010-08-25)
   # and `1.26` (2010-08-25). These two older 1.x releases are wrongly treated
@@ -22,6 +17,11 @@ class Intercal < Formula
     regex(/^v?(0(?:\.\d+)+)$/i)
   end
 
+  bottle do
+    sha256 sonoma:       "89bd47009d0b3badca873c9a90da5c598e37c3b8d321a5b193e7c7a2fb471bad"
+    sha256 arm64_linux:  "0ba5bbd64a3a282d3f4e6d399d2db42e064a5377305db6ceaf3e0f32bf6b9185"
+    sha256 x86_64_linux: "19b7f6bc3117e3fcd0bf5f3e707d2e96307cb2adc07179a19a4ce301d5edae8c"
+  end
 
   head do
     url "https://gitlab.com/esr/intercal.git", branch: "master"
@@ -46,7 +46,7 @@ class Intercal < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
