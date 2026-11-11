@@ -13,6 +13,11 @@ class Libffi < Formula
 
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "70b02fbecbccf7de4d191b52484b7cec3d2a61840d94eec23e5e950e4e4433d3"
+  end
+
   head do
     url "https://github.com/libffi/libffi.git", branch: "master"
     depends_on "autoconf" => :build
