@@ -14,7 +14,7 @@ class Xorgproto < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "bd0b3acd8bc2b03a3320ecdfbe141dea9c44d8c4715530ee0e6ac992f01900ea"
+    sha256 cellar: :any, loongarch64_linux: "f373b7127f3db96cefd951fdbd40b1c1a2625938009c60c00fd0956257051e47"
   end
 
   depends_on "pkgconf" => [:build, :test]
@@ -23,7 +23,7 @@ class Xorgproto < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

@@ -11,16 +11,22 @@ class Cfitsio < Formula
     regex(/href=.*?cfitsio[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-
   bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "85603900ac0f7d336c4c201bb244d9c9ced4989ef3161cd400c09c44a37765e1"
+    sha256 cellar: :any, arm64_golden_gate: "ab6a2edddf336e8efeb2436b4c0c85439b61131711c31286ec35f55ad135e7d7"
+    sha256 cellar: :any, arm64_tahoe:       "f9b46bf80fc9722d2b6fcc4f06ade7a3bb8a3862509fd65c62aa9b0d87b44d13"
+    sha256 cellar: :any, arm64_sequoia:     "69d71ee19fc9d2b498adbf462dbc57356854839f5911eecfccdb328105e26b9f"
+    sha256 cellar: :any, arm64_sonoma:      "86813032566ed2d9b4ef2b7c0af87b3083c10ce5366e7dbfcfc787a3cc8e700c"
+    sha256 cellar: :any, sonoma:            "16154d55f8f92bd5218f8223783ef4393a3ac01348635e76b17a6710f07563d4"
+    sha256 cellar: :any, arm64_linux:       "0de463b105296c11b1f3b66c6dfbcc3dc92d647f1acd123ea5040601416c5cf2"
+    sha256 cellar: :any, x86_64_linux:      "c2dd6ba3300813af4122055ff521728a3407d5a93bb07d307c5287088476af3f"
   end
 
   depends_on "cmake" => :build
   depends_on "pkgconf" => :test
 
   on_linux do
+    # CMake enables curl support when found; make the linked feature reproducible.
+    depends_on "curl"
     depends_on "zlib-ng-compat"
   end
 

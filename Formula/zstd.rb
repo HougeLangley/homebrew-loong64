@@ -12,6 +12,10 @@ class Zstd < Formula
   ]
   revision 1
   compatibility_version 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "7045a4f900644f2e237148d2253efe75daf9c5fa04d1fce289dab5453d5bdd3f"
+  end
 
   head "https://github.com/facebook/zstd.git", branch: "dev"
 
