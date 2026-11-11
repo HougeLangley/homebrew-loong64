@@ -11,10 +11,7 @@ class Graphqlite < Formula
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "6be3b23d99e01754bf9db811e7ba84e972bbaec4f06fa32ffbc45a142307ce84"
-  end
+
 
   depends_on "bison" => :build # macOS bison is too old
   depends_on "sqlite"          # macOS sqlite can't load extensions

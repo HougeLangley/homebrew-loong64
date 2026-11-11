@@ -5,6 +5,10 @@ class Zchunk < Formula
   sha256 "2ab8ef54475aa2b2c0120fc6ae6d0788e0c3d4d4b671985edc6a19c8096a02cc"
   license "BSD-2-Clause"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "c5bd38a19bd12dd6c3fc96a7b99f16486710be2d86e8a5950d559a2971169d54"
+  end
 
   head "https://github.com/zchunk/zchunk.git", branch: "main"
 
@@ -25,17 +29,19 @@ class Zchunk < Formula
   deny_network_access!
 
   def install
-    system "meson", "setup", "build", *std_meson_args
+    # Force zstd support: superenv's isolated pkg-config search sometimes
+    # misses the brew zstd .pc, silently building without the default
+    # compressor.
+    system "meson", "setup", "build", *std_meson_args, "-Dwith-zstd=enabled"
     system "meson", "compile", "-C", "build", "--verbose"
     system "meson", "install", "-C", "build"
   end
 
   test do
-    # Round-trip needs zstd; the tool reports "Unsupported compression type:
-    # zstd" if the build failed to link it. Default to the zstd compressor
-    # explicitly so a silent loss of zstd support fails loudly here.
-    system bin/"zck", "--zstd", "-o", "z.zck", test_fixtures("test.png")
-    system bin/"unzck", "z.zck", "-o", "out.png"
-    assert_equal test_fixtures("test.png").read, (testpath/"out.png").read
+    # zchunk's default compressor is zstd; the original failure ("Unsupported
+    # compression type: zstd") means the build lost zstd support.
+    system bin/"zck", test_fixtures("test.png")
+    system bin/"unzck", testpath/"test.png.zck"
+    assert_equal test_fixtures("test.png").read, (testpath/"test.png").read
   end
 end
