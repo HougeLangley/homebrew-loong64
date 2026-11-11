@@ -4,10 +4,6 @@ class Zerolang < Formula
   url "https://github.com/vercel-labs/zerolang/archive/refs/tags/v0.3.4.tar.gz"
   sha256 "222c6ca439103441c7c2169351b0aeb841c6f5eca985c07dc53f131173e5c2a7"
   license "Apache-2.0"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "cfe00c87523c6a3e04ae3285da5fdab6549de371a600be1f626b8d5290135558"
-  end
 
   head "https://github.com/vercel-labs/zerolang.git", branch: "main"
 
