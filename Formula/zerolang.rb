@@ -4,6 +4,7 @@ class Zerolang < Formula
   url "https://github.com/vercel-labs/zerolang/archive/refs/tags/v0.3.4.tar.gz"
   sha256 "222c6ca439103441c7c2169351b0aeb841c6f5eca985c07dc53f131173e5c2a7"
   license "Apache-2.0"
+
   head "https://github.com/vercel-labs/zerolang.git", branch: "main"
 
   livecheck do
@@ -14,10 +15,6 @@ class Zerolang < Formula
 
   deny_network_access!
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "163b3b49f5a7ad1e2e938d477920332e17e593e1e2dbad05c48746c89d046398"
-  end
 
   def install
     system "make", "-C", "native/zero-c", "OUT=#{bin}/zero"
