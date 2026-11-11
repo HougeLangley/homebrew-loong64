@@ -11,10 +11,10 @@ class Armadillo < Formula
   end
 
 
+
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "a9dc46b788ada11154ac482349edc09752a44695cf0c0080eea888ec59dbae92"
+    sha256 cellar: :any, loongarch64_linux: "5d1b759942b71d8594d374246af56edefdff2bd6ea357ce58b1d801fad60e707"
   end
 
   depends_on "cmake" => :build
