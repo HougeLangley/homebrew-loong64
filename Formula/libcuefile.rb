@@ -70,31 +70,31 @@ class Libcuefile < Formula
     include.install "include/cuetools/"
   end
 
-  test do
-    (testpath/"test.cue").write <<~EOS
-      TITLE "Test Album"
-      FILE "test.wav" WAVE
-        TRACK 01 AUDIO
-          INDEX 01 00:00:00
-    EOS
+ test do
+  (testpath/"test.cue").write <<~EOS
+   TITLE "Test Album"
+   FILE "test.wav" WAVE
+    TRACK 01 AUDIO
+     INDEX 01 00:00:00
+  EOS
 
-    (testpath/"test.c").write <<~C
-      #include <stdio.h>
-      #include <cuetools/cuefile.h>
+  (testpath/"test.c").write <<~C
+   #include <stdio.h>
+   #include <cuetools/cuefile.h>
 
-      int main(void) {
-        int format = UNKNOWN;
-        Cd *cd = cf_parse("test.cue", &format);
-        if (cd == NULL) return 1;
-        printf("%s\\n", cdtext_get(PTI_TITLE, cd_get_cdtext(cd)));
-        cd_delete(cd);
-        return 0;
-      }
-    C
+   int main(void) {
+    int format = UNKNOWN;
+    Cd *cd = cf_parse("test.cue", &format);
+    if (cd == NULL) return 1;
+    printf("%s\\n", cdtext_get(PTI_TITLE, cd_get_cdtext(cd)));
+    cd_delete(cd);
+    return 0;
+   }
+  C
 
-    system ENV.cc, *_extra, "test.c", "-I#{include}", "-L#{lib}", "-lcuefile", "-o", "test"
-    assert_equal "Test Album", shell_output("./test").strip
-  end
+  system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-lcuefile", "-o", "test"
+  assert_equal "Test Album", shell_output("./test").strip
+ end
 end
 
 __END__

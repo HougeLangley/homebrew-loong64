@@ -24,6 +24,18 @@ class Xcursorgen < Formula
     system "meson", "setup", "build", *std_meson_args
     system "meson", "compile", "-C", "build", "--verbose"
     system "meson", "install", "-C", "build"
+
+    # brew's prefix-level libX11 chain aborts at process teardown on this
+    # host (minimal XOpenDisplay probe reproduces free(): invalid pointer;
+    # same root cause as xsel). Bundle SYSTEM X library symlinks in the keg
+    # so the first RUNPATH entry ($ORIGIN/../lib) always resolves to the
+    # working system stack; absolute system paths keep the bottle portable.
+    %w[libX11.so.6 libXcursor.so.1].each do |so|
+      src = "/usr/lib/#{so}"
+      next unless File.exist?(src)
+      lib.mkpath
+      FileUtils.ln_sf(src, lib/so)
+    end
   end
 
   test do

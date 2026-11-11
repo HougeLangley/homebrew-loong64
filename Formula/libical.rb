@@ -84,19 +84,19 @@ class Libical < Formula
     system "cmake", "--install", "build"
   end
 
-  test do
-    (testpath/"test.c").write <<~C
-      #define LIBICAL_GLIB_UNSTABLE_API 1
-      #include <libical-glib/libical-glib.h>
-      int main(int argc, char *argv[]) {
-        ICalParser *parser = i_cal_parser_new();
-        return 0;
-      }
-    C
+ test do
+  (testpath/"test.c").write <<~C
+   #define LIBICAL_GLIB_UNSTABLE_API 1
+   #include <libical-glib/libical-glib.h>
+   int main(int argc, char *argv[]) {
+    ICalParser *parser = i_cal_parser_new();
+    return 0;
+   }
+  C
 
-    system ENV.cc, *_extra, "test.c", "-o", "test", "-L#{lib}", "-lical-glib",
-                   "-I#{formula_opt_include("glib")}/glib-2.0",
-                   "-I#{formula_opt_lib("glib")}/glib-2.0/include"
-    system "./test"
-  end
+  system ENV.cc, "test.c", "-o", "test", "-L#{lib}", "-lical-glib",
+          "-I#{formula_opt_include("glib")}/glib-2.0",
+          "-I#{formula_opt_lib("glib")}/glib-2.0/include"
+  system "./test"
+ end
 end

@@ -8,6 +8,11 @@ class Libfreefare < Formula
 
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "c702a3fc9c0a15f4609e9dcec91dfd65e72695f7fbbc39d1cfd558747f7d0354"
+  end
+
   depends_on "pkgconf" => :build
   depends_on "libnfc"
   depends_on "openssl@4"
@@ -90,25 +95,25 @@ class Libfreefare < Formula
     system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
   end
 
-  test do
-    (testpath/"test.c").write <<~C
-      #include <freefare.h>
-      int main() {
-        mifare_desfire_aid_new(0);
-        return 0;
-      }
-    C
+ test do
+  (testpath/"test.c").write <<~C
+   #include <freefare.h>
+   int main() {
+    mifare_desfire_aid_new(0);
+    return 0;
+   }
+  C
 
-    # The old generated test referenced an undefined `_extra` splat (NameError
-    # at brew test). Pass the same legacy-C compatibility flags as install so
-    # this K&R-style test compiles under GCC 16's strict defaults.
-    system ENV.cc,
-           "-std=gnu17", "-D_GNU_SOURCE",
-           "-Wno-error=implicit-int", "-Wno-implicit-int",
-           "-Wno-error=implicit-function-declaration",
-           "-Wno-error=int-conversion",
-           "-Wno-error=incompatible-pointer-types",
-           "test.c", "-L#{lib}", "-lfreefare", "-o", "test"
-    system "./test"
-  end
+  # The old generated test referenced an undefined `_extra` splat (NameError
+  # at brew test). Pass the same legacy-C compatibility flags as install so
+  # this K&R-style test compiles under GCC 16's strict defaults.
+  system ENV.cc,
+      "-std=gnu17", "-D_GNU_SOURCE",
+      "-Wno-error=implicit-int", "-Wno-implicit-int",
+      "-Wno-error=implicit-function-declaration",
+      "-Wno-error=int-conversion",
+      "-Wno-error=incompatible-pointer-types",
+      "test.c", "-L#{lib}", "-lfreefare", "-o", "test"
+  system "./test"
+ end
 end

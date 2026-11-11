@@ -98,16 +98,16 @@ class Libidl < Formula
     system "make", "LIBS=-lfl", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
   end
 
-  test do
-    (testpath/"test.c").write <<~C
-      #include <libIDL/IDL.h>
-      int main(void) {
-        return 0;
-      }
-    C
+ test do
+  (testpath/"test.c").write <<~C
+   #include <libIDL/IDL.h>
+   int main(void) {
+    return 0;
+   }
+  C
 
-    pkg_config_flags = shell_output("pkg-config --cflags --libs libIDL-2.0").chomp.split
-    system ENV.cc, *_extra, "test.c", *pkg_config_flags, "-o", "test"
-    system "./test"
-  end
+  pkg_config_flags = shell_output("pkg-config --cflags --libs libIDL-2.0").chomp.split
+  system ENV.cc, "test.c", *pkg_config_flags, "-o", "test"
+  system "./test"
+ end
 end

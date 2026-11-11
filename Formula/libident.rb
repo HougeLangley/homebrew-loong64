@@ -83,28 +83,28 @@ class Libident < Formula
     system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
   end
 
-  test do
-    (testpath/"test.c").write <<~C
-      #include <stdio.h>
-      #include <stdlib.h>
-      #include <unistd.h>
-      #include <ident.h>
+ test do
+  (testpath/"test.c").write <<~C
+   #include <stdio.h>
+   #include <stdlib.h>
+   #include <unistd.h>
+   #include <ident.h>
 
-      int main(void) {
-        int fds[2];
-        char buf[64] = {0};
-        ident_t *id = calloc(1, sizeof(ident_t));
+   int main(void) {
+    int fds[2];
+    char buf[64] = {0};
+    ident_t *id = calloc(1, sizeof(ident_t));
 
-        if (pipe(fds) != 0) return 1;
-        id->fd = fds[1];
-        if (id_query(id, 6191, 23, NULL) < 0) return 1;
-        if (read(fds[0], buf, sizeof(buf) - 1) <= 0) return 1;
-        printf("%s", buf);
-        return 0;
-      }
-    C
+    if (pipe(fds) != 0) return 1;
+    id->fd = fds[1];
+    if (id_query(id, 6191, 23, NULL) < 0) return 1;
+    if (read(fds[0], buf, sizeof(buf) - 1) <= 0) return 1;
+    printf("%s", buf);
+    return 0;
+   }
+  C
 
-    system ENV.cc, *_extra, "test.c", "-I#{include}", "-L#{lib}", "-lident", "-o", "test"
-    assert_equal "6191 , 23\r\n", shell_output("./test")
-  end
+  system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-lident", "-o", "test"
+  assert_equal "6191, 23\r\n", shell_output("./test")
+ end
 end

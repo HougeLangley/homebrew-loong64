@@ -97,18 +97,18 @@ class Libbdplus < Formula
     system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
   end
 
-  test do
-    (testpath/"test.c").write <<~C
-      #include <libbdplus/bdplus.h>
-      int main() {
-        int major = -1;
-        int minor = -1;
-        int micro = -1;
-        bdplus_get_version(&major, &minor, &micro);
-        return 0;
-      }
-    C
-    system ENV.cc, *_extra, "test.c", "-L#{lib}", "-I#{include}", "-lbdplus", "-o", "test"
-    system "./test"
-  end
+ test do
+  (testpath/"test.c").write <<~C
+   #include <libbdplus/bdplus.h>
+   int main() {
+    int major = -1;
+    int minor = -1;
+    int micro = -1;
+    bdplus_get_version(&major, &minor, &micro);
+    return 0;
+   }
+  C
+  system ENV.cc, "test.c", "-L#{lib}", "-I#{include}", "-lbdplus", "-o", "test"
+  system "./test"
+ end
 end

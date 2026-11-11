@@ -94,15 +94,15 @@ class SblimSfcc < Formula
     system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
   end
 
-  test do
-    (testpath/"test.cpp").write <<~CPP
-      #include <cimc/cimc.h>
-      int main()
-      {
-        return 0;
-      }
-    CPP
-    system ENV.cxx, *_extra, "test.cpp", "-L#{lib}", "-lcimcclient", "-o", "test"
-    system "./test"
-  end
+ test do
+  (testpath/"test.cpp").write <<~CPP
+   #include <cimc/cimc.h>
+   int main()
+   {
+    return 0;
+   }
+  CPP
+  system ENV.cxx, "test.cpp", "-L#{lib}", "-lcimcclient", "-o", "test"
+  system "./test"
+ end
 end

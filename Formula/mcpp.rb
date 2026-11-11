@@ -83,17 +83,17 @@ class Mcpp < Formula
     system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
   end
 
-  test do
-    # fix `warning: Unknown encoding: C.utf8`
-    ENV["LC_ALL"] = "en_US.UTF-8"
+ test do
+  # fix `warning: Unknown encoding: C.utf8`
+  ENV["LC_ALL"] = "en_US.UTF-8"
 
-    (testpath/"test.c.in").write <<~C
-      #define RET 5
-      int main() { return RET; }
-    C
+  (testpath/"test.c.in").write <<~C
+   #define RET 5
+   int main() { return RET; }
+  C
 
-    (testpath/"test.c").write shell_output("#{bin}/mcpp test.c.in")
-    system ENV.cc, *_extra, "test.c", "-o", "test"
-    assert_empty shell_output("./test", 5)
-  end
+  (testpath/"test.c").write shell_output("#{bin}/mcpp test.c.in")
+  system ENV.cc, "test.c", "-o", "test"
+  assert_empty shell_output("./test", 5)
+ end
 end

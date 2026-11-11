@@ -81,17 +81,17 @@ class Apr < Formula
     inreplace prefix/"build-#{version.major}/libtool", Superenv.shims_path, "/usr/bin" if OS.linux?
   end
 
-  test do
-    assert_match opt_prefix.to_s, shell_output("#{bin}/apr-#{version.major}-config --prefix")
-    (testpath/"test.c").write <<~C
-      #include <stdio.h>
-      #include <apr-#{version.major}/apr_version.h>
-      int main() {
-        printf("%s", apr_version_string());
-        return 0;
-      }
-    C
-    system ENV.cc, *_extra, "test.c", "-I#{include}", "-L#{lib}", "-lapr-#{version.major}", "-o", "test"
-    assert_equal version.to_s, shell_output("./test")
-  end
+ test do
+  assert_match opt_prefix.to_s, shell_output("#{bin}/apr-#{version.major}-config --prefix")
+  (testpath/"test.c").write <<~C
+   #include <stdio.h>
+   #include <apr-#{version.major}/apr_version.h>
+   int main() {
+    printf("%s", apr_version_string());
+    return 0;
+   }
+  C
+  system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-lapr-#{version.major}", "-o", "test"
+  assert_equal version.to_s, shell_output("./test")
+ end
 end

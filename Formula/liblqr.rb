@@ -77,27 +77,27 @@ class Liblqr < Formula
     system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
   end
 
-  test do
-    (testpath/"test.c").write <<~C
-      #include <lqr.h>
+ test do
+  (testpath/"test.c").write <<~C
+   #include <lqr.h>
 
-      int main() {
-        guchar* buffer = calloc(1, sizeof(guchar));
+   int main() {
+    guchar* buffer = calloc(1, sizeof(guchar));
 
-        LqrCarver *carver = lqr_carver_new(buffer, 1, 1, 1);
-        if (carver == NULL) return 1;
+    LqrCarver *carver = lqr_carver_new(buffer, 1, 1, 1);
+    if (carver == NULL) return 1;
 
-        lqr_carver_destroy(carver);
+    lqr_carver_destroy(carver);
 
-        return 0;
-      }
-    C
+    return 0;
+   }
+  C
 
-    system ENV.cc, *_extra, "test.c", "-o", "test",
-                   "-I#{include}/lqr-1",
-                   "-I#{formula_opt_include("glib")}/glib-2.0",
-                   "-I#{formula_opt_lib("glib")}/glib-2.0/include",
-                   "-L#{lib}", "-llqr-1"
-    system "./test"
-  end
+  system ENV.cc, "test.c", "-o", "test",
+          "-I#{include}/lqr-1",
+          "-I#{formula_opt_include("glib")}/glib-2.0",
+          "-I#{formula_opt_lib("glib")}/glib-2.0/include",
+          "-L#{lib}", "-llqr-1"
+  system "./test"
+ end
 end

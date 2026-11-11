@@ -66,24 +66,24 @@ class Dwarf < Formula
     system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install", "BINDIR=#{bin}", "MANDIR=#{man1}"
   end
 
-  test do
-    if OS.mac?
-      (testpath/"test.c").write <<~C
-        #include <stdio.h>
+ test do
+  if OS.mac?
+   (testpath/"test.c").write <<~C
+    #include <stdio.h>
 
-        int main(int argc, char *argv[]) {
-          printf("hello world\\n");
-        }
-      C
-      system ENV.cc, *_extra, "test.c", "-o", "test"
-      output = shell_output("#{bin}/dwarf -c 'pp $mac' test")
-      assert_equal "magic: 0xfeedfacf (-17958193)", output.lines[0].chomp
-    else
-      # Run test on x86-64 ELF as upstream never added EH_AARCH64 so part of
-      # output doesn't show correctly if test is run on aarch64 ELF.
-      # dwarf opens files read-write, so work on a copy the sandbox lets us write
-      cp test_fixtures("elf/hello"), testpath
-      assert_match "main header: elf", shell_output("#{bin}/dwarf -p hello")
-    end
+    int main(int argc, char *argv[]) {
+     printf("hello world\\n");
+    }
+   C
+   system ENV.cc, "test.c", "-o", "test"
+   output = shell_output("#{bin}/dwarf -c 'pp $mac' test")
+   assert_equal "magic: 0xfeedfacf (-17958193)", output.lines[0].chomp
+  else
+   # Run test on x86-64 ELF as upstream never added EH_AARCH64 so part of
+   # output doesn't show correctly if test is run on aarch64 ELF.
+   # dwarf opens files read-write, so work on a copy the sandbox lets us write
+   cp test_fixtures("elf/hello"), testpath
+   assert_match "main header: elf", shell_output("#{bin}/dwarf -p hello")
   end
+ end
 end

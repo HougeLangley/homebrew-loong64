@@ -66,16 +66,16 @@ class Libunwind < Formula
     system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
   end
 
-  test do
-    (testpath/"test.c").write <<~C
-      #include <libunwind.h>
-      int main() {
-        unw_context_t uc;
-        unw_getcontext(&uc);
-        return 0;
-      }
-    C
-    system ENV.cc, *_extra, "-I#{include}", "test.c", "-L#{lib}", "-lunwind", "-o", "test"
-    system "./test"
-  end
+ test do
+  (testpath/"test.c").write <<~C
+   #include <libunwind.h>
+   int main() {
+    unw_context_t uc;
+    unw_getcontext(&uc);
+    return 0;
+   }
+  C
+  system ENV.cc, "-I#{include}", "test.c", "-L#{lib}", "-lunwind", "-o", "test"
+  system "./test"
+ end
 end

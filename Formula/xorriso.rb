@@ -36,8 +36,8 @@ class Xorriso < Formula
     ENV.deparallelize { system "make", "install" }
   end
 
-  test do
-    assert_match "List of xorriso extra features", shell_output("#{bin}/xorriso -list_extras")
-    assert_match version.to_s, shell_output("#{bin}/xorriso -version")
-  end
+ test do
+  assert_match "List of xorriso extra features", shell_output("#{bin}/xorriso -list_extras")
+  assert_match version.to_s, shell_output("#{bin}/xorriso -version")
+ end
 end

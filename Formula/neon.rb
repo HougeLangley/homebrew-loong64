@@ -90,46 +90,46 @@ class Neon < Formula
     system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
   end
 
-  test do
-    port = free_port
+ test do
+  port = free_port
 
-    (testpath/"test.c").write <<~C
-      #include <stdio.h>
-      #include <stdlib.h>
-      #include <unistd.h>
-      #include <ne_basic.h>
+  (testpath/"test.c").write <<~C
+   #include <stdio.h>
+   #include <stdlib.h>
+   #include <unistd.h>
+   #include <ne_basic.h>
 
-      int main(int argc, char **argv)
-      {
-          char data[] = "Example data.\\n";
-          ne_session *sess;
-          int ec = EXIT_SUCCESS;
-          ne_sock_init();
-          sess = ne_session_create("http", "localhost", #{port});
-          if (ne_get(sess, "/foo/bar/baz", STDOUT_FILENO)) {
-              fprintf(stderr, "nget: Request failed: %s\\n", ne_get_error(sess));
-              ec = EXIT_FAILURE;
-          }
-          ne_session_destroy(sess);
-          return ec;
-      }
-    C
-    system ENV.cc, *_extra, "test.c", "-I#{include}/neon", "-L#{lib}", "-lneon", "-o", "test"
+   int main(int argc, char **argv)
+   {
+     char data[] = "Example data.\\n";
+     ne_session *sess;
+     int ec = EXIT_SUCCESS;
+     ne_sock_init();
+     sess = ne_session_create("http", "localhost", #{port});
+     if (ne_get(sess, "/foo/bar/baz", STDOUT_FILENO)) {
+       fprintf(stderr, "nget: Request failed: %s\\n", ne_get_error(sess));
+       ec = EXIT_FAILURE;
+     }
+     ne_session_destroy(sess);
+     return ec;
+   }
+  C
+  system ENV.cc, "test.c", "-I#{include}/neon", "-L#{lib}", "-lneon", "-o", "test"
 
-    fork do
-      server = TCPServer.new port
-      session = server.accept
-      msg = session.gets
-      response_body = "Hello world! Message: #{msg.strip}"
-      content_length = response_body.bytesize
+  fork do
+   server = TCPServer.new port
+   session = server.accept
+   msg = session.gets
+   response_body = "Hello world! Message: #{msg.strip}"
+   content_length = response_body.bytesize
 
-      session.puts "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: #{content_length}\r\n\r\n"
-      session.puts response_body
-      session.close
-      server.close
-    end
-
-    sleep 1
-    assert_match "Hello world! Message: GET /foo/bar/baz HTTP/1.1", shell_output("./test")
+   session.puts "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: #{content_length}\r\n\r\n"
+   session.puts response_body
+   session.close
+   server.close
   end
+
+  sleep 1
+  assert_match "Hello world! Message: GET /foo/bar/baz HTTP/1.1", shell_output("./test")
+ end
 end

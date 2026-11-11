@@ -66,15 +66,15 @@ class CBlosc < Formula
     system "cmake", "--install", "build"
   end
 
-  test do
-    (testpath/"test.cpp").write <<~CPP
-      #include <blosc.h>
-      int main() {
-        blosc_init();
-        return 0;
-      }
-    CPP
-    system ENV.cc, *_extra, "test.cpp", "-I#{include}", "-L#{lib}", "-lblosc", "-o", "test"
-    system "./test"
-  end
+ test do
+  (testpath/"test.cpp").write <<~CPP
+   #include <blosc.h>
+   int main() {
+    blosc_init();
+    return 0;
+   }
+  CPP
+  system ENV.cc, "test.cpp", "-I#{include}", "-L#{lib}", "-lblosc", "-o", "test"
+  system "./test"
+ end
 end

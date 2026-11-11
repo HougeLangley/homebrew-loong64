@@ -13,9 +13,10 @@ class AzureCoreCpp < Formula
   end
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "de48598b97a963f37363e9ef70c2b7a8f4e9ee03365ff439f252fdc0e3622bbb"
+    sha256 cellar: :any, loongarch64_linux: "90d8dd924163053c096fd2929f7612319a01ae2215aab2a87bb91c296e5e1634"
   end
 
   depends_on "cmake" => :build

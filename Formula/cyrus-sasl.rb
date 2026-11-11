@@ -106,22 +106,22 @@ class CyrusSasl < Formula
     system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
   end
 
-  test do
-    (testpath/"test.cpp").write <<~CPP
-      #include <sasl/saslutil.h>
-      #include <assert.h>
-      #include <stdio.h>
-      int main(void) {
-        char buf[123] = "\\0";
-        unsigned len = 0;
-        int ret = sasl_encode64("Hello, world!", 13, buf, sizeof buf, &len);
-        assert(ret == SASL_OK);
-        printf("%u %s", len, buf);
-        return 0;
-      }
-    CPP
+ test do
+  (testpath/"test.cpp").write <<~CPP
+   #include <sasl/saslutil.h>
+   #include <assert.h>
+   #include <stdio.h>
+   int main(void) {
+    char buf[123] = "\\0";
+    unsigned len = 0;
+    int ret = sasl_encode64("Hello, world!", 13, buf, sizeof buf, &len);
+    assert(ret == SASL_OK);
+    printf("%u %s", len, buf);
+    return 0;
+   }
+  CPP
 
-    system ENV.cxx, *_extra, "-o", "test", "test.cpp", "-I#{include}", "-L#{lib}", "-lsasl2"
-    assert_equal "20 SGVsbG8sIHdvcmxkIQ==", shell_output("./test")
-  end
+  system ENV.cxx, "-o", "test", "test.cpp", "-I#{include}", "-L#{lib}", "-lsasl2"
+  assert_equal "20 SGVsbG8sIHdvcmxkIQ==", shell_output("./test")
+ end
 end
