@@ -18,6 +18,19 @@ class JpegArchive < Formula
     ENV.append_to_cflags "-fcommon" if OS.linux?
 
     system "make", "install", "PREFIX=#{prefix}", "MOZJPEG_PREFIX=#{formula_opt_prefix("mozjpeg")}", "LIBJPEG=-ljpeg"
+
+    # mozjpeg is keg-only and provides libjpeg.so.62 (SONAME LIBJPEG_6.2
+    # symbols incl. jpeg_c_int_param_supported). The prefix-level lib dir
+    # exposes other libjpeg builds with the same SONAME that shadow mozjpeg
+    # at runtime through the relocated RUNPATH, causing "undefined symbol:
+    # jpeg_c_int_param_supported, version LIBJPEG_6.2". Place mozjpeg's
+    # library inside our keg so the first RUNPATH entry ($ORIGIN/../lib)
+    # always resolves to it.
+    mozjpeg = Formula["mozjpeg"]
+    %w[libjpeg.so.62 libturbojpeg.so.0].each do |so|
+      src = mozjpeg.opt_lib/so
+      lib.install_symlink src => so if File.exist?(src)
+    end
   end
 
   test do
