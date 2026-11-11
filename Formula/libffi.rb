@@ -46,7 +46,7 @@ class Libffi < Formula
       /* Acts like puts with the file given at time of enclosure. */
       void puts_binding(ffi_cif *cif, void *ret, void** args, void *stream)
       {
-        *(unsigned int *)ret = fputs(*(char **)args[0], (FILE *)stream);
+        *(ffi_arg *)ret = fputs(*(char **)args[0], (FILE *)stream);
       }
 
       int main()
@@ -55,7 +55,8 @@ class Libffi < Formula
         ffi_type *args[1];
         ffi_closure *closure;
 
-        int (*bound_puts)(char *);
+        typedef int (*puts_t)(char *);
+        void *bound_puts;
         int rc;
 
         /* Allocate closure and bound_puts */
@@ -68,13 +69,13 @@ class Libffi < Formula
 
             /* Initialize the cif */
             if (ffi_prep_cif(&cif, FFI_DEFAULT_ABI, 1,
-                             &ffi_type_uint, args) == FFI_OK)
+                             &ffi_type_sint, args) == FFI_OK)
               {
                 /* Initialize the closure, setting stream to stdout */
                 if (ffi_prep_closure_loc(closure, &cif, puts_binding,
                                          stdout, bound_puts) == FFI_OK)
                   {
-                    rc = bound_puts("Hello World!");
+                    rc = ((puts_t)bound_puts)("Hello World!");
                     /* rc now holds the result of the call to fputs */
                   }
               }
@@ -89,6 +90,6 @@ class Libffi < Formula
 
     flags = ["-L#{lib}", "-lffi", "-I#{include}"]
     system ENV.cc, "-o", "closure", "closure.c", *(flags + ENV.cflags.to_s.split)
-    system "./closure"
+    assert_equal "Hello World!", shell_output("./closure")
   end
 end

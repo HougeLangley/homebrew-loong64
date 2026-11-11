@@ -19,7 +19,6 @@ class MbedtlsAT3 < Formula
   deprecate! date: "2027-03-31", because: :unsupported
 
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
     sha256 cellar: :any_skip_relocation, loongarch64_linux: "693d2721439e702df32a6f1ff89d16afc935cb60f6f5f80a08a72a56248dd06a"
   end
