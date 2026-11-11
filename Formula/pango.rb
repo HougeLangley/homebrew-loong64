@@ -5,6 +5,7 @@ class Pango < Formula
   sha256 "342385b6ca3b7c73455d7c80a13b7dbe4489e00bc3bd4c5bd6ed4dce421e374a"
   license "LGPL-2.0-or-later"
   compatibility_version 1
+
   head "https://gitlab.gnome.org/GNOME/pango.git", branch: "main"
 
   # Pango doesn't follow GNOME's "even-numbered minor is stable" version
@@ -15,14 +16,6 @@ class Pango < Formula
     regex(/pango[._-]v?(\d+(?:(?!\.9\d)\.\d+)+)\.t/i)
   end
 
-  bottle do
-    rebuild 1
-    sha256 cellar: :any, arm64_golden_gate: "99d7073e54a0a36b77d730b06103a232e88a8aab7d5fab8005fe3ccc248429c0"
-    sha256 cellar: :any, arm64_tahoe:       "9e58508e6ae06c08ab7cfe5fac5cb8b0899cfb7c1f24fbc6363d030319ff1780"
-    sha256 cellar: :any, arm64_sequoia:     "4fa58f7090be47c43b3d7411aa961bd0a67cf84850554f08eb7b0a41cab0b0e9"
-    sha256 cellar: :any, arm64_linux:       "18795525e3dadb306dc5625cfcbd75f78d2321f0c63a90ade06f69a1e197d609"
-    sha256 cellar: :any, x86_64_linux:      "29de9540633d5eff78b7cc37b5c40bad05ddeef1f50ceb7de8c762691f5a3a5e"
-  end
 
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
@@ -39,12 +32,13 @@ class Pango < Formula
   deny_network_access!
 
   def install
+    # The g-ir introspection dump helper aborts (free(): invalid pointer)
+    # when built in the second lane prefix on this host; gambit/wxwidgets only
+    # need pango's C libraries, so build without GIR data.
+
     args = %w[
       -Ddefault_library=both
-      # The g-ir introspection dump helper aborts (free(): invalid pointer) when
-              # built in the second lane prefix on this host; gambit/wxwidgets only
-              # need pango's C libraries, so ship them without GIR data.
-              -Dintrospection=disabled
+      -Dintrospection=disabled
       -Dfontconfig=enabled
       -Dcairo=enabled
       -Dfreetype=enabled
