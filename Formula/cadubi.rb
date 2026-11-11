@@ -6,10 +6,7 @@ class Cadubi < Formula
   license "MIT"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "6b80ec16a6ad468a369ee42d89a8aef4993af82aa108a8d0d5662b48b3b559ee"
-  end
+
 
   def install
     inreplace "cadubi", "$Bin/help.txt", "#{doc}/help.txt"
