@@ -5,6 +5,11 @@ class DeviceMapper < Formula
   version "2.03.43"
   sha256 "d87ec0dac9061f1fa58ebced5c6b1360c87d4c5cd7b455dc0ebe1d3f036920d7"
   license "LGPL-2.1-only"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "d3368e8cb38b7940a47179e83020dc059f3e1a56463d2fee769f12bd8870f68d"
+  end
+
   head "https://gitlab.com/lvmteam/lvm2.git", branch: "main"
 
   livecheck do
@@ -12,10 +17,6 @@ class DeviceMapper < Formula
     regex(/href=.*?LVM2[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    sha256 cellar: :any, arm64_linux:  "9ca59e99600eae48dd22d4489afcdd4759d453676caf883abe998ea1a1ca2f5e"
-    sha256 cellar: :any, x86_64_linux: "5d3e6bdb11ae8bf8084e5f07d8bcda871fc892f4462d2018f6a45b9069aae98b"
-  end
 
   depends_on "pkgconf" => :build
   depends_on "libaio"
@@ -26,7 +27,7 @@ class DeviceMapper < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
