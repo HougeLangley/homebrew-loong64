@@ -6,10 +6,7 @@ class Pacapt < Formula
   license "Fair"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "b71135fa3778e681aba794d7798d5660ff89789bf957839b3fd461734faf65e2"
-  end
+
 
   def install
     bin.mkpath

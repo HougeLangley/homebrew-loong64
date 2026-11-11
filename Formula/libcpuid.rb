@@ -5,9 +5,10 @@ class Libcpuid < Formula
   sha256 "be05cbafa086850a15b7d6f6cee3e72ae73a2b2ac75c0b2c6fc77611dede73b8"
   license "BSD-2-Clause"
 
+
   bottle do
-    sha256 cellar: :any, arm64_linux:  "af61a19db58ffe3df890fc79f40d8ce6b24261ce3a5bad74bf33b8b2d1425708"
-    sha256 cellar: :any, x86_64_linux: "4475f8da6b5e52c68d2e07b62eb526d491caa8c6a23f2c96d510124acd795b82"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "ddd25d3b5d3c93ab8dbc5d5a1db912cfbc2e0a5c31e64bf6f9e1d1c12cbd7656"
   end
 
   head do
