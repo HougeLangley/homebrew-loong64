@@ -19,7 +19,10 @@ class GoenvAT2 < Formula
   # End-of-support on 2028-12-31: https://github.com/go-nv/goenv/pull/525
   disable! date: "2028-12-31", because: :unmaintained
 
-
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "845751b74c522f71e4c4b277363ebba6aa8f8afaad353e0563a5ebe96d9e3c87"
+  end
 
   def install
     inreplace_files = [
