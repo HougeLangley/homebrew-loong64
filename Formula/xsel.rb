@@ -35,6 +35,11 @@ class Xsel < Formula
   # desktops always ship libX11, so link it from /usr.
 
   def install
+    # Resolve X11 from the system (see dependency note): AOSC's system
+    # x11.pc still Requires legacy xproto/kbproto pc files that are not
+    # shipped, so bypass pkg-config resolution entirely with cached vars.
+    ENV["x11_CFLAGS"] = "-I/usr/include"
+    ENV["x11_LIBS"] = "-L/usr/lib -lX11"
     system "./autogen.sh", *std_configure_args
     system "make", "install"
   end
