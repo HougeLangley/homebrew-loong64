@@ -15,7 +15,7 @@ class Libffi < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "70b02fbecbccf7de4d191b52484b7cec3d2a61840d94eec23e5e950e4e4433d3"
+    sha256 cellar: :any, loongarch64_linux: "12060547f765bdacede389d2c7042c5ddc827d1918d12058bce78e01263121dc"
   end
 
   head do

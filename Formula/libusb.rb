@@ -14,7 +14,7 @@ class Libusb < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "9b898227336491c21f4c1ec5e970769328fee460dba6cc2ab75c2b434da493c9"
+    sha256 cellar: :any, loongarch64_linux: "036e207a493c5659600d55ec85e875828b09f00b45096c3ab5e0fa434904ff53"
   end
 
   head do
@@ -34,7 +34,7 @@ class Libusb < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
