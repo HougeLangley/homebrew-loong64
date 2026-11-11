@@ -10,7 +10,10 @@ class Libblastrampoline < Formula
   ]
 
 
-
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "81b2e03acdc493bfd43f114c6ede82b5e9ac3e3eff07ec85b79b13fcc81c1e3a"
+  end
 
   depends_on "openblas64" => :test
 
