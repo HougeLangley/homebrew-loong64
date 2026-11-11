@@ -158,13 +158,19 @@ class Mesa < Formula
     ENV.prepend_path "PATH", venv.root/"bin"
     ENV.append "LDFLAGS", "-Wl,-rpath,#{rpath}" if OS.mac?
 
+    # LoongArch build-role trim: brew mesa here exists so prefix dependents
+    # (libepoxy, gtk tools) can link GL/EGL/GLES headers and libraries at
+    # build time. The real display stack on this host is the vendor driver
+    # plus vkgl, so build a MINIMAL mesa: no LLVM, no Rust runtime, no
+    # hardware drivers, no Vulkan drivers — keeps the build inside the lane
+    # budget instead of a multi-hour full-stack compile.
     args = %w[
       -Db_ndebug=true
-      -Dgallium-rusticl=true
-      -Dllvm=enabled
+      -Dgallium-rusticl=false
+      -Dllvm=disabled
       -Dopengl=true
       -Dstrip=true
-      -Dvideo-codecs=all
+      -Dvideo-codecs=
     ]
     args += if OS.mac?
       # Work around .../rusticl_system_bindings.h:1:10: fatal error: 'stdio.h' file not found
@@ -189,8 +195,8 @@ class Mesa < Formula
       %W[
         -Degl=enabled
         -Dgallium-drivers=#{drivers}
-        -Dgallium-extra-hud=true
-        -Dgallium-va=enabled
+        -Dgallium-extra-hud=false
+        -Dgallium-va=disabled
         -Dgbm=enabled
         -Dgles1=enabled
         -Dgles2=enabled
@@ -199,9 +205,9 @@ class Mesa < Formula
         -Dlmsensors=enabled
         -Dmicrosoft-clc=disabled
         -Dplatforms=x11,wayland
-        -Dtools=drm-shim,etnaviv,freedreno,glsl,intel,nir,nouveau,lima,panfrost,asahi,imagination,dlclose-skip
+        -Dtools=glsl
         -Dvalgrind=disabled
-        -Dvulkan-drivers=#{drivers}
+        -Dvulkan-drivers=
         -Dvulkan-layers=device-select,intel-nullhw,overlay,screenshot,vram-report-limit
         --force-fallback-for=indexmap,paste,pest_generator,roxmltree,rustc-hash,syn
       ]
