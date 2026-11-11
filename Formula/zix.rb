@@ -4,6 +4,10 @@ class Zix < Formula
   url "https://gitlab.com/drobilla/zix/-/archive/v0.8.2/zix-v0.8.2.tar.gz"
   sha256 "a2464cdc11fa359b5e713b3c82bf0b476952efe397a02374ddbc1b62eee04f13"
   license "ISC"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "7c86f70c5e199ff3a8af33b000a923726bd76b542428efd51418a4298abd5e04"
+  end
 
   head "https://gitlab.com/drobilla/zix.git", branch: "main"
 

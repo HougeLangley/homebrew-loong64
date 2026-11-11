@@ -5,6 +5,10 @@ class Webp < Formula
   sha256 "e4ab7009bf0629fd11982d4c2aa83964cf244cffba7347ecd39019a9e38c4564"
   license "BSD-3-Clause"
   compatibility_version 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "c5bb5c9c7ef768e70febc857951500f697fd37345440358407f470c4d60ee9db"
+  end
 
   head "https://chromium.googlesource.com/webm/libwebp.git", branch: "main"
 

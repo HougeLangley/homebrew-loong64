@@ -105,7 +105,10 @@ class Libstrophe < Formula
       }
     C
     flags = ["-I#{include}/", "-L#{lib}", "-lstrophe"]
-    system ENV.cc, *_extra, "-o", "test", "test.c", *(flags + ENV.cflags.to_s.split)
+    # The old generated test referenced an undefined `_extra` splat (NameError
+    # at brew test); keep gnu17 for the library's legacy declarations.
+    system ENV.cc, "-std=gnu17", "-D_GNU_SOURCE",
+           "-o", "test", "test.c", *(flags + ENV.cflags.to_s.split)
     system "./test"
   end
 end

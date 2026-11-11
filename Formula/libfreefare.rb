@@ -99,7 +99,16 @@ class Libfreefare < Formula
       }
     C
 
-    system ENV.cc, *_extra, "test.c", "-L#{lib}", "-lfreefare", "-o", "test"
+    # The old generated test referenced an undefined `_extra` splat (NameError
+    # at brew test). Pass the same legacy-C compatibility flags as install so
+    # this K&R-style test compiles under GCC 16's strict defaults.
+    system ENV.cc,
+           "-std=gnu17", "-D_GNU_SOURCE",
+           "-Wno-error=implicit-int", "-Wno-implicit-int",
+           "-Wno-error=implicit-function-declaration",
+           "-Wno-error=int-conversion",
+           "-Wno-error=incompatible-pointer-types",
+           "test.c", "-L#{lib}", "-lfreefare", "-o", "test"
     system "./test"
   end
 end

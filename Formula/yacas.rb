@@ -6,9 +6,10 @@ class Yacas < Formula
   license "LGPL-2.1-or-later"
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "e096ab5a2821cef5c4f8aec98487f3ce061bfc54c9d1be3a200ed09c0d2a6437"
+    sha256 cellar: :any, loongarch64_linux: "9829851fdd1e253437ea6ea37e182a5172081ea883a0c4850f3bb5ff979e5e28"
   end
 
   depends_on "cmake" => :build
