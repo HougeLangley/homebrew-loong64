@@ -13,6 +13,11 @@ class WithReadline < Formula
 
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "5eed5a1ff4fa671d8845f67aefb6e25ddacd9ca7acd62ec07f4e26fd24ae156b"
+  end
+
   depends_on "readline"
 
   def install
@@ -29,6 +34,8 @@ class WithReadline < Formula
   end
 
   test do
-    pipe_output("#{bin}/with-readline dash", "exit", 0)
+    # Upstream's test hardcodes `dash`, which this host does not ship; use
+    # bash (the wrapper simply execs the given shell under a readline layer).
+    pipe_output("#{bin}/with-readline bash", "exit", 0)
   end
 end

@@ -5,6 +5,7 @@ class Zchunk < Formula
   sha256 "2ab8ef54475aa2b2c0120fc6ae6d0788e0c3d4d4b671985edc6a19c8096a02cc"
   license "BSD-2-Clause"
 
+
   head "https://github.com/zchunk/zchunk.git", branch: "main"
 
 
@@ -30,8 +31,11 @@ class Zchunk < Formula
   end
 
   test do
-    system bin/"zck", test_fixtures("test.png")
-    system bin/"unzck", testpath/"test.png.zck"
-    assert_equal test_fixtures("test.png").read, (testpath/"test.png").read
+    # Round-trip needs zstd; the tool reports "Unsupported compression type:
+    # zstd" if the build failed to link it. Default to the zstd compressor
+    # explicitly so a silent loss of zstd support fails loudly here.
+    system bin/"zck", "--zstd", "-o", "z.zck", test_fixtures("test.png")
+    system bin/"unzck", "z.zck", "-o", "out.png"
+    assert_equal test_fixtures("test.png").read, (testpath/"out.png").read
   end
 end
