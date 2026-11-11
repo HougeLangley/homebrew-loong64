@@ -4,17 +4,17 @@ class Libmagic < Formula
   url "https://astron.com/pub/file/file-5.48.tar.gz"
   sha256 "ed14656883b23a364b4057c05595d93252da9bc473d30106519519d0da141283"
   license all_of: ["BSD-2-Clause-Darwin", "BSD-2-Clause", :public_domain]
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "4a4958e86291fe1b9e3cda4e9f7ec116c09c80c52c1849c91dedf27dfb5abb2b"
-  end
-
   compatibility_version 1
 
   livecheck do
     formula "file-formula"
   end
 
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "373efb1c7a019c8e0aadad49003535009e20dfacac79c4685e928f91cc2c99ad"
+  end
 
   depends_on "pkgconf" => :test
 
@@ -25,7 +25,7 @@ class Libmagic < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

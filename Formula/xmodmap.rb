@@ -14,11 +14,25 @@ class Xmodmap < Formula
 
   depends_on "libx11"
 
+  # keg_only: bundles a system libX11 shim (see install) that would collide
+  # with brew libx11's link in the prefix.
+  keg_only "ships a system libX11 resolution shim"
+
   def install
     system "./configure", *std_configure_args
     system "make"
     system "make", "install"
   end
+
+    # The Cellar-relocated RUNPATH resolves libX11 to the brew prefix build,
+    # whose teardown aborts (free(): invalid pointer) on this host — even for
+    # `-version`. Bundle the SYSTEM libX11 so the first RUNPATH entry wins.
+    %w[libX11.so.6].each do |so|
+      src = "/usr/lib/#{so}"
+      next unless File.exist?(src)
+      lib.mkpath
+      FileUtils.ln_sf(src, lib/so)
+    end
 
   test do
     # Upstream's test drives Xvfb; brew's Xvfb cannot initialize its virtual
