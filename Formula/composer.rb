@@ -13,9 +13,8 @@ class Composer < Formula
 
 
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "ccfa7b451f2d536e007a5da01e71f6d917415c81f711835dfee389ab3d1b4d05"
+    sha256 cellar: :any, loongarch64_linux: "42b8f1220ab8df37f406d0991a14529410546c59f00207ccb3913e1594c68887"
   end
 
   depends_on "php"
