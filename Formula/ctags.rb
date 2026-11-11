@@ -32,10 +32,6 @@ class Ctags < Formula
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "0be57330d8b89309c6209bbdd2f5235bd1b622c0326e4863e01b9bcca85e9b9c"
-  end
 
   head do
     url "https://svn.code.sf.net/p/ctags/code/trunk"

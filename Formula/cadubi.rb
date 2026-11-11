@@ -8,7 +8,7 @@ class Cadubi < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "d644387a80cfe6740265e8087b21356f69f4d81f985d9b71eb847560c1a08fb8"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "410f477f6ebbf9d38c2f883f42be16cae8f90d4ea1d243f7db07e4c8df0057f6"
   end
 
   def install
