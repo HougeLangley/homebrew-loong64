@@ -7,9 +7,10 @@ class Libde265 < Formula
   compatibility_version 1
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "583ecfe17357e043e5aba3645422fd57675ece9b5883b626624d993b4580ad2b"
+    sha256 cellar: :any, loongarch64_linux: "d0c3ee919ed26c0451bdeb63c3ddf3759959a4e30ef9824b38259077e51083c7"
   end
 
   depends_on "cmake" => :build

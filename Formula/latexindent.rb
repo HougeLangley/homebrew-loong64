@@ -6,9 +6,10 @@ class Latexindent < Formula
   license "GPL-3.0-or-later"
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "7a2674729d72b8fe2530e3d647af4d1af700248c0021a31662c5e612f0c2864d"
+    sha256 cellar: :any, loongarch64_linux: "78d503bdbdcf3668a80a1a019fe091d65fce39ae79052933640d2478fc2e5788"
   end
 
   depends_on "perl"

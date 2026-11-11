@@ -7,10 +7,7 @@ class Snap7 < Formula
   revision 1
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "b01e3c3872c1e59447ce917ae0e82e432d5f9ed5ccf43accf13ad6693ec8dec3"
-  end
+
 
   def install
     lib.mkpath

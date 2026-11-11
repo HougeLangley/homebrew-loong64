@@ -7,6 +7,11 @@ class Libmobi < Formula
   revision 1
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "c69d8c143e70f61552ee181a6f74dd192c11b5fc17f5b4a9ef0fd5118ec7adc1"
+  end
+
   uses_from_macos "libxml2"
 
   on_linux do
@@ -18,10 +23,6 @@ class Libmobi < Formula
     file "Patches/libtool/configure-big_sur.diff"
   end
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "5f8610df7893ca17eb16b9a12881668068706c28d260df9cc03b04ee053f439d"
-  end
 
   def install
     system "./configure", *std_configure_args, "--disable-silent-rules"
