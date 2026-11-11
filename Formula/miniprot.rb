@@ -5,67 +5,49 @@ class Miniprot < Formula
   sha256 "e1b5c08571fa3a4aa225da8ec9c6e744cd116b4dc50d9e187114cffe336921ee"
   license "MIT"
 
+
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "8d8998b2ad6f5b616b78a90e134f43979db994d717469f73a489a4b063d0b615"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "e2df4ada405138f554ac6e7bf27bad4b7eaf1c5a7d4fbc9a54d6eb1434778fb8"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "ddaab716a69014a0aefec396d7fd02f2d21e8b44bdb43c9dbac8cb570e4fea6f"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:      "029ca5d5ddfa03fa93b1b9a91977908a0206ae58a21b151f2010c61193de6cc6"
-    sha256 cellar: :any_skip_relocation, sonoma:            "8992d1199cfdd4651e55658118c5025c031f35c774e383e2520720ccf90c4e64"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "61e3d4664c87b3cdf856c24bdf9d82cdf7ffcef6c057818ba96fc803faab4e58"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "5dbb2fde218797475adc93a169cd0e7b8b6388a6af963ddc43cb165ed15bb43d"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "236132d1a16215bf88cd4cd7b032f1a06488bac47925f742b9b6e42ff78dff90"
   end
+
+  depends_on "simde" => :build
 
   on_linux do
     depends_on "zlib-ng-compat"
   end
 
   def install
-    # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
-    %w[conf-cc conf-cxx].each do |cf|
-      next unless File.exist?(cf)
-      _c = File.read(cf).strip
-      File.write(cf, _c + " -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration\n") unless _c.include?("gnu17")
-    end
-    # cc 命令改写（Makefile 里写死 cc 而非 $(CC) 时）
-    Dir["Makefile", "**/Makefile", "**/GNUmakefile", "**/Makefile.*"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.gsub(/^(	| {0,4})(cc|gcc)([ 	])/) { "#{$1}$(CC)#{$3}" }
-      File.write(mkf, _m)
-    end
-    # CMake 标志追加
-    _cmflags = ["-DCMAKE_C_FLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration", "-DCMAKE_CXX_FLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"].freeze
-    # ENV.cc 追加
-    _extra = "-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration".split
-    Dir["Makefile", "GNUmakefile", "makefile", "src/Makefile"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.gsub(/-std=(c|gnu)(89|99|11|17|2x)/, "")
-      File.write(mkf, _m)
-    end
-    # Makefile 里面追加（硬编码 CFLAGS 时 ENV 追加不生效）
-    Dir["Makefile", "GNUmakefile", "makefile", "**/Makefile", "**/GNUmakefile", "**/makefile", "**/Makefile.*"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration " }
-      File.write(mkf, _m)
-    end
-    # CFLAGS 里面追加（configure 硬编码时 ENV 追加不生效）
-    if File.exist?("configure")
-      _cfg = File.read("configure")
-      _cfg = _cfg.gsub(/^CFLAGS="([^"\\]*)"/) { 'CFLAGS="' + $1 + ' -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"' }
-      File.write("configure", _cfg)
-    end
-    ENV.append_to_cflags "-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"
-    system "make", "CFLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration", "CXXFLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat"
+    inreplace "nasw-sse.c",
+              "#elif defined(__ARM_NEON)\n#include \"s2n-lite.h\"\n#endif",
+              "#elif defined(__ARM_NEON)\n#include \"s2n-lite.h\"\n#else\n#define SIMDE_ENABLE_NATIVE_ALIASES\n#include <simde/x86/sse4.1.h>\n#define MINIPROT_SIMDE\n#endif"
+    inreplace "nasw-sse.c",
+              "static inline int ns_le_epi16(__m128i a, __m128i b)\n{\n#if defined(__SSE2__)",
+              "static inline int ns_le_epi16(__m128i a, __m128i b)\n{\n#if defined(__SSE2__) || defined(MINIPROT_SIMDE)"
+    inreplace "nasw-sse.c",
+              "static inline int ns_le_epi32(__m128i a, __m128i b)\n{\n#if defined(__SSE2__)",
+              "static inline int ns_le_epi32(__m128i a, __m128i b)\n{\n#if defined(__SSE2__) || defined(MINIPROT_SIMDE)"
+    inreplace "nasw-sse.c",
+              "#elif defined(__SSE2__)\n\treturn _mm_or_si128",
+              "#elif defined(__SSE2__) || defined(MINIPROT_SIMDE)\n\treturn _mm_or_si128"
+    inreplace "nasw-sse.c",
+              "#elif defined(__SSE2__)\n\ta = _mm_max_epi16",
+              "#elif defined(__SSE2__) || defined(MINIPROT_SIMDE)\n\ta = _mm_max_epi16"
+    system "make", "INCLUDES=-I#{Formula["simde"].opt_include}"
     bin.install "miniprot"
     pkgshare.install "test"
   end
 
   test do
+    require "digest"
     cp_r pkgshare/"test/.", testpath
-    output = shell_output("#{bin}/miniprot DPP3-hs.gen.fa.gz DPP3-mm.pep.fa.gz 2>&1")
-    assert_match "mapped 1 sequences", output
+    shell_output("#{bin}/miniprot DPP3-hs.gen.fa.gz DPP3-mm.pep.fa.gz > actual.paf 2> actual.log")
+    assert_match "mapped 1 sequences", (testpath/"actual.log").read
+    # Official x86_64 0.18-r281 bottle 5dbb2fde... generated these references.
+    assert_equal "d303e5f39bf5c0002421bbc7d8cc3adf7827ef2610e32619b226d556cf343d04",
+                 Digest::SHA256.file(testpath/"actual.paf").hexdigest
+    shell_output("#{bin}/miniprot --gff --aln DPP3-hs.gen.fa.gz DPP3-mm.pep.fa.gz > actual.gff 2> actual-gff.log")
+    assert_equal "8c5582bdd283eaf6bb424f7924c6a9468af9470949df6cc02082fec45950ec7d",
+                 Digest::SHA256.file(testpath/"actual.gff").hexdigest
   end
 end
