@@ -13,10 +13,6 @@ class Gambit < Formula
 
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "4865679162b7b2bba16320b4cc24f6d9e98a853b84b98956cfd64f9764d1a99a"
-  end
 
   depends_on "wxwidgets"
 
