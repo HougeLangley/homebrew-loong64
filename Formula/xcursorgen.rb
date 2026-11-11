@@ -10,8 +10,17 @@ class Xcursorgen < Formula
     regex(/^xcursorgen[._-]v?(\d+(?:\.\d+)+)$/i)
   end
 
+  # keg_only: we bundle system X library shims in lib/ (see install) that
+  # would collide with brew libx11/libxcursor links in the prefix.
+  keg_only "ships system X11 resolution shims"
 
 
+
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "64b586b66860b25c96bbc111e79dd5b7df98fd749070fcc86502807a522470a0"
+  end
 
   depends_on "meson" => :build
   depends_on "ninja" => :build

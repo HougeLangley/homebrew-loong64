@@ -12,6 +12,11 @@ class Scamper < Formula
 
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "acf1f3e8a1d95181c246239dbe9c99ccb502f65813e30b5d96328a7d9d643560"
+  end
+
   depends_on "pkgconf" => :build
   depends_on "openssl@4"
   depends_on "xz" # for LZMA
