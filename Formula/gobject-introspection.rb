@@ -8,11 +8,14 @@ class GobjectIntrospection < Formula
   def install
     bin.mkpath; lib.mkpath; include.mkpath
     (include/"gobject-introspection-1.0").mkpath
-    # g-ir-scanner 在 brew 环境里跑不起来，包一层：--version 直接返回，其余转发
+    # g-ir-scanner 在 brew 环境里跑不起来，包一层：--version 直接返回，其余转发。
+    # 系统扫描器是 `env python3` 脚本，其 _giscanner 扩展只 ABI 匹配系统 Python
+    # （cpython-314）；brew 环境的 PATH 会把 brew Python（3.15）顶到前面导致
+    # ModuleNotFoundError（at-spi2-core 实证）。因此转发时强制系统 PATH。
     (bin/"g-ir-scanner").write <<~SH
       #!/usr/bin/env bash
       if [[ "$1" == "--version" ]]; then echo "g-ir-scanner 1.86.0"; exit 0; fi
-      exec /usr/bin/g-ir-scanner "$@"
+      exec env PATH=/usr/bin:/bin /usr/bin/g-ir-scanner.real "$@"
     SH
     chmod 0755, bin/"g-ir-scanner"
     (bin/"g-ir-compiler").make_symlink "/usr/bin/g-ir-compiler" if File.exist?("/usr/bin/g-ir-compiler")

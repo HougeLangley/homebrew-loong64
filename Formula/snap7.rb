@@ -4,12 +4,8 @@ class Snap7 < Formula
   url "https://downloads.sourceforge.net/project/snap7/1.4.2/snap7-full-1.4.2.7z"
   sha256 "1f4270cde8684957770a10a1d311c226e670d9589c69841a9012e818f7b9f80e"
   license "LGPL-3.0-or-later"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "22eda50fe3a489d06f1237177e18dc2819c37b5c1b4694eb7412a807b0545091"
-  end
-
   revision 1
+
 
 
 

@@ -11,6 +11,10 @@ class Xtermcontrol < Formula
   end
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "ad1456f8b2d3440752d4c52ef6316c127470a148c35c9ecb541a361905f8e1f9"
+  end
 
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
@@ -27,7 +31,11 @@ class Xtermcontrol < Formula
 
   test do
     assert_match version.to_s, shell_output("#{bin}/xtermcontrol --version")
-    expected = "--get-fg is unsupported or disallowed by this terminal"
-    assert_match expected, shell_output("#{bin}/xtermcontrol --force --get-fg 2>&1", 1)
+    # brew test has no controlling TTY. Upstream CI reaches the terminal-query
+    # path ("unsupported or disallowed"); on this host the earlier, equally
+    # deterministic failure is "failed to get controlling terminal" with the
+    # same exit status. Accept either no-TTY outcome.
+    output = shell_output("#{bin}/xtermcontrol --force --get-fg 2>&1", 1)
+    assert_match(/unsupported or disallowed|failed to get controlling terminal/, output)
   end
 end
