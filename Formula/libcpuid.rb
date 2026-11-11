@@ -6,10 +6,6 @@ class Libcpuid < Formula
   license "BSD-2-Clause"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "5962cf4c519a75967cedb3804656301d2748db0f1acf1da682f70bb726ce8742"
-  end
 
   head do
     url "https://github.com/anrieff/libcpuid.git", branch: "master"
