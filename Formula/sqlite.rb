@@ -6,6 +6,10 @@ class Sqlite < Formula
   version "3.53.3"
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "31ab61f658d6f5b94a71a801957dce04c2e9180c7183337e6c52bf19f531e541"
+  end
 
   def install
     bin.mkpath; lib.mkpath; include.mkpath; share.mkpath

@@ -17,10 +17,10 @@ class Intercal < Formula
     regex(/^v?(0(?:\.\d+)+)$/i)
   end
 
+
   bottle do
-    sha256 sonoma:       "89bd47009d0b3badca873c9a90da5c598e37c3b8d321a5b193e7c7a2fb471bad"
-    sha256 arm64_linux:  "0ba5bbd64a3a282d3f4e6d399d2db42e064a5377305db6ceaf3e0f32bf6b9185"
-    sha256 x86_64_linux: "19b7f6bc3117e3fcd0bf5f3e707d2e96307cb2adc07179a19a4ce301d5edae8c"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "f635160df665a5cb458d24ae852e20d65f6f298f172978d3dac4793d9597e04b"
   end
 
   head do
