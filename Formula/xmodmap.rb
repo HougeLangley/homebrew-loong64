@@ -8,6 +8,11 @@ class Xmodmap < Formula
 
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "ac3d63be69588e836cfe967100c98d3196914bc42d2f089202723432691c5550"
+  end
+
   depends_on "pkgconf" => :build
   depends_on "xorgproto" => :build
   depends_on "xorg-server" => :test
