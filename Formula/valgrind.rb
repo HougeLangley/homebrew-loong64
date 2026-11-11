@@ -8,6 +8,11 @@ class Valgrind < Formula
   version "3.28.0"
   license "GPL-2.0-or-later"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "125bbc96e0a0a3fed3406f1dd6718f3359411d7da2d88a62c814de2e9756950d"
+  end
+
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build

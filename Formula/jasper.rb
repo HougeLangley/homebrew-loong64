@@ -12,9 +12,10 @@ class Jasper < Formula
   end
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "dc66d251d78fca3a6c5a2743a1e6a0e492c0cf4c8da000fe66a383be125ebdf7"
+    sha256 cellar: :any, loongarch64_linux: "72b8cd7fd0d67cf38bb602d40032f61b5bd87122f75873a88cd335d77ad520e9"
   end
 
   depends_on "cmake" => :build
