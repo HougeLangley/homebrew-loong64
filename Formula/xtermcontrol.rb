@@ -11,10 +11,6 @@ class Xtermcontrol < Formula
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "b6574a5ef00838b366a178c6eb6acbcc13776fe9e08b0fb0f376971fe57fdc90"
-  end
 
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
