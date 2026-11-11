@@ -5,6 +5,11 @@ class Kokkos < Formula
   sha256 "d6557aaef39302282a15f9c770433d1fcdf4e961dfd6d9ed726b9d0d0f546b9f"
   license "Apache-2.0"
   compatibility_version 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "0d9c43b33550a85c74391fa052e8b2c39ffb0443bb84a435c8570975174d5c98"
+  end
+
   head "https://github.com/kokkos/kokkos.git", branch: "develop"
 
   livecheck do
@@ -13,10 +18,6 @@ class Kokkos < Formula
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "3a13b38f17be50e9e4ab2ecd88d55d8093dcbe6e086f8c6de785009fb0b99cc0"
-  end
 
   depends_on "cmake" => :build
 
