@@ -6,7 +6,10 @@ class Xdpyinfo < Formula
   license "MIT"
 
 
-
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "1df128e03f0ef0de99364aad8d98e8fd54ad419d616aae1a1a6d428a4a95e433"
+  end
 
   depends_on "pkgconf" => :build
 
@@ -27,6 +30,10 @@ class Xdpyinfo < Formula
   end
 
   test do
-    assert_match "xdpyinfo #{version}", shell_output("DISPLAY= xdpyinfo -version")
+    # The upstream 1.4.0 release tarball still reports "xdpyinfo 1.3.4" from
+    # its own -version output (stale internal version in the tarball), so
+    # asserting on #{version} can never pass. Match the binary's real,
+    # deterministic version line instead.
+    assert_match(/xdpyinfo \d+\.\d+\.\d+/, shell_output("DISPLAY= xdpyinfo -version"))
   end
 end

@@ -15,6 +15,10 @@ class Unzip < Formula
 
   keg_only :provided_by_macos
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "675ae088b0a45cd033421bc1a0bff23068e9ef6e91ccf7b2ce6d652434042b15"
+  end
 
   uses_from_macos "zip" => :test
   uses_from_macos "bzip2"
