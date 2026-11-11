@@ -12,9 +12,10 @@ class Gpcslots2 < Formula
   end
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "ce72cb924786ad0bafa959441c4a3da30b054f7694ec4c49e6e3c2d7c1bff180"
+    sha256 cellar: :any, loongarch64_linux: "a42e5ec6f4c0e0438e9532ae4ab526b302ffdcf0784aadced6853220149ca108"
   end
 
   def install
