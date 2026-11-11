@@ -6,10 +6,10 @@ class Iir1 < Formula
   license "MIT"
 
 
+
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "47c9d46573a06615931ed9d43cb3d24faaa0c435c902f95cb3a7044dbfd94425"
+    sha256 cellar: :any, loongarch64_linux: "da6baf1a54a7c80ab57ba872723335a047d47b5a93915557e4fceb4c4bf7d633"
   end
 
   depends_on "cmake" => :build
