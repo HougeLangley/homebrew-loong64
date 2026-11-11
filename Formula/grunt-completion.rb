@@ -4,13 +4,14 @@ class GruntCompletion < Formula
   url "https://github.com/gruntjs/grunt-cli/archive/refs/tags/v1.5.0.tar.gz"
   sha256 "0ed2f1bbe6ba85c5b2b3ae1233c52b7622db092c078aafbba75dbb435a6a9d20"
   license "MIT"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "0338dc6170dc35435261a31f01f7a8f9137703f3e838e086fcd5366bbec7cfca"
+  end
+
   head "https://github.com/gruntjs/grunt-cli.git", branch: "main"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "613948e3ee1a89aad380904d7d56d5cf6787a12800de761057405d206e940df0"
-  end
 
   def install
     bash_completion.install "completion/bash" => "grunt"
