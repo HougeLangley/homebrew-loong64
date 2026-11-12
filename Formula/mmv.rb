@@ -5,11 +5,11 @@ class Mmv < Formula
   sha256 "2bbba14c099b512b4a7e9effacec53caa06998069d108a5669ff424ffc879d03"
   license "GPL-3.0-or-later"
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "31bc0f3182c7a1bad09e175d346e413bf23ddeea8f9ccdb086ab2ef9c7652c55"
+    sha256 cellar: :any, loongarch64_linux: "112324300363cb69f17af6573cbd708bb1b521b9e240c1ff4b74ce0df6acd683"
   end
-
 
   depends_on "help2man" => :build # for patch
   depends_on "pkgconf" => :build
@@ -18,7 +18,7 @@ class Mmv < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

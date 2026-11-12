@@ -6,6 +6,11 @@ class Srt < Formula
   license "MPL-2.0"
   revision 1
   compatibility_version 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "4727bafc48e47f69c64e9b0eba0a89523cee84aaad342410a1364aa71fa04adb"
+  end
+
   head "https://github.com/Haivision/srt.git", branch: "master"
 
   livecheck do
@@ -14,10 +19,6 @@ class Srt < Formula
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "41c76b6db929cf8e6b4d10d2475f99109e30be6f5518534b8db56c295eb99311"
-  end
 
   depends_on "cmake" => :build
   depends_on "pkgconf" => :build

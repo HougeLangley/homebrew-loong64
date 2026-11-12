@@ -13,10 +13,10 @@ class Lynx < Formula
 
 
   # Move to brew ncurses to fix screen related bugs
+
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "4b60958dab4989b5629d9fe92b19060f2a455f0eeeeb4296b1e0417ce4b5a8a3"
+    sha256 cellar: :any, loongarch64_linux: "cf6b2663d03ab9a08b88367e2d14eb78dd74beb37d53fb2b4acc9e22f7ea0702"
   end
 
   depends_on "ncurses"

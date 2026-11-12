@@ -5,13 +5,11 @@ class Sispmctl < Formula
   sha256 "e757863a4838da6e1ca72a57adc5aca6fc47ffbddc72a69052d8abd743d57082"
   license "GPL-2.0-or-later"
 
+
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "87a7f7f9a41dcdd2eccfda67762bf8d4f85d380614750063465d90a9a1071271"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "87a7f7f9a41dcdd2eccfda67762bf8d4f85d380614750063465d90a9a1071271"
   end
-
-
 
   depends_on "pkgconf" => :build
   depends_on "libusb-compat"

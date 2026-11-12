@@ -10,6 +10,11 @@ class SpirvCross < Formula
     "MIT-Khronos-old",
   ]
   version_scheme 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "ed399bd4f405f7d33445af47ce471a93355c2b611b31c558d51cf9d28edbcef0"
+  end
+
   head "https://github.com/KhronosGroup/SPIRV-Cross.git", branch: "main"
 
   livecheck do
@@ -18,10 +23,6 @@ class SpirvCross < Formula
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "4bc2ee31476b8b6399f468cf83c7144c7fd2b55e893f9d20feeeb68117a7d95c"
-  end
 
   depends_on "cmake" => :build
   depends_on "glm" => :test
