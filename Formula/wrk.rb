@@ -12,13 +12,14 @@ class Wrk < Formula
   #     in copyright, patent, trademark, and attribution notices.
   license :cannot_represent
   revision 2
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "c4b62d5305d84a06a1d67606975c3d7a88f817f7e565acb7055b736230c4e20a"
+  end
+
   head "https://github.com/wg/wrk.git", branch: "master"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "6ff7b586f72d82e7b8673017bfded63e8411412971b214700806e6aa1813e46f"
-  end
 
   depends_on "luajit"
   depends_on "openssl@4"
