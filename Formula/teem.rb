@@ -6,9 +6,8 @@ class Teem < Formula
   # License is LGPL-2.1-or-later with a non-SPDX license exception for linking
   license :cannot_represent
   bottle do
-    rebuild 2
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "70d03c39eb446a7f4f7ad118bb116abbbb31b4428f3b7cf1f9f52c8b91357371"
+    sha256 cellar: :any, loongarch64_linux: "730734d1ab25c6a25dfcbdb13bd49b3380520e32814423acc68cd8388c13a99a"
   end
 
   head "https://svn.code.sf.net/p/teem/code/teem/trunk"
