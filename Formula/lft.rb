@@ -5,16 +5,16 @@ class Lft < Formula
   sha256 "d84aff0c2baf57a5c5b21fb3b228eed0ac0e12e5a676b3b3be13e34770b91d17"
   license "VOSTROM"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "eab83f262f38a756b188f71196e099473f7da8e6ddfd8cd41ec86d0996627368"
-  end
-
   livecheck do
     url :homepage
     regex(/value=.*?lft[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "503625b61baf9c30a1acd1882fa4c7011590a601d4c9592fae017f9327c3cba3"
+  end
 
   depends_on "pkgconf" => :build
   depends_on "c-ares"
@@ -25,7 +25,7 @@ class Lft < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

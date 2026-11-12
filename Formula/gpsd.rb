@@ -44,8 +44,8 @@ class Gpsd < Formula
       ENV.append "LDFLAGS", "-L#{ncurses.opt_lib} -Wl,-rpath,#{ncurses.opt_lib}"
     end
 
-    system "scons", "chrpath=False", "python=False", "strip=False", "prefix=#{prefix}/"
-    system "scons", "install"
+    system Formula["scons"].opt_bin/"scons", "chrpath=False", "python=False", "strip=False", "prefix=#{prefix}/"
+    system Formula["scons"].opt_bin/"scons", "install"
   end
 
   def caveats
