@@ -10,12 +10,10 @@ class PgpoolIi < Formula
     regex(/href=.*?pgpool-II[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
+
   bottle do
-    sha256 arm64_golden_gate: "cb71b494c300df3e12cc09c5dd3dacc261758ec35692981c8a21d69a2c981d5e"
-    sha256 arm64_tahoe:       "9d74be8e67d2a9b5fe4b9cb0d3582dada5118aeaaf5cb8ecdf579b32d29f43c4"
-    sha256 arm64_sequoia:     "0cb3474abf61352c568ab77dae2f380425804ed466d2df25653aceb5c09bcae4"
-    sha256 arm64_linux:       "e54782b68ad3ed9bb28472336682172701108495b7cbd01575bd45bd04af494e"
-    sha256 x86_64_linux:      "a16ac9affa056007d0df41a0f9bca0892f10a568a2e40cf1e95dec9c24eabe96"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "ec4c44e3a96487372b5953909d3f04e1d6912cf9991d0c79a3a5c9a959685290"
   end
 
   depends_on "libmemcached"

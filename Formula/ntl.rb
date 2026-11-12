@@ -10,19 +10,31 @@ class Ntl < Formula
     regex(/href=.*?ntl[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-
   bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "64f303338024e75de9473f47ad6c1a48e7734e29f779b746c64ba5548bd85249"
+    sha256 cellar: :any,                 arm64_golden_gate: "d5af20d7da4eb6cee43e7c648af977eed4c714316d530ab10910408a57723831"
+    sha256 cellar: :any,                 arm64_tahoe:       "7d2f5f23855b76ee0a5d7d2e5dd4c85b2d40ab8ac76cfce653681e52398eef0b"
+    sha256 cellar: :any,                 arm64_sequoia:     "f86403426262a8c91d04b80ff2b642e68f220cf8e00a35cbebaf1fdb4c11f2f9"
+    sha256 cellar: :any,                 arm64_sonoma:      "cbfb67228b7246561405a68553b4b433230cf913f43b677816c1e871ce43dd64"
+    sha256 cellar: :any,                 sonoma:            "13c87c434a0b2c669fe2c2ce9909026b8f8a325fa3af3348bb5df3214d735383"
+    sha256 cellar: :any_skip_relocation, arm64_linux:       "f745b2c741b9c296092586bae7d8a0dfda2cd8bb74547caa6343957482f89a3f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:      "800477b02d398e95b1f820a5c3e100a9ea0f3f147bfbb1688a3c27f37eeae0e4"
   end
 
   depends_on "gmp"
 
   def install
+    # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
+    %w[config.sub config.guess].each do |cf|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
+        src = "/usr/share/libtool/build-aux/#{cf}"
+        cp src, dest if File.exist?(dest) && File.exist?(src)
+      end
+    end
+
     args = ["PREFIX=#{prefix}", "SHARED=on"]
 
     cd "src" do
-      system "./configure", *args
+      system "./configure", "--build=loongarch64-unknown-linux-gnu", *args
       system "make"
       system "make", "install"
     end

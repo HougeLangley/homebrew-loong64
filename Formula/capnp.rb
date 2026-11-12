@@ -6,6 +6,7 @@ class Capnp < Formula
   license "MIT"
   revision 1
   compatibility_version 3
+
   head "https://github.com/capnproto/capnproto.git", branch: "v2"
 
   livecheck do
@@ -14,10 +15,6 @@ class Capnp < Formula
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "6fed05994a347ca6ac6467a80cd8bb59a1c80cb8965558dd4ce60da578cf25a6"
-  end
 
   depends_on "cmake" => :build
 
