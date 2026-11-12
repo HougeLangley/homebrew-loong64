@@ -10,15 +10,10 @@ class Msieve < Formula
     regex(%r{url=.*?/Msieve%20v?(\d+(?:\.\d+)+)/}i)
   end
 
+
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_golden_gate: "851cc3fa44a545820ec049816d0c8a0dc4cd0fc4f9c4b5bacca156c5cb6642e0"
-    sha256 cellar: :any,                 arm64_tahoe:       "7e5d447bbc245a2b91d8993937c87c8e559678ebd68f972905d6c11e0d2b29bf"
-    sha256 cellar: :any,                 arm64_sequoia:     "73413cbe23c21e464017e6abe5b7b10bf2e3e384e2e23f51dceef0be7bddc051"
-    sha256 cellar: :any,                 arm64_sonoma:      "b35f5ce318727e40a0c2d540707475a883853effa8ea4c5214dec80f776b15ed"
-    sha256 cellar: :any,                 sonoma:            "ca06f592fd7bc5ab600f422c05facec833296457fc5b9f511d80eae85b9537f3"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "5f469949e04536f662b6f3d7f8a4afdded9af65d7f4feefcb7fd9670dd92f3e0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "00366a1231d99d1ecb28d24e714467b1a5f4437504934d882fcb64fc35338ee5"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "eaab9780b9b6595897fb4f1663ffead04ba2bc1cc1f1b8df9ff7df773b2acd86"
   end
 
   depends_on "gmp"
@@ -66,7 +61,8 @@ class Msieve < Formula
     end
     ENV.append_to_cflags "-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"
     ENV.append "MACHINE_FLAGS", "-include sys/time.h"
-    system "make", "CFLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration", "CXXFLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "all"
+    # Command-line CFLAGS would discard the upstream include paths and defines.
+    system "make", "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "all"
     bin.install "msieve"
   end
 
