@@ -4,10 +4,6 @@ class Tcpdump < Formula
   url "https://www.tcpdump.org/release/tcpdump-4.99.7.tar.gz"
   sha256 "8be364e28d3b745ef1459b385cd2f4bc0e1ebad7a5d2ebdf70071d6c9b5b9a54"
   license "BSD-3-Clause"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "4d617b1a6511550a57690dcb399a45e8f6198e49ad82006e631f4402a03f11a1"
-  end
 
   head "https://github.com/the-tcpdump-group/tcpdump.git", branch: "master"
 
@@ -23,7 +19,7 @@ class Tcpdump < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

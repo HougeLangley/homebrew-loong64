@@ -6,9 +6,10 @@ class Staq < Formula
   license "MIT"
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "a18e8ec5f56ae69ae559887dcfdc1851c990bb87ec8b38717cca5981b8eb21cb"
+    sha256 cellar: :any, loongarch64_linux: "5b7c7bcc055926092cfd28bd2a92ce1f04c9c046900ebb81fb532cd490543eaa"
   end
 
   depends_on "cmake" => :build
