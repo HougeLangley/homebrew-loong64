@@ -146,7 +146,7 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-11-12 22:43 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-11-12 22:53 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
@@ -178,7 +178,7 @@ end
 | **aescrypt-packetizer** | 3.16 | 57 KiB | `224238e86119` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aescrypt-packetizer--3.16.loongarch64_linux.bottle.1.tar.gz) |
 | **aespipe** | 2.4j | 48 KiB | `5a7553b91182` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aespipe--2.4j.loongarch64_linux.bottle.1.tar.gz) |
 | **afio** | 2.5.2 | 87 KiB | `112af90caed6` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/afio--2.5.2.loongarch64_linux.bottle.1.tar.gz) |
-| **aften** | 0.0.8 | 220 KiB | `8982a958e591` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aften--0.0.8.loongarch64_linux.bottle.1.tar.gz) |
+| **aften** | 0.0.8 | 211 KiB | `0594034950f9` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aften--0.0.8.loongarch64_linux.bottle.1.tar.gz) |
 | **agedu** | 20260410 | 63 KiB | `ae64e247d402` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/agedu--20260410.loongarch64_linux.bottle.1.tar.gz) |
 | **aha** | 0.5.1 | 35 KiB | `e0f75992b8cc` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aha--0.5.1.loongarch64_linux.bottle.1.tar.gz) |
 | **ahcpd** | 0.53 | 36 KiB | `c5b7d73f9830` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/ahcpd--0.53.loongarch64_linux.bottle.1.tar.gz) |

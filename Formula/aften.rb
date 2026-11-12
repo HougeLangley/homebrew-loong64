@@ -14,9 +14,10 @@ class Aften < Formula
   end
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "8982a958e591594d826cbc14c6af339b575e12b741318b766a2c9bf25a662f1e"
+    sha256 cellar: :any, loongarch64_linux: "0594034950f9f52290ccca404786afb797d798f4d68a7d43917347c68c9a275d"
   end
 
   depends_on "cmake" => :build
