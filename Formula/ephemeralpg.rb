@@ -13,6 +13,10 @@ class Ephemeralpg < Formula
 
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "b868cb1952e2d213bd8e678c41ddc9deca1b9571a49aac8199716d61d029b61b"
+  end
 
   depends_on "libpq"
 
@@ -25,12 +29,10 @@ class Ephemeralpg < Formula
     # Upstream's test spins up a full temporary PostgreSQL cluster, which
     # requires postgresql@18 as a test dependency. The copied-from-core keg
     # is not consistently recognized across both lane prefixes on this host.
-    # pg_tmp is a POSIX shell script; verify it is present, executable, and
-    # syntactically valid without requiring a live postgres.
+    # pg_tmp is a POSIX shell script; getsocket is a compiled binary.
     assert_predicate bin/"pg_tmp", :executable?
     system "/bin/sh", "-n", bin/"pg_tmp"
     assert_predicate bin/"getsocket", :executable?
-    system "/bin/sh", "-n", bin/"getsocket"
     assert_match "pg_ctl", (bin/"pg_tmp").read
   end
 end
