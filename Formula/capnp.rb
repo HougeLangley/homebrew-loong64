@@ -6,10 +6,6 @@ class Capnp < Formula
   license "MIT"
   revision 1
   compatibility_version 3
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "53c236c424216737c5cb7294ba72468cdddfd29bf4f722fd8ed50710823d49a7"
-  end
 
   head "https://github.com/capnproto/capnproto.git", branch: "v2"
 
