@@ -3,6 +3,11 @@ class Bash < Formula
   homepage "https://www.gnu.org/software/bash/"
   license "GPL-3.0-or-later"
   compatibility_version 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "1eed05d81d81570971d733eb2bceb012fcb6b60fe734a07e602f0c872a2b261f"
+  end
+
   head "https://git.savannah.gnu.org/git/bash.git", branch: "master"
 
   stable do
@@ -92,15 +97,7 @@ class Bash < Formula
     end
   end
 
-  no_autobump! because: :incompatible_version_format
 
-  bottle do
-    sha256 arm64_golden_gate: "27fe00d21b581ba549b9312986b90d2b6e97970743a12a5f9058faf71e40a7b3"
-    sha256 arm64_tahoe:       "ac5b291d5571c2aaf30bd17e0df16f0a43723dad8aac2023b9c5904742fdd2da"
-    sha256 arm64_sequoia:     "753bdd9943047829a2f8469ed2d29fc71d0de5572df2a6d0e7b3f30be71ae937"
-    sha256 arm64_linux:       "84db1fb59b457f94e28d1c0c0f31b670c7da88b64b29ff720963ecc048ce2dcf"
-    sha256 x86_64_linux:      "37c145e5e2616798e5351173d543454a26f3cf61edd3e832c57a32d46fb996e6"
-  end
 
   # System ncurses lacks functionality
   # https://github.com/Homebrew/homebrew-core/issues/158667
@@ -129,7 +126,7 @@ class Bash < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

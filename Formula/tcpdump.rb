@@ -4,10 +4,6 @@ class Tcpdump < Formula
   url "https://www.tcpdump.org/release/tcpdump-4.99.7.tar.gz"
   sha256 "8be364e28d3b745ef1459b385cd2f4bc0e1ebad7a5d2ebdf70071d6c9b5b9a54"
   license "BSD-3-Clause"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "9c2797472cb9915b50d28da8109ec5d123870fe19569ecaa4d21b4605999d9e9"
-  end
 
   head "https://github.com/the-tcpdump-group/tcpdump.git", branch: "master"
 
