@@ -11,12 +11,24 @@ class Cpio < Formula
 
   deny_network_access!
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "7b477b5bef21af7735d83b806e9476bd01de931f5e458d6654f5fb811aa8008a"
+    sha256 cellar: :any, loongarch64_linux: "f0684a729f01ec4d5e44336db3501df32635a25a577307122c97161b3e7bd903"
   end
 
   def install
+    # glibc 2.26+ removed xlocale.h (merged into locale.h). cpio 2.15's
+    # bundled gnulib still does `#include <xlocale.h>` under __linux__.
+    # Provide an empty compatibility header in the source tree.
+    (Pathname.pwd/"gnu"/"xlocale.h").write <<~H
+      /* Compatibility stub: xlocale.h was merged into locale.h in glibc 2.26+. */
+      #ifndef _COMPAT_XLOCALE_H
+      #define _COMPAT_XLOCALE_H
+      #include <locale.h>
+      #endif
+    H
+
     # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
     %w[conf-cc conf-cxx].each do |cf|
       next unless File.exist?(cf)
