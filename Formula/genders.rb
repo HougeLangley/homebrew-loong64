@@ -61,9 +61,6 @@ class Genders < Formula
 
     system "./configure", "--with-java-extensions=no", *args, *std_configure_args
     system "make", "install"
-
-    # Move man page out of top level mandir on Linux
-    man3.install (prefix/"man/man3").children unless OS.mac?
   end
 
   test do
@@ -71,7 +68,7 @@ class Genders < Formula
       # slc cluster genders file
       slci,slcj,slc[0-15]  eth2=e%n,cluster=slc,all
       slci                 passwdhost
-      slci,slcj            management
+      slci                 management
       slc[1-15]            compute
     EOS
     assert_match "0 parse errors discovered", shell_output("#{bin}/nodeattr -f cluster -k 2>&1")
