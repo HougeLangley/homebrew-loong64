@@ -11,10 +11,10 @@ class Haproxy < Formula
   end
 
 
+
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "0a9d924baba158b50c9f70e8b19487db1677532bb0ab04d35d5db783c9ef4131"
+    sha256 cellar: :any, loongarch64_linux: "ad8a7cf4f2e8fc4da60cea392ebaee4f9ddb7d73ba9ac77023f6b6a6a4d614ca"
   end
 
   depends_on "openssl@4"
