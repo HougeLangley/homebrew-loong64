@@ -14,10 +14,7 @@ class Lpeg < Formula
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "97e8fe597f4d988bda1174fb1c1e11df5b2904c7b4a75766ed6a97243e0dc3f2"
-  end
+
 
   depends_on "lua" => [:build, :test]
   depends_on "luajit" => [:build, :test]
