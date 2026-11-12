@@ -6,7 +6,10 @@ class Ttygif < Formula
   license "MIT"
 
 
-
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "1f5687b5d945f52c8bb656d4c88075752a5414934a9f1f821d37c78eb415ddf2"
+  end
 
   depends_on "imagemagick"
   depends_on "ovh-ttyrec"
