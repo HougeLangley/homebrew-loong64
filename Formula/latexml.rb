@@ -6,9 +6,8 @@ class Latexml < Formula
   license :public_domain
   revision 5
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "fc0d5645085eaf7f38fcd9f9849a9f1f7b3088aab811c10e082657799ab67b1e"
+    sha256 cellar: :any, loongarch64_linux: "ce2523a5aea5bf63431774d08820e3eef75bbd2a73b5366b2b96875019b2117d"
   end
 
   head "https://github.com/brucemiller/LaTeXML.git", branch: "master"
