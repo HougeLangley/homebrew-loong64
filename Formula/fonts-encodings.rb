@@ -5,11 +5,11 @@ class FontsEncodings < Formula
   sha256 "9ff13c621756cfa12e95f32ba48a5b23839e8f577d0048beda66c67dab4de975"
   license :public_domain
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "d0e673e4279c9b1fcdab865f5e90a512531b35313d0a22663b2581574894028d"
+    sha256 cellar: :any, loongarch64_linux: "7462e1f270ad4d5506937a6ec76b39d0ef4234c2f2bf5a2b227f86e6cdb3ffd5"
   end
-
 
   depends_on "font-util"   => :build
   depends_on "mkfontscale" => :build
@@ -18,7 +18,7 @@ class FontsEncodings < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
