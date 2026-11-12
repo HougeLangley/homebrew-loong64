@@ -5,6 +5,11 @@ class Xgrammar < Formula
   sha256 "16c06f7cef8f13ae597b007cce515991725603bded6ebce5f1828e6a9c9685be"
   license "Apache-2.0"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "7ade65b2353e1cb560143467e29e2efbe61a3c2c1c0bffe5ade94042274ab56a"
+  end
+
   head "https://github.com/mlc-ai/xgrammar.git", branch: "main"
 
   depends_on "cmake" => :build
