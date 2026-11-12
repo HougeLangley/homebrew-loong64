@@ -5,13 +5,14 @@ class Openjph < Formula
   sha256 "5cb1ebe18e5ee1322d23ff2130b37562d447d1ad5586c3d16cf84be3ae30f719"
   license "BSD-2-Clause"
   compatibility_version 7
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "f3c4a7ab2b17c6ea41a1837dc996cce0bcca6545fa67e199610354bb8252e37d"
+  end
+
   head "https://github.com/aous72/OpenJPH.git", branch: "master"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "48f595b846a5746f844c022dad4e2c675091d6efbcafaaf42de8a5e6073e6f13"
-  end
 
   depends_on "cmake" => :build
   depends_on "libtiff"

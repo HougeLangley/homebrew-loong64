@@ -5,16 +5,16 @@ class Ogmtools < Formula
   sha256 "c8d61d1dbceb981dc7399c1a85e43b509fd3d071fb8d3ca89ea9385e6e40fdea"
   license "GPL-2.0-only"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "41347bedebf322fc251e37d58f2aa8c725ed19d6dc2cfc27b38d5640a34f694b"
-  end
-
   livecheck do
     url :homepage
     regex(/href=.*?ogmtools[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "87e8372f3cf7fd99bebdddf68f492eab3e521cfea7a9c8383330654a183a3645"
+  end
 
   depends_on "libogg"
   depends_on "libvorbis"
@@ -30,7 +30,7 @@ class Ogmtools < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
