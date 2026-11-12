@@ -5,16 +5,16 @@ class Nsuds < Formula
   sha256 "6d9b3e53f3cf45e9aa29f742f6a3f7bc83a1290099a62d9b8ba421879076926e"
   license "GPL-2.0-or-later"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "f99e1d6a3d7f74d8d1da149a9947032994281939653d70e5cbc59ff8ceaa9e4c"
-  end
-
   livecheck do
     url :stable
     regex(%r{url=.*?/nsuds[._-]v?(\d+(?:\.\d+)+[A-Z]?)\.t}i)
   end
 
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "2ecaaf40921ec2ffab8d76a56b7ee28fd4529d1bdd7f8279658e1d2a1fb64261"
+  end
 
   head do
     url "https://git.code.sf.net/p/nsuds/code.git", branch: "master"
@@ -28,7 +28,7 @@ class Nsuds < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

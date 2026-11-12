@@ -4,13 +4,14 @@ class Slivar < Formula
   url "https://github.com/brentp/slivar/archive/refs/tags/v0.3.4.tar.gz"
   sha256 "144475352296b44174f9702c8796c0db16ba78e9125f6cae2b16df0df7156423"
   license "MIT"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "0c50ad93c8bfb8e3e509d226cfdfebab2aab7560f974fa6b3677258c9d6eaf29"
+  end
+
   head "https://github.com/brentp/slivar.git", branch: "master"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "78abec40a54f30bc5bc7d30e3ede2c3a5b504e18cde66dacc7f87c3510109da3"
-  end
 
   depends_on "nim" => :build
   depends_on "htslib"
