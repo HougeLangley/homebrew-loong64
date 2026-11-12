@@ -12,9 +12,10 @@ class Rpm2cpio < Formula
   end
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "2ea45a20f6ea8d8da11f7acdd02451ca0222e5cd0ab25d198e293c23f87faaae"
+    sha256 cellar: :any, loongarch64_linux: "71627d811073cb5e65fe7edd5791f24a946789fac64fa2f3a006f34df410d2f0"
   end
 
   depends_on "libarchive"

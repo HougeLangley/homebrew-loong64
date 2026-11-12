@@ -5,13 +5,14 @@ class Snappy < Formula
   sha256 "893f708a0bf4b5529d555ffcee390e940e932fcf90261f682604475a76cd0247"
   license "BSD-3-Clause"
   compatibility_version 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "8d0cc2823e357a083b570e014cce2f32a05a11a60d4da6a23563441747532244"
+  end
+
   head "https://github.com/google/snappy.git", branch: "main"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "f4d29e3cd023e35992a5d0255b98fd74dfe4eb43d1d82ddac01cb4187f81c2f2"
-  end
 
   depends_on "cmake" => :build
   depends_on "pkgconf" => :build
