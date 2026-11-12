@@ -6,10 +6,6 @@ class Bvi < Formula
   license "GPL-3.0-or-later"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "1e45c64a9e790d1f399ce7b52ee3dd3734928a7009f02e06b0e806a2caf08f9e"
-  end
 
   uses_from_macos "ncurses"
 
