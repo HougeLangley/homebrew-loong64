@@ -4,10 +4,13 @@ class Xgrammar < Formula
   url "https://github.com/mlc-ai/xgrammar/archive/refs/tags/v0.2.8.tar.gz"
   sha256 "16c06f7cef8f13ae597b007cce515991725603bded6ebce5f1828e6a9c9685be"
   license "Apache-2.0"
-
   head "https://github.com/mlc-ai/xgrammar.git", branch: "main"
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "9c95747ea0250aac88c0fde0965702523dd6779c0bfa400fc0ef50a78e800459"
+  end
 
   depends_on "cmake" => :build
   depends_on "dlpack"
