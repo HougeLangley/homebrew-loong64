@@ -1,0 +1,60 @@
+class SqliteRsync < Formula
+  desc "SQLite remote copy tool"
+  homepage "https://www.sqlite.org/"
+  url "https://www.sqlite.org/2026/sqlite-src-3540100.zip"
+  version "3.54.1"
+  sha256 "387e7f6cad4797b17848c07d453dc6606917bb356a6cfe5a3abafd38c240c71b"
+  license "blessing"
+
+  livecheck do
+    formula "sqlite"
+  end
+
+
+  bottle do
+    rebuild 1
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "688f73aedd6452fc35ba0f7c496f6b85bc4e14c1b6e17b577b1ce03a47e2ec79"
+  end
+
+  uses_from_macos "tcl-tk" => :build
+  uses_from_macos "sqlite" => :test
+
+
+  def install
+    tcl = if OS.mac?
+      MacOS.sdk_path/"System/Library/Frameworks/Tcl.framework"
+    else
+      formula_opt_lib("tcl-tk")
+    end
+
+    system "./configure", "--disable-debug",
+                          "--with-tcl=#{tcl}",
+                          "--prefix=#{prefix}"
+    system "make", "sqlite3_rsync"
+    bin.install "sqlite3_rsync"
+  end
+
+  test do
+    dbpath = testpath/"school.sqlite"
+    copypath = testpath/"school.copy"
+    sqlpath = testpath/"school.sql"
+    sqlpath.write <<~SQL
+      create table students (name text, age integer);
+      insert into students (name, age) values ('Bob', 14);
+      insert into students (name, age) values ('Sue', 12);
+      insert into students (name, age) values ('Tim', 13);
+    SQL
+    system "sqlite3 #{dbpath} < #{sqlpath}"
+    cp dbpath, copypath
+
+    addpath = testpath/"add.sql"
+    addpath.write <<~SQL
+      insert into students (name, age) values ('Frank', 15);
+      insert into students (name, age) values ('Clare', 11);
+    SQL
+    system "sqlite3 #{dbpath} < #{addpath}"
+    system bin/"sqlite3_rsync", dbpath, copypath
+    assert_match "Clare", pipe_output("sqlite3 #{copypath}", "select name from students where age = 11")
+  end
+end
