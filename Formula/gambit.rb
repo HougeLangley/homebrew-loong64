@@ -11,12 +11,11 @@ class Gambit < Formula
     regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
+
+
   bottle do
-    sha256 cellar: :any, arm64_golden_gate: "f46acacbe1b2876f9e40c0302a4a1450d41e918a6f18330940fef2f25e6f5030"
-    sha256 cellar: :any, arm64_tahoe:       "bfdbad8876f7eff5732d31db66adfb98272a4e72f08da46aa19e9f1e40f65203"
-    sha256 cellar: :any, arm64_sequoia:     "d1247f5d4adb15e628ef6aabf123aae33f5f813a0562d1038542590d42f23df1"
-    sha256 cellar: :any, arm64_linux:       "0a2e15bfe04acb20cf5519f6dc346b079880a0bac3c8599da5fa1e9669cd502d"
-    sha256 cellar: :any, x86_64_linux:      "e8a5dac55b39e52e558c2447b44d1af9581b70d2cf34823d2ad5acd5851fe0eb"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "2acb08e5ed905648201d1f7dedf531b3c66699933d0ab6a7a726297a361ae891"
   end
 
   depends_on "wxwidgets"
