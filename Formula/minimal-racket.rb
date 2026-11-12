@@ -18,6 +18,11 @@ class MinimalRacket < Formula
 
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "2094790c81466149c7f97f63f503fd93574fd7388a9fd4217fbdbc3dbcadee8b"
+  end
+
   depends_on "openssl@4"
 
   uses_from_macos "libffi"
