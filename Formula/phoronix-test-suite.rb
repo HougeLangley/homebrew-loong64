@@ -5,7 +5,6 @@ class PhoronixTestSuite < Formula
   sha256 "7b5da7193c0190c648fc0c7ad6cdfbde5d935e88c7bfa5e99cd3a720cd5e2c5a"
   license "GPL-3.0-or-later"
   revision 1
-
   head "https://github.com/phoronix-test-suite/phoronix-test-suite.git", branch: "master"
 
   livecheck do
@@ -14,6 +13,10 @@ class PhoronixTestSuite < Formula
   end
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "913498f76c59c540a35675cc165b4383869104c6d0c15f96cdfd4c5d1115239b"
+  end
 
   depends_on "php"
 
