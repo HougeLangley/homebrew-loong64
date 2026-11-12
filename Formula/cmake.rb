@@ -7,6 +7,11 @@ class Cmake < Formula
   sha256 "bd24c30d80a7744ae84b845ff080cc8453b06c622ef01066564108e9cefc44cf"
   license "BSD-3-Clause"
   compatibility_version 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "0d80b3f0b1d5075489d37e226596a4edaf51705c7446b9d2745104dafa4b7776"
+  end
+
   head "https://gitlab.kitware.com/cmake/cmake.git", branch: "master"
 
   # The "latest" release on GitHub has been an unstable version before, and
@@ -26,10 +31,6 @@ class Cmake < Formula
 
   deny_network_access!
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "71024dcc9e50ffb35acfc8e71b62087519543168c017cd9b3e31e287d6e65e84"
-  end
 
   def install
     args = %W[
