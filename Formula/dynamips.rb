@@ -11,9 +11,10 @@ class Dynamips < Formula
   end
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "f571a91be30f7ad33d8d7603c083a68ccde3a3d05bba9079793fd78f7827cb77"
+    sha256 cellar: :any, loongarch64_linux: "f73777292d62ab7777a2c155cbf2c6a566160389b74412942230e7cf90f789e5"
   end
 
   depends_on "cmake" => :build

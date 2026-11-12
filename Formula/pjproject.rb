@@ -2,6 +2,11 @@ class Pjproject < Formula
   desc "C library for multimedia protocols such as SIP, SDP, RTP and more"
   homepage "https://www.pjsip.org/"
   license "GPL-2.0-or-later"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "be66cc9f84cd3e9fcd15936733d77a01634b5ea81d4cb071ae65db2b634fb5fa"
+  end
+
   head "https://github.com/pjsip/pjproject.git", branch: "master"
 
   stable do
@@ -22,14 +27,6 @@ class Pjproject < Formula
     regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
-  bottle do
-    rebuild 1
-    sha256 cellar: :any, arm64_golden_gate: "0569bd6c0aec33fea3a8f97f7e57e2536041ce987c0a44d6263d4ac91c4eddea"
-    sha256 cellar: :any, arm64_tahoe:       "2d834c5d4559992257c1bff7ee49665c5cb97ec1ed2882f70740e0821863698d"
-    sha256 cellar: :any, arm64_sequoia:     "64e9ca3a5a794470f0396fcbe5d7222e1801870e42d378d28d33329c03c56d74"
-    sha256 cellar: :any, arm64_linux:       "78625608c7dc0e5f407f829e281ce25b9dd7b32cf71d363814552d007d0df235"
-    sha256 cellar: :any, x86_64_linux:      "7d2c1b161eec50c23a1c1538a38c5e00c2b0362c3b524720fbce5fec98476070"
-  end
 
   depends_on "openssl@4"
 

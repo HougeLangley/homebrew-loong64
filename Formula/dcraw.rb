@@ -13,9 +13,10 @@ class Dcraw < Formula
   end
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "9b205cd16588a52a67199ccb4f6bc996eb209235dcc68cd5b404f10dde1aa9b8"
+    sha256 cellar: :any, loongarch64_linux: "2212b96915ff2900309aa8979fd609b8c134e37763bfa947a1aebb22b188cd09"
   end
 
   depends_on "jasper"
