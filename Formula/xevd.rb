@@ -4,6 +4,11 @@ class Xevd < Formula
   url "https://github.com/mpeg5/xevd/archive/refs/tags/v0.8.0.tar.gz"
   sha256 "258d626fbb6c7ea1677b4fb0ffed3eaca2ec312810d6a76f67359fdc16068472"
   license "BSD-3-Clause"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "2623971e9acb77d042bb5f535bb60937f96e35a1c32af2795c66e602805fb54e"
+  end
+
   head "https://github.com/mpeg5/xevd.git", branch: "master"
 
   # Regex is needed to avoid picking up non-semver tags
@@ -13,10 +18,6 @@ class Xevd < Formula
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "bb730c1c727a2f0020843e1554db55f24bb538546876e238c882a4cfd3fe965b"
-  end
 
   depends_on "cmake" => :build
   depends_on "xeve" => :test
