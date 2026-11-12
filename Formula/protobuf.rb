@@ -15,7 +15,7 @@ class Protobuf < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "13227cb92233a0333fb78c56f169d4fa16d4d5f11a1741a585310203f035e541"
+    sha256 cellar: :any, loongarch64_linux: "b546958baedc8f1ddb0c37ecaa964c5a7de65a37dbca54c9e390991d83811373"
   end
 
   depends_on "cmake" => :build
