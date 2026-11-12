@@ -4,13 +4,14 @@ class Stormlib < Formula
   url "https://github.com/ladislav-zezula/StormLib/archive/refs/tags/v9.40.tar.gz"
   sha256 "f80b08bae168888702a4251312d6c2279f487673df611c2b5ef4f395e810c3b1"
   license "MIT"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "b40021262e1d4d8ab0546cd5c87456ffa671443b6e171addeb53bd080fa48992"
+  end
+
   head "https://github.com/ladislav-zezula/StormLib.git", branch: "master"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "4f3909239a0b1752c73e6a6f5b2d722fd8b8cc89b99e300d4ed8d5a5e9108506"
-  end
 
   depends_on "cmake" => :build
 

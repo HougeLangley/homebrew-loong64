@@ -6,9 +6,10 @@ class Spoa < Formula
   license "MIT"
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "b80ae67dd6fb53d396980fb96a62aaedf0c64438f4990a4a98bec815d77dea7d"
+    sha256 cellar: :any, loongarch64_linux: "72c1754e663e2fded4c5dfa97dfc147217f5810964aea1348d0b064bedf56c07"
   end
 
   depends_on "cmake" => :build

@@ -12,9 +12,10 @@ class Spigot < Formula
   end
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "32e18845e8edcaf2ac06febc1fd4394c0000d88fe28677883c9cfcf039d98843"
+    sha256 cellar: :any, loongarch64_linux: "09df38143b73616111be61c027dfb2e60f8fbade2b44201dfce98c8c84098bc7"
   end
 
   depends_on "cmake" => :build
