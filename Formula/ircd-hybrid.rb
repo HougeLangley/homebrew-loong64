@@ -10,13 +10,10 @@ class IrcdHybrid < Formula
     regex(%r{url=.*?/ircd-hybrid[._-]v?(\d+(?:\.\d+)+)\.t}i)
   end
 
+
   bottle do
-    rebuild 1
-    sha256 arm64_golden_gate: "e9276cb8e64c822896016e2855e398371b2970fbee6b55ade0b0422bd3b07330"
-    sha256 arm64_tahoe:       "7a5ae94ff8e74327e53938df7ea6b2a065b413ffc9b97a5e316ecf9974b68d0e"
-    sha256 arm64_sequoia:     "17d62791a7e1ef3d9d3093594f222cb78920f407191d716c7fd535215bf659ad"
-    sha256 arm64_linux:       "d068f5890944e393f197fa7e4c37fed0b6b39aad24d230f21e07d7649e3d376b"
-    sha256 x86_64_linux:      "e987a8450ebeba6c092650c87b6b4dd823aab44ff1ecc74a78f70f8070fd1eb7"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "eb7af86ad7b292672be83c8f8270d09e838d0e298d940da342ce0b86bdff0e1f"
   end
 
   depends_on "jansson"
@@ -33,7 +30,7 @@ class IrcdHybrid < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
