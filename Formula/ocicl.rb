@@ -7,7 +7,10 @@ class Ocicl < Formula
   revision 1
 
 
-
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "0f0b777f6af465fe61c014b9a90ba2258fecc6d18223c1ea40911a987028bc62"
+  end
 
   depends_on "sbcl"
   depends_on "zstd"

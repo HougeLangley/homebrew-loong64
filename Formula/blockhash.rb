@@ -5,13 +5,14 @@ class Blockhash < Formula
   sha256 "3c48af7bdb1f673b2f3c9f8c0bfa9107a7019b54ac3b4e30964bc0707debdd3a"
   license "MIT"
   revision 6
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "28788fa8e8d6660967602d51e86b34aa5f0490895bb4ea4e9213cbb78c45d589"
+  end
+
   head "https://github.com/commonsmachinery/blockhash.git", branch: "master"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "94e2cb009be5684a975fdd43290c3c0adeaaf3c141f270ad946c1c9e9ea902a9"
-  end
 
   depends_on "pkgconf" => :build
   depends_on "imagemagick"
