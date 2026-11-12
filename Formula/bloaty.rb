@@ -3,6 +3,11 @@ class Bloaty < Formula
   homepage "https://github.com/google/bloaty"
   license "Apache-2.0"
   revision 55
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "e405d630153aa4aea44028ef027de0e93ed5f27959db8cd727acba5135038bbb"
+  end
+
   head "https://github.com/google/bloaty.git", branch: "main"
 
   stable do
@@ -17,10 +22,6 @@ class Bloaty < Formula
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "8ed4cdd61ff3cabbe406e9be0ec9b3234baa90fce9cef787bea58c5b4350b6c7"
-  end
 
   depends_on "cmake" => :build
   depends_on "pkgconf" => :build
