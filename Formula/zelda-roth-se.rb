@@ -7,10 +7,13 @@ class ZeldaRothSe < Formula
     "GPL-3.0-only", # lua scripts
     "CC-BY-SA-4.0", # data files
   ]
-
   head "https://gitlab.com/solarus-games/games/zelda-roth-se.git", branch: "dev"
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "5594732375fdf80120f4530270ec6ddaa6cf0c871413a187d19532bb9ff0ca47"
+  end
 
   depends_on "cmake" => :build
   depends_on "solarus"
