@@ -4,12 +4,12 @@ class Lrzip < Formula
   url "https://github.com/ckolivas/lrzip/releases/download/v0.7.3/lrzip-0.7.3.tar.xz"
   sha256 "6928862de7c4bbb3cfbcd12fae9fd0a7d230d5bbf27486e52c4de60717ebfdbb"
   license "GPL-2.0-or-later"
+  version_scheme 1
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "7db4a133524c47c0de733cee03d7ef733530c03ea50860b7c9664e04448a7384"
+    sha256 cellar: :any, loongarch64_linux: "8a97a470d43525bcc25403d140bc6badd20da0f8a76499892fa470826c42feee"
   end
 
-  version_scheme 1
   head "https://github.com/ckolivas/lrzip.git", branch: "master"
 
   livecheck do
@@ -32,7 +32,7 @@ class Lrzip < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

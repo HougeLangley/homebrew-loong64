@@ -6,9 +6,10 @@ class Logswan < Formula
   license "BSD-2-Clause"
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "7df83fc2e9da514df9c6b1ed835abfa867b0cded0c80e96af42682a05491609d"
+    sha256 cellar: :any, loongarch64_linux: "d86fcb5b3a87a62357701fc87890a0037cd22f029e5ddf0c3d17c38083dfc05f"
   end
 
   depends_on "cmake" => :build

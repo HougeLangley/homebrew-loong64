@@ -6,9 +6,10 @@ class Libbpf < Formula
   license "BSD-2-Clause"
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "cb86b81e0515d5256945b656cf7c3c4926f9480a4af9a2f8ba0ca3c17a8b4166"
+    sha256 cellar: :any, loongarch64_linux: "c52e696720f01d24a3f60d8c7fd31f1b991a966ed38adb894704d7e7d461f4a8"
   end
 
   depends_on "pkgconf" => :build
