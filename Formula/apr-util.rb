@@ -7,15 +7,13 @@ class AprUtil < Formula
   license "Apache-2.0"
   revision 1
 
-  bottle do
-    sha256 arm64_golden_gate: "ad199dc3a5579906d061fdde92fa50568967d01c5766a2e0881b18f5e77cf894"
-    sha256 arm64_tahoe:       "22e6ad6d2811495d5c5467e56c64e710b093e36f2141e4490b0e65d4ffaa59fe"
-    sha256 arm64_sequoia:     "9e16cae0d49d057a60f8f611bfd77757229bfafb36dcbe61b14893ddb285883c"
-    sha256 arm64_linux:       "5a339e9ac46c40b11acd4c009881fbcd62509a7419a025928a035a9e591c136b"
-    sha256 x86_64_linux:      "797b9cf4b25eab090db9255f7eaf5080ef2c5ced3ca2153631eb4e65475e626e"
-  end
 
   keg_only :shadowed_by_macos, "Apple's CLT provides apr (but not apr-util)"
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "ac1248647c61f9c32f284986e048df3921ca65fc14eb3fa7b1fd08e3d2c698e6"
+  end
 
   depends_on "apr"
   depends_on "openssl@4"
@@ -33,7 +31,7 @@ class AprUtil < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
