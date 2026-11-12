@@ -5,6 +5,11 @@ class Fftw < Formula
   sha256 "7f3f4717439b4c9958b1eedd104a9cce71532ae93ac73663b38d54552d3444b0"
   version "3.3.11"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "b2c9bde90534af31abd668b834aca92a28bfa19dd001c15059bc48b7dfaf2567"
+  end
+
   def install
     bin.mkpath; lib.mkpath; include.mkpath
     # Bridge system fftw headers and all precision libraries
