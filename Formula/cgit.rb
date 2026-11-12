@@ -14,6 +14,11 @@ class Cgit < Formula
   end
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "2bb8f82ca0c89d7272981535aa9f1bda400c70708144e55f3932e50b9387ee61"
+  end
+
   on_macos do
     depends_on "gettext"
   end
@@ -29,10 +34,6 @@ class Cgit < Formula
     file "Patches/cgit/memrchr-impl.patch"
   end
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "7add6f83f855e4296b01ab30ab5e82f486e2a12d94e506b1e7a29a08bf078e6f"
-  end
 
   def install
     system "make", "prefix=#{prefix}",
