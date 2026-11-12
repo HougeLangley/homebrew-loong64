@@ -4,13 +4,13 @@ class Libx11 < Formula
   url "https://xorg.freedesktop.org/archive/individual/lib/libX11-1.8.14.tar.gz"
   sha256 "ebb8a58549ddde50aa2e742b3b256557f451053d173be8dbfc2e8ac078eee1d6"
   license "MIT"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "a050d3f76f369fd66e71df7da9848e2235d75d4ff5ea8533a06d9f01c49054be"
-  end
-
   compatibility_version 1
 
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "214970da6acbda381c368838a733627cacb492e622409f0c533f09423c9b4dc7"
+  end
 
   depends_on "pkgconf" => :build
   depends_on "util-macros" => :build
@@ -23,7 +23,7 @@ class Libx11 < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
