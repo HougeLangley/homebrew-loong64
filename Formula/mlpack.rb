@@ -6,7 +6,7 @@ class Mlpack < Formula
   license all_of: ["BSD-3-Clause", "MPL-2.0", "BSL-1.0", "MIT"]
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "f9b275338dad2c719263a790f3a6de9b9edac61dc03689a59ba343bdde5c4e44"
+    sha256 cellar: :any, loongarch64_linux: "5e709e177f99e7d9a0452167bd059f0050ae7a3c3d1374ea505f30317e43ba13"
   end
 
   head "https://github.com/mlpack/mlpack.git", branch: "master"

@@ -11,9 +11,10 @@ class Libsepol < Formula
   end
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "e02961486194bcdf5a934be0021800a3eee60a85ff3749a0a461a3a2b4e807a1"
+    sha256 cellar: :any, loongarch64_linux: "042a8929b54438887cd9ccdfc221ad374a7774ddf963f6e70fef51619966a74d"
   end
 
   depends_on "rpm2cpio" => :test
