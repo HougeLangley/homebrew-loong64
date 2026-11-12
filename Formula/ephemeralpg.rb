@@ -11,10 +11,7 @@ class Ephemeralpg < Formula
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "a90bb16aea6256ab242e048ac32270b1ef17ce498841308a8ae7650768351b43"
-  end
+
 
   depends_on "postgresql@18" => :test
   depends_on "libpq"
