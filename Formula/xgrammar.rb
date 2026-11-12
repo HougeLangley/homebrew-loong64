@@ -7,8 +7,6 @@ class Xgrammar < Formula
 
   head "https://github.com/mlc-ai/xgrammar.git", branch: "main"
 
-
-
   depends_on "cmake" => :build
   depends_on "dlpack"
 
@@ -22,7 +20,9 @@ class Xgrammar < Formula
     # Stand in for the dlpack submodule, which the tarball does not ship
     (buildpath/"3rdparty/dlpack/include").install_symlink formula_opt_include("dlpack")/"dlpack"
 
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    # GCC LTO archives need GCC-aware ar/ranlib; generic binutils only index __gnu_lto_slim.
+    system "cmake", "-S", ".", "-B", "build", "-DCMAKE_AR=/usr/bin/gcc-ar",
+           "-DCMAKE_RANLIB=/usr/bin/gcc-ranlib", *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
 

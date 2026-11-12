@@ -5,6 +5,11 @@ class Tcpdump < Formula
   sha256 "8be364e28d3b745ef1459b385cd2f4bc0e1ebad7a5d2ebdf70071d6c9b5b9a54"
   license "BSD-3-Clause"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "2fe97f66dada4566cc7c9a337e71e240810681339cf434718c045d27ab812b71"
+  end
+
   head "https://github.com/the-tcpdump-group/tcpdump.git", branch: "master"
 
   livecheck do
