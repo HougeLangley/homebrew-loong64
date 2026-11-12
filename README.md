@@ -146,7 +146,7 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-11-12 15:57 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-11-12 16:08 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
@@ -199,7 +199,7 @@ end
 | **ansiweather** | 1.19.1 | 10 KiB | `5975d6cd86b3` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/ansiweather--1.19.1.loongarch64_linux.bottle.1.tar.gz) |
 | **antidote** | 2.3.0 | 50 KiB | `322e458cde22` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/antidote--2.3.0.loongarch64_linux.bottle.1.tar.gz) |
 | **antigen** | 2.2.3 | 26 KiB | `6f57d89d3dff` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/antigen--2.2.3.loongarch64_linux.bottle.3.tar.gz) |
-| **antlr4-cpp-runtime** | 4.13.2_1 | 2.0 MiB | `14e1001bd35d` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/antlr4-cpp-runtime--4.13.2_1.loongarch64_linux.bottle.1.tar.gz) |
+| **antlr4-cpp-runtime** | 4.13.2_1 | 2.0 MiB | `24946b467066` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/antlr4-cpp-runtime--4.13.2_1.loongarch64_linux.bottle.1.tar.gz) |
 | **any2fasta** | 0.8.1 | 19 KiB | `124822ef45ff` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/any2fasta--0.8.1.loongarch64_linux.bottle.1.tar.gz) |
 | **anyenv** | 1.1.5 | 11 KiB | `aa9267f441d9` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/anyenv--1.1.5.loongarch64_linux.bottle.2.tar.gz) |
 | **aoeui** | 1.6 | 112 KiB | `c17e1bb24d6b` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aoeui--1.6.loongarch64_linux.bottle.1.tar.gz) |
