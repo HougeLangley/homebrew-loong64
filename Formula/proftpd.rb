@@ -15,12 +15,10 @@ class Proftpd < Formula
     strategy :github_latest
   end
 
+
   bottle do
-    sha256 arm64_golden_gate: "14cd570887239f8d7ea130795cc57d2e040bf775b5f83819e308f03caa672b7d"
-    sha256 arm64_tahoe:       "6fadc1cc844b68ca60e8d98e07670dd95ade9f135b9f8a2379ea683a85c5016f"
-    sha256 arm64_sequoia:     "7296b6dc3ee3aca3c8893d41a0965137e93124f226cce7d079fff97e10bc3c62"
-    sha256 arm64_linux:       "f63cd6cd685a2227d65f0e20282235d1122570dfcdf4902208e17980eb637fbc"
-    sha256 x86_64_linux:      "e37e0de3d516e25804709e840d5e625bee6de39d5ae73a4d4cb93c5369747762"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "65285e6db1ecfddb7e3662c24e469be983cdb866b190724ee664d73d864aa9ac"
   end
 
   depends_on "inetutils" => :test
