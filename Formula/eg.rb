@@ -4,13 +4,14 @@ class Eg < Formula
   url "https://github.com/davep/eg/archive/refs/tags/v1.02.tar.gz"
   sha256 "6b73fff51b5cf82e94cdd60f295a8f80e7bbb059891d4c75d5b1a6f0c5cc7003"
   license "GPL-2.0-or-later"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "75fec167409794d2e1f1bb2ba8a3d778ba7da6703eb05188c0b04eed811f8b58"
+  end
+
   head "https://github.com/davep/eg.git", branch: "master"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "2eafb24268bd6822cdfc9998d350327adc8a93c4a6447e1e9ce3dccae47dc6da"
-  end
 
   depends_on "s-lang"
 

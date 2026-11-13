@@ -4,13 +4,10 @@ class CpuFeatures < Formula
   url "https://github.com/google/cpu_features/archive/refs/tags/v0.11.0.tar.gz"
   sha256 "ab2463f2d38fcaff1ce806be8e4c91333449931f5e02009d543b2569a3fa471a"
   license "Apache-2.0"
+
   head "https://github.com/google/cpu_features.git", branch: "main"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "688f9f6852e0e06223f0f15570b6e1270875da5f88f3cd2d4d351cbb258da5b5"
-  end
 
   depends_on "cmake" => :build
 
