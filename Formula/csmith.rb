@@ -6,7 +6,7 @@ class Csmith < Formula
   license "BSD-2-Clause"
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "eb52714f0ce2940ac83a75cb2dd6afd558962d0b4aa7a6f7f71eff6376118089"
+    sha256 cellar: :any, loongarch64_linux: "cf61da18e6f612f6b5a043d5877fd643e20193a2a623b54ba6cd4807d9fff1b2"
   end
 
   head "https://github.com/csmith-project/csmith.git", branch: "master"
@@ -39,7 +39,7 @@ class Csmith < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
