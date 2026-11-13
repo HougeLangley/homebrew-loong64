@@ -12,6 +12,11 @@ class DvdxrwTools < Formula
   end
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "5b3458fe591046a6fbfb91d65adbdebde149c435a2efd629d017c2b8afd0fc2b"
+  end
+
   uses_from_macos "m4" => :build
 
   # Apply Fedora patch for missing header on Linux
@@ -28,10 +33,6 @@ class DvdxrwTools < Formula
   # Patch submitted to author by email.
   patch :DATA
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "fa0f3132120a862e5b25074e5aea7f67d60ac81ff5ca4e4179cdcd8b92c76a19"
-  end
 
   def install
     ENV.append "CXXFLAGS", "-Wno-reserved-user-defined-literal" if DevelopmentTools.clang_build_version >= 1700

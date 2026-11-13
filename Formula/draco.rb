@@ -7,9 +7,10 @@ class Draco < Formula
   compatibility_version 2
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "b2fef4c7305d217002a451be677d7fdfd3ce3ad74243a7c78cd849738b18471e"
+    sha256 cellar: :any, loongarch64_linux: "1ce744e639cfda94890d5a89bc77e3d17f04eebda3ffc56319e463d349bc2a00"
   end
 
   depends_on "cmake" => :build
