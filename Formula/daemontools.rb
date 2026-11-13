@@ -11,15 +11,10 @@ class Daemontools < Formula
     regex(/href=.*?daemontools[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
+
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "d68497c07b98344680482637a3c8bd17bbe5cbba1484a0de1d1c63a705addbda"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "da992fd278ff1a26880a1a254f7a54e2440ef886c565bef4d52335a53a0efe99"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "d5272511ffc8ff84d1a6a86ff7a4b643530c9d1feab3cfca5b70cea23e7855ba"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:      "7e6c9db0f8c6137035c15da9445fbdac2dfd0475eb3ae3bb563237affe0f6867"
-    sha256 cellar: :any_skip_relocation, sonoma:            "9181744087c4ab10deb008bfd08bb892ba7c00dd6cfa092be93c8fb37018c659"
-    sha256 cellar: :any,                 arm64_linux:       "2b086e3eb960e1f213b829504158a83246c196cbbad30e548d0bdd396ef8292b"
-    sha256 cellar: :any,                 x86_64_linux:      "ec457300fd92eaf1f7f3fad1e5a7904b9f02665b85d78b5e4628d176bc0a4008"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "939d8d45a318f27edfbfeb149bdb395c3f5b18f57cc821c89efbef3f5b51be35"
   end
 
   resource "man" do
@@ -41,44 +36,13 @@ class Daemontools < Formula
   end
 
   def install
-    # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
-    %w[conf-cc conf-cxx].each do |cf|
-      next unless File.exist?(cf)
-      _c = File.read(cf).strip
-      File.write(cf, _c + " -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration\n") unless _c.include?("gnu17")
-    end
-    # cc 命令改写（Makefile 里写死 cc 而非 $(CC) 时）
-    Dir["Makefile", "**/Makefile", "**/GNUmakefile", "**/Makefile.*"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.gsub(/^(	| {0,4})(cc|gcc)([ 	])/) { "#{$1}$(CC)#{$3}" }
-      File.write(mkf, _m)
-    end
-    # CMake 标志追加
-    _cmflags = ["-DCMAKE_C_FLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration", "-DCMAKE_CXX_FLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"].freeze
-    # ENV.cc 追加
-    _extra = "-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration".split
-    Dir["Makefile", "GNUmakefile", "makefile", "src/Makefile"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.gsub(/-std=(c|gnu)(89|99|11|17|2x)/, "")
-      File.write(mkf, _m)
-    end
-    # Makefile 里面追加（硬编码 CFLAGS 时 ENV 追加不生效）
-    Dir["Makefile", "GNUmakefile", "makefile", "**/Makefile", "**/GNUmakefile", "**/makefile", "**/Makefile.*"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration " }
-      File.write(mkf, _m)
-    end
-    # CFLAGS 里面追加（configure 硬编码时 ENV 追加不生效）
-    if File.exist?("configure")
-      _cfg = File.read("configure")
-      _cfg = _cfg.gsub(/^CFLAGS="([^"\\]*)"/) { 'CFLAGS="' + $1 + ' -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"' }
-      File.write("configure", _cfg)
-    end
-    ENV.append_to_cflags "-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"
     cd "daemontools-#{version}" do
+      # djb's compile script reads src/conf-cc verbatim. Add a modern C
+      # dialect so old-style prototypes remain compatible with glibc.
+      inreplace "src/conf-cc" do |s|
+        s.gsub!(/^(\S+)/, '\1 -std=gnu17 -Wno-error=incompatible-pointer-types -Wno-error=implicit-function-declaration')
+      end
+
       inreplace ["package/run", "src/svscanboot.sh"] do |s|
         s.gsub! "/service", "#{etc}/service"
         s.gsub! "/command", bin.to_s

@@ -4,11 +4,6 @@ class Fastme < Formula
   url "https://gite.lirmm.fr/atgc/FastME/raw/v2.1.6.3/tarball/fastme-2.1.6.3.tar.gz"
   sha256 "09a23ea94e23c0821ab75f426b410ec701dac47da841943587443a25b2b85030"
   license "GPL-3.0-or-later"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "efbc7fc2d1dfbc762d381288e8e36fe01a803516cbdf6ffd67e961b077d05383"
-  end
-
   revision 1
 
   livecheck do
@@ -16,6 +11,11 @@ class Fastme < Formula
     regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "658927a4ccdb4b28c1ca1eb5c6af590fe2d6920c94028609c02dd4d464e4ae52"
+  end
 
   on_macos do
     depends_on "libomp"
@@ -26,7 +26,7 @@ class Fastme < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
