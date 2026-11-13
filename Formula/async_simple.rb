@@ -9,7 +9,7 @@ class AsyncSimple < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "9ead82478a4f421652e8543711114fe418d3c449859c875016de3c513d5dd7cc"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "41105f25257da8b34dd4f28435900435a5abf7ffa28b2604416473fb532c7b3b"
   end
 
   depends_on "cmake" => :build
