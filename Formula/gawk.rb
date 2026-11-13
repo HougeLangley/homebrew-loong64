@@ -5,12 +5,12 @@ class Gawk < Formula
   mirror "https://ftp.gnu.org/gnu/gawk/gawk-5.4.1.tar.xz"
   sha256 "07f6f7342b7febe4313fc2c2542ad93d64fe20ad8717200109f105a826f5fd37"
   license "GPL-3.0-or-later"
+  compatibility_version 1
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "f3ec71c737a8a7b562b9ad400bbab690543b9930af71e6372925ce8d9cd62a9f"
+    sha256 cellar: :any, loongarch64_linux: "28af264961eb7dca9ec2102193c287cb1e333aeb07fc235a0a1d3c6d4c6a6b8a"
   end
 
-  compatibility_version 1
   head "https://git.savannah.gnu.org/git/gawk.git", branch: "master"
 
 
@@ -29,7 +29,7 @@ class Gawk < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

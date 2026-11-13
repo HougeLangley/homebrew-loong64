@@ -11,9 +11,8 @@ class Ballerburg < Formula
 
 
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "eaad5e94deb521c6edb180f43772806465ea725bea82540850d080abb9a7955f"
+    sha256 cellar: :any, loongarch64_linux: "5d979100d355f010b09675322210eed137a56b65a396d1c706e8aa46c7beba4d"
   end
 
   head do
