@@ -5,11 +5,11 @@ class Fribidi < Formula
   sha256 "6949dcde27d41cebad1fd741fcafc36d55a1020d2d872d4a6eb3914caabbada2"
   license all_of: ["GPL-2.0-or-later", "LGPL-2.1-or-later"]
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "cff84680ed78c71b248c66beee20c243da5d77d2246054813cd0f6cb28a2eb17"
+    sha256 cellar: :any, loongarch64_linux: "8f5632bfdf7fce3481e4c1d49428562082b7c413a60e4c8877c2ba4bbb8360c7"
   end
-
 
   depends_on "help2man" => :build
   depends_on "pkgconf" => :build
@@ -19,7 +19,7 @@ class Fribidi < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

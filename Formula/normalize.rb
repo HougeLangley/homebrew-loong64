@@ -10,21 +10,10 @@ class Normalize < Formula
     regex(/href=.*?normalize[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
+
   bottle do
-    rebuild 1
-    sha256 cellar: :any, arm64_golden_gate: "88f17f9d389a5f00ee68eff5510c19ec300ee9a49fa3998d234227b4d93a50cc"
-    sha256 cellar: :any, arm64_tahoe:       "f0163055e113a859911c0c03c9fda88323d0895ba8b37c6347456dd174f5ce7b"
-    sha256 cellar: :any, arm64_sequoia:     "53b16243f5e01a1b903a687774320986f9a27f92efd6af821aef4e3d7f354467"
-    sha256 cellar: :any, arm64_sonoma:      "d85f441176672bd7b8a65f4b7e3469e742a32e044e38a8cfde3d4277579c6878"
-    sha256 cellar: :any, arm64_ventura:     "f579a1e316959c958663d8cff690f2ad7d06da059e0234478ef19d4f67561b14"
-    sha256 cellar: :any, arm64_monterey:    "bd34a009747e235d7049f560d836ca8be0a722807b8f2b936e24c6d4618890af"
-    sha256 cellar: :any, arm64_big_sur:     "31e0c2d4f6dd0aaae6830e87242bfc8c71077b04c94a41b4079d36e45eedc4ab"
-    sha256 cellar: :any, sonoma:            "8c89f97455db64e450b7360d56b0c634f91d10b01a0234ba6e008eebd47baa4d"
-    sha256 cellar: :any, ventura:           "cade314811b32193662502121c6004253e965fade1dce8d30c488c86872e1a9a"
-    sha256 cellar: :any, monterey:          "4b27d07f9a6b9455c555682b9c43443bee7f70fb40d44a2f50dba54100164e18"
-    sha256 cellar: :any, big_sur:           "a35a01c8d74067d94fda21d31a0ab65128842e6dc1ed0629ed6cadf99f13a9b5"
-    sha256               arm64_linux:       "a035755b426126bd056c7287f416cc068b3d399a100e56f8192178a6530048dc"
-    sha256               x86_64_linux:      "ac6f58e169897ddfc61943009dd38044958a8fc56a025e91632d2302de3063df"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "95cdfedec0d1ef3b616400e6bb5a3044110881227fbfec31161a858b9c40fed5"
   end
 
   depends_on "mad"
@@ -44,7 +33,7 @@ class Normalize < Formula
     %w[conf-cc conf-cxx].each do |cf|
       next unless File.exist?(cf)
       _c = File.read(cf).strip
-      File.write(cf, _c + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types\n") unless _c.include?("gnu17")
+      File.write(cf, _c + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types -U_GNU_SOURCE\n") unless _c.include?("gnu17")
     end
     # cc 命令改写（Makefile 里写死 cc 而非 $(CC) 时）
     Dir["Makefile", "**/Makefile", "**/GNUmakefile", "**/Makefile.*"].each do |mkf|
@@ -54,9 +43,9 @@ class Normalize < Formula
       File.write(mkf, _m)
     end
     # CMake 标志追加
-    _cmflags = ["-DCMAKE_C_FLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "-DCMAKE_CXX_FLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"].freeze
+    _cmflags = ["-DCMAKE_C_FLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types -U_GNU_SOURCE", "-DCMAKE_CXX_FLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types -U_GNU_SOURCE"].freeze
     # ENV.cc 追加
-    _extra = "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types".split
+    _extra = "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types -U_GNU_SOURCE".split
     Dir["Makefile", "GNUmakefile", "makefile", "src/Makefile"].each do |mkf|
       next unless File.exist?(mkf)
       _m = File.read(mkf)
@@ -67,7 +56,7 @@ class Normalize < Formula
     Dir["Makefile", "GNUmakefile", "makefile", "**/Makefile", "**/GNUmakefile", "**/makefile", "**/Makefile.*"].each do |mkf|
       next unless File.exist?(mkf)
       _m = File.read(mkf)
-      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types " }
+      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types -U_GNU_SOURCE " }
       File.write(mkf, _m)
     end
     # 老包自带的 config.sub/config.guess 不认 loongarch64，用系统版本替换
@@ -80,16 +69,16 @@ class Normalize < Formula
     # CFLAGS 里面追加（configure 硬编码时 ENV 追加不生效）
     if File.exist?("configure")
       _cfg = File.read("configure")
-      _cfg = _cfg.gsub(/^CFLAGS="([^"\\]*)"/) { 'CFLAGS="' + $1 + ' -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"' }
+      _cfg = _cfg.gsub(/^CFLAGS="([^"\\]*)"/) { 'CFLAGS="' + $1 + ' -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types -U_GNU_SOURCE"' }
       File.write("configure", _cfg)
     end
-    ENV.append_to_cflags "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"
+    ENV.append_to_cflags "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types -U_GNU_SOURCE"
     args = []
     # Help old config scripts identify arm64 linux
     args << "--build=aarch64-unknown-linux-gnu" if OS.linux? && Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
 
     system "./configure", "--build=loongarch64-unknown-linux-gnu", "--mandir=#{man}", *args, *std_configure_args
-    system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
+    system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types -U_GNU_SOURCE", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types -U_GNU_SOURCE",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
   end
 
   test do

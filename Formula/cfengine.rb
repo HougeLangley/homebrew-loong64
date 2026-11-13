@@ -4,11 +4,6 @@ class Cfengine < Formula
   url "https://cfengine-package-repos.s3.amazonaws.com/tarballs/cfengine-community-3.28.0.tar.gz"
   sha256 "03722ab589c00b4e823ee22eb0afef5611b82e4f764fccc37ad3b18a3732c49e"
   license all_of: ["BSD-3-Clause", "GPL-2.0-or-later", "GPL-3.0-only", "LGPL-2.0-or-later"]
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "58bd8542005d93c279fb6516747e95008be4db9652778678d8c763684256c385"
-  end
-
   revision 1
 
   livecheck do
@@ -22,6 +17,13 @@ class Cfengine < Formula
     end
   end
 
+  bottle do
+    sha256 arm64_golden_gate: "aabd414cf300c8f8c0bb77c2284f838dcb08157159cf305c493c039de0143b25"
+    sha256 arm64_tahoe:       "5ca7354bb409f4a4368201c7238c3d57240484a2c52c338e4d0ebb9bd9737748"
+    sha256 arm64_sequoia:     "f10f8f15a6557e3c4dfad57819b2ef710b0d4c06c2079f423172c0a614f8eef6"
+    sha256 arm64_linux:       "af13e68cbae6695514beb559976b4698f19941f2466486ec6c850468f341478d"
+    sha256 x86_64_linux:      "761bf6e3cee2da013a822e892fe5793951828cab86506d7e8e2d9b6b253d65cd"
+  end
 
   depends_on "librsync"
   depends_on "lmdb"
@@ -49,7 +51,7 @@ class Cfengine < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
