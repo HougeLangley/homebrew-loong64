@@ -11,7 +11,7 @@ class Darkstat < Formula
   ]
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "2396cda29985ed216a9eca783dcc8688e863e81e3e581b31195fbc13a1a329d8"
+    sha256 cellar: :any, loongarch64_linux: "db06db135add530d2d2c0b556dd019bea32360cb7c11db0f10e8412e01f62beb"
   end
 
   head "https://github.com/emikulic/darkstat.git", branch: "master"
@@ -37,7 +37,7 @@ class Darkstat < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

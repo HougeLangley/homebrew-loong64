@@ -6,11 +6,6 @@ class Dhcping < Formula
   sha256 "32ef86959b0bdce4b33d4b2b216eee7148f7de7037ced81b2116210bc7d3646a"
   license "BSD-2-Clause"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "af15020d255c54930fa22db36f0a845e6bf9cf77f4afdf28b8e44d360b430e8f"
-  end
-
   livecheck do
     url :homepage
     regex(/href=.*?dhcping[._-]v?(\d+(?:\.\d+)+)\.t/i)
@@ -19,10 +14,15 @@ class Dhcping < Formula
 
   allow_network_access! :test
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "99339b8f0bed4eee7e1e9c56b862c624bf484956abd81b6ba7833663f93696e3"
+  end
+
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

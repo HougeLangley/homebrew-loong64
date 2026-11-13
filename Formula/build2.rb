@@ -11,13 +11,14 @@ class Build2 < Formula
   end
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "6c11b8c443f98104381bf09a37712d73dcbfe26263fc6d83cb54af9dc8ad98a8"
+  end
+
   uses_from_macos "curl"
   uses_from_macos "openssl"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "dd5b1ab5f1e4ac9ffe59c5510b93b0127a62c3f5ba680d7546c1fcf331fbd169"
-  end
 
   def install
     # Suppress loading of default options files.

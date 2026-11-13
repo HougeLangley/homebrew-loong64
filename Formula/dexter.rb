@@ -7,10 +7,10 @@ class Dexter < Formula
   revision 1
 
 
+
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "2de1514fe217890e370fa103345d86a2979ae60bad70f0e672b28ef729023db3"
+    sha256 cellar: :any, loongarch64_linux: "b9c80a4ebda6942e8205cf47ca56e3c2d309e2add9e20415c35d4ab2f54db633"
   end
 
   depends_on "postgresql@18" => :test
