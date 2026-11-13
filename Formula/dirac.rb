@@ -6,13 +6,13 @@ class Dirac < Formula
   sha256 "816b16f18d235ff8ccd40d95fc5b4fad61ae47583e86607932929d70bf1f00fd"
   license any_of: ["MPL-1.1", "GPL-2.0-only", "LGPL-2.1-only"]
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "bbc1375462cf33a78d88d536e719412f17036feba15ed79998d7b831a7293373"
-  end
-
 
   # First two patches: the only two commits in the upstream repo not in 1.0.2
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "c8b07e18a30a3c9bcf612e74d5d676af16676bdea9ba3fe9eb75b1351a84816b"
+  end
 
   patch do
     url "https://gist.githubusercontent.com/mistydemeo/da8a53abcf057c58b498/raw/bde69c5f07d871542dcb24792110e29e6418d2a3/unititialized-memory.patch"
@@ -38,7 +38,7 @@ class Dirac < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
