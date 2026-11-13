@@ -43,7 +43,7 @@ class Iftop < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
@@ -81,7 +81,7 @@ class Iftop < Formula
     end
     # 老包自带的 config.sub/config.guess 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

@@ -1,9 +1,9 @@
 class Uudeview < Formula
   desc "Smart multi-file multi-part decoder"
   homepage "http://www.fpx.de/fp/Software/UUDeview/"
-  url "https://cdn.netbsd.org/pub/pkgsrc/distfiles/uudeview-0.5.20.tar.gz"
+  url "https://deb.debian.org/debian/pool/main/u/uudeview/uudeview_0.5.20.orig.tar.gz"
   mirror "http://www.fpx.de/fp/Software/UUDeview/download/uudeview-0.5.20.tar.gz"
-  sha256 "e49a510ddf272022af204e96605bd454bb53da0b3fe0be437115768710dae435"
+  sha256 "a2a44fa543976775429bc65620bcca3c9b795dbfaec8183607a45f132270a414"
   license "GPL-2.0-or-later"
   revision 1
 
@@ -12,24 +12,13 @@ class Uudeview < Formula
     regex(/href=.*?uudeview[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "9f49cfa16e5dbeb77690d87691a78d092b9107efd0b405b0c7834a0b27026823"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "4a0021e8cbb12c07b7c46049e72d217530ed08c2474d57f145044ab7d24674d8"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "519dcd3ca61e2c1eac14d1e1b15dc2b87492421fa77bfc396163b6882df7c298"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:      "a58cd61413eb8e656d8395b63d1542e9f256d669d227b23d7cf0f70181a420c3"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:     "28d8a4e08275d26926e19c32a6ca833ed3a1c3969ea5126c4def92e72442e66d"
-    sha256 cellar: :any_skip_relocation, arm64_monterey:    "8c72240dbc205cb79229af479b8dc1774b4eb11d0ffad47391102e033be4bb07"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:     "93a098dc40d16b9785888c20c8d1707a62fe471938c99ea8074df042548cfed7"
-    sha256 cellar: :any_skip_relocation, sonoma:            "cfbdefb80f1571aa3c8df28efe90f9a526ef1c936a51a2c0ea913e6da8447927"
-    sha256 cellar: :any_skip_relocation, ventura:           "b82ecb8116e22c3c53af765f8da79f52aed9668182ff8b16d5a0523e739e51e7"
-    sha256 cellar: :any_skip_relocation, monterey:          "0b5de5467dd832158645bca2006500fadaefc2e187819e883e9ff1a85bb60e64"
-    sha256 cellar: :any_skip_relocation, big_sur:           "94426299f928e2c7985194d2a3f436112b2ca580945eacc82ad5047c619c2417"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "59e22160ac8e39b4efe0f3c935141e1c24656875c142a69df72992d302c16c79"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "5cdd9748ec5c1baf9934bade72dd8a3eea06b632d0f1c49e57b682663bbb8371"
-  end
 
   # fix implicit declaration, remove in release > 0.5.20
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "5e9c972d854de61de363e522b66d3a22377d94609fdc3785a06fa05e4ba92c6c"
+  end
+
   patch do
     url "https://github.com/hannob/uudeview/commit/a8f98cf10e2c1ab883c31ed1292f16bfdd43ef33.patch?full_index=1"
     sha256 "1154a62902355105fc61cc38033b9284d488ca29b971ad18744915990ffb31ec"
@@ -49,50 +38,13 @@ class Uudeview < Formula
   end
 
   def install
-    # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
-    %w[conf-cc conf-cxx].each do |cf|
-      next unless File.exist?(cf)
-      _c = File.read(cf).strip
-      File.write(cf, _c + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types\n") unless _c.include?("gnu17")
-    end
-    # cc 命令改写（Makefile 里写死 cc 而非 $(CC) 时）
-    Dir["Makefile", "**/Makefile", "**/GNUmakefile", "**/Makefile.*"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.gsub(/^(	| {0,4})(cc|gcc)([ 	])/) { "#{$1}$(CC)#{$3}" }
-      File.write(mkf, _m)
-    end
-    # CMake 标志追加
-    _cmflags = ["-DCMAKE_C_FLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "-DCMAKE_CXX_FLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"].freeze
-    # ENV.cc 追加
-    _extra = "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types".split
-    Dir["Makefile", "GNUmakefile", "makefile", "src/Makefile"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.gsub(/-std=(c|gnu)(89|99|11|17|2x)/, "")
-      File.write(mkf, _m)
-    end
-    # Makefile 里面追加（硬编码 CFLAGS 时 ENV 追加不生效）
-    Dir["Makefile", "GNUmakefile", "makefile", "**/Makefile", "**/GNUmakefile", "**/makefile", "**/Makefile.*"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types " }
-      File.write(mkf, _m)
-    end
-    # CFLAGS 里面追加（configure 硬编码时 ENV 追加不生效）
-    if File.exist?("configure")
-      _cfg = File.read("configure")
-      _cfg = _cfg.gsub(/^CFLAGS="([^"\\]*)"/) { 'CFLAGS="' + $1 + ' -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"' }
-      File.write("configure", _cfg)
-    end
-    ENV.append_to_cflags "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"
     # Fix for newer clang
     ENV.append_to_cflags "-Wno-implicit-int" if DevelopmentTools.clang_build_version >= 1403
-    ENV.append_to_cflags "-DSTDC_HEADERS"
+    ENV.append_to_cflags "-DSTDC_HEADERS -std=gnu17 -Wno-error=implicit-int -Wno-error=implicit-function-declaration"
     system "./configure", "--prefix=#{prefix}",
                           "--mandir=#{man}",
                           "--disable-tcl"
-    system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
+    system "make", "install"
     # uudeview provides the public library libuu, but no way to install it.
     # Since the package is unsupported, upstream changes are unlikely to occur.
     # Install the library and headers manually for now.
