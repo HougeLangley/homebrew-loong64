@@ -14,9 +14,10 @@ class DocbookXsl < Formula
   end
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "663381d6362c3b7d03bcb4fd7bc4e9737a27a14ee69c6cdb20366f6c0742fa95"
+    sha256 cellar: :any, loongarch64_linux: "6257c203d174112333aeab9a7bdf3a4229d778ff46eb35c52281d9e7a0654229"
   end
 
   depends_on "docbook"

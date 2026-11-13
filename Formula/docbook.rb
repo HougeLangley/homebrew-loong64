@@ -12,6 +12,11 @@ class Docbook < Formula
   end
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "e674c580dbc1871c1cd8dab2d6df135b5a6740ecdbb4218486a39c1953b475be"
+  end
+
   uses_from_macos "libxml2"
 
   resource "4.2" do
@@ -65,10 +70,6 @@ class Docbook < Formula
     sha256 "c2ae23cd2b45f472d8e47c1966f5886a43a23471b066ecca6bc3a107e63e8021"
   end
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "9f9e143294b92e2f63a3df67ab7fff3ab034cfeb5015601439fb74e82c14c786"
-  end
 
   def install
     resources.each do |version|
