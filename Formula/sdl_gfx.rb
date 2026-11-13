@@ -10,18 +10,10 @@ class SdlGfx < Formula
     regex(/href=.*?SDL_gfx[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
+
   bottle do
-    sha256 cellar: :any,                 arm64_golden_gate: "d7d8ea949976677845f4b71804e84af2919797f16c1323412ddce4a8e57bde5a"
-    sha256 cellar: :any,                 arm64_tahoe:       "381ea9b6f234c356584b80d741e6109ebf16d11ed6bafd418e47f90937ce5cd5"
-    sha256 cellar: :any,                 arm64_sequoia:     "975c8ba619e76b078e5cab50d4b8b0185e4b238f9dd06c7330c56d7a0a062f0f"
-    sha256 cellar: :any,                 arm64_sonoma:      "df95d076e726afc8058f9071a82279c82e27d8b997b2afefb59081a6d4ec7bb6"
-    sha256 cellar: :any,                 arm64_ventura:     "becf09fc1b01e3e6a7ebfd8b9410ffc02f81bff17bca272b2141a425f5a363ea"
-    sha256 cellar: :any,                 arm64_monterey:    "aff5d8b5fedee006203c3e615b94c5be69ed55b1c91c771d7c7bf238bce3670d"
-    sha256 cellar: :any,                 sonoma:            "a474c0441ce725279640921c2fe1f7fce7dbdba78798b83b5e6d1088f257a0b8"
-    sha256 cellar: :any,                 ventura:           "3a33a66abb0aab1556d4ad0aaea1dd87e51f5370a3c160cf571f960035139a89"
-    sha256 cellar: :any,                 monterey:          "248ed5e56d43d6d8a72bb814f5cab225df686331af62b471f048dd43116a43b4"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "1fbeee1c1d7079897509eca368e50b98e1069231605033f775fed43199a99da7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "e0d9c2a0a9a19755c096b6e3718be733b85336f11aee29d6d7ce6ee04305cf42"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "c37254b633efd53b00e223ea4b65158316221b44d12fabed04b2e27a30bd2433"
   end
 
   depends_on "sdl12-compat"
@@ -36,7 +28,7 @@ class SdlGfx < Formula
     end
 
     args = ["--disable-sdltest"]
-    args << "--disable-mmx" if Hardware::CPU.arm?
+    args << "--disable-mmx" if Hardware::CPU.arm? || Hardware::CPU.arch == :loongarch64
 
     system "./configure", "--build=loongarch64-unknown-linux-gnu", *args, *std_configure_args
     system "make", "install"
