@@ -6,6 +6,11 @@ class Zlib < Formula
   version "1.3.1"
 
   keg_only :provided_by_macos
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "e43899616099e694fef4f32b0034b19588f9079c177daa8724b20707007732bd"
+  end
+
   on_linux do
     keg_only "it conflicts with zlib-ng-compat"
   end

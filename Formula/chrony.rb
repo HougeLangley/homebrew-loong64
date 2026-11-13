@@ -11,9 +11,10 @@ class Chrony < Formula
   end
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "e7ca32bb19071dfb1f1231f78d011f6dc8c440d7c9ebdc0fb69a87d7b31156f7"
+    sha256 cellar: :any, loongarch64_linux: "f6a87740e5148e63a684b5a286ab3a5d6ddaa2fe52abb7985dba8a6559c8d9a9"
   end
 
   depends_on "pkgconf" => :build
