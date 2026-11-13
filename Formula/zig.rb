@@ -11,12 +11,10 @@ class Zig < Formula
     regex(/href=.*?zig[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
+
   bottle do
-    sha256 cellar: :any, arm64_golden_gate: "85eec248d94adbd3108aba05bde198fa993c618e7a60937a23b1482e44db1cf8"
-    sha256 cellar: :any, arm64_tahoe:       "d00f287f5366ec5e2ca231528024e008aa788b82b0422159566f4a5c7350688c"
-    sha256 cellar: :any, arm64_sequoia:     "f874a532c80d8ff6cd09e1a16054010174f616d45270342a7a3e3aad6919b583"
-    sha256 cellar: :any, arm64_linux:       "3ae196d35cc9598d605e3d7b56488a90422ce967d0ae810c73e4807b0ad41074"
-    sha256 cellar: :any, x86_64_linux:      "cad0b7425cda1a6a0803d97542e04f508f3eeace63345c4c378df325faeb889a"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "907947318ba4e8ab526bfa8f0e6a4e78888b69c13f4f460342d5c5cef1b6b58e"
   end
 
   depends_on "cmake" => :build

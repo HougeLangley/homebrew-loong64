@@ -4,6 +4,11 @@ class Fastga < Formula
   url "https://github.com/thegenemyers/FASTGA/archive/refs/tags/v1.5.1.tar.gz"
   sha256 "cedd760e3faf61b03a40db75fcd304b46d60a17d3a5e868e6422162a6a522b47"
   license all_of: ["BSD-3-Clause", "MIT"]
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "b350a3a3ced3ee164ac3ed000e293bb94f68bb80347d58ed44aa9865776d1836"
+  end
+
   head "https://github.com/thegenemyers/FASTGA.git", branch: "main"
 
 
@@ -11,10 +16,6 @@ class Fastga < Formula
     depends_on "zlib-ng-compat"
   end
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "065d0a03cded42f7173439d433bdd5b0ee891ff88bb18b909c459ee5352de842"
-  end
 
   def install
     bin.mkpath
