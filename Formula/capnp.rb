@@ -16,7 +16,7 @@ class Capnp < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "b3000d2ea0142c07d72bfaa41b5c992c546ecef2725a5c49e2967f42f76a7a80"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "fc7ea37d0a6ad29e60f6d293ee9960cabf04c5bf1a13f665c3948ad0d6ccb3dc"
   end
 
   depends_on "cmake" => :build
