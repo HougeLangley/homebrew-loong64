@@ -5,6 +5,11 @@ class Dcm2niix < Formula
   sha256 "be6478b15aaf1e0c396df242e272a6a695966dc916672f519844ad1682b59e59"
   license "BSD-3-Clause"
   version_scheme 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "f9e38fbe530f41f93406c579385058b6325387fcfe6be45472c232a226fc3cd2"
+  end
+
   head "https://github.com/rordenlab/dcm2niix.git", branch: "master"
 
   livecheck do
@@ -13,10 +18,6 @@ class Dcm2niix < Formula
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "54447191d9055631706329b3dcc122290762ac0ea83e1ba6550b146447626864"
-  end
 
   depends_on "cmake" => :build
 
