@@ -5,18 +5,32 @@ class Bvi < Formula
   sha256 "6540716a1a3b2b9711635108da14b26baea488881d4a682121c0bddbba6b74cb"
   license "GPL-3.0-or-later"
 
+  bottle do
+    sha256 arm64_golden_gate: "cbcf586264f91f58ec6220271251e41b4994a17204694fdcb0e5aae4b31d5977"
+    sha256 arm64_tahoe:       "e18948359f9988ce1cfc894be133b8c70540c611b93ef222001470fad650608a"
+    sha256 arm64_sequoia:     "9968f17b11435b15e8f5182ec678fc9006969d4932119006a3be55372c176d8a"
+    sha256 arm64_sonoma:      "aa61abd709f9c346f50aa2284e38f2fdecca90e600dcf9f34a76505d0d256d83"
+    sha256 arm64_ventura:     "dedbee4190affcaa87fde67b7027a64655245a4192eee436273029bbd1c1ce6b"
+    sha256 sonoma:            "a5ca83f528845edfd49363d7900d3a2961d3d4e36dc35f4eeb4c842b72f9d223"
+    sha256 ventura:           "13a2ff43c275882c8d8658690aab4a51d4b54cde10189c254f4862a6c38db90c"
+    sha256 arm64_linux:       "da9dc6e14ca302a2cfcdbd83727273520610eafcf8a3b199d3ea430734424bc3"
+    sha256 x86_64_linux:      "613c30ea6216543c1b1d27ed5c57e1cfb6bfabcc81a8d11c8e17a1f851b3bbe6"
+  end
 
   uses_from_macos "ncurses"
 
   deny_network_access!
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "03fe5179983e195f2996cac1d4add269197c73ebeca6bb6a67adfc8312c94ef1"
-  end
-
   def install
-    system "./configure", "--prefix=#{prefix}", "--mandir=#{man}"
+    # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
+    %w[config.sub config.guess].each do |cf|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
+        src = "/usr/share/libtool/build-aux/#{cf}"
+        cp src, dest if File.exist?(dest) && File.exist?(src)
+      end
+    end
+
+    system "./configure", "--build=loongarch64-unknown-linux-gnu", "--prefix=#{prefix}", "--mandir=#{man}"
     system "make", "install"
   end
 

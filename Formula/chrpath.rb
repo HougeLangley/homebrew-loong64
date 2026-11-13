@@ -9,10 +9,9 @@ class Chrpath < Formula
     skip "Not actively developed or maintained"
   end
 
-
   bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "3ed0018a9e5932baadc5250eec1139fb5b8bd8aa54077022dd5a5cfb9b3e6ec8"
+    sha256 cellar: :any_skip_relocation, arm64_linux:  "1bef0961b466971c9b4d4fc0ae4ddd059c17f465c8cac8c87e3ea03f3d04d357"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "a820a2841f592b3045eb6e0dc4bdbb6a86789402dea2d97367ec0a58f7d3706f"
   end
 
   depends_on "autoconf" => :build
@@ -22,8 +21,16 @@ class Chrpath < Formula
   deny_network_access!
 
   def install
+    # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
+    %w[config.sub config.guess].each do |cf|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
+        src = "/usr/share/libtool/build-aux/#{cf}"
+        cp src, dest if File.exist?(dest) && File.exist?(src)
+      end
+    end
+
     system "autoreconf", "--force", "--install", "--verbose"
-    system "./configure", *std_configure_args, "--disable-silent-rules"
+    system "./configure", "--build=loongarch64-unknown-linux-gnu", *std_configure_args, "--disable-silent-rules"
     system "make", "install"
   end
 
