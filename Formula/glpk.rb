@@ -29,16 +29,14 @@ class Glpk < Formula
     file "Patches/libtool/configure-pre-0.4.2.418-big_sur.diff"
   end
 
-  def install
-    # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
-    %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
-        src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
-      end
-    end
+  # AOSC OS / Debian: use standard C bool with GCC 15 and later.
+  patch do
+    url "https://raw.githubusercontent.com/AOSC-Dev/aosc-os-abbs/1455c7aba657718f19fa5c3488923606b67a03ad/app-devel/glpk/autobuild/patches/0003-DEBIAN-Fix-FTBFS-against-GCC-15-which-defaults-to-C2.patch"
+    sha256 "d46bf1ecaaddfbb88211a595691d5efb1e64b60c3016c82fc2573350eae40ba7"
+  end
 
-    system "./configure", "--build=loongarch64-unknown-linux-gnu", "--prefix=#{prefix}",
+  def install
+    system "./configure", "--prefix=#{prefix}",
                           "--disable-dependency-tracking",
                           "--with-gmp"
     system "make", "install"
