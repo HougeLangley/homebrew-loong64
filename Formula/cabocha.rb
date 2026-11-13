@@ -13,6 +13,10 @@ class Cabocha < Formula
   end
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "d53f819c0772f0b804dca29d130c618af32b0a2ce264b803264f902f44c942a8"
+  end
 
   depends_on "crf++"
   depends_on "mecab"
@@ -21,14 +25,6 @@ class Cabocha < Formula
   deny_network_access!
 
   def install
-    # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
-    %w[config.sub config.guess].each do |cf|
-      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
-        src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
-      end
-    end
-
     ENV["LIBS"] = "-liconv" if OS.mac?
 
     args = %w[
@@ -37,7 +33,6 @@ class Cabocha < Formula
     ]
     # Help old config scripts identify arm64 linux
     args << "--build=aarch64-unknown-linux-gnu" if OS.linux? && Hardware::CPU.arm64?
-    args << "--build=loongarch64-unknown-linux-gnu" if OS.linux? && Hardware::CPU.arch == :loongarch64
 
     system "./configure", *args, *std_configure_args
     system "make", "install"

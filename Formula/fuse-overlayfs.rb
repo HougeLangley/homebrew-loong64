@@ -14,7 +14,10 @@ class FuseOverlayfs < Formula
   end
 
 
-
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "08be1328c2d2b87a66fbb4a799bf3540228e58b71a3d5720ab4e3811a679e880"
+  end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build

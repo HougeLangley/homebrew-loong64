@@ -5,16 +5,21 @@ class Freexl < Formula
   sha256 "176705f1de58ab7c1eebbf5c6de46ab76fcd8b856508dbd28f5648f7c6e1a7f0"
   license any_of: ["MPL-1.1", "GPL-2.0-or-later", "LGPL-2.1-or-later"]
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "4542b637db807a3d271b8621702f50e8fcfe9eb25b8e2da0957504aa0c71ffc7"
-  end
-
   livecheck do
     url :homepage
     regex(%r{current version is <b>v?(\d+(?:\.\d+)+)</b>}i)
   end
 
+  bottle do
+    rebuild 1
+    sha256 cellar: :any, arm64_golden_gate: "1a5cd8e6505e6c5f99116b3de3319a94ec1f8372b29bdc5fc7bf3d403966f1ea"
+    sha256 cellar: :any, arm64_tahoe:       "a3eeadb863696639ca30ce87c4f27b4afda4389b705423244abfd83f3479a5e0"
+    sha256 cellar: :any, arm64_sequoia:     "9fdcbb2c4a1ea545ed78a6587928e08f4805046aa01ffe56101c6efe2957be9f"
+    sha256 cellar: :any, arm64_sonoma:      "aed9e170181526ad9b827249bbcc5a862faa81d8851dcd680127e5734b27390b"
+    sha256 cellar: :any, sonoma:            "626d351bf6af78205d0dff5219d9c5f1a7c26e75b35a7f1065c348ab21478f1d"
+    sha256 cellar: :any, arm64_linux:       "5e09ca900e02e38d7402c3575de5dc70efaf841e6bee050ff1f4050301a2a971"
+    sha256 cellar: :any, x86_64_linux:      "1d0329fc0248619e9702b70d4d64ea78597aa90b471da082388560447a957778"
+  end
 
   depends_on "minizip"
 
@@ -23,7 +28,7 @@ class Freexl < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
