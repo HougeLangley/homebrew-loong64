@@ -6,12 +6,10 @@ class Freeipmi < Formula
   sha256 "9cc644530ee629ffb94d6fd209e7cb4a8b8ae6677f89d2dc461efed9b2e709f2"
   license "GPL-3.0-or-later"
 
+
   bottle do
-    sha256 arm64_golden_gate: "347bfaa6be50d30ca86a51aaf3b1dd7b5d7e467b8526ca9640b99b8a9a99ecc4"
-    sha256 arm64_tahoe:       "df9e2b1b93b118953d354f84b58b6bb4b6171cdab1dc17e9639f2241479e3e7a"
-    sha256 arm64_sequoia:     "35ffe138e00f0c9898de00644d3a69308ee163a7e479c45d703e83e7240b9772"
-    sha256 arm64_linux:       "0493c24b85ab162f0438af4f24d4e1c970d894e134c96380114c417e633a128d"
-    sha256 x86_64_linux:      "4a7e7ac968c87020c61ec7e22de57d99a692e617a11a0b135d201e30e0b13bbb"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "e0ef68502622f9330cdef29e4c501e776f07ee9e9b4d600eafd91d28454b494f"
   end
 
   depends_on "texinfo" => :build

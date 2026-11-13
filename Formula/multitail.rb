@@ -4,6 +4,11 @@ class Multitail < Formula
   url "https://github.com/folkertvanheusden/multitail/archive/refs/tags/7.1.6.tar.gz"
   sha256 "bf614c53c212238bccc86bb7ab220b6b11f3997c1900a5767df4b1a79885f421"
   license "MIT"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "1191bcf0bc8d7d1d532cab17c2e4c61c7249060158bc9a0f424d8497f789788e"
+  end
+
   head "https://github.com/folkertvanheusden/multitail.git", branch: "master"
 
   livecheck do
@@ -11,16 +16,8 @@ class Multitail < Formula
     regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
-  bottle do
-    sha256 cellar: :any, arm64_golden_gate: "ce59d4bf00fad4ad9a71415914f0edd5b5fc0dcfd370ee8645d7d3e73c6e765d"
-    sha256 cellar: :any, arm64_tahoe:       "a6200a07329926c2cb274a6a61b0c5ad0d48ebe0a3445446f686395b418f873d"
-    sha256 cellar: :any, arm64_sequoia:     "bf871104383dba8093641ad568dd50d709d980410121c329e29d6300ae1c79e7"
-    sha256 cellar: :any, arm64_linux:       "c4d71902a0877578e51291e4001cbebfd3d713a6b6da11c11a490ac21f1dbb91"
-    sha256 cellar: :any, x86_64_linux:      "f1a937078541de162cbefb2ef827bb4917c95c1444e8d35e702aebbf0b9f0a68"
-  end
 
   depends_on "pkgconf" => :build
-  depends_on "ncurses"
 
   deny_network_access!
 
@@ -31,11 +28,13 @@ class Multitail < Formula
     end
     if OS.linux?
       inreplace "makefile.macosx" do |s|
-        cflags = s.get_make_var("CFLAGS") + " -D_LARGEFILE64_SOURCE"
+        cflags = s.get_make_var("CFLAGS") + " -D_LARGEFILE64_SOURCE -D_GNU_SOURCE -Wno-error=implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion"
         s.change_make_var! "CFLAGS", cflags
       end
     end
-    system "make", "-f", "makefile.macosx", "multitail", "DESTDIR=#{HOMEBREW_PREFIX}"
+    system "make", "-f", "makefile.macosx", "multitail", "DESTDIR=#{HOMEBREW_PREFIX}",
+           "NCURSES_LIB=/usr/lib/libncurses.so",
+           "LDFLAGS=/usr/lib/libpanel.so -lm -Wl,-rpath,/usr/lib"
 
     bin.install "multitail"
     man1.install Utils::Gzip.compress("multitail.1")

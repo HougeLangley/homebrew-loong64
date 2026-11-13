@@ -12,12 +12,10 @@ class Freetype < Formula
     regex(/url=.*?freetype[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
+
   bottle do
-    sha256 cellar: :any, arm64_golden_gate: "e95cd1f10672199f21f824b4f8a848c3a4f733df2fcd6e3d88b08446131eeed3"
-    sha256 cellar: :any, arm64_tahoe:       "75125d33e1fa0ea106b138e0458aba3054abd86ad7fbadd86ee4ed81fc8a2174"
-    sha256 cellar: :any, arm64_sequoia:     "7e7a7bb07a484cf6fccb168587d697ed24b98cce52e6ac735debb22adb422237"
-    sha256 cellar: :any, arm64_linux:       "da5494c91d3d359701c6af3bb2c0c3525aa512d1f90fee0fd915c92497b5387d"
-    sha256 cellar: :any, x86_64_linux:      "0f637083d41afca2d7b9b8aae297fc08583897b4659b170f5495f96bdf696c11"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "98f3cb2310d2ed2715fa1296126244495200fd8aa623c7d29410e548e2f1e6aa"
   end
 
   depends_on "pkgconf" => :build
