@@ -5,11 +5,11 @@ class Ctail < Formula
   sha256 "864efb235a5d076167277c9f7812ad5678b477ff9a2e927549ffc19ed95fa911"
   license "Apache-2.0"
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "7258af71418acf3c20221b5ad34b8fdba876c8c6590a62a989d92e5016475c0d"
+    sha256 cellar: :any, loongarch64_linux: "6c72085ea5f2cfec0f7e34369d6a3997ddbfa85379787fcca46a41336ddebd24"
   end
-
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
@@ -24,7 +24,7 @@ class Ctail < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

@@ -6,7 +6,7 @@ class Cuetools < Formula
   license "GPL-2.0-only"
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "a3638562b2de122c40ac1a933ac3de4802fe379914a539dcbb342d00ebf0af5b"
+    sha256 cellar: :any, loongarch64_linux: "d94a9138f3c554da78e9362f1b771aa1af3927de3b3c0db803a13ff38bdf62e3"
   end
 
   head "https://github.com/svend/cuetools.git", branch: "master"
@@ -27,7 +27,7 @@ class Cuetools < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

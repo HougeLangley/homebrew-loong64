@@ -5,63 +5,18 @@ class Lm4tools < Formula
   sha256 "e8064ace3c424b429b7e0b50e58b467d8ed92962b6a6dfa7f6a39942416b1627"
   license all_of: ["GPL-2.0-or-later", "BSD-3-Clause"]
 
+
   bottle do
-    sha256 cellar: :any,                 arm64_golden_gate: "306770a4e140eb8e9c294ebc18bc8d5512630191039a8ff0d69e166d540ddcd3"
-    sha256 cellar: :any,                 arm64_tahoe:       "eec32b7ca9a5f8f13607ac456703f4baaadcc32be01bc410c65c5a6295a5bc0d"
-    sha256 cellar: :any,                 arm64_sequoia:     "4a41adde94def1ccf78e3ef033a1e121ab98ec9960db57ba2244a5ba0136d7df"
-    sha256 cellar: :any,                 arm64_sonoma:      "13fcc858d9be77a53c1d7a541d3c314c1b98e03b48c2391850912f6dba3d6c85"
-    sha256 cellar: :any,                 arm64_ventura:     "fe9a6bc3e16b5d44eb6eb84c108c47b2b6a766b0160326627596c339697ac862"
-    sha256 cellar: :any,                 arm64_monterey:    "ebc1bb78c1f8f5db4ecefbebed152042612d512d92e3339836410bfcbe3888a4"
-    sha256 cellar: :any,                 arm64_big_sur:     "62a47721a948ccb49f1429fd8649daf1e894e90dacbd45566564b8cbac749a9c"
-    sha256 cellar: :any,                 sonoma:            "e0ba1978e09cb4307a5caf782622db027b1e2af93f929c3b9a73b0ed8d3fed32"
-    sha256 cellar: :any,                 ventura:           "7c481d7dfe7be9b57aae020c7a46fafd5de306cfd687b02ec4857e4db9d694cc"
-    sha256 cellar: :any,                 monterey:          "1bef37edda64611296ac2ba9df91d92d082dd2da0cac5673ef8735d0704330a8"
-    sha256 cellar: :any,                 big_sur:           "2fca09b10fef4d8304ba4acdce164bbfc5f4fa9b8dd1eb6fcb60b8a58c7ac8d3"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "8ecfca1688d68be5eebd7cde61d6e6fcd55a2e614e70a5c3a2a0943dc1591da9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "5afa96bcdab63596529b9202a6c985a4a1cd634235b2a3ab099805046384e405"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "746801330f988cbd0e1c5708aae7f91a4b6e205a54b5448c2d5fb069dd706e46"
   end
 
   depends_on "pkgconf" => :build
   depends_on "libusb"
 
   def install
-    # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
-    %w[conf-cc conf-cxx].each do |cf|
-      next unless File.exist?(cf)
-      _c = File.read(cf).strip
-      File.write(cf, _c + " -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration\n") unless _c.include?("gnu17")
-    end
-    # cc 命令改写（Makefile 里写死 cc 而非 $(CC) 时）
-    Dir["Makefile", "**/Makefile", "**/GNUmakefile", "**/Makefile.*"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.gsub(/^(	| {0,4})(cc|gcc)([ 	])/) { "#{$1}$(CC)#{$3}" }
-      File.write(mkf, _m)
-    end
-    # CMake 标志追加
-    _cmflags = ["-DCMAKE_C_FLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration", "-DCMAKE_CXX_FLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"].freeze
-    # ENV.cc 追加
-    _extra = "-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration".split
-    Dir["Makefile", "GNUmakefile", "makefile", "src/Makefile"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.gsub(/-std=(c|gnu)(89|99|11|17|2x)/, "")
-      File.write(mkf, _m)
-    end
-    # Makefile 里面追加（硬编码 CFLAGS 时 ENV 追加不生效）
-    Dir["Makefile", "GNUmakefile", "makefile", "**/Makefile", "**/GNUmakefile", "**/makefile", "**/Makefile.*"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration " }
-      File.write(mkf, _m)
-    end
-    # CFLAGS 里面追加（configure 硬编码时 ENV 追加不生效）
-    if File.exist?("configure")
-      _cfg = File.read("configure")
-      _cfg = _cfg.gsub(/^CFLAGS="([^"\\]*)"/) { 'CFLAGS="' + $1 + ' -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"' }
-      File.write("configure", _cfg)
-    end
-    ENV.append_to_cflags "-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration"
+    # Historical K&R-style empty parameter lists are not C23 prototypes.
+    ENV.append_to_cflags "-std=gnu17 -Wno-error=implicit-int -Wno-error=implicit-function-declaration"
     # Fix for https://github.com/utzig/lm4tools/issues/32
     libusb = Formula["libusb"]
     inreplace "lmicdiusb/Makefile",
@@ -73,7 +28,7 @@ class Lm4tools < Formula
     inreplace "lmicdiusb/Makefile",
               "lmicdi: lmicdi.o socket.o gdb.o $(LIBUSB_LIBS)",
               "lmicdi: lmicdi.o socket.o gdb.o #{libusb.opt_lib}/#{shared_library("libusb-1.0")}"
-    system "make", "CFLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration", "CXXFLAGS=-Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install", "PREFIX=#{prefix}"
+    system "make", "install", "PREFIX=#{prefix}"
   end
 
   test do
