@@ -4,11 +4,6 @@ class Dwarfutils < Formula
   url "https://www.prevanders.net/libdwarf-2.3.3.tar.xz"
   sha256 "bde13d1c49be6f2467326a6e0b3919247471455d16eefc3c6be26c7d4baca36a"
   license all_of: ["BSD-2-Clause", "LGPL-2.1-or-later", "GPL-2.0-or-later"]
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "9ab9cc3a575e5e56df6dba07910f2365536ca93397859bbdf184dbb63f2882c2"
-  end
-
   version_scheme 1
   compatibility_version 1
 
@@ -17,6 +12,11 @@ class Dwarfutils < Formula
     regex(%r{href=(?:["']?|.*?/)libdwarf[._-]v?(\d+(?:\.\d+)+)\.t}i)
   end
 
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "9de91b6013536d8b9725ee40d3e81fbae77f7b81e63caa643017fc3ed3295e7d"
+  end
 
   head do
     url "https://github.com/davea42/libdwarf-code.git", branch: "main"
@@ -37,7 +37,7 @@ class Dwarfutils < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
