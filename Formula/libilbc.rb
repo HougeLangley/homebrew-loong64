@@ -5,25 +5,21 @@ class Libilbc < Formula
   sha256 "6820081a5fc58f86c119890f62cac53f957adb40d580761947a0871cea5e728f"
   license "BSD-3-Clause"
 
+
   bottle do
-    sha256 cellar: :any,                 arm64_golden_gate: "11cf81ab1c29d1e420f195de798cfe4847ca18a7d999ce7e7ab10a21d586ef78"
-    sha256 cellar: :any,                 arm64_tahoe:       "b55c9c6554101b871be2016309c318fdc796dfa89addd0df918179fd048e80a0"
-    sha256 cellar: :any,                 arm64_sequoia:     "3e5872934eb657baeb5b1a02dd4f1d41fccb539aa8470718644305bb5ab3cd28"
-    sha256 cellar: :any,                 arm64_sonoma:      "4909ecace33503559f651e6bd82cc0cc4e3d1248572f42796ceaa07c85ccb47b"
-    sha256 cellar: :any,                 arm64_ventura:     "36774c3a7db279a6932326411a82cd1ffe92e66ee0fead069d985e0e17231309"
-    sha256 cellar: :any,                 arm64_monterey:    "62792538776c6c61167769ce53ed0998c849b89ca9cc5ade0261be739bd8bf60"
-    sha256 cellar: :any,                 arm64_big_sur:     "7b07dbf92042eb0f0692aec0381561eaa0a9c649347fd321ebf74cd22994813d"
-    sha256 cellar: :any,                 sonoma:            "d5d2dc90d135c52f15befb996483d7c2705c77205d7aa57b2286ff96678f3f7a"
-    sha256 cellar: :any,                 ventura:           "d6cb8d5175be0fbd28cfd5a123685b17fdc5da1aca7720b15bc6d0e9bc28ae47"
-    sha256 cellar: :any,                 monterey:          "a60c72751ea180c155b7994fd71ef068118b74665a3199e61a0b4adda27c64ad"
-    sha256 cellar: :any,                 big_sur:           "affe65f4320a2940b69ec54687be6c5387e51d79f3fd418a5dc42924c99eeee0"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "5848c1f801acd864b6e44672dff531f3cd357e93a64ee64ff8bc3bda3ef6e2a7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "11914a90369fc2c32d1373c3c8d5a98275c44de6e70301c23067b67310d6bba0"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "27dfc26401fdeafbe2dc285e506283cb4bb0461f86a5e13660a80e8778318aa8"
   end
 
   depends_on "cmake" => :build
 
   deny_network_access!
+
+  # AOSC OS: recognize LoongArch64 as 64-bit little-endian in bundled WebRTC.
+  patch do
+    url "https://raw.githubusercontent.com/AOSC-Dev/aosc-os-abbs/1455c7aba657718f19fa5c3488923606b67a03ad/runtime-multimedia/libilbc/autobuild/patches/0001-la64-defines.patch"
+    sha256 "dbb2a0f8cb0992d8cd8f2d11e22dc9a669fb47be9736ee33eaf4ec4a02ba6acb"
+  end
 
   def install
     # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
