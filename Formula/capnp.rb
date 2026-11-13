@@ -7,6 +7,11 @@ class Capnp < Formula
   revision 1
   compatibility_version 3
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "922922d67d022d72b6465705afd8e631e9481b8711b789e40bd2b8b179ff79e5"
+  end
+
   head "https://github.com/capnproto/capnproto.git", branch: "v2"
 
   livecheck do
@@ -67,7 +72,9 @@ class Capnp < Formula
         email @2 :Text;
       }
     EOS
-    system bin/"capnp", "compile", "-oc++", testpath/"person.capnp"
+    # AOSC also ships capnpc-c++; do not accidentally generate with that
+    # different version through PATH when testing this keg.
+    system bin/"capnp", "compile", "-o#{bin}/capnpc-c++", testpath/"person.capnp"
 
     (testpath/"test.cpp").write <<~CPP
       #include "person.capnp.h"
