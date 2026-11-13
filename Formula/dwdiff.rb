@@ -11,13 +11,10 @@ class Dwdiff < Formula
     regex(/href=.*?dwdiff[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
+
   bottle do
-    rebuild 1
-    sha256 arm64_golden_gate: "a0d24f9d39d3fcc02d92974d7ce0a3311e8e8065faedfc50cdd06b4966f6b8f1"
-    sha256 arm64_tahoe:       "ed410b5ab3fb27bc8dc7751270ad50d5128fb84471400c3c61e7226f10f1e69e"
-    sha256 arm64_sequoia:     "e757347e5a6d1b1ce170d46415a23c96b919a16b054c2b0d7247314f249187b2"
-    sha256 arm64_linux:       "c75c475a47e16bb292ba1de66eb13717a7f457404a84ddaf4eb7f2f07f98a30e"
-    sha256 x86_64_linux:      "1e22e1d0698ff7f973ef12dfddc135e71ad1d9c6214b2c1af593ad8f2c690932"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "0572d8210e7b11fd36774947657051534cc40cf32d35e993ebdcde0009c55940"
   end
 
   depends_on "gettext" => :build
@@ -33,7 +30,7 @@ class Dwdiff < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
