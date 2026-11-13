@@ -6,6 +6,11 @@ class Doxygen < Formula
   sha256 "a1deed70a6785bbec95a2b2a9e419dc7f7b223a9d74a8644ae611c8e2dcdd354"
   license "GPL-2.0-only"
   compatibility_version 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "5ce82162e46ff5242c5432b9825811216defb61061ebafb1ddbee282ccc46cbe"
+  end
+
   head "https://github.com/doxygen/doxygen.git", branch: "master"
 
   livecheck do
@@ -14,11 +19,6 @@ class Doxygen < Formula
   end
 
 
-  bottle do
-    rebuild 1
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "db1e36ed7bf72e7019c74645cfdb841cb469e5a9f0a25696dd9f1fea40ddd892"
-  end
 
   depends_on "bison" => :build
   depends_on "cmake" => :build
