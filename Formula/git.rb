@@ -12,6 +12,11 @@ class Git < Formula
   ]
   revision 1
   compatibility_version 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "ccff1648e217ea6bd0eafcf59bf4c39dc1658231d849f49adb0c051bbb74cbf7"
+  end
+
   head "https://github.com/git/git.git", branch: "master"
 
   livecheck do
@@ -20,11 +25,6 @@ class Git < Formula
   end
 
 
-  bottle do
-    rebuild 1
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "3976bf18748809f7ef087b54d540c59764394409d8055a8a3dc2c37d9fa77a2d"
-  end
 
   depends_on "gettext" => :build
   depends_on "pkgconf" => :build

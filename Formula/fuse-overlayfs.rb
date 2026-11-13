@@ -14,9 +14,11 @@ class FuseOverlayfs < Formula
   end
 
 
+
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "577cea3c4a06622c4ef73645792d4575fa94549e6b8be59205e07e8d0ade7c4d"
+    sha256 cellar: :any, loongarch64_linux: "16ac4d4fe04c9eea78a7f0366d4be6286b4116e38dd873e5f37055ba24e7e80b"
   end
 
   depends_on "autoconf" => :build
@@ -41,7 +43,13 @@ class FuseOverlayfs < Formula
     mkdir "merged"
     test_cmd = "fuse-overlayfs -o lowerdir=lowerdir/a:lowerdir/b,upperdir=up,workdir=workdir merged 2>&1"
     output = shell_output(test_cmd, 1)
-    assert_match "fuse: device /dev/fuse not found. Kernel module not loaded?", output
-    assert_match "fuse-overlayfs: cannot mount: No such file or directory", output
+    if output.include?("Operation not permitted")
+      # CI/sandbox may expose /dev/fuse but deny mount without CAP_SYS_ADMIN.
+      assert_match "fusermount3: mount failed: Operation not permitted", output
+      assert_match "fuse-overlayfs: cannot mount: Operation not permitted", output
+    else
+      assert_match "fuse: device /dev/fuse not found. Kernel module not loaded?", output
+      assert_match "fuse-overlayfs: cannot mount: No such file or directory", output
+    end
   end
 end
