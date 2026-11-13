@@ -67,6 +67,28 @@ class Swftools < Formula
       inreplace "lib/as3/builtin.c",
                 "{type: 8, &_AS3_constant_ns}",
                 "{.type = 8, .ns = &_AS3_constant_ns}"
+      # strrchr returns a pointer; these historical comparisons against 0
+      # were accepted as warnings by old GCC but are now hard errors.
+      inreplace "lib/pdf/xpdf/GlobalParams.cc",
+                "if(pos1>=0)",
+                "if(pos1 != NULL)"
+      inreplace "lib/pdf/xpdf/GlobalParams.cc",
+                "else if(pos2>=0)",
+                "else if(pos2 != NULL)"
+      # giflib 5 added an error-code out-parameter to these APIs.
+      inreplace "src/gif2swf.c",
+                "DGifOpenFileName(sname)",
+                "DGifOpenFileName(sname, NULL)"
+      inreplace "src/gif2swf.c",
+                "DGifOpenFileName(s)",
+                "DGifOpenFileName(s, NULL)"
+      inreplace "src/gif2swf.c",
+                "DGifCloseFile(gft)",
+                "DGifCloseFile(gft, NULL)"
+      # giflib 5 removed PrintGifError(); keep a useful diagnostic.
+      inreplace "src/gif2swf.c",
+                "PrintGifError();",
+                'fprintf(stderr, "gif2swf: failed to read GIF data\n");'
     end
 
     args = []

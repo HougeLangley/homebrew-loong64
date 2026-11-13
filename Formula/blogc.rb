@@ -6,7 +6,7 @@ class Blogc < Formula
   license "BSD-3-Clause"
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "5969fd31f017d6bbe21dba837b01654f01e15ddb54f772ad2b81f012d5d494a8"
+    sha256 cellar: :any, loongarch64_linux: "94176d7f0e2dccac509a590d95ec73de7fb76410a65ae5379e3eb652608badcf"
   end
 
   head "https://github.com/blogc/blogc.git", branch: "main"
@@ -17,7 +17,7 @@ class Blogc < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

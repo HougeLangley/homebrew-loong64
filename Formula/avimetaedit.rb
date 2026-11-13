@@ -5,11 +5,6 @@ class Avimetaedit < Formula
   sha256 "e0b83e17460d0202a54f637cb673a0c03460704e6c2cff0c2e34222efb2c11ca"
   license "CC0-1.0"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "076fcc53a7fb0bfb1c3b9e0947d824557f7d29a2143b1ff596d50866014ce2c0"
-  end
-
   livecheck do
     url "https://mediaarea.net/AVIMetaEdit/Download/Source"
     regex(/href=.*?avimetaedit[._-]v?(\d+(?:\.\d+)+)\.t/i)
@@ -18,10 +13,15 @@ class Avimetaedit < Formula
 
   deny_network_access!
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "95dc0bb4f4f7898d1951347793ea50cc08f8fb7de0c5577e52644a26782509bb"
+  end
+
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

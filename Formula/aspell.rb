@@ -5,13 +5,17 @@ class Aspell < Formula
   mirror "https://ftp.gnu.org/gnu/aspell/aspell-0.60.8.2.tar.gz"
   sha256 "57fe4863eae6048f72245a8575b44b718fb85ca14b9f8c0afc41b254dfd76919"
   license "LGPL-2.1-only"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "7b0f0a721f70587bac1de2bd3f3acfa877a7033abc9f40819f50d8614426a97d"
-  end
-
   compatibility_version 1
 
+  bottle do
+    sha256 arm64_golden_gate: "da86af9ecbf74819b43e3ab8078fb5c8405f1f07a2dcee5f43b2520dbf7694d2"
+    sha256 arm64_tahoe:       "1039dbbb1d5abd5d4f78a211fdcaa5657456a153b2282bda45ebffe6c0ab1b70"
+    sha256 arm64_sequoia:     "f071da3a05bb8d84d2df84df586f0e1a940934e630010f77673339ef69ee867d"
+    sha256 arm64_sonoma:      "59b57e67fc77ef33808fe1f09068374e26bedf89d6ac1401c6c3d4ebf944b617"
+    sha256 sonoma:            "d67764dd08b363fcb93aaf020abb592a42f7c21756f657d041107e5f2c103ad5"
+    sha256 arm64_linux:       "d1fa3353d7b6b6bd701d26c1bf3aeaf08c5651d1627d8752b5c875c16d4722d6"
+    sha256 x86_64_linux:      "e45cb5f81053dc9584b97659e14aa7c5e4698aa807fa9739b97008a1a62d8792"
+  end
 
   uses_from_macos "ncurses"
 
@@ -554,7 +558,7 @@ class Aspell < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
@@ -567,7 +571,7 @@ class Aspell < Formula
 
     resources.each do |r|
       r.stage do
-        system "./configure", "--vars", "ASPELL=#{bin}/aspell", "PREZIP=#{bin}/prezip"
+        system "./configure", "--build=loongarch64-unknown-linux-gnu", "--vars", "ASPELL=#{bin}/aspell", "PREZIP=#{bin}/prezip"
         system "make", "install"
       end
     end
