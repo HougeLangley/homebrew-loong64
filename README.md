@@ -1,7 +1,7 @@
 # homebrew-loong64
 
 [![arch](https://img.shields.io/badge/arch-loongarch64-blue)](https://loongson.cn)
-[![packages](https://img.shields.io/badge/packages-2517-brightgreen)](#-可用软件包)
+[![packages](https://img.shields.io/badge/packages-2519-brightgreen)](#-可用软件包)
 [![site](https://img.shields.io/badge/site-homebrewloongarch64.site-0a5)](https://homebrewloongarch64.site)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -146,7 +146,7 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-11-13 16:28 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-11-13 16:39 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
@@ -183,6 +183,8 @@ end
 | **agedu** | 20260410 | 63 KiB | `ae64e247d402` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/agedu--20260410.loongarch64_linux.bottle.1.tar.gz) |
 | **aha** | 0.5.1 | 35 KiB | `e0f75992b8cc` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aha--0.5.1.loongarch64_linux.bottle.1.tar.gz) |
 | **ahcpd** | 0.53 | 36 KiB | `c5b7d73f9830` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/ahcpd--0.53.loongarch64_linux.bottle.1.tar.gz) |
+| **airspy** | 1.0.10 | 95 KiB | `44a7a751ffdd` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/airspy--1.0.10.loongarch64_linux.bottle.1.tar.gz) |
+| **airspyhf** | 1.6.8 | 65 KiB | `d5b47756bc18` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/airspyhf--1.6.8.loongarch64_linux.bottle.1.tar.gz) |
 | **aklomp-base64** | 0.5.2 | 32 KiB | `f4a3eea32d00` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aklomp-base64--0.5.2.loongarch64_linux.bottle.1.tar.gz) |
 | **aldo** | 0.7.7 | 87 KiB | `cbc59c6b6412` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aldo--0.7.7.loongarch64_linux.bottle.1.tar.gz) |
 | **algol68g** | 3.13.4 | 825 KiB | `231de4304f45` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/algol68g--3.13.4.loongarch64_linux.bottle.1.tar.gz) |
@@ -208,10 +210,8 @@ end
 | **apache-arrow-adbc** | 25 | 212 KiB | `f0bc26e28e36` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/apache-arrow-adbc--25.loongarch64_linux.bottle.1.tar.gz) |
 | **apcupsd** | 3.14.14 | 543 KiB | `6bf8fa075f96` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/apcupsd--3.14.14.loongarch64_linux.bottle.1.tar.gz) |
 | **apib** | 1.2.1 | 219 KiB | `a718845aa422` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/apib--1.2.1.loongarch64_linux.bottle.1.tar.gz) |
-| **apibuilder-cli** | 0.2.4 | 56 KiB | `653add821883` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/apibuilder-cli--0.2.4.loongarch64_linux.bottle.1.tar.gz) |
-| **apm-bash-completion** | 1.0.0 | 2.7 KiB | `3260f3cb5ba3` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/apm-bash-completion--1.0.0.loongarch64_linux.bottle.1.tar.gz) |
 
-> 仅显示前 60 个，共 **2517** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
+> 仅显示前 60 个，共 **2519** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
 
 ## 镜像与加速
 
