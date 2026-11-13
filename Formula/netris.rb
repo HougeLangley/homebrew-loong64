@@ -9,20 +9,10 @@ class Netris < Formula
     skip "No longer developed or maintained"
   end
 
+
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "efd73b9457786b5901031c479a8b9a3039cf92a6e950442c6c2bde812797ff18"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "9a995775e35da0c6d44ebab95bc19340273c50fa742670b5f1178b848fda29b8"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "45fd383811db400a50896723b5c7f9e05015d19208c678d14e52e68031dd6887"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:      "311ecb7d3b6ba50544169823f78960a2da39290fed321d2f0328fd0b4da72359"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:     "7d1b2e0308a1ac7d02f0d76d91c805c32241191fc396d2a95e22b9456370e8af"
-    sha256 cellar: :any_skip_relocation, arm64_monterey:    "325a86274ce6276ebecbf44fd386861b02ca96a8aa982da845c21ba0932aca00"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:     "a7b88fa79c440ed0dc4c971eb32197e9f88b34afbf50cd6d9e8929f2e03d7866"
-    sha256 cellar: :any_skip_relocation, sonoma:            "6b25332165118d1aa8dac47a118bffd50346bbae5fced003ac1e9c150edeefc4"
-    sha256 cellar: :any_skip_relocation, ventura:           "73bf7b8515f9b4c10fd3f8dc686b6d29e614319a28fad0048b1ea3e99ea0d7c9"
-    sha256 cellar: :any_skip_relocation, monterey:          "1cd2c848c2e5da61c99c8c2930c77f21e58aeb91fdf97c678392bdb34ca252ba"
-    sha256 cellar: :any_skip_relocation, big_sur:           "9f7c51618024abd332dafe7c9075896fdfefbd80819a4b0c42bf493637947bd2"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "10152777ead84d310f8d140c904b68a69f94c1504b03e4dc0be441dc4b3f9e84"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "7209cea9b9b79f4bc89a1aafdf2ac00af1b76aefcc9fb3f0e90f5d2dc3873232"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "1f94ac1bd82a75bd0f6ebab48c1a598b83868c15865a61a8797b5ffd68ce12b2"
   end
 
   uses_from_macos "ncurses"
@@ -95,53 +85,22 @@ class Netris < Formula
   end
 
   def install
-    # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
-    %w[conf-cc conf-cxx].each do |cf|
-      next unless File.exist?(cf)
-      _c = File.read(cf).strip
-      File.write(cf, _c + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types\n") unless _c.include?("gnu17")
-    end
-    # cc 命令改写（Makefile 里写死 cc 而非 $(CC) 时）
-    Dir["Makefile", "**/Makefile", "**/GNUmakefile", "**/Makefile.*"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.gsub(/^(	| {0,4})(cc|gcc)([ 	])/) { "#{$1}$(CC)#{$3}" }
-      File.write(mkf, _m)
-    end
-    # CMake 标志追加
-    _cmflags = ["-DCMAKE_C_FLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "-DCMAKE_CXX_FLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"].freeze
-    # ENV.cc 追加
-    _extra = "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types".split
-    Dir["Makefile", "GNUmakefile", "makefile", "src/Makefile"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.gsub(/-std=(c|gnu)(89|99|11|17|2x)/, "")
-      File.write(mkf, _m)
-    end
-    # Makefile 里面追加（硬编码 CFLAGS 时 ENV 追加不生效）
-    Dir["Makefile", "GNUmakefile", "makefile", "**/Makefile", "**/GNUmakefile", "**/makefile", "**/Makefile.*"].each do |mkf|
-      next unless File.exist?(mkf)
-      _m = File.read(mkf)
-      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types " }
-      File.write(mkf, _m)
-    end
-    # CFLAGS 里面追加（configure 硬编码时 ENV 追加不生效）
-    if File.exist?("configure")
-      _cfg = File.read("configure")
-      _cfg = _cfg.gsub(/^CFLAGS="([^"\\]*)"/) { 'CFLAGS="' + $1 + ' -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"' }
-      File.write("configure", _cfg)
-    end
-    ENV.append_to_cflags "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"
-    configure_args = []
-    # Workaround for newer Clang
-    if DevelopmentTools.clang_build_version >= 1403
-      configure_args = [
-        "--cextra",
-        "-Wno-implicit-function-declaration -Wno-implicit-int",
-      ]
-    end
+    # The curses probe uses an implicit-int main(), which C23 rejects; the
+    # failed probe silently drops -lncurses and only fails at final link.
+    inreplace "Configure",
+              "echo 'main(){}' > test.c",
+              "echo 'int main(void){return 0;}' > test.c"
+    # The 1999 sources relied on implicit declarations for these POSIX APIs;
+    # make the prototypes available to every translation unit.
+    inreplace "netris.h",
+              "#include <signal.h>",
+              "#include <signal.h>\n#include <getopt.h>\n#include <time.h>"
+    configure_args = [
+      "--cextra",
+      "-std=gnu17 -Wno-error=implicit-function-declaration -Wno-error=implicit-int",
+    ]
     system "sh", "Configure", *configure_args
-    system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat"
+    system "make"
     bin.install "netris"
   end
 
