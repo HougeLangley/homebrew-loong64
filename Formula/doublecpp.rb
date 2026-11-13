@@ -5,14 +5,14 @@ class Doublecpp < Formula
   sha256 "232f8bf0d73795558f746c2e77f6d7cb54e1066cbc3ea7698c4fba80983423af"
   license "GPL-2.0-or-later"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "0eedcff3496cc0c40a0e39043d3384e879752d06622dbba2626bde1a3a41911d"
-  end
-
 
   # Fix build failure because of missing #include <stdlib.h> on Linux.
   # Patch submitted to author by email.
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "51e8a3dc2767161c99bf70bebff9f5e760fe0d3b1ee79e1320c7d40dd0e37ae8"
+  end
+
   patch :DATA
 
   deny_network_access!
@@ -20,7 +20,7 @@ class Doublecpp < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

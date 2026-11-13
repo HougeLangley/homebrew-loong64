@@ -5,11 +5,6 @@ class Dns2tcp < Formula
   sha256 "ea9ef59002b86519a43fca320982ae971e2df54cdc54cdb35562c751704278d9"
   license "GPL-2.0-or-later"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "e4dae46f512fb80a76aab5ae92a3a40535faa8384cc98baa7eaddb74132f4e63"
-  end
-
   livecheck do
     url "https://deb.debian.org/debian/pool/main/d/dns2tcp/"
     regex(/href=.*?dns2tcp[._-]v?(\d+(?:\.\d+)+)\.orig\.t/i)
@@ -18,10 +13,15 @@ class Dns2tcp < Formula
 
   deny_network_access!
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "04daac901ba24d7ee41c88d6b66722f2e1becc65736f66d626428176a3828828"
+  end
+
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

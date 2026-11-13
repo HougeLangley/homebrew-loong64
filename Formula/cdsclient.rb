@@ -31,7 +31,8 @@ class Cdsclient < Formula
     ENV.append_to_cflags "-std=gnu17 -Wno-error=implicit-int -Wno-error=implicit-function-declaration"
     system "./configure", "--prefix=#{prefix}", "--libdir=#{lib}"
     man.mkpath
-    system "make", "install", "MANDIR=#{man}"
+    system "make", "CC=#{ENV.cc} -std=gnu17 -Wno-error=implicit-int -Wno-error=implicit-function-declaration",
+           "install", "MANDIR=#{man}"
     pkgshare.install bin/"abibcode.awk"
   end
 
