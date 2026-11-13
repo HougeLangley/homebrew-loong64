@@ -6,9 +6,10 @@ class Gptfdisk < Formula
   license "GPL-2.0-or-later"
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "698d27f81461833489fd9a636297db186b52fafe1300063781fe00eca46068c3"
+    sha256 cellar: :any, loongarch64_linux: "075dc20b4ab3bd9207bbd7059ec7dbc716fcd4b8d06af0239e49657f49b9e0f2"
   end
 
   depends_on "popt"

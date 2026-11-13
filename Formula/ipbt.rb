@@ -12,9 +12,10 @@ class Ipbt < Formula
   end
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "c420ec2fc4d3dae73b5756d25a649a141f259284c48967ec745f6a6876d605a3"
+    sha256 cellar: :any, loongarch64_linux: "3d806c629a6d91fdf311df3c7d4fb5ef634b6eab1c7b73145f5bb201bb31e2f6"
   end
 
   depends_on "cmake" => :build
