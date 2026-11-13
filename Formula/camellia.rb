@@ -5,11 +5,6 @@ class Camellia < Formula
   sha256 "a3192c350f7124d25f31c43aa17e23d9fa6c886f80459cba15b6257646b2f3d2"
   license "BSD-3-Clause"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "867ce802b958b7b40e2487ae33aa7e79961d59cdc43fdb10455e6789c5745e31"
-  end
-
   livecheck do
     url :stable
     regex(%r{url=.*?/CamelliaLib[._-]v?(\d+(?:\.\d+)+)\.t}i)
@@ -18,10 +13,15 @@ class Camellia < Formula
 
   deny_network_access!
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "36797ad790e3dd4fdcbe22c6803a6059a745c568040968084a9829f2572f3b9a"
+  end
+
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

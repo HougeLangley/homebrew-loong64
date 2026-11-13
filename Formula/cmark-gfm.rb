@@ -7,9 +7,10 @@ class CmarkGfm < Formula
   license "BSD-2-Clause"
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "4ae02935496998b78d5faf81f2c6134c83b316fbb61b7d90fa1d6d066df792cd"
+    sha256 cellar: :any, loongarch64_linux: "5ceacba60a033c0257345dc305ee789034151e5acd2b3c5b46c22ad3134c93fe"
   end
 
   depends_on "cmake" => :build
