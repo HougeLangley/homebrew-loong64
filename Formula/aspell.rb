@@ -571,7 +571,7 @@ class Aspell < Formula
 
     resources.each do |r|
       r.stage do
-        system "./configure", "--build=loongarch64-unknown-linux-gnu", "--vars", "ASPELL=#{bin}/aspell", "PREZIP=#{bin}/prezip"
+        system "./configure", "--vars", "ASPELL=#{bin}/aspell", "PREZIP=#{bin}/prezip"
         system "make", "install"
       end
     end
