@@ -4,10 +4,13 @@ class AsyncSimple < Formula
   url "https://github.com/alibaba/async_simple/archive/refs/tags/1.4.tar.gz"
   sha256 "6188f7a5f4211754fee758dfebf73759b74ce78c208719b5cc37d5ab4775d550"
   license "Apache-2.0"
-
   head "https://github.com/alibaba/async_simple.git", branch: "main"
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "472143b284f613f9ad3f0e08ebf872b3e47a19c342394db6ed4a994fa9c7b609"
+  end
 
   depends_on "cmake" => :build
 
