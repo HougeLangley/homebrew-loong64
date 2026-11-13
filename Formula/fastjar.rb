@@ -5,16 +5,16 @@ class Fastjar < Formula
   sha256 "f156abc5de8658f22ee8f08d7a72c88f9409ebd8c7933e9466b0842afeb2f145"
   license "GPL-2.0-or-later"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "9f085c1920cf69f399d434c1b7af1473de0cf219af413ed19d835d78ad70f804"
-  end
-
   livecheck do
     url "https://download.savannah.nongnu.org/releases/fastjar/"
     regex(/href=.*?fastjar[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "db40bb958b55991dca9fdb866774a104491c8976e2b808cca27ee242098fd1fa"
+  end
 
   on_linux do
     depends_on "zlib-ng-compat"
@@ -23,7 +23,7 @@ class Fastjar < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

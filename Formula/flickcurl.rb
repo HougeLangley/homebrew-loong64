@@ -11,14 +11,10 @@ class Flickcurl < Formula
     regex(/href=.*?flickcurl[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
+
   bottle do
-    sha256 cellar: :any,                 arm64_golden_gate: "93354a9049861bd148042c159174738c3e9260cf844c4a1091970d1d40ab5fdb"
-    sha256 cellar: :any,                 arm64_tahoe:       "5ad4303f2feb50ec3bcac620cb35ec60de39f7c2f40f5d20587daa161064ce2e"
-    sha256 cellar: :any,                 arm64_sequoia:     "f7d7fcaa4becaba9efd332bc528a22cc9a844caac877510efa8aea89906a98bb"
-    sha256 cellar: :any,                 arm64_sonoma:      "24e16a20e2a35d8c2c41e3bbb212624e5bcce261fb6cd5321b987fd4d4f83237"
-    sha256 cellar: :any,                 sonoma:            "557f8c3f6763febcb01fabb8c919f5397ed33676ec13c867b9dfba0070d5e681"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "169ae4f2f5b364383dbf1ec5bc0dfd5f8e1fec7581fed18d4503bd9ad201f661"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "ed038860376e8892ed82d641008301b6b4a02fbadc7404f5886b8574cdafbf91"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "960a2d5191d370e7633a380f825019aebc5256ec4de865a776bc986258e33b00"
   end
 
   depends_on "pkgconf" => :build
@@ -41,6 +37,9 @@ class Flickcurl < Formula
       end
     end
 
+    # flickcurl sources omit standard headers; provide prototypes rather than
+    # letting C23 turn them into implicit-int declarations.
+    ENV.append_to_cflags "-std=gnu17 -include stdlib.h -include string.h -include stdio.h"
     system "./configure", "--build=loongarch64-unknown-linux-gnu", *std_configure_args
     system "make", "install"
   end

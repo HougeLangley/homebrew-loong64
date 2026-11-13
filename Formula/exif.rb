@@ -5,11 +5,6 @@ class Exif < Formula
   sha256 "0fe268736e0ca0538d4af941022761a438854a64c8024a4175e57bf0418117b9"
   license "LGPL-2.1-or-later"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "4cbfaace5be5d6e1e38f7eae7857d2debcab5d8ead6f048d584a6a9fa8e72646"
-  end
-
   livecheck do
     url :stable
     regex(/^exif[._-]v?(\d+(?:[._-]\d+)+)[._-]release$/i)
@@ -18,6 +13,11 @@ class Exif < Formula
     end
   end
 
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "cad557e527cc15cc7ae89f2c3ea31af50d90779040a160a32daacae3e637b13e"
+  end
 
   depends_on "pkgconf" => :build
   depends_on "libexif"
@@ -28,7 +28,7 @@ class Exif < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

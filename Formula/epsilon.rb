@@ -16,7 +16,7 @@ class Epsilon < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "a4cf3eb9afbb0d6425b7a9b7e9256ecdf6af7a3e71ab929d7d72f04189d4350d"
+    sha256 cellar: :any, loongarch64_linux: "37ce285722ce7ed52091887c8873ef1f982a0b6b92297a274b4e2b26745ec9bb"
   end
 
   depends_on "autoconf" => :build
@@ -29,7 +29,7 @@ class Epsilon < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
