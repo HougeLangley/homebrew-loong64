@@ -6,6 +6,10 @@ class Bvi < Formula
   license "GPL-3.0-or-later"
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "f128b55e8888bb34830d8973a395a3a9120dff3b657ca4bb1b00e6e13116343c"
+  end
 
   uses_from_macos "ncurses"
 
@@ -25,11 +29,9 @@ class Bvi < Formula
   end
 
   test do
-    if OS.linux? && ENV["HOMEBREW_GITHUB_ACTIONS"]
-      out = shell_output("#{bin}/bvi -c q", 1)
-      assert_match out, "Input is not from a terminal"
-    else
-      system bin/"bvi", "-c", "q"
-    end
+    # bvi requires a terminal even for -c q; verify its documented non-TTY
+    # failure instead of invoking it with no controlling terminal.
+    out = shell_output("#{bin}/bvi -c q 2>&1", 1)
+    assert_match "Input is not from a terminal", out
   end
 end

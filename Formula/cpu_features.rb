@@ -4,9 +4,12 @@ class CpuFeatures < Formula
   url "https://github.com/google/cpu_features/archive/refs/tags/v0.11.0.tar.gz"
   sha256 "ab2463f2d38fcaff1ce806be8e4c91333449931f5e02009d543b2569a3fa471a"
   license "Apache-2.0"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "f3386f2a2aa222a2978d4e7b70dc5dab92b1ceab534fb8726d0575b17e34f180"
+  end
 
   head "https://github.com/google/cpu_features.git", branch: "main"
-
 
 
   depends_on "cmake" => :build
@@ -35,6 +38,9 @@ class CpuFeatures < Formula
       assert_match(/^variant\s*:/, output)
       assert_match(/^part\s*:/, output)
       assert_match(/^revision\s*:/, output)
+    elsif Hardware::CPU.arch == :loongarch64
+      # LoongArch reports arch and feature flags, not x86 brand/family fields.
+      assert_match(/^arch\s+:\s+loongarch$/, output)
     else
       assert_match(/^brand\s*:/, output)
       assert_match(/^family\s*:/, output)

@@ -10,6 +10,10 @@ class Chrpath < Formula
   end
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "5983a80601eb5fd45d5f0c11093ccfc9dad54f6f796eb779ac4a1fdab06c26c1"
+  end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
@@ -35,9 +39,10 @@ class Chrpath < Formula
     assert_match "chrpath version #{version}", shell_output("#{bin}/chrpath -v")
     (testpath/"test.c").write "int main(){return 0;}"
     system ENV.cc, "test.c", "-Wl,-rpath,/usr/local/lib"
-    assert_match "a.out: RUNPATH=/usr/local/lib", shell_output("#{bin}/chrpath a.out")
-    assert_match "a.out: new RUNPATH: /usr/lib/", shell_output("#{bin}/chrpath -r /usr/lib/ a.out")
-    assert_match "a.out: RUNPATH=/usr/lib/",      shell_output("#{bin}/chrpath a.out")
+    # GNU ld on LoongArch emits DT_RPATH here, not DT_RUNPATH.
+    assert_match(%r{a\.out: R(?:UN)?PATH=/usr/local/lib}, shell_output("#{bin}/chrpath a.out"))
+    assert_match(%r{a\.out: new R(?:UN)?PATH: /usr/lib/}, shell_output("#{bin}/chrpath -r /usr/lib/ a.out"))
+    assert_match(%r{a\.out: R(?:UN)?PATH=/usr/lib/},      shell_output("#{bin}/chrpath a.out"))
     system bin/"chrpath", "-d", "a.out"
     assert_match "a.out: no rpath or runpath tag found.", shell_output("#{bin}/chrpath a.out", 2)
   end

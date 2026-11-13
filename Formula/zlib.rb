@@ -5,6 +5,11 @@ class Zlib < Formula
   sha256 "f84c26a4b5fe41e71b0e110e66ac95a6255e991e43a2875017a063bdad4f5809"
   version "1.3.1"
 
+  keg_only :provided_by_macos
+  on_linux do
+    keg_only "it conflicts with zlib-ng-compat"
+  end
+
   def install
     bin.mkpath; lib.mkpath; include.mkpath; share.mkpath
     (lib/"libz.so.1").make_symlink "/usr/lib/libz.so.1" if File.exist?("/usr/lib/libz.so.1")
