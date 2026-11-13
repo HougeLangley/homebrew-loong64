@@ -53,6 +53,20 @@ class Swftools < Formula
     if OS.linux?
       ENV.append_to_cflags "-I#{Formula["freetype"].opt_include}/freetype2"
       ENV.append_to_cflags "-I#{Formula["lame"].opt_include}/lame"
+      # Generated lexers use YY_PROTO(...) as an empty argument list unless
+      # this is set; C23 then treats yyunput's prototype as zero-argument.
+      ENV.append_to_cflags "-DYY_USE_PROTOS=1"
+      # The 2012 sources also contain other K&R-style empty parameter lists.
+      ENV.append_to_cflags "-std=gnu17 -Wno-error=implicit-int -Wno-error=implicit-function-declaration"
+      # These initializers put a namespace pointer into the union's leading
+      # string_t* slot; name the intended member instead of suppressing the
+      # incompatible-pointer diagnostic.
+      inreplace "lib/as3/builtin.c",
+                "{type: 8, &flash_utils_flash_proxy_constant_ns}",
+                "{.type = 8, .ns = &flash_utils_flash_proxy_constant_ns}"
+      inreplace "lib/as3/builtin.c",
+                "{type: 8, &_AS3_constant_ns}",
+                "{.type = 8, .ns = &_AS3_constant_ns}"
     end
 
     args = []
