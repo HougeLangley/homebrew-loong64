@@ -5,11 +5,6 @@ class Freetype < Formula
   mirror "https://download.savannah.gnu.org/releases/freetype/freetype-2.15.0.tar.xz"
   sha256 "93cd47eb719c325107f2d3cf087d06299e944c3b48a40b55537302304dea1dd5"
   license "FTL"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "58e1578b8d63b78c49b1fd8d2cc96d1edb15d6cba40903c359d65b8fec51b849"
-  end
-
   compatibility_version 1
 
   livecheck do
@@ -17,6 +12,13 @@ class Freetype < Formula
     regex(/url=.*?freetype[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
+  bottle do
+    sha256 cellar: :any, arm64_golden_gate: "e95cd1f10672199f21f824b4f8a848c3a4f733df2fcd6e3d88b08446131eeed3"
+    sha256 cellar: :any, arm64_tahoe:       "75125d33e1fa0ea106b138e0458aba3054abd86ad7fbadd86ee4ed81fc8a2174"
+    sha256 cellar: :any, arm64_sequoia:     "7e7a7bb07a484cf6fccb168587d697ed24b98cce52e6ac735debb22adb422237"
+    sha256 cellar: :any, arm64_linux:       "da5494c91d3d359701c6af3bb2c0c3525aa512d1f90fee0fd915c92497b5387d"
+    sha256 cellar: :any, x86_64_linux:      "0f637083d41afca2d7b9b8aae297fc08583897b4659b170f5495f96bdf696c11"
+  end
 
   depends_on "pkgconf" => :build
   depends_on "brotli"
@@ -33,7 +35,7 @@ class Freetype < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

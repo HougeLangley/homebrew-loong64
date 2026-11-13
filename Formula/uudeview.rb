@@ -16,7 +16,7 @@ class Uudeview < Formula
   # fix implicit declaration, remove in release > 0.5.20
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "5e9c972d854de61de363e522b66d3a22377d94609fdc3785a06fa05e4ba92c6c"
+    sha256 cellar: :any, loongarch64_linux: "594a5d7c22ede4e310d2b27c892c55478fe39d9e69d50eebda1b59e76a1fa15e"
   end
 
   patch do
