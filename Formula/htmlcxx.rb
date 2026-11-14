@@ -5,13 +5,13 @@ class Htmlcxx < Formula
   sha256 "5d38f938cf4df9a298a5346af27195fffabfef9f460fc2a02233cbcfa8fc75c8"
   license all_of: ["LGPL-2.0-only", "Apache-2.0"]
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "76ddcbac7e9d8971870f939be8036d7beb3268f4be090991f301db9ce0795f7b"
-  end
-
 
   # Fix -flat_namespace being used on Big Sur and later.
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "0c57dfd013374cb975fcf166ec3a72004d7ef649f6a14b86e4393b23210d6df7"
+  end
+
   patch do
     file "Patches/libtool/configure-big_sur.diff"
   end
@@ -19,9 +19,13 @@ class Htmlcxx < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
         src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
       end
     end
 
