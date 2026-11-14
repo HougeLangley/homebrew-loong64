@@ -17,7 +17,6 @@ class Ghostscript < Formula
     end
   end
 
-  no_autobump! because: :incompatible_version_format
 
   bottle do
     sha256 arm64_golden_gate: "20d8eff70c436899114af3b971cc0108a63a1c086da53e933802ddd33f6cf283"
@@ -68,6 +67,18 @@ class Ghostscript < Formula
   deny_network_access!
 
   def install
+    # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
+    %w[config.sub config.guess].each do |cf|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
+        src = "/usr/share/libtool/build-aux/#{cf}"
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
+      end
+    end
+
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
       [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|

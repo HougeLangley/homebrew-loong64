@@ -12,6 +12,11 @@ class Hwloc < Formula
   end
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "59abce2d7d31832e79913383baccae23492640c245c9c028dd9d665358465af1"
+  end
+
   head do
     url "https://github.com/open-mpi/hwloc.git", branch: "master"
     depends_on "autoconf" => :build
@@ -19,11 +24,6 @@ class Hwloc < Formula
     depends_on "libtool" => :build
   end
 
-  bottle do
-    rebuild 1
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "4597f83bac9647612c728fec47a94de6b690a26bb4594169b0c31e54cf8b3b33"
-  end
 
   depends_on "pkgconf" => :build
 

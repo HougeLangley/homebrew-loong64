@@ -5,16 +5,20 @@ class I2util < Formula
   sha256 "8e9e15f6ccf7b7c5edd509350de6f7507b3f8121f09d9f9de4439d18e4026ea0"
   license "Apache-2.0"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "146a223b5aacd42a56499b9f50260f09e9f5f792798ba094662d749bb35a8cc6"
-  end
-
   livecheck do
     url :stable
     regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
+  bottle do
+    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "55e6498addc059188a5110d83e0300b4402c547b4e520252e58a99e5275b27f7"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "3c96db26d6b8b745ce518cdcf0fc8cce58cf28e7c24f297f23109f3a456a5d3f"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "bd21bc4ade8f7f27ff994db78401d0446eb0f0a8ae004c32d0356b2a9a521571"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:      "e20d2e9f814df8076dab2acba0752286ba4f06f86a5f67ceb9fac04ae6c7d2e9"
+    sha256 cellar: :any_skip_relocation, sonoma:            "68c9b6889c197f540ffe6da0a856b8230757e525c5fe1888225bfcb65893108b"
+    sha256 cellar: :any,                 arm64_linux:       "ac7f625e99eb5be3d9d96343d152bb5f62f632adb8819d5575a2d4b2f51bf790"
+    sha256 cellar: :any,                 x86_64_linux:      "f49bc0d2e186c8720a3dd716f6bbe159a4a11f4d2cf222e013fcbc529844b52b"
+  end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
@@ -22,9 +26,13 @@ class I2util < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
         src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
       end
     end
 
