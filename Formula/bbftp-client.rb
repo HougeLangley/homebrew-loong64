@@ -4,11 +4,6 @@ class BbftpClient < Formula
   url "https://pkg.freebsd.org/ports-distfiles/bbftp-client-3.2.1.tar.gz"
   sha256 "4000009804d90926ad3c0e770099874084fb49013e8b0770b82678462304456d"
   license "GPL-2.0-or-later"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "7a83fbdf252015a87b2ed8c9094d62c8e6fd7fd81fa33c03f995b2c79bbf568f"
-  end
-
   revision 3
   head "https://gitlab.in2p3.fr/cc-in2p3-hpss-service/bbftp.git", branch: "master"
 
@@ -20,6 +15,16 @@ class BbftpClient < Formula
     end
   end
 
+  bottle do
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "1af7986ff7c622d850f0fcf8c38cefbd5770896c5988b12e2944c30223dabdb9"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "18d463140dea6d3abd1361442b054a2cd01020e40c55ca2e6046c5760944d689"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:     "58ae6876eec6565daf49ef57c1cc4663b2302ffb65d0acab11d8963ccbc0a42e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:      "0ab14cc4e4e91fc506ca0b125d8d7ad3f5e84cc9019e2168a490f4da172ff481"
+    sha256 cellar: :any_skip_relocation, sonoma:            "449c785073c769955666ce4833bb442984a2714629facd2a7b33dc218e429f20"
+    sha256 cellar: :any_skip_relocation, arm64_linux:       "23e60edad50fab29170e6333b357a7e422bfe7798d190f2d0b21c8b72fbe4d1a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:      "b43e533d6799fb7e77c30bd1c8e6707925647d7220edd00edda2e30177298c47"
+  end
 
   on_linux do
     depends_on "zlib-ng-compat"
@@ -28,6 +33,24 @@ class BbftpClient < Formula
   deny_network_access!
 
   def install
+    # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
+    %w[config.sub config.guess].each do |cf|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
+        src = "/usr/share/libtool/build-aux/#{cf}"
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
+      end
+    end
+
+    # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
+    %w[conf-cc conf-cxx].each do |cf|
+      next unless File.exist?(cf)
+      _c = File.read(cf).strip
+      File.write(cf, _c + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types\n") unless _c.include?("gnu17")
+    end
     # cc 命令改写（Makefile 里写死 cc 而非 $(CC) 时）
     Dir["Makefile", "**/Makefile", "**/GNUmakefile", "**/Makefile.*"].each do |mkf|
       next unless File.exist?(mkf)
@@ -36,7 +59,7 @@ class BbftpClient < Formula
       File.write(mkf, _m)
     end
     # CMake 标志追加
-    _cmflags = ["-DCMAKE_C_FLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "-DCMAKE_CXX_FLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"].freeze
+    _cmflags = ["-DCMAKE_C_FLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "-DCMAKE_CXX_FLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"].freeze
     # ENV.cc 追加
     _extra = "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types".split
     Dir["Makefile", "GNUmakefile", "makefile", "src/Makefile"].each do |mkf|
@@ -49,20 +72,24 @@ class BbftpClient < Formula
     Dir["Makefile", "GNUmakefile", "makefile", "**/Makefile", "**/GNUmakefile", "**/makefile", "**/Makefile.*"].each do |mkf|
       next unless File.exist?(mkf)
       _m = File.read(mkf)
-      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types" }
+      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types " }
       File.write(mkf, _m)
     end
     # 老包自带的 config.sub/config.guess 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |rel|
         src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
       end
     end
     # CFLAGS 里面追加（configure 硬编码时 ENV 追加不生效）
     if File.exist?("configure")
       _cfg = File.read("configure")
-      _cfg = _cfg.gsub(/^CFLAGS="([^"]*)"/) { 'CFLAGS="' + $1 + ' -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types' }
+      _cfg = _cfg.gsub(/^CFLAGS="([^"\\]*)"/) { 'CFLAGS="' + $1 + ' -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"' }
       File.write("configure", _cfg)
     end
     ENV.append_to_cflags "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"
