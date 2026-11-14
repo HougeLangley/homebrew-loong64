@@ -12,14 +12,10 @@ class Flowgrind < Formula
     strategy :github_latest
   end
 
+
   bottle do
-    rebuild 1
-    sha256 cellar: :any, arm64_golden_gate: "048fca783fbf50d8a1bb73d9724edb37f83ecc82cae12dbb952d1b12c6f52d39"
-    sha256 cellar: :any, arm64_tahoe:       "4b48fbd91d33f54b410c4449281b3517bedf8a42174cbd0351209e84443751e2"
-    sha256 cellar: :any, arm64_sequoia:     "ba20919ba3b0427735800935ccf724f606c00aca71c5d4d1a04b36d532702ccd"
-    sha256 cellar: :any, arm64_sonoma:      "7ad19fb73c9ccbaec00c142d276d4e142c7a6678076a7d421f556d608aadc70f"
-    sha256 cellar: :any, arm64_linux:       "f582fd23857e8add6ed2bcae767f7fe48c748af41f41f4a22b16a757f05caca8"
-    sha256 cellar: :any, x86_64_linux:      "f56a800f9c2db032bf1cb714bcdd91d15761c4c744542cc8709ad5385995f100"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "ce3b854750cd6c354c3eda0b3b84ac6d402a6cc3421f7a7a60789b321aef4d3c"
   end
 
   head do
@@ -41,9 +37,13 @@ class Flowgrind < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
         src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
       end
     end
 
