@@ -14,6 +14,7 @@ class Cspice < Formula
   end
 
 
+
   on_linux do
     depends_on "tcsh"
   end
@@ -22,10 +23,6 @@ class Cspice < Formula
   conflicts_with "enscript", because: "both install `states` binaries"
   conflicts_with "pwntools", because: "both install `version` binaries"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "2ad6f2bb760016892083766786d0095d7071c27723820d3cd1094b68cb15ab99"
-  end
 
   def install
     # Use brewed csh on Linux because it is not installed in CI.

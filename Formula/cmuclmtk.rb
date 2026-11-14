@@ -5,14 +5,14 @@ class Cmuclmtk < Formula
   sha256 "d23e47f00224667c059d69ac942f15dc3d4c3dd40e827318a6213699b7fa2915"
   license "BSD-2-Clause"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "5514154909ce0a949215dfcb88b94396c86965fcd616a1e628f1c148e98944b2"
-  end
-
 
   deprecate! date: "2026-07-18", because: :unmaintained
   disable! date: "2027-01-18", because: :unmaintained
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "0b765857090baa97c9250cd51d8657f0190acd6aab005d1e328be15e99263b57"
+  end
 
   depends_on "pkgconf" => :build
 
@@ -30,9 +30,13 @@ class Cmuclmtk < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
         src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
       end
     end
 

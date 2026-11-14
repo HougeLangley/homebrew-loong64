@@ -13,10 +13,10 @@ class Bzip2 < Formula
 
   keg_only :provided_by_macos
 
+
   bottle do
-    rebuild 3
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "b98635f7a6f771250e26f3a4b5db81a08d0c7faa58a5ebf90a8e7f3de9d95669"
+    sha256 cellar: :any, loongarch64_linux: "bded2ac2dc61d7203f6b59841a04b4127f718490f672acf074becef5d3bc24a9"
   end
 
   def install

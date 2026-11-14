@@ -5,14 +5,14 @@ class Cityhash < Formula
   sha256 "76a41e149f6de87156b9a9790c595ef7ad081c321f60780886b520aecb7e3db4"
   license "MIT"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "6ca888b5152a8d3a12d1307b2ce9768366c870400eaab4f63b0f9cffb58299f7"
-  end
-
 
   deprecate! date: "2026-05-13", because: :repo_archived
   disable! date: "2027-05-13", because: :repo_archived
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "74b4e9b1911c5137b27ee4edf4f3be8c97afbdc00e63a35ece31feefc0841c07"
+  end
 
   on_linux do
     on_arm do
@@ -31,9 +31,13 @@ class Cityhash < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
         src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
       end
     end
 

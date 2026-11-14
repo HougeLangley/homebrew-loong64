@@ -5,6 +5,11 @@ class Coinutils < Formula
   sha256 "ddfea48e10209215748bc9f90a8c04abbb912b662c1aefaf280018d0a181ef79"
   license "EPL-2.0"
   compatibility_version 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "2fcb45cabd5a25522ff559563a1cc023660145b97d11ae58d73665d332a38900"
+  end
+
   head "https://github.com/coin-or/CoinUtils.git", branch: "master"
 
   livecheck do
@@ -13,11 +18,6 @@ class Coinutils < Formula
   end
 
 
-  bottle do
-    rebuild 1
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "2c59b2f511e4e316abc822701bbc3cc894e93368255c4a8baf5beff50b9fb436"
-  end
 
   depends_on "pkgconf" => :build
   depends_on "openblas"

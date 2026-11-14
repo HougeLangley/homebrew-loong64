@@ -7,7 +7,7 @@ class Crfxx < Formula
   license any_of: ["LGPL-2.1-only", "BSD-3-Clause"]
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "8c2ba0b093f60c03fb2c0fd7ca94f16e3181d55f1aeb18eda1723ef946db492c"
+    sha256 cellar: :any, loongarch64_linux: "7cd9d82fefbfc26c9f45718fd6eec4a5bd0ad09b8e1cf705f1e8aa51e9b284fa"
   end
 
   head "https://github.com/taku910/crfpp.git", branch: "master"
@@ -33,9 +33,13 @@ class Crfxx < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
         src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
       end
     end
 
