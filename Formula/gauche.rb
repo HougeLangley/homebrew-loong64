@@ -17,10 +17,10 @@ class Gauche < Formula
 
   deprecate! date: "2027-03-31", because: "needs EOL `mbedtls@3`"
 
+
   bottle do
-    rebuild 2
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "fd21b9e75a3f6fe57b0a1490764b6f80c57b371eb4ae812f4b991b5fc80d500f"
+    sha256 cellar: :any, loongarch64_linux: "077aa686794f0dda854a32add0896b144ab9ba7884fa09978a589f9ba535a03b"
   end
 
   depends_on "ca-certificates"
