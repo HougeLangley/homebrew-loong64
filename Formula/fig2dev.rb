@@ -10,15 +10,10 @@ class Fig2dev < Formula
     regex(%r{url=.*?/fig2dev[._-]v?(\d+(?:\.\d+)+[a-z]?)\.t}i)
   end
 
+
   bottle do
-    rebuild 1
-    sha256 arm64_golden_gate: "b3fcb7b562e1b2977c6b2d98b576f6392ca547e41c618a54ae3d39432e5c740e"
-    sha256 arm64_tahoe:       "24dd6f6aa035586bd4c43d727b1329b822da452a0f64005a9defa12f2fa0faed"
-    sha256 arm64_sequoia:     "3d512815be04dc846c43c7545cc14789388a7840c79e8ad32a577c8c684d4e8e"
-    sha256 arm64_sonoma:      "d0d35f3dab34be63355f01fa4ab890e2717aefb06f9746743e1643bf3bcba6b2"
-    sha256 sonoma:            "f5c02dd6fc06b3a6a1c4ba2bf18092557333e0c71c44d07d096f5b55351a545a"
-    sha256 arm64_linux:       "283acf4bd2ad10d9129183b890593d493f10fbefc264ea7c1976ae3acd7a931e"
-    sha256 x86_64_linux:      "33f3779d09912197a0591a8e94c6c8906726982c38cf7f9adbe0ec3222ab8d66"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "74a7d5457e7c852dbe64bfc49ec69e9b665a8bc1a7e175b7b25d2a5ab9a095d0"
   end
 
   depends_on "ghostscript"
