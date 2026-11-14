@@ -4,14 +4,14 @@ class Exodriver < Formula
   url "https://github.com/labjack/exodriver/archive/refs/tags/v2.7.0.tar.gz"
   sha256 "ef11760322b31f16802ec202406e780339f54bde774689b97e926778417d6c79"
   license "MIT"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "69f8f5c2464aa6ed28048460f13f235cfaf1168ff7b7839a11b50aff13f8157b"
+  end
+
   head "https://github.com/labjack/exodriver.git", branch: "master"
 
 
-  bottle do
-    rebuild 1
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "dd5cf761360dbc09865ec9202e76d7b110c8fd6f86354ae185488238f53e9230"
-  end
 
   depends_on "libusb"
 
