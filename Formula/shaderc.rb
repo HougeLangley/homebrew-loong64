@@ -47,7 +47,7 @@ class Shaderc < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "b0b5c4c96ad1e501d3d3ba51cf9af3497d3c80df098b2933a0df064a06a59645"
+    sha256 cellar: :any, loongarch64_linux: "feabb7fd515bf167d366bae0fcc3eb1f8cc141e595c88743faa0b5d0e45f0a3e"
   end
 
   head do
