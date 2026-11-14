@@ -8,9 +8,8 @@ class Guichan < Formula
 
 
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "92f1f8473eb883ace0917dfd1b0ffe663acb0a800b269692f5207f6d421cc30d"
+    sha256 cellar: :any, loongarch64_linux: "80ffd427489b19cceae78e6a2415d92059ed101326fbcd9a5a74657049535932"
   end
 
   depends_on "pkgconf" => :test
