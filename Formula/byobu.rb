@@ -11,6 +11,12 @@ class Byobu < Formula
   end
 
 
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "3d7839ec960aabf8b2894a2ef0f6c0cd19d8daea60a327c8b3035042c499d987"
+  end
+
   depends_on "autoconf" => :build
   depends_on "automake" => :build
 
