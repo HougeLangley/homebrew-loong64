@@ -4,13 +4,13 @@ class GumboParser < Formula
   url "https://codeberg.org/gumbo-parser/gumbo-parser/archive/0.14.1.tar.gz"
   sha256 "ba5d13b9b508ec693613b3b61518163aced38f8e885f7e28dc047348a4e61365"
   license "Apache-2.0"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "0087bd66a9a9f80d86eeabb083d92230bf93879fcb4835cc20376a65a4c7fa26"
-  end
-
   compatibility_version 2
 
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "382ffdef22f8619badafe2e7ff23b8142996dd53f08311a1434c28f86fb37717"
+  end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
@@ -19,9 +19,13 @@ class GumboParser < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
         src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
       end
     end
 
