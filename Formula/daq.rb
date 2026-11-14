@@ -4,15 +4,13 @@ class Daq < Formula
   url "https://github.com/snort3/libdaq/archive/refs/tags/v3.0.28.tar.gz"
   sha256 "a72bc8882abdcfaf475b18d547b5a08785d574005584ce258e533d247bc62771"
   license "GPL-2.0-only"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "b415388f23495a1949b177688f5b660f8d1de0ee7938f4cef25f369d4e89f142"
+  end
+
   head "https://github.com/snort3/libdaq.git", branch: "master"
 
-  bottle do
-    sha256 cellar: :any, arm64_golden_gate: "7a89b4b16c0687a5a9be075ba323202356767735ee02a4ef6be699372a84ddcc"
-    sha256 cellar: :any, arm64_tahoe:       "8721db9bd1ec3ff068a556475be3906909eb0cdacceab4fe21a9a9128c1b012e"
-    sha256 cellar: :any, arm64_sequoia:     "1fc47bdc946014528761ec801507ae7a7201d166cfee5350b119bbf332a09e8e"
-    sha256 cellar: :any, arm64_linux:       "d3150d2c1d289fd74b6881984a5ac80cf8482a33f000c4fe44a104d6165e1d54"
-    sha256 cellar: :any, x86_64_linux:      "df08f47fd60d1ce98c54c9a58e73720fcfb3b10486771baf7c7ab06101641ede"
-  end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
@@ -26,9 +24,13 @@ class Daq < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
         src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
       end
     end
 
