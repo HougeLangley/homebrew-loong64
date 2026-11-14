@@ -4,6 +4,11 @@ class IcarusVerilog < Formula
   url "https://github.com/steveicarus/iverilog/archive/refs/tags/v13_0.tar.gz"
   sha256 "c897bbfa9848688982c6d5c30529fc29d68df0b9ff22ffa73bad89db73a7ce49"
   license all_of: ["GPL-2.0-or-later", "LGPL-2.1-or-later"]
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "412ef3eb8429934ed3bf356f82a5e368819e96d0d36fc1cf9d3f8e69a3211a04"
+  end
+
   head "https://github.com/steveicarus/iverilog.git", branch: "master"
 
   livecheck do
@@ -15,11 +20,6 @@ class IcarusVerilog < Formula
   end
 
 
-  bottle do
-    rebuild 2
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "cbad5fe7e532acb3a73dbbc2a2e763a68034cb36648998356295ef3de0351bae"
-  end
 
   depends_on "autoconf" => :build
   # parser is subtly broken when processed with an old version of bison

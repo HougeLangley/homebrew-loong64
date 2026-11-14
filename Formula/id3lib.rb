@@ -4,14 +4,19 @@ class Id3lib < Formula
   url "https://downloads.sourceforge.net/project/id3lib/id3lib/3.8.3/id3lib-3.8.3.tar.gz"
   sha256 "2749cc3c0cd7280b299518b1ddf5a5bcfe2d1100614519b68702230e26c7d079"
   license "LGPL-2.0-or-later"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "164bc67292f10b976e6d835aa5c7687df91f6b36bd7eff5a4a924f25daad9231"
-  end
-
   revision 1
   compatibility_version 1
 
+  bottle do
+    rebuild 1
+    sha256 cellar: :any,                 arm64_golden_gate: "d69d9e51d30546e2a25aa97aa226282d41195a847aaaa94ec795f0af416f7525"
+    sha256 cellar: :any,                 arm64_tahoe:       "c32250cc13c45be4e25507819ad3fb788b3031ad781d97b61bb721c95e6001f3"
+    sha256 cellar: :any,                 arm64_sequoia:     "dd2afb2b4e882de0fbdc279c2a993064a6b07527f0dd67298ffa568d1b445dca"
+    sha256 cellar: :any,                 arm64_sonoma:      "53c2b06123a0c4b17047798d199891a38be8808265bc5e3d265e2aa3e58d942c"
+    sha256 cellar: :any,                 sonoma:            "9cdc748bec10b52b864e3201a1ab0d1660fb92827b1587610e008b85a272b495"
+    sha256 cellar: :any_skip_relocation, arm64_linux:       "b2fc13b429cf5142874639c62498f0311474c8d09ff3aaed76843704359d82d6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:      "6b2b224334a73c8dd5e56bf5b8ff37d5e82fd02a700a62c13bc149ad5f8493f6"
+  end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
@@ -53,9 +58,13 @@ class Id3lib < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
         src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
       end
     end
 
