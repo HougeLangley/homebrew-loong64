@@ -11,10 +11,10 @@ class Form < Formula
   end
 
 
+
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "7b672c38e9f75bc63948d2088ecd430e259c6f508b3692889293f88df6568e75"
+    sha256 cellar: :any, loongarch64_linux: "fb8cc1787cb487bdec5f5828fcd3712cc1b22ad94f0aa2237945ce04db15065a"
   end
 
   depends_on "flint"
