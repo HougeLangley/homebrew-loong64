@@ -17,7 +17,7 @@ class Unzip < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "be925fe1ca096643589a1f6f7419caeff263324a5c9b766a143b461899377fd1"
+    sha256 cellar: :any, loongarch64_linux: "85c3c440a554ffdac0342f5c30282ebe3cf576250cb88f69ccbeb153dc378db3"
   end
 
   uses_from_macos "zip" => :test
