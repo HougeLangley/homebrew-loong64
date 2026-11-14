@@ -6,18 +6,15 @@ class Swfmill < Formula
   license "GPL-2.0-only"
   revision 1
 
-  bottle do
-    sha256 cellar: :any,                 arm64_tahoe:   "0917b9af1eecad6661e8e9fa3452013b0b902f51a00e8fc9eadf86ea8f1a887f"
-    sha256 cellar: :any,                 arm64_sequoia: "279d5dd1836fce59c3f06ff29a2a773802fed981a15f2be361cd16b0b33529cb"
-    sha256 cellar: :any,                 arm64_sonoma:  "16ccf2bac17d2fdcc617a6046afd6e661d3cff9adb2d6d7dbe1c7cd2d381fd37"
-    sha256 cellar: :any,                 sonoma:        "efd2b5bb9d62a7450499a95361daf04822b306bf26e170ea8797fe83df951234"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "49b40a53fc3a91359c32d504914b4552c2921a0b93342c16245c86ea727ac69c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9633e3f5f02761950f52d4669c0dc43d18ae88a07303e8c2a1e37a1055a9ee05"
-  end
 
   # adobe flash player EOL 12/31/2020, https://www.adobe.com/products/flashplayer/end-of-life-alternative.html
   deprecate! date: "2025-01-12", because: :unmaintained
   disable! date: "2026-01-12", because: :unmaintained
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "628f1cde2c29097e91cecd9c8eb1bb116f79fe81c94af640cdb8a4a8e3363f1f"
+  end
 
   depends_on "pkgconf" => :build
   depends_on "freetype"
@@ -32,9 +29,13 @@ class Swfmill < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
         src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
       end
     end
 
