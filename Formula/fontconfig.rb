@@ -11,6 +11,11 @@ class Fontconfig < Formula
     :public_domain,       # src/fcmd5.h, src/ftglue.[ch]
   ]
   compatibility_version 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "7493309c0e1077e64396eaf34849d32aca5c2d0920e493fe2b7b7590966a1c23"
+  end
+
   head "https://gitlab.freedesktop.org/fontconfig/fontconfig.git", branch: "main"
 
   livecheck do
@@ -19,11 +24,6 @@ class Fontconfig < Formula
   end
 
 
-  bottle do
-    rebuild 1
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "dcefcba366c20f31c9875bf474158be00ada361493c8c3ebe60d8ce8fa6240d1"
-  end
 
   depends_on "gettext" => :build
   depends_on "meson" => :build
