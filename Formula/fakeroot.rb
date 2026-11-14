@@ -10,14 +10,10 @@ class Fakeroot < Formula
     regex(/href=.*?fakeroot[._-]v?(\d+(?:\.\d+)+)[._-]orig\.t/i)
   end
 
+
   bottle do
-    sha256 cellar: :any, arm64_golden_gate: "70c1191d5d83f29b22b75cbf7912144066dc6bf00df61ce69c80869ac42be20b"
-    sha256 cellar: :any, arm64_tahoe:       "fff7162710a0bf52e0046c2409e2be2c718b6aa4f3d92d8872b8bfb8aa84c03c"
-    sha256 cellar: :any, arm64_sequoia:     "250a594622dff9f0d70faaba52d14ed86a7217834481bdde6c44933a1e728bbd"
-    sha256 cellar: :any, arm64_sonoma:      "3d6d3c7bea77e4d57840156baec430b3b4a52915d38be369a6a1aa18b61a05c2"
-    sha256 cellar: :any, sonoma:            "83d4fd2e5c4ebb409ea59395e577a9978bcaf9a1ede0c41ff3f6b88846a90e09"
-    sha256 cellar: :any, arm64_linux:       "bbca4b36f7d495ca938df2c04976cfcbcd6b3c47376e55f4ecc41daec914807d"
-    sha256 cellar: :any, x86_64_linux:      "cce849b081964ed904093aaa338aa71533d97e3cfd78e2c77e040a2f5d4db94d"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "e9506c48ff8c3a277f32cdea13e028e13798cd4a45194a5acc89142c3676d907"
   end
 
   depends_on "autoconf" => :build
@@ -31,9 +27,13 @@ class Fakeroot < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
         src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
       end
     end
 
