@@ -146,7 +146,7 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-11-15 03:45 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-11-15 03:56 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
@@ -167,7 +167,7 @@ end
 | **acme** | 0.97 | 114 KiB | `4bdb29791299` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/acme--0.97.loongarch64_linux.bottle.1.tar.gz) |
 | **acme.sh** | 3.1.6 | 460 KiB | `606317189ef8` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/acme.sh--3.1.6.loongarch64_linux.bottle.1.tar.gz) |
 | **acpica** | 20260408 | 1.3 MiB | `8f85a6d8863c` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/acpica--20260408.loongarch64_linux.bottle.1.tar.gz) |
-| **activemq-cpp** | 3.9.5_2 | 26 MiB | `d7ce5896d2ad` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/activemq-cpp--3.9.5_2.loongarch64_linux.bottle.1.tar.gz) |
+| **activemq-cpp** | 3.9.5_2 | 26 MiB | `c6d60a962be9` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/activemq-cpp--3.9.5_2.loongarch64_linux.bottle.1.tar.gz) |
 | **adamstark-audiofile** | 1.1.4 | 16 KiB | `303a29daf658` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/adamstark-audiofile--1.1.4.loongarch64_linux.bottle.1.tar.gz) |
 | **admesh** | 0.98.5 | 67 KiB | `0e9c36e80a00` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/admesh--0.98.5.loongarch64_linux.bottle.1.tar.gz) |
 | **adns** | 1.7.0 | 419 KiB | `240061e69baa` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/adns--1.7.0.loongarch64_linux.bottle.1.tar.gz) |
