@@ -5,6 +5,11 @@ class Boost < Formula
   sha256 "fd2e7967a4cbb8e019d752f385846a663a163074f6f249bbbed509ddc62744cc"
   version "1.91.0"
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "0c8a7d5b81e2ad730e687391faec5a4bc3e16960ecc753b322dedab932b1eb60"
+  end
+
   def install
     bin.mkpath; lib.mkpath; include.mkpath
     cp_r "/usr/include/boost", include/"boost" if Dir.exist?("/usr/include/boost")

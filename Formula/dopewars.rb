@@ -5,11 +5,11 @@ class Dopewars < Formula
   sha256 "623b9d1d4d576f8b1155150975308861c4ec23a78f9cc2b24913b022764eaae1"
   license "GPL-2.0-or-later"
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "56c69e05317b3e4f14b6a17bd66083ec629191a2624626760ee2c14c012f64dc"
+    sha256 cellar: :any, loongarch64_linux: "50cb436b56232011eeb9df0d501b881c9fbb73ce0a27f30bbbb1ff0617ca8cec"
   end
-
 
   depends_on "pkgconf" => :build
 
@@ -27,9 +27,13 @@ class Dopewars < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
         src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
       end
     end
 
