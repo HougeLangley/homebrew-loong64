@@ -1,7 +1,7 @@
 # homebrew-loong64
 
 [![arch](https://img.shields.io/badge/arch-loongarch64-blue)](https://loongson.cn)
-[![packages](https://img.shields.io/badge/packages-2603-brightgreen)](#-可用软件包)
+[![packages](https://img.shields.io/badge/packages-2605-brightgreen)](#-可用软件包)
 [![site](https://img.shields.io/badge/site-homebrewloongarch64.site-0a5)](https://homebrewloongarch64.site)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -146,7 +146,7 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-11-14 22:46 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-11-14 22:56 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
@@ -211,7 +211,7 @@ end
 | **aoeui** | 1.6 | 112 KiB | `c17e1bb24d6b` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aoeui--1.6.loongarch64_linux.bottle.1.tar.gz) |
 | **aom** | 3.15.2 | 4.7 MiB | `e5053309950e` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aom--3.15.2.loongarch64_linux.bottle.1.tar.gz) |
 
-> 仅显示前 60 个，共 **2603** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
+> 仅显示前 60 个，共 **2605** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
 
 ## 镜像与加速
 
