@@ -15,9 +15,10 @@ class Avfs < Formula
     regex(%r{url=.*?/avfs[._-]v?(\d+(?:\.\d+)+)\.t}i)
   end
 
+
   bottle do
-    sha256 arm64_linux:  "ac51b01c84fbfef1e9c0772ff4461db668ef7eb1e7afe73440bb8ec77ea7ac6b"
-    sha256 x86_64_linux: "895ffb92e873e6275a5fa024d535d469679f0931cdac2841b4604eb54bb4c45b"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "d49b989f31b98aa70ae862c7317d11ec83a8202c9af73b85fc1e8bd1ea0b7c83"
   end
 
   depends_on "pkgconf" => :build
@@ -35,9 +36,13 @@ class Avfs < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
         src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
       end
     end
 

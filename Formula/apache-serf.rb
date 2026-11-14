@@ -63,7 +63,7 @@ class ApacheSerf < Formula
       File.write(mkf, _m)
     end
     # CMake 标志追加
-    _cmflags = ["-DCMAKE_C_FLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "-DCMAKE_CXX_FLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"].freeze
+    _cmflags = ["-DCMAKE_C_FLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "-DCMAKE_CXX_FLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"].freeze
     # ENV.cc 追加
     _extra = "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types".split
     Dir["Makefile", "GNUmakefile", "makefile", "src/Makefile"].each do |mkf|
@@ -76,13 +76,13 @@ class ApacheSerf < Formula
     Dir["Makefile", "GNUmakefile", "makefile", "**/Makefile", "**/GNUmakefile", "**/makefile", "**/Makefile.*"].each do |mkf|
       next unless File.exist?(mkf)
       _m = File.read(mkf)
-      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types" }
+      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types " }
       File.write(mkf, _m)
     end
     # CFLAGS 里面追加（configure 硬编码时 ENV 追加不生效）
     if File.exist?("configure")
       _cfg = File.read("configure")
-      _cfg = _cfg.gsub(/^CFLAGS="([^"]*)"/) { 'CFLAGS="' + $1 + ' -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types' }
+      _cfg = _cfg.gsub(/^CFLAGS="([^"\\]*)"/) { 'CFLAGS="' + $1 + ' -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"' }
       File.write("configure", _cfg)
     end
     ENV.append_to_cflags "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"
@@ -103,49 +103,49 @@ class ApacheSerf < Formula
     system "scons", "install"
   end
 
- test do
-  # Based on test_ssl_init from https://github.com/apache/serf/blob/trunk/test/test_ssl.c
-  (testpath/"test.c").write <<~C
-   #include <assert.h>
-   #include <stdlib.h>
-   #include <serf.h>
+  test do
+    # Based on test_ssl_init from https://github.com/apache/serf/blob/trunk/test/test_ssl.c
+    (testpath/"test.c").write <<~C
+      #include <assert.h>
+      #include <stdlib.h>
+      #include <serf.h>
 
-   int main(void) {
-    apr_pool_t *pool;
-    apr_status_t status;
-    serf_bucket_t *decrypt_bkt;
-    serf_bucket_t *encrypt_bkt;
-    serf_bucket_t *in_stream;
-    serf_bucket_t *out_stream;
-    serf_bucket_alloc_t *alloc;
-    serf_ssl_context_t *ssl_context;
+      int main(void) {
+        apr_pool_t *pool;
+        apr_status_t status;
+        serf_bucket_t *decrypt_bkt;
+        serf_bucket_t *encrypt_bkt;
+        serf_bucket_t *in_stream;
+        serf_bucket_t *out_stream;
+        serf_bucket_alloc_t *alloc;
+        serf_ssl_context_t *ssl_context;
 
-    apr_initialize();
-    atexit(apr_terminate);
-    apr_pool_create(&pool, NULL);
+        apr_initialize();
+        atexit(apr_terminate);
+        apr_pool_create(&pool, NULL);
 
-    alloc = serf_bucket_allocator_create(pool, NULL, NULL);
-    in_stream = SERF_BUCKET_SIMPLE_STRING("", alloc);
-    out_stream = SERF_BUCKET_SIMPLE_STRING("", alloc);
-    decrypt_bkt = serf_bucket_ssl_decrypt_create(in_stream, NULL, alloc);
-    ssl_context = serf_bucket_ssl_decrypt_context_get(decrypt_bkt);
-    encrypt_bkt = serf_bucket_ssl_encrypt_create(out_stream, ssl_context, alloc);
-    status = serf_ssl_use_default_certificates(ssl_context);
+        alloc = serf_bucket_allocator_create(pool, NULL, NULL);
+        in_stream = SERF_BUCKET_SIMPLE_STRING("", alloc);
+        out_stream = SERF_BUCKET_SIMPLE_STRING("", alloc);
+        decrypt_bkt = serf_bucket_ssl_decrypt_create(in_stream, NULL, alloc);
+        ssl_context = serf_bucket_ssl_decrypt_context_get(decrypt_bkt);
+        encrypt_bkt = serf_bucket_ssl_encrypt_create(out_stream, ssl_context, alloc);
+        status = serf_ssl_use_default_certificates(ssl_context);
 
-    serf_bucket_destroy(decrypt_bkt);
-    serf_bucket_destroy(encrypt_bkt);
-    apr_pool_destroy(pool);
-    assert(status == APR_SUCCESS);
-    return 0;
-   }
-  C
+        serf_bucket_destroy(decrypt_bkt);
+        serf_bucket_destroy(encrypt_bkt);
+        apr_pool_destroy(pool);
+        assert(status == APR_SUCCESS);
+        return 0;
+      }
+    C
 
-  if OS.mac?
-   ENV.prepend_path "PKG_CONFIG_PATH", formula_opt_lib("apr")/"pkgconfig"
-   ENV.prepend_path "PKG_CONFIG_PATH", formula_opt_lib("apr-util")/"pkgconfig"
+    if OS.mac?
+      ENV.prepend_path "PKG_CONFIG_PATH", formula_opt_lib("apr")/"pkgconfig"
+      ENV.prepend_path "PKG_CONFIG_PATH", formula_opt_lib("apr-util")/"pkgconfig"
+    end
+    flags = shell_output("pkgconf --cflags --libs serf-1 apr-util-1 apr-1").chomp.split
+    system ENV.cc, "test.c", "-o", "test", *flags
+    system "./test"
   end
-  flags = shell_output("pkgconf --cflags --libs serf-1 apr-util-1 apr-1").chomp.split
-  system ENV.cc, "test.c", "-o", "test", *flags
-  system "./test"
- end
 end

@@ -5,16 +5,16 @@ class Afuse < Formula
   sha256 "87284e3f7973f5a61eea4a37880512c01f0b8bf1d37a8988447efbe806ec3414"
   license "GPL-2.0-only"
 
-  bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_linux:  "22032cf3dd5fe4a2aa623d7bc1f542eebd796f749a63e62907bf1006b2f42d26"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "2d36270c3d62319e03cf6f11756308f5a1f1daef36cebb7ef19376a795002014"
-  end
 
   # Last release on 2022-02-21. Needs `libfuse@2` to build.
   # Can be undeprecated if https://github.com/pcarrier/afuse/pull/14 is merged
   deprecate! date: "2026-06-21", because: :unmaintained
   disable! date: "2027-06-21", because: :unmaintained
+
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "59a0538ea3688de3e9fbe23caebf66b13b73db41ce893858c645a8280dffc2b6"
+  end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
@@ -25,9 +25,13 @@ class Afuse < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
         src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
       end
     end
 

@@ -1,7 +1,7 @@
 # homebrew-loong64
 
 [![arch](https://img.shields.io/badge/arch-loongarch64-blue)](https://loongson.cn)
-[![packages](https://img.shields.io/badge/packages-2595-brightgreen)](#-可用软件包)
+[![packages](https://img.shields.io/badge/packages-2599-brightgreen)](#-可用软件包)
 [![site](https://img.shields.io/badge/site-homebrewloongarch64.site-0a5)](https://homebrewloongarch64.site)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -146,7 +146,7 @@ end
 
 ## 可用软件包
 
-> 本表由发布流水线自动生成（2026-11-14 22:25 (UTC+8)），与站点索引 `index.json` 实时同源。
+> 本表由发布流水线自动生成（2026-11-14 22:36 (UTC+8)），与站点索引 `index.json` 实时同源。
 
 | 包 | 版本 | 大小 | SHA-256（前 12 位） | 下载 |
 |---|---|---|---|---|
@@ -180,6 +180,7 @@ end
 | **aespipe** | 2.4j | 48 KiB | `5a7553b91182` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aespipe--2.4j.loongarch64_linux.bottle.1.tar.gz) |
 | **afio** | 2.5.2 | 87 KiB | `112af90caed6` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/afio--2.5.2.loongarch64_linux.bottle.1.tar.gz) |
 | **aften** | 0.0.8 | 211 KiB | `0594034950f9` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aften--0.0.8.loongarch64_linux.bottle.1.tar.gz) |
+| **afuse** | 0.5.0 | 34 KiB | `59a0538ea368` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/afuse--0.5.0.loongarch64_linux.bottle.1.tar.gz) |
 | **agedu** | 20260410 | 63 KiB | `ae64e247d402` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/agedu--20260410.loongarch64_linux.bottle.1.tar.gz) |
 | **aha** | 0.5.1 | 35 KiB | `e0f75992b8cc` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aha--0.5.1.loongarch64_linux.bottle.1.tar.gz) |
 | **ahcpd** | 0.53 | 36 KiB | `c5b7d73f9830` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/ahcpd--0.53.loongarch64_linux.bottle.1.tar.gz) |
@@ -187,6 +188,7 @@ end
 | **airspyhf** | 1.6.8 | 65 KiB | `d5b47756bc18` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/airspyhf--1.6.8.loongarch64_linux.bottle.1.tar.gz) |
 | **aklomp-base64** | 0.5.2 | 32 KiB | `f4a3eea32d00` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aklomp-base64--0.5.2.loongarch64_linux.bottle.1.tar.gz) |
 | **aldo** | 0.7.7 | 87 KiB | `cbc59c6b6412` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aldo--0.7.7.loongarch64_linux.bottle.1.tar.gz) |
+| **alembic** | 1.8.12 | 1.6 MiB | `a701b7f58eb1` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/alembic--1.8.12.loongarch64_linux.bottle.1.tar.gz) |
 | **algol68g** | 3.13.4 | 825 KiB | `231de4304f45` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/algol68g--3.13.4.loongarch64_linux.bottle.1.tar.gz) |
 | **align** | 1.7.5 | 13 KiB | `32199dde3bcf` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/align--1.7.5.loongarch64_linux.bottle.1.tar.gz) |
 | **alpine** | 2.26 | 5.3 MiB | `2be1048de69f` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/alpine--2.26.loongarch64_linux.bottle.1.tar.gz) |
@@ -207,11 +209,9 @@ end
 | **any2fasta** | 0.8.1 | 19 KiB | `124822ef45ff` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/any2fasta--0.8.1.loongarch64_linux.bottle.1.tar.gz) |
 | **anyenv** | 1.1.5 | 11 KiB | `aa9267f441d9` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/anyenv--1.1.5.loongarch64_linux.bottle.1.tar.gz) |
 | **aoeui** | 1.6 | 112 KiB | `c17e1bb24d6b` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aoeui--1.6.loongarch64_linux.bottle.1.tar.gz) |
-| **apache-arrow-adbc** | 25 | 212 KiB | `f0bc26e28e36` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/apache-arrow-adbc--25.loongarch64_linux.bottle.1.tar.gz) |
-| **apcupsd** | 3.14.14 | 540 KiB | `e5905dd4cbbe` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/apcupsd--3.14.14.loongarch64_linux.bottle.1.tar.gz) |
-| **apib** | 1.2.1 | 219 KiB | `b85dc28180ba` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/apib--1.2.1.loongarch64_linux.bottle.1.tar.gz) |
+| **aom** | 3.15.2 | 4.7 MiB | `e5053309950e` | [bottle](https://homebrewloongarch64.site/brew/../brew-bottles/aom--3.15.2.loongarch64_linux.bottle.1.tar.gz) |
 
-> 仅显示前 60 个，共 **2595** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
+> 仅显示前 60 个，共 **2599** 个。完整列表见 [搜索页](https://homebrewloongarch64.site/brew/search.html)。
 
 ## 镜像与加速
 
