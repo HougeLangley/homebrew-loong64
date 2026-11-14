@@ -12,9 +12,10 @@ class Keydb < Formula
   deprecate! date: "2026-10-04", because: :unmaintained
   disable! date: "2027-04-04", because: :unmaintained
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "0000000000000000000000000000000000000000000000000000000000000000"
+    sha256 cellar: :any, loongarch64_linux: "36ddcfa4e056c9ae98506f3f548eb3c2a66db3c41c2b88956ff09f0075cbd983"
   end
 
   depends_on "pkgconf" => :build
