@@ -7,10 +7,6 @@ class GlobalArrays < Formula
 
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "b72fdca97ba6d73905c6c426a99177a6e035bec4b8462a23e7edc368aee61b92"
-  end
 
   depends_on "cmake" => [:build, :test]
   depends_on "open-mpi"
