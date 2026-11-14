@@ -6,20 +6,20 @@ class GnuBarcode < Formula
   sha256 "7c031cf3eb811242f53664379aebbdd9fae0b7b26b5e5d584c31a9f338154b64"
   license "GPL-3.0-or-later"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "33838409b8435b4f69e4278e83d7c4f8dc41887fe53b543fb4f50681ca4afa44"
-  end
-
 
   # Patch and ac_cv_func_calloc_0_nonnull config addresses the following issue:
   # https://lists.gnu.org/archive/html/bug-barcode/2015-06/msg00001.html
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "c5aa57e8fb2cece0267eeb1b38604f2f4b9e19f8e45ef12644228809535a7b9a"
+  end
+
   patch :DATA
 
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end

@@ -5,11 +5,6 @@ class GnupgAT14 < Formula
   mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/gnupg/gnupg-1.4.23.tar.bz2"
   sha256 "c9462f17e651b6507848c08c430c791287cd75491f8b5a8b50c6ed46b12678ba"
   license "GPL-3.0-or-later"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "50cf042376acb7085cd5ad362d716132cfcc679ab41bb6287a44d6b3e7926d89"
-  end
-
   revision 1
 
   livecheck do
@@ -18,6 +13,11 @@ class GnupgAT14 < Formula
   end
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "9bd034e28b8159d4c6e1087a2a1a8744d71c29a41315e3d53ba38c5765a1d3ad"
+  end
+
   on_linux do
     depends_on "zlib-ng-compat"
   end
@@ -25,7 +25,7 @@ class GnupgAT14 < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
