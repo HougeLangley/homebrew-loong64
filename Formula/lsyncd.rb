@@ -12,7 +12,10 @@ class Lsyncd < Formula
   deprecate! date: "2026-05-17", because: :unmaintained
   disable! date: "2027-05-17", because: :unmaintained
 
-
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "92b6869cf8f25037ecbb6f5ce2678538c81d7408d63fb209754f16f165f039af"
+  end
 
   depends_on "cmake" => :build
   depends_on "lua@5.4"

@@ -24,7 +24,7 @@ class Cspice < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "1dfc7bb5e3a4247f03eacf38800e8783ce2d0eb0801cebc1658b6c75349249a3"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "52f2fbb0b813ffbfb1912bea456ad42755d031129131ce3008dd81af844bde11"
   end
 
   def install
