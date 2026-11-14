@@ -5,11 +5,11 @@ class Libxshmfence < Formula
   sha256 "d4a4df096aba96fea02c029ee3a44e11a47eb7f7213c1a729be83e85ec3fde10"
   license "MIT"
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "9586e65f2b0d849d047cd2e69c0c97d2dd6844455452cd7f1b1b29d63596407b"
+    sha256 cellar: :any, loongarch64_linux: "2c712421a0bbb86286700eda4cd82b301668995241b04fdc04cfd8f455c2f56a"
   end
-
 
   depends_on "pkgconf" => :build
   depends_on "xorgproto" => [:build, :test]
@@ -17,9 +17,13 @@ class Libxshmfence < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
         src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
       end
     end
 

@@ -30,9 +30,10 @@ class Exim < Formula
   end
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "ecf30d9c1d2a5a556b603a34dfd0a065a4e20fc174b96c828bcb7817dcafaab8"
+    sha256 cellar: :any, loongarch64_linux: "87655666a21c0525ee61a0f1dd9c1f6fb53a8c9a548242ed245e254c477bf516"
   end
 
   depends_on "openssl@4"

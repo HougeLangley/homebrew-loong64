@@ -6,11 +6,6 @@ class Cups < Formula
   url "https://github.com/OpenPrinting/cups/releases/download/v2.4.20/cups-2.4.20-source.tar.gz"
   sha256 "ab4d9cd7f3e58060091d2b24972223d6401675f11c49b65abf4f6ef31dea22ff"
   license "Apache-2.0" => { with: "LLVM-exception" }
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "fe353abe5f6fb47b6950c52f9e7f6c51337348f58b02b7c25bce90e6cdfe81b5"
-  end
-
   revision 1
   head "https://github.com/OpenPrinting/cups.git", branch: "master"
 
@@ -19,6 +14,13 @@ class Cups < Formula
     regex(/^(?:release[._-])?v?(\d+(?:\.\d+)+(?:op\d*)?)$/i)
   end
 
+  bottle do
+    sha256 arm64_golden_gate: "5a727441c523de179b6277404be515908bb4f778a1f967493502e9554411ffef"
+    sha256 arm64_tahoe:       "45c907c232389a65d84a2178f8f84e8c0a3d831066593a44da3324843759cdf3"
+    sha256 arm64_sequoia:     "0e9d882e26f6282def22c4a4dfc716c7f222b069ea98f7b1ee74dad0dfc2bf3e"
+    sha256 arm64_linux:       "08e6865b88ebee88ffeee1491c23dadbcdba000bbc6d5ff5ea5fdc33c2f3cff3"
+    sha256 x86_64_linux:      "e6b60a0d43398e4cf2356c4f930bbc010ffe1b7e549d2544f2a24c035f2b345b"
+  end
 
   keg_only :provided_by_macos
 
@@ -42,9 +44,13 @@ class Cups < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
         src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
       end
     end
 
