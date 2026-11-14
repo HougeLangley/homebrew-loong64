@@ -6,11 +6,7 @@ class GlobalArrays < Formula
   license "BSD-3-Clause"
 
 
-  bottle do
-    rebuild 1
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "14258962cf6c62db2ea2d1ec973f279e4f7024d329f35593415f623450194e26"
-  end
+
 
   depends_on "cmake" => [:build, :test]
   depends_on "open-mpi"
