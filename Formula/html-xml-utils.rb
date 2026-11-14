@@ -5,21 +5,21 @@ class HtmlXmlUtils < Formula
   sha256 "950027e1780787ca88271570aae890e0ac9b906f764554c2dee263d4cf7b74b8"
   license "W3C"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "12c913f7f694fdb9ac443f86e7b6b9150b1bb7a00313ee7aee13815485793ede"
-  end
-
   livecheck do
     url :homepage
     regex(/href=.*?html-xml-utils[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "b9bb72c6cdff4e0455e35a7d71a66839a530a0b264e56b6ad2fe89c6bd3344df"
+  end
+
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
