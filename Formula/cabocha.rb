@@ -13,9 +13,10 @@ class Cabocha < Formula
   end
 
 
+
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "075159ac664968afa76c417990b57cd4bba9022fc05a3ca50bc3731fcce85da3"
+    sha256 cellar: :any, loongarch64_linux: "10be132524e6e7e6e0d4e6d1006a82ac316439cb029744f51eecb2c1183dbba3"
   end
 
   depends_on "crf++"
