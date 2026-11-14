@@ -19,7 +19,7 @@ class Libtrace < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "0f9125389eb8977e7fa4468fe1c9ed596d179185428cdbe59ec5a5ff591e1b1f"
+    sha256 cellar: :any, loongarch64_linux: "d2715ddb07cdab6a0e6b004a23b0ab0f5ed78051653ae325f1876f0fd1ee8550"
   end
 
   depends_on "autoconf" => :build
