@@ -7,10 +7,10 @@ class AwsCIo < Formula
   compatibility_version 3
 
 
+
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "29d38e6cb5781381d651743a3a1753a42acc92a13f85381cb28cdb24880a12f7"
+    sha256 cellar: :any, loongarch64_linux: "29ca82a0f2e08ca4967b0f2399541badaa942b7bf2f9b630aefa8d593b4acb0f"
   end
 
   depends_on "cmake" => :build

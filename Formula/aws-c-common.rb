@@ -7,10 +7,10 @@ class AwsCCommon < Formula
   compatibility_version 2
 
 
+
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "73294f1d0ef256d975ad4d65ff0ae013563cbacab0fefd448919980528808721"
+    sha256 cellar: :any, loongarch64_linux: "623f539b9d2eb03415bfbf04aac78cb1090d574ab528309392cffd866b2480df"
   end
 
   depends_on "cmake" => :build

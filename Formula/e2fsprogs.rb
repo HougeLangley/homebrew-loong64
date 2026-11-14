@@ -13,7 +13,7 @@ class E2fsprogs < Formula
   compatibility_version 1
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "e3622a377df772ebae1c01abfed32df78b248fc44d50018faac0a93e3b1125ef"
+    sha256 cellar: :any, loongarch64_linux: "bdb28f75a258b4efebcdb69e5e6c8a82e38ff0634b401b87fefe43eea1200f4a"
   end
 
   head "https://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git", branch: "master"
@@ -43,9 +43,13 @@ class E2fsprogs < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
         src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
       end
     end
 
