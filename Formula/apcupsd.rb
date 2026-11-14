@@ -13,7 +13,7 @@ class Apcupsd < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "6bf8fa075f9631501333f352d8617928b988823a1eaee8c43c525ff01d963359"
+    sha256 cellar: :any, loongarch64_linux: "e5905dd4cbbe6e36c77e67088d5c94d4567d4c2001c76e0198799a832fe8b2ae"
   end
 
   depends_on "gd"
@@ -26,6 +26,18 @@ class Apcupsd < Formula
   deny_network_access!
 
   def install
+    # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
+    %w[config.sub config.guess].each do |cf|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
+        src = "/usr/share/libtool/build-aux/#{cf}"
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
+      end
+    end
+
     ENV.prepend_path "PATH", Formula["systemd"].opt_sbin if OS.linux?
     sysconfdir = etc/name
     args = %W[
@@ -65,7 +77,7 @@ class Apcupsd < Formula
       args << "--with-halpolicydir=#{share}/hal/fdi/policy/20thirdparty"
     end
 
-    system "./configure", *args
+    system "./configure", "--build=loongarch64-unknown-linux-gnu", *args
     system "make", "install"
   end
 

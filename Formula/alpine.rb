@@ -31,10 +31,21 @@ class Alpine < Formula
     regex(/href=.*?alpine[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-
   bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "2be1048de69f7c07ae9dee19bf36f83a6dbdff287a8070957720a69de32d9a45"
+    rebuild 2
+    sha256 arm64_golden_gate: "549a45d8ece706ea30013e7f8f345422c9867af0e4410c1af1f5718df08df2a3"
+    sha256 arm64_tahoe:       "62301d0e5eb9290a24fb3ab3d9117f9dccc45160fbdee0ee7a176e9d02a21f2e"
+    sha256 arm64_sequoia:     "0299b3f80c9193359059909396ebf74078a263d0e0987e086741398bac68d566"
+    sha256 arm64_sonoma:      "7ad58b222ed8fa4ef1a7609c1223796de0a349d3d5b408109c408793586dfee5"
+    sha256 arm64_ventura:     "9b7a5da6cd88ce590ec0c1c2ef8dc45da8a4fa45d108eb976157ddd505cf2b2a"
+    sha256 arm64_monterey:    "b1c884c5cc1d84813284e85e74ae3c78db147b46da0d0b8d18ade4ff2ee550ac"
+    sha256 arm64_big_sur:     "ba5962d03c0733fff29eb92d1c759867185d38de7ba342561ccbd20da5ce050d"
+    sha256 sonoma:            "a7e085c449b40a91ecba38010375fd7f4ad9446c0a2cd490ed2dbf3da2b06f67"
+    sha256 ventura:           "7b8f62b0200eb3ed18c3f79ecf7201f8409916f505fe738068307b6dbeb754ca"
+    sha256 monterey:          "5f289262fe8971acbe473b036316f73d7a17c8f9bbbcb7a966c2a2d5e7c06ee6"
+    sha256 big_sur:           "8a5830644c5e7738ba52ad6687eebf493020c8e6d14a4d247b3372138cac37a3"
+    sha256 arm64_linux:       "26792044eea71951e4a6236711a8f29cb7e52e68ee289cac3c809815bbd484be"
+    sha256 x86_64_linux:      "3a326ae9048a1ea6fe4403478254a7bb403c1a565486b96d7224138f1b2e3072"
   end
 
   depends_on "openssl@3"
@@ -52,6 +63,66 @@ class Alpine < Formula
   deny_network_access!
 
   def install
+    # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
+    %w[config.sub config.guess].each do |cf|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
+        src = "/usr/share/libtool/build-aux/#{cf}"
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
+      end
+    end
+
+    # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
+    %w[conf-cc conf-cxx].each do |cf|
+      next unless File.exist?(cf)
+      _c = File.read(cf).strip
+      File.write(cf, _c + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types\n") unless _c.include?("gnu17")
+    end
+    # cc 命令改写（Makefile 里写死 cc 而非 $(CC) 时）
+    Dir["Makefile", "**/Makefile", "**/GNUmakefile", "**/Makefile.*"].each do |mkf|
+      next unless File.exist?(mkf)
+      _m = File.read(mkf)
+      _m = _m.gsub(/^(	| {0,4})(cc|gcc)([ 	])/) { "#{$1}$(CC)#{$3}" }
+      File.write(mkf, _m)
+    end
+    # CMake 标志追加
+    _cmflags = ["-DCMAKE_C_FLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "-DCMAKE_CXX_FLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"].freeze
+    # ENV.cc 追加
+    _extra = "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types".split
+    Dir["Makefile", "GNUmakefile", "makefile", "src/Makefile"].each do |mkf|
+      next unless File.exist?(mkf)
+      _m = File.read(mkf)
+      _m = _m.gsub(/-std=(c|gnu)(89|99|11|17|2x)/, "")
+      File.write(mkf, _m)
+    end
+    # Makefile 里面追加（硬编码 CFLAGS 时 ENV 追加不生效）
+    Dir["Makefile", "GNUmakefile", "makefile", "**/Makefile", "**/GNUmakefile", "**/makefile", "**/Makefile.*"].each do |mkf|
+      next unless File.exist?(mkf)
+      _m = File.read(mkf)
+      _m = _m.sub(/^(CFLAGS[ \t]*[+:]?=)/) { $1 + " -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types " }
+      File.write(mkf, _m)
+    end
+    # 老包自带的 config.sub/config.guess 不认 loongarch64，用系统版本替换
+    %w[config.sub config.guess].each do |cf|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |rel|
+        src = "/usr/share/libtool/build-aux/#{cf}"
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
+      end
+    end
+    # CFLAGS 里面追加（configure 硬编码时 ENV 追加不生效）
+    if File.exist?("configure")
+      _cfg = File.read("configure")
+      _cfg = _cfg.gsub(/^CFLAGS="([^"\\]*)"/) { 'CFLAGS="' + $1 + ' -std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"' }
+      File.write("configure", _cfg)
+    end
+    ENV.append_to_cflags "-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types"
     ENV.deparallelize
 
     args = %W[
@@ -60,8 +131,8 @@ class Alpine < Formula
       --with-bundled-tools
     ]
 
-    system "./configure", *args, *std_configure_args
-    system "make", "install"
+    system "./configure", "--build=loongarch64-unknown-linux-gnu", *args, *std_configure_args
+    system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
   end
 
   test do
