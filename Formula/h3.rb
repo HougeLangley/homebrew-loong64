@@ -18,6 +18,9 @@ class H3 < Formula
   depends_on "cmake" => :build
 
   def install
+    # 老 .clang-tidy 使用 clang 22 已删除的 AnalyzeTemporaryDtors 键，构建前移除
+    rm_f ".clang-tidy"
+
     system "cmake", "-S", ".", "-B", "build",
                     "-DBUILD_SHARED_LIBS=ON",
                     "-DCMAKE_INSTALL_RPATH=#{rpath}",

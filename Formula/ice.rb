@@ -13,7 +13,10 @@ class Ice < Formula
   end
 
 
-
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "ec2a12f01e497b23a9215296b04927dce81678786d9d20168cd09c0000e3e406"
+  end
 
   depends_on "lmdb"
   depends_on "mcpp"
