@@ -6,7 +6,7 @@ class Gpx < Formula
   license "GPL-2.0-or-later"
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "1da2136b9d6e68d9a627ba0574c091c5a61e6a576a7d080011716163093f520d"
+    sha256 cellar: :any, loongarch64_linux: "1c1626e9dc1ac7eeb8c2716aa0cafae06a4a3076efbac255f1ce63aee8fadd92"
   end
 
   head "https://github.com/markwal/GPX.git", branch: "master"
@@ -15,7 +15,7 @@ class Gpx < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |dest|
         src = "/usr/share/libtool/build-aux/#{cf}"
         cp src, dest if File.exist?(dest) && File.exist?(src)
       end
