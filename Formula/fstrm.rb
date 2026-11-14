@@ -3,11 +3,6 @@ class Fstrm < Formula
   homepage "https://github.com/farsightsec/fstrm"
   license "MIT"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "8416fcdd34d8c4f00e95f1e9e22b8325bc2fbcfa36ff4a99d3ab54380d16b23c"
-  end
-
   stable do
     url "https://dl.farsightsecurity.com/dist/fstrm/fstrm-0.6.1.tar.gz"
     sha256 "bca4ac1e982a2d923ccd24cce2c98f4ceeed5009694430f73fc0dcebca8f098f"
@@ -25,6 +20,11 @@ class Fstrm < Formula
   end
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "166189e64ced7e204f86ec843a346de74bb951fcd5b8ce5805856ea61c5b3a14"
+  end
+
   head do
     url "https://github.com/farsightsec/fstrm.git", branch: "master"
 
@@ -39,9 +39,13 @@ class Fstrm < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
         src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
       end
     end
 
