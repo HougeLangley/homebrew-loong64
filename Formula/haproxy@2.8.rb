@@ -17,10 +17,10 @@ class HaproxyAT28 < Formula
   # https://endoflife.date/haproxy
   disable! date: "2028-04-01", because: :unmaintained
 
+
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "7c85f89aca9163bf48ca5e7f0cbe907e1853f2e711573ebebdb71cd76d05196a"
+    sha256 cellar: :any, loongarch64_linux: "2ff54fe3963511399542f0b29f3c32d7f336459bd3251c4ffddcc4b1bf75e036"
   end
 
   depends_on "openssl@3"
