@@ -1,0 +1,45 @@
+class Libraqm < Formula
+  desc "Library for complex text layout"
+  homepage "https://github.com/HOST-Oman/libraqm"
+  url "https://github.com/HOST-Oman/libraqm/archive/refs/tags/v0.11.0.tar.gz"
+  sha256 "2ba3521d3f24e9696185a67a16f1a9643429d6c897d89d83dfb2aad3a398732a"
+  license "MIT"
+  compatibility_version 1
+
+
+
+  bottle do
+    rebuild 1
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "08264c8cdcf9a7fe219e4058c1804881787d1917def4a809fbdb984900188bd7"
+  end
+
+  depends_on "meson" => :build
+  depends_on "ninja" => :build
+  depends_on "pkgconf" => :build
+  depends_on "freetype"
+  depends_on "fribidi"
+  depends_on "harfbuzz"
+
+  def install
+    system "meson", "setup", "build", *std_meson_args
+    system "meson", "compile", "-C", "build", "--verbose"
+    system "meson", "install", "-C", "build"
+  end
+
+  test do
+    (testpath/"test.c").write <<~C
+      #include <raqm.h>
+
+      int main() {
+        return 0;
+      }
+    C
+
+    system ENV.cc, "test.c",
+                   "-I#{include}",
+                   "-I#{formula_opt_include("freetype")/"freetype2"}",
+                   "-o", "test"
+    system "./test"
+  end
+end
