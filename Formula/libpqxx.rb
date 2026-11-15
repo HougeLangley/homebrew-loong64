@@ -10,7 +10,7 @@ class Libpqxx < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "31dcf97bab6bca0755e70c5eaf6548349520e38d5ecd53f3124a0c2e60ba15cf"
+    sha256 cellar: :any, loongarch64_linux: "9d5879fd7e38464470531eadeaed84f4163da238c6b70fefe95d9336ab2952a2"
   end
 
   depends_on "cmake" => :build
