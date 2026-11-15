@@ -10,14 +10,10 @@ class Nuvie < Formula
     depends_on "sdl12-compat"
   end
 
+
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_tahoe:   "fa2594d6ea248c288f64937010118a7b84c70264c24dae72c5e6059930c9a35d"
-    sha256 cellar: :any,                 arm64_sequoia: "75819c942c2151264b9586aff141b43f0c52032fbaf8c0701cb0543dbb293edb"
-    sha256 cellar: :any,                 arm64_sonoma:  "139b517e55da813691b4421a2c93bb3189596cd861de948332563717aca30403"
-    sha256 cellar: :any,                 sonoma:        "951b540e1014c1606cd98a4d0fd48ada753a1fb81704fbb24d87521444eb8132"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "7c25afc497b351fc27250785b4140257a175ee68d538130cebed19703b6c33f3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ef7d6d14dcdf5c273ec268154ab409f33a14d494a087f25ee51289ea0c5a6de6"
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "4b64bbe70b79cc9e17bcb683b1ee2ad760ada481a732206422880b19054f9a9c"
   end
 
   head do
