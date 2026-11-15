@@ -7,6 +7,10 @@ class NativefiledialogExtended < Formula
 
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "57ffc9a8e280fa876a90c0715b6c3efd539df15c09733000cb7fec22baf39850"
+  end
 
   depends_on "cmake" => :build
 
