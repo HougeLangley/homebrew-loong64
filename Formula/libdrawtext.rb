@@ -4,11 +4,6 @@ class Libdrawtext < Formula
   url "https://github.com/jtsiomb/libdrawtext/releases/download/v0.6/libdrawtext-0.6.tar.gz"
   sha256 "714d94473622d756bfe7d70ad6340db3de7cc48f4f356a060e3cb48900c6da01"
   license "LGPL-3.0-or-later"
-  bottle do
-    rebuild 1
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "1ef947fe17f4f08b66df8a0b6cf0af85315ac5850509443d57374c5289879273"
-  end
 
   head "https://github.com/jtsiomb/libdrawtext.git", branch: "master"
 
