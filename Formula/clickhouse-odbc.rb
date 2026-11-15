@@ -4,9 +4,8 @@ class ClickhouseOdbc < Formula
   license "Apache-2.0"
   revision 2
   bottle do
-    rebuild 2
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "875c46a1c94b7084c68dd9275362da8ab1bfffc852262a5eec299324d459f1c3"
+    sha256 cellar: :any, loongarch64_linux: "05f78f588d6f1a5e092a41e25c5bc8ab19f48117a95467e9616bccd26b84ea8e"
   end
 
   head "https://github.com/ClickHouse/clickhouse-odbc.git", branch: "master"
