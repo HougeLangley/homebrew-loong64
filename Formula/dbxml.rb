@@ -10,10 +10,6 @@ class Dbxml < Formula
   deprecate! date: "2026-04-18", because: :unmaintained
   disable! date: "2027-04-18", because: :unmaintained
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "880c0b23b2765c56e9c2e78cdbb2c60c33fa3732280840aedc42a5049dee4efb"
-  end
 
   depends_on "berkeley-db"
   depends_on "xerces-c"
