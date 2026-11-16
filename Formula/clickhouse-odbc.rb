@@ -5,7 +5,7 @@ class ClickhouseOdbc < Formula
   revision 2
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "05f78f588d6f1a5e092a41e25c5bc8ab19f48117a95467e9616bccd26b84ea8e"
+    sha256 cellar: :any, loongarch64_linux: "ae53bf241366fefb40126362762370589e937a6cca91390f8532d01ae0e8f3ef"
   end
 
   head "https://github.com/ClickHouse/clickhouse-odbc.git", branch: "master"
