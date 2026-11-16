@@ -17,9 +17,8 @@ class PgTop < Formula
 
 
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "19fb37ec358ddd762a5ded69438f8cb488f7ed21f3c8157f57ec11f8ce769626"
+    sha256 cellar: :any, loongarch64_linux: "721c9f2df7e64f5b00095c330ee3b72728b3bc968c353ee113efa577b400578b"
   end
 
   depends_on "autoconf" => :build
