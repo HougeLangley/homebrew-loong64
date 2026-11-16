@@ -6,7 +6,7 @@ class Slivar < Formula
   license "MIT"
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "0094eb6f256a1e386c51c641c3cbf081115d1bbb512ab7609f58f7deffd1527f"
+    sha256 cellar: :any, loongarch64_linux: "1ceb4aacbfcc81b01ad4868dcfa14def367d5088996d7288cc10e27a4bae64ca"
   end
 
   head "https://github.com/brentp/slivar.git", branch: "master"
