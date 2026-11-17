@@ -6,9 +6,8 @@ class OpentelemetryCpp < Formula
   license "Apache-2.0"
   revision 1
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "a5f16f035ba6d63d5e8c6c29570f687038c72e3b2242470c900791cb2c8080f8"
+    sha256 cellar: :any, loongarch64_linux: "1e2c7e0f4e309b086d17c3dfd8252da16204a96175b1a3c7c4a0a088f9a80fd0"
   end
 
   head "https://github.com/open-telemetry/opentelemetry-cpp.git", branch: "main"
