@@ -7,10 +7,10 @@ class Hqx < Formula
   license "LGPL-2.1-or-later"
 
 
+
   bottle do
-    rebuild 4
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any_skip_relocation, loongarch64_linux: "d0332dbb4b80de7e013f9098bce3f2af46a2c6ed3fa9e16db360c7bbf4d33d70"
+    sha256 cellar: :any, loongarch64_linux: "de7c46030f230378fc37d853077b7c0f84ad729cb45d85be05c11958bc33e0a3"
   end
 
   depends_on "autoconf" => :build
