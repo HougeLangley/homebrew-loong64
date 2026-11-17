@@ -1,0 +1,72 @@
+class PgCron < Formula
+  desc "Run periodic jobs in PostgreSQL"
+  homepage "https://github.com/citusdata/pg_cron"
+  url "https://github.com/citusdata/pg_cron/archive/refs/tags/v1.6.8.tar.gz"
+  sha256 "c19ab9bb35406c60fb51ecda993737c083850abe424acb6c1030439d00a1f8e4"
+  license "PostgreSQL"
+
+
+
+  bottle do
+    rebuild 1
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "fd2032e6f8b2735800a8701a3c94236956f9be02d8d68ffafe6f74da4dfba001"
+  end
+
+  depends_on "postgresql@17" => [:build, :test]
+  depends_on "postgresql@18" => [:build, :test]
+  depends_on "libpq"
+
+  on_macos do
+    depends_on "gettext" # for libintl
+  end
+
+  def postgresqls
+    deps.filter_map { |f| f.to_formula if f.name.start_with?("postgresql@") }
+        .sort_by(&:version)
+  end
+
+  def install
+    odie "Too many postgresql dependencies!" if postgresqls.count > 2
+
+    # Work around for ld: Undefined symbols: _libintl_ngettext
+    # Issue ref: https://github.com/citusdata/pg_cron/issues/269
+    ENV["PG_LDFLAGS"] = "-lintl" if OS.mac?
+
+    postgresqls.each do |postgresql|
+      ENV["PG_CONFIG"] = postgresql.opt_bin/"pg_config"
+      # We force linkage to `libpq` to allow building for multiple `postgresql@X` formulae.
+      # The major soversion is hardcoded to at least make sure compatibility version hasn't changed.
+      # If it does change, then need to confirm if API/ABI change impacts running on older PostgreSQL.
+      system "make", "install", "libpq=#{formula_opt_lib("libpq")/shared_library("libpq", 5)}",
+                                "rpathdir=#{formula_opt_lib("libpq")}",
+                                "pkglibdir=#{lib/postgresql.name}",
+                                "datadir=#{share/postgresql.name}"
+      system "make", "clean"
+    end
+  end
+
+  test do
+    ENV["LC_ALL"] = "en_US.UTF-8"
+    postgresqls.each do |postgresql|
+      pg_ctl = postgresql.opt_bin/"pg_ctl"
+      psql = postgresql.opt_bin/"psql"
+      port = free_port
+
+      datadir = testpath/postgresql.name
+      system pg_ctl, "initdb", "-D", datadir, "-o", "--locale=en_US.UTF-8", "-o", "'-E UTF-8'"
+      (datadir/"postgresql.conf").write <<~EOS, mode: "a+"
+
+        shared_preload_libraries = 'pg_cron'
+        port = #{port}
+        unix_socket_directories = '#{testpath}'
+      EOS
+      system pg_ctl, "start", "-D", datadir, "-l", testpath/"log-#{postgresql.name}"
+      begin
+        system psql, "-h", testpath, "-p", port.to_s, "-c", "CREATE EXTENSION \"pg_cron\";", "postgres"
+      ensure
+        system pg_ctl, "stop", "-D", datadir
+      end
+    end
+  end
+end
