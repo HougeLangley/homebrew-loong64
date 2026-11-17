@@ -6,7 +6,7 @@ class Kakoune < Formula
   license "Unlicense"
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "5002a92052e00fff31163c43deecc4b6430708604969ef5164015b82fc889ee5"
+    sha256 cellar: :any, loongarch64_linux: "ea11e35b493e1e212879bf15ad017f5c67853054d06dda79ca67cdd823c1c92d"
   end
 
   head "https://github.com/mawww/kakoune.git", branch: "master"
