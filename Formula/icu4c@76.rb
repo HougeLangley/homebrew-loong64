@@ -16,7 +16,7 @@ class Icu4cAT76 < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "dabd2c36c222b4a1efc06bbc5082085e4bc47550d33c2d1978ffe96ce5332b49"
+    sha256 cellar: :any, loongarch64_linux: "4b14a5c398cee68099d886f50186f14d7db13f1abf8e47413549ff0b3cf932d6"
   end
 
   def install
