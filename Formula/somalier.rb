@@ -6,7 +6,7 @@ class Somalier < Formula
   license "MIT"
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "a6a5dd0255db34a26b51e63ed69291bf920ec96842ba67cc1a8d97828e35add8"
+    sha256 cellar: :any, loongarch64_linux: "a735e2f75886ea164afbfc1c3f631d33f0e207ec66e178071f3b5a22dfeb70b9"
   end
 
   head "https://github.com/brentp/somalier.git", branch: "master"
