@@ -12,6 +12,10 @@ class Seexpr < Formula
 
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "9b5503bb416f2a28ea08133739a552539a77c640c454d322793d21df1b0fadce"
+  end
 
   depends_on "cmake" => :build
   depends_on "libpng"
