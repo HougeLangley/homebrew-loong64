@@ -12,10 +12,6 @@ class Epstool < Formula
 
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "39a82279598f8e8075ecc1b632a767018b2cfe11a1aff39eed644e6cb34372fe"
-  end
 
   depends_on "ghostscript"
 
