@@ -17,9 +17,8 @@ class ErlangAT28 < Formula
 
 
   bottle do
-    rebuild 1
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "016b7beed0476013d7c4a3b818f3ecf55cb67258cf4f152b912bd696d3214757"
+    sha256 cellar: :any, loongarch64_linux: "3b6c5fe78f7d05269c7b22b8bd324d9d1a9aa7011cd5519d06a5f311a882a2a7"
   end
 
   depends_on "openssl@4"
