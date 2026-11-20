@@ -7,10 +7,6 @@ class AvroC < Formula
   license "Apache-2.0"
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "da3ed7b2225cb5705788c25bbb117e6d96e2bf07038a3a95a3e9a2e31fa1235c"
-  end
 
   depends_on "cmake" => :build
   depends_on "pkgconf" => :build
