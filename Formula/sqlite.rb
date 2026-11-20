@@ -8,7 +8,7 @@ class Sqlite < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "69f2a04cca493cba193ba14927f4a68b9ce1953dc20784659560c971279445b8"
+    sha256 cellar: :any, loongarch64_linux: "cb86121379b35fcbc9de071eeb430a3cd492ec19840eae67076e16aba98192e2"
   end
 
   def install
