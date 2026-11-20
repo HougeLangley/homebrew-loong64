@@ -5,6 +5,10 @@ class Hypre < Formula
   sha256 "5273205a310fb6aa3ae506ce216760fb67b30e02024874f3cdb8b811e4801de7"
   license any_of: ["MIT", "Apache-2.0"]
   compatibility_version 1
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "c6cf6128570f34ca9cd6219e910a762e743fb95f8fc859e9a5865d4e869b9f08"
+  end
 
   head "https://github.com/hypre-space/hypre.git", branch: "master"
 
