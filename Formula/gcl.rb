@@ -27,6 +27,9 @@ class Gcl < Formula
   patch :DATA
 
   def install
+    # --- 追加缺失库 ---
+    ENV.append "LIBS", "-ledit"
+    ENV.append "LDFLAGS", "-ledit"
     # conf-cc 追加（djb 风格：compile 脚本从 conf-cc 读编译器）
     %w[conf-cc conf-cxx].each do |cf|
       next unless File.exist?(cf)
@@ -67,8 +70,8 @@ class Gcl < Formula
     ENV.append "CPPFLAGS", "-I#{formula_opt_include("libtirpc")}/tirpc"
     ENV["GCL_MULTIPROCESS_MEMORY_POOL"] = buildpath
 
-    system "./configure", "--disable-silent-rules", "--with-lispdir=#{elisp}", *std_configure_args
-    system "make", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
+    system "./configure", "LIBS=-ledit", "--disable-silent-rules", "--with-lispdir=#{elisp}", *std_configure_args
+    system "make", "LIBS=-ledit", "CFLAGS=-std=gnu17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types", "CXXFLAGS=-std=gnu++17 -D_GNU_SOURCE -Wno-error=implicit-int -Wno-implicit-int -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types",  "CC=/home/houge/infra/ci/bin/cc-compat",  "CC2=/home/houge/infra/ci/bin/cc-compat",  "CXX=/home/houge/infra/ci/bin/cxx-compat", "install"
   end
 
   test do
