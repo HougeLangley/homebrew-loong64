@@ -7,7 +7,7 @@ class OpentelemetryCpp < Formula
   revision 1
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "ef5688bb53e2d4384b0d74252cc3df674f7832c3e1a0a1ac75e45c8094a7c703"
+    sha256 cellar: :any, loongarch64_linux: "a3396d8115243f7f4835466ae9f08774248cb1962309093cab821389fc6d6e96"
   end
 
   head "https://github.com/open-telemetry/opentelemetry-cpp.git", branch: "main"
