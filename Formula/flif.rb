@@ -4,10 +4,6 @@ class Flif < Formula
   url "https://github.com/FLIF-hub/FLIF/archive/refs/tags/v0.4.tar.gz"
   sha256 "cc98313ef0dbfef65d72bc21f730edf2a97a414f14bd73ad424368ce032fdb7f"
   license "LGPL-3.0-or-later"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "ec39da6604c7e8725083e715f4015591b80ce4992e55c43e54e526fe4b9fcb5b"
-  end
 
   head "https://github.com/FLIF-hub/FLIF.git", branch: "master"
 
