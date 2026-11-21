@@ -6,6 +6,11 @@ class Smpeg2 < Formula
   url "https://github.com/icculus/smpeg/archive/refs/tags/release_2_0_0.tar.gz"
   sha256 "fdd431bd607efcf0f35789fb3105d7535d4f0e8b46e673e9c0051726e8d1e701"
   license "LGPL-2.0-or-later"
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "41d9bde4f22ee7db227da39f7aac201f50e92627acf0ebf3b5aa075ab5bba220"
+  end
+
   head "https://github.com/icculus/smpeg.git", branch: "main"
 
   livecheck do
@@ -16,22 +21,6 @@ class Smpeg2 < Formula
     end
   end
 
-  bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_golden_gate: "313a5741045565ce8d3ae64d43c59482840063249acd0c981730a7e7e00e9697"
-    sha256 cellar: :any,                 arm64_tahoe:       "f577393854025f6e32304032a00a3f29a27af3e71a52502025315f86b44ae9fb"
-    sha256 cellar: :any,                 arm64_sequoia:     "dbbac559473f137fb4f16051e47fdab335581c72076ddab6535a9fba87c21749"
-    sha256 cellar: :any,                 arm64_sonoma:      "d5228a92c9648cecb15aedbf8620e684f5b6b21d55b5e577f0c0564865211e46"
-    sha256 cellar: :any,                 arm64_ventura:     "1287239a0f8877f88abba30316694f2e453be55143ab33748e850ea35ccdacce"
-    sha256 cellar: :any,                 arm64_monterey:    "f37c33bf42b5cbb9b849e4f2eba7484a3197a003d72d65e06ce663d803ed4ec2"
-    sha256 cellar: :any,                 arm64_big_sur:     "57d207a4e472f427f2aed7052e14988b67cd1d310ae49070b77913f49a3f984f"
-    sha256 cellar: :any,                 sonoma:            "8bd2271e2cea9d9f2ea56130e77612a9dcdc248f881d6cc548e9f09cfc640413"
-    sha256 cellar: :any,                 ventura:           "94333f1da48b4cf080d29f3c87bd51df3c637d657f41d83eec7aa92ff4f503ee"
-    sha256 cellar: :any,                 monterey:          "5d90c31b398b3d1bdf2ebcc1a10b4879804733f8335dc4a77998d38f8e976b79"
-    sha256 cellar: :any,                 big_sur:           "4bec13f2819af5a5f3472481df37b7c6afdaa884fce40023057484936caad58c"
-    sha256 cellar: :any_skip_relocation, arm64_linux:       "21fa4f02887307bf5eb069733e06cb3931cad92ffefd27a8d2ebd49d6b9afb23"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "57ef23a33dcadc1871ad7e12fe7dfddaa7e6773704691af46616b03f8c9f83b7"
-  end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
