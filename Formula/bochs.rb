@@ -11,10 +11,6 @@ class Bochs < Formula
   end
 
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "733b4c92e83270a157f927412e82185058186ac93e80ad3f9635a815c5780720"
-  end
 
   depends_on "pkgconf" => :build
   depends_on "libtool"
