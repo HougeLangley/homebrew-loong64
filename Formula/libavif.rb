@@ -10,7 +10,7 @@ class Libavif < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "4f6a9babc5abf79de3af9c4b7f1cdf2ada3d4d63e77e331bad360137bfa50b2d"
+    sha256 cellar: :any, loongarch64_linux: "eca2fa9b19846e8df70532a3a224b9bd015b314c4c60d694366076d0cd9084bc"
   end
 
   depends_on "cmake" => :build
