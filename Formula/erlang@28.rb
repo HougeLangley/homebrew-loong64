@@ -16,6 +16,10 @@ class ErlangAT28 < Formula
   keg_only :versioned_formula
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "6af6f1dd6559bc781b6985b1b275966ffc7caa44d43fda273d69eb52588094ad"
+  end
 
   depends_on "openssl@4"
   depends_on "unixodbc"
