@@ -5,10 +5,6 @@ class Luv < Formula
   sha256 "bd393b5918f320c79a2c6405e3abebe01c024557c32b9fb9006bee20ce71e19e"
   license "Apache-2.0"
   compatibility_version 1
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "06fb17af2bfaa340616bbb56c20d75119130323fa65036e527a121f7ed478e3b"
-  end
 
   head "https://github.com/luvit/luv.git", branch: "master"
 
