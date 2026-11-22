@@ -12,7 +12,7 @@ class Gengetopt < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "6c8cc562a6db16cfa4459271a5205eabe29b6d38cf56a2e24c5ac428a850fef8"
+    sha256 cellar: :any, loongarch64_linux: "99247cf4e2aa64c0b13cdb6130c2675f523a8be39a701a0889447ba17d24f1a5"
   end
 
   def install

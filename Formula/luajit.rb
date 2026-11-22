@@ -7,7 +7,7 @@ class Luajit < Formula
 
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "46c54d42e030c193a585b8247046851ce5974fe40d537746ae58e24a7eaeb255"
+    sha256 cellar: :any, loongarch64_linux: "0299f8f5518bb0af0350022f1d8a94ab2056071d1211a609244660475926b053"
   end
 
   def install
