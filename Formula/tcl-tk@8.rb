@@ -21,10 +21,6 @@ class TclTkAT8 < Formula
   deprecate! date: "2026-10-12", because: :unmaintained, replacement_formula: "tcl-tk"
   disable! date: "2028-01-01", because: :unmaintained, replacement_formula: "tcl-tk"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "a53201e761c99ad95b894abf090f1d7b76a2463cf63919ae025975534df541d9"
-  end
 
   depends_on "openssl@3"
 
