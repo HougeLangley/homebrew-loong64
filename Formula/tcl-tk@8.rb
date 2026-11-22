@@ -11,15 +11,6 @@ class TclTkAT8 < Formula
     regex(%r{url=.*?/(?:tcl|tk).?v?(8(?:\.\d+)+)[._-]src\.t}i)
   end
 
-  bottle do
-    sha256 arm64_golden_gate: "95ef1b01d51d38d01c2edf65ef6021d8664651f53b3fa8db050a775afbd879f4"
-    sha256 arm64_tahoe:       "c40ffcd937c2f73a63ee9f881e0efc9ae71ad4d47a723fafedca529da35f5068"
-    sha256 arm64_sequoia:     "0c8dffb79d3016c682d91b8523bad6fa7d34dcbf71b0ac6748739e4cef4bf709"
-    sha256 arm64_sonoma:      "d63f01ac7cd5b63caad23298dd1cde88ff1e0cc157c7523d12e0de5c2d9d6c7d"
-    sha256 sonoma:            "00a571bba78b5e8af791f7e9922dc8d0e820f33592a7b0e94cb4376337467fad"
-    sha256 arm64_linux:       "3a0d2901293c588fa84b7d09d147f946bf4bd2b94234b18ea8b235b351b24a4c"
-    sha256 x86_64_linux:      "21ee038d6ced19d84c4e64d13563f4c66fcaa331847ef8fe5c6e28a855b87a48"
-  end
 
   keg_only :versioned_formula
 
@@ -29,6 +20,7 @@ class TclTkAT8 < Formula
   #   "Tcl 8.6 is at End of Life -- please upgrade to 9.0!!!"
   deprecate! date: "2026-10-12", because: :unmaintained, replacement_formula: "tcl-tk"
   disable! date: "2028-01-01", because: :unmaintained, replacement_formula: "tcl-tk"
+
 
   depends_on "openssl@3"
 
@@ -74,9 +66,13 @@ class TclTkAT8 < Formula
   def install
     # 老包自带的 config.sub 不认 loongarch64，用系统版本替换
     %w[config.sub config.guess].each do |cf|
-      [cf, "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}"].each do |dest|
+      [cf, "buildaux/#{cf}", "build-aux/#{cf}", "config/#{cf}", "support/#{cf}", "scripts/#{cf}", "dist/#{cf}"].each do |rel|
         src = "/usr/share/libtool/build-aux/#{cf}"
-        cp src, dest if File.exist?(dest) && File.exist?(src)
+        dest = buildpath/rel
+        if dest.exist? && File.exist?(src)
+          File.chmod(0644, dest)
+          cp src, dest
+        end
       end
     end
 
@@ -109,7 +105,7 @@ class TclTkAT8 < Formula
     resource("tk").stage do
       cd "unix" do
         args << "--enable-aqua=yes" if OS.mac?
-        system "./configure", *args, "--without-x", "--with-tcl=#{lib}"
+        system "./configure", "--build=loongarch64-unknown-linux-gnu", *args, "--without-x", "--with-tcl=#{lib}"
         system "make"
         system "make", "install"
         system "make", "install-private-headers"
@@ -122,7 +118,7 @@ class TclTkAT8 < Formula
     end
 
     resource("tcllib").stage do
-      system "./configure", "--prefix=#{prefix}", "--mandir=#{man}"
+      system "./configure", "--build=loongarch64-unknown-linux-gnu", "--prefix=#{prefix}", "--mandir=#{man}"
       system "make", "install"
       system "make", "critcl"
       cp_r "modules/tcllibc", "#{lib}/"
@@ -130,7 +126,7 @@ class TclTkAT8 < Formula
     end
 
     resource("tcltls").stage do
-      system "./configure", "--with-ssl=openssl",
+      system "./configure", "--build=loongarch64-unknown-linux-gnu", "--with-ssl=openssl",
                             "--with-openssl-dir=#{formula_opt_prefix("openssl@3")}",
                             "--prefix=#{prefix}",
                             "--mandir=#{man}"
@@ -148,7 +144,7 @@ class TclTkAT8 < Formula
         --with-tkinclude=#{include}/tcl-tk
         --with-itcl=#{itcl_dir}
       ]
-      system "./configure", *args
+      system "./configure", "--build=loongarch64-unknown-linux-gnu", *args
       system "make"
       system "make", "install"
     end
