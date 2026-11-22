@@ -4,6 +4,10 @@ class Mlpack < Formula
   url "https://mlpack.org/files/mlpack-4.8.0.tar.gz"
   sha256 "0ab06e5c506c7ed5f072faa4c04477c65624e4a1ff62eee8c0d996ef850ec51c"
   license all_of: ["BSD-3-Clause", "MPL-2.0", "BSL-1.0", "MIT"]
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any, loongarch64_linux: "ac21c96337bf442395a7a73c435bb0f42c04b4eb39f96694adfabd80ef37be2f"
+  end
 
   head "https://github.com/mlpack/mlpack.git", branch: "master"
 
