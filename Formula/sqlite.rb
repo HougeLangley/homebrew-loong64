@@ -5,10 +5,9 @@ class Sqlite < Formula
   sha256 "f84c26a4b5fe41e71b0e110e66ac95a6255e991e43a2875017a063bdad4f5809"
   version "3.53.3"
 
-
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "403b0d6f76d5c006fee3dc874f5d357a719804352d1ff9e004919518bf81b533"
+    sha256 cellar: :any, loongarch64_linux: "e99e7f66169cface5e262fe1ea61075ece0b847c4b03220ec9dac16ad69cc43c"
   end
 
   def install

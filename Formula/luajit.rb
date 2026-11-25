@@ -5,11 +5,6 @@ class Luajit < Formula
   sha256 "97fe2fe83e5546f8d2b405e28e16a4d0608816446ba0aad3cb2c3bd18a8d154a"
   version "2.1.0"
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "0299f8f5518bb0af0350022f1d8a94ab2056071d1211a609244660475926b053"
-  end
-
   def install
     bin.mkpath; lib.mkpath; include.mkpath
     # Bridge system luajit

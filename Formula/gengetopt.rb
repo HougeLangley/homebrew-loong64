@@ -10,11 +10,6 @@ class Gengetopt < Formula
     depends_on "texinfo" => :build
   end
 
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "99247cf4e2aa64c0b13cdb6130c2675f523a8be39a701a0889447ba17d24f1a5"
-  end
-
   def install
     # gnulib 2025 redeclares bsearch after including glibc 2.44's C23
     # const-generic macro. Keep the function, but remove only that macro.
