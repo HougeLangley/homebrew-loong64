@@ -3,11 +3,6 @@ class LdidProcursus < Formula
   homepage "https://github.com/ProcursusTeam/ldid"
   license "AGPL-3.0-or-later"
   revision 3
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "79d16f4ef52fd841809eaf5a6347d9f7d42097016a878b215d4f83404aeb13d4"
-  end
-
   head "https://github.com/ProcursusTeam/ldid.git", branch: "master"
 
   stable do
@@ -32,6 +27,10 @@ class LdidProcursus < Formula
   end
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "79d16f4ef52fd841809eaf5a6347d9f7d42097016a878b215d4f83404aeb13d4"
+  end
 
   depends_on "pkgconf" => :build
   depends_on "libplist"

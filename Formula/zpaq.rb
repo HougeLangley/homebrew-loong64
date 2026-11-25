@@ -6,11 +6,6 @@ class Zpaq < Formula
   sha256 "e85ec2529eb0ba22ceaeabd461e55357ef099b80f61c14f377b429ea3d49d418"
   license all_of: ["Unlicense", "MIT", :public_domain]
   revision 1
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "7db77cfece29f2ea5f320f7f5a0f47cdc171341c817ed164ad2fafc9bff7d794"
-  end
-
   head "https://github.com/zpaq/zpaq.git", branch: "master"
 
 
@@ -21,6 +16,10 @@ class Zpaq < Formula
 
   deny_network_access!
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "7db77cfece29f2ea5f320f7f5a0f47cdc171341c817ed164ad2fafc9bff7d794"
+  end
 
   def install
     # When building on non-Intel this is supposed to be manually uncommented

@@ -8,10 +8,9 @@ class Healpix < Formula
   revision 2
 
 
-
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "bd6b0f6ef75a19565376b868cc9650609652ce23ae4a1f76d6ccb71627d0ffcd"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "bd6b0f6ef75a19565376b868cc9650609652ce23ae4a1f76d6ccb71627d0ffcd"
   end
 
   depends_on "autoconf" => :build

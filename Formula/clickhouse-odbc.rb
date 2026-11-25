@@ -3,11 +3,6 @@ class ClickhouseOdbc < Formula
   homepage "https://clickhouse.com"
   license "Apache-2.0"
   revision 2
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "6302c7d77466c0988ee1dc5fc9cbd62dfb2eb62a29e42530c9a0584f578916ee"
-  end
-
   head "https://github.com/ClickHouse/clickhouse-odbc.git", branch: "master"
 
   stable do
@@ -36,6 +31,10 @@ class ClickhouseOdbc < Formula
   end
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "6302c7d77466c0988ee1dc5fc9cbd62dfb2eb62a29e42530c9a0584f578916ee"
+  end
 
   depends_on "cmake" => :build
   depends_on "folly" => :build

@@ -5,14 +5,13 @@ class Ejdb < Formula
       tag:      "v2.95",
       revision: "3ed77af15559da8d3fe29ff3ff0c188ce6faf421"
   license "MIT"
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "fc4ff712c634aa585d0f9f454c2bb77c1afce1d9fa5eb38fe39fce65cc81bdcc"
-  end
-
   head "https://github.com/Softmotions/ejdb.git", branch: "master"
 
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "fc4ff712c634aa585d0f9f454c2bb77c1afce1d9fa5eb38fe39fce65cc81bdcc"
+  end
 
   depends_on "pkgconf" => :build
 

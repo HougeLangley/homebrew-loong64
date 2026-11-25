@@ -7,11 +7,6 @@ class Radamsa < Formula
 
 
   # https://gitlab.com/akihe/radamsa/-/blob/v#{version}/Makefile?ref_type=tags#L7
-  bottle do
-    root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "0b65591e5b990dbbaf22878067a67e71a57b70465e126bb5093d62b6fe17458a"
-  end
-
   resource "ol.c" do
     url "https://haltp.org/files/ol-0.2.2.c.gz"
     version "0.2.2"
@@ -23,6 +18,10 @@ class Radamsa < Formula
     end
   end
 
+  bottle do
+    root_url "https://homebrewloongarch64.site/brew-bottles"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "0b65591e5b990dbbaf22878067a67e71a57b70465e126bb5093d62b6fe17458a"
+  end
 
   def install
     resource("ol.c").stage { buildpath.install Dir["*"].first => "ol.c" }

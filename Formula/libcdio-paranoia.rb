@@ -9,10 +9,9 @@ class LibcdioParanoia < Formula
   revision 1
 
 
-
   bottle do
     root_url "https://homebrewloongarch64.site/brew-bottles"
-    sha256 cellar: :any, loongarch64_linux: "0e5f9dc4fcfd2b6636771a8df9ad8c2791373bdf7fb68bc7b0de9f4b329eac2b"
+    sha256 cellar: :any_skip_relocation, loongarch64_linux: "0e5f9dc4fcfd2b6636771a8df9ad8c2791373bdf7fb68bc7b0de9f4b329eac2b"
   end
 
   depends_on "pkgconf" => :build
